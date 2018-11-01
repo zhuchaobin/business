@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<title>无模版</title>
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/skins/_all-skins.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
+</head>
+
+<body>
+	<!-- Main content -->
+	<section id="sec_main" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom: 0px;">
+				<form id="frm_detail" class="form-horizontal">
+					<div id="div_criteria" class="flowlayout">
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约类型：</label>
+								<div class="col-sm-8">
+									<input type="radio" name="arTp"  value="01" checked="checked">代销</input>
+									&nbsp<input type="radio" name="arTp"  value="02" >代购</input>
+									&nbsp<input type="radio" name="arTp"  value="03" >全流程</input>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+<div class="form-group">
+</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">采购方：</label>
+								<div class="col-sm-8">
+									<input name="pchPrty" class="form-control" placeholder="采购方" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">供应商：</label>
+								<div class="col-sm-8">
+									<input name="splr" class="form-control" placeholder="供应商" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约开始日期：</label>
+								<div class="col-sm-8">
+									<input name="arStdt" class="form-control" placeholder="长约开始日期" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约结束日期：</label>
+								<div class="col-sm-8">
+									<input name="arEddt" class="form-control" placeholder="长约结束日期" value="2"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">提货周期：</label>
+								<div class="col-sm-8">
+									<input name="pckupgdsCyc" class="form-control" placeholder="提货周期" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">协议仓库：</label>
+								<div class="col-sm-8">
+									<input name="agrmStg" class="form-control" placeholder="协议仓库" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">业务类型：</label>
+								<div class="col-sm-8">
+						<select name="btp" class="form-control">
+							<option value="">-请选择-</option>
+							<option value="01" checked="checked">订单融资</option>
+							<option value="02">保证金融资</option>
+							<option value="03">质押融资</option>
+						</select>
+								</div>
+								
+
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">融资比例：</label>
+								<div class="col-sm-8">
+									<input name="fncPctg" class="form-control" placeholder="融资比例" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">预付金比率：</label>
+								<div class="col-sm-8">
+									<input name="prpyGldRto" class="form-control" placeholder="预付金比率" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">额度：</label>
+								<div class="col-sm-8">
+									<input name="lmt" class="form-control" placeholder="额度" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">警戒线：</label>
+								<div class="col-sm-8">
+									<input name="crdn" class="form-control" placeholder="警戒线" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">平仓线：</label>
+								<div class="col-sm-8">
+									<input name="clsposLn" class="form-control" placeholder="平仓线" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">服务费收取方式：</label>
+								<div class="col-sm-8">
+							<select name="svcfeeCmd" class="form-control">
+							<option value="">-请选择-</option>
+							<option value="01" checked="checked">预收</option>
+							<option value="02">现结</option>
+						</select>
+						
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">溢短结转方式：</label>
+								<div class="col-sm-8">
+								<select name="splovCrrovMod" class="form-control">
+							<option value="">-请选择-</option>
+							<option value="01" checked="checked">多退少补</option>
+							<option value="02">结转下月</option>
+						</select>							
+								</div>
+							</div>
+						</div>
+												<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">投保人：</label>
+								<div class="col-sm-8">
+									<input name="plchd" class="form-control" placeholder="投保人" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">投保人地址：</label>
+								<div class="col-sm-8">
+									<input name="plchdAdr" class="form-control" placeholder="投保人地址" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">被保险人：</label>
+								<div class="col-sm-8">
+									<input name="insrd" class="form-control" placeholder="被保险人" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">被保险人地址：</label>
+								<div class="col-sm-8">
+									<input name="insrdAdr" class="form-control" placeholder="被保险人地址" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">第一受益人：</label>
+								<div class="col-sm-8">
+									<input name="fstBenf" class="form-control" placeholder="第一受益人" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">第一受益人地址：</label>
+								<div class="col-sm-8">
+									<input name="fstBenfAdr" class="form-control" placeholder="第一受益人地址" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">保险财产地址：</label>
+								<div class="col-sm-8">
+									<input name="insPtyAdr" class="form-control" placeholder="保险财产地址" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">保险标的名称：</label>
+								<div class="col-sm-8">
+									<input name="insObjNm" class="form-control" placeholder="保险标的名称" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">保险金额：</label>
+								<div class="col-sm-8">
+									<input name="insAmt" class="form-control" placeholder="保险金额" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">免赔额：</label>
+								<div class="col-sm-8">
+									<input name="dctbAmt" class="form-control" placeholder="免赔额" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">特别约定：</label>
+								<div class="col-sm-8">
+									<input name="epap" class="form-control" placeholder="特别约定" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">保险开始日期：</label>
+								<div class="col-sm-8">
+									<input name="insStdt" class="form-control" placeholder="保险开始日期" value="2"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">保险结束日期：</label>
+								<div class="col-sm-8">
+									<input name="insEddt" class="form-control" placeholder="保险结束日期" value="2"/>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="form-group" style="margin-top: 20px;">
+							<label class="col-sm-2 control-label">*&nbsp&nbsp&nbsp&nbsp&nbsp上传附件</label>
+							<div class="col-sm-8">
+	                               <button type="button" class="btn btn-primary" data-toggle="modal"   data-target="#systemModal">添加</button>
+							</div>
+						</div>
+						<div class="form-group" style="margin-top: 20px;">
+							<label class="col-sm-2 control-label">&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+							<div class="col-sm-8">
+								<table class="table table-bordered" name="list" style="table-layout:fixed">
+									<thead>
+									<tr>
+										<th>文件名</th>
+										<th>附件类型</th>
+										<th>备注</th>
+										<th style="width:80px">操作</th>
+									</tr>
+									</thead>
+									<tbody class="list">
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+									
+					</div>
+				</form>
+			</div>
+
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer">
+				<button class="btn btn-primary pull-right"
+					onclick="javascript:save2()">提交</button>
+				<button class="btn btn-default pull-right"
+					onclick="javascript:query()" style="margin-right: 15px;">返回</button>
+			</div>
+		</div>
+
+
+	</section>
+	<!-- /.content -->
+	
+	
+		<div class="modal fade" id="systemModal" tabindex="-1" role="dialog" aria-labelledby="systemModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 800px;height:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">上传附件</h5>
+                <button class="close" type="button"  data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">           
+            				<div class="form-group">
+								<label for="" class="col-sm-2 control-label">附件<span style="color:red">*</span></label>
+								<div class="col-sm-8">
+									<form id="frm_transfer" class="form-horizontal" enctype="multipart/form-data"  method="post">
+										<div id="fujianId">
+										</div>
+										<div>
+											<!-- <img id="oriFileNm" style="width:200px;height: 200px;" src=""> -->
+											<input id="oriFileNm"  value="" />
+										</div>
+									</form>
+									
+							<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">文件类型 <span style="color:red">*</span></label>
+								<div class="col-sm-8">
+									<select name="atchTp" id="atchTp" class="form-control">
+										<option value="">请选择</option>
+										<option value="01" checked="checked">图片</option>
+										<option value="02">PDF</option>
+										<option value="03">其他</option>
+									<!-- 	<option th:each="model: ${carModels}" th:value="${model.id}" th:text="${model.modelName}"></option> -->
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">备注<span style="color:red">*</span></label>
+								<div class="col-sm-8">
+									<input id="rmrk" name="rmrk" class="form-control" placeholder="备注" maxlength="50"/>
+								</div>
+							</div>
+						</div>						
+									<div class="modal-footer">
+										<button id="btn_save1" type="button" class="btn btn-primary" onclick="javascript:submitTransferFile();">上传</button>
+									</div>
+								</div>
+							</div>
+							
+							
+            </div>
+            <div class="modal-footer" style="text-align:center;">
+                <a class="btn btn-primary go_btn"  type="button"  id="add">Confirm</a>
+            </div>
+        </div>
+    </div>
+   </div>
+   
+
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.3.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+	<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script>
+<script th:src="@{/resources/dist/js/layer.js}"></script>
+	
+
+ 	<script type="text/javascript">
+ 	
+    $(function(){
+    	// 初始化浏览选择文件控件
+    	addInputItem();
+    });
+    /***
+     * 显示添加对话框
+     */
+    function showAddDialog() {
+        addInputItem();
+        E7.resetForm('#frm_detail');
+        CKEDITOR.instances.content.setData('');
+        $('#frm_detail').data('bootstrapValidator').resetForm(true);
+        showDetail('marketingProduct添加', true);
+    }
+    
+    function addInputItem() {
+        var item = '<div name="inputDiv"><input id="fileName" name="fileName" type="file"  class="form-control"/> <br/></div>';
+        $("#fujianId").append(item);
+        $("#oriFileNm").hide();
+    }
+ 	
+    /**
+     * 上传文件
+     */
+    function submitTransferFile(){
+        var fileId = $("#fileId").val();
+/*         if(fileId != ''){
+            bootbox.alert({'title':'消息', 'message': '请先删除原图片在进行上传'});
+            return;
+        } */
+        var file = document.getElementsByName("fileName")
+        //var file = $('.select-file').files//document.getElementById("file_transfer").files;
+        //TODO:valid
+        var formData = new FormData();
+        for (i = 0; i < file.length; i++) {
+            formData.append('files', file[i].files[0]);
+        }
+
+        E7.postMultipart('[[@{/postAddress/ossUpload}]]', formData, function(result){
+            var fileUrl = result.data.split('||');
+            $("#fileId").val(result.data);
+            bootbox.alert({'title':'消息', 'message': '上传成功, 文件：<code>' + fileUrl[1] + '</code>！'});
+            $("#oriFileNm").show();
+            // 控制是否显示预览
+            //getItem(fileUrl[0],false)
+            
+            
+            {
+                //填充table
+  /*    		   var province=$('#province').val();
+     		   if(province==""){
+     			   layer.msg("Please choose the Province first ");
+     			   return false;
+     		   }
+     		   var province=$('#province').val();
+                var city=$('#city').val();
+                var area=$('#area').val(); */
+     		   //判断选择是否重复
+ /*     		   var ret = true;
+                $('.item').each(function(){//循环已经选过的服务
+     			   var p=$(this).find('#p').attr("type");
+     			   var c=$(this).find('#c').attr("type");
+     			   var a=$(this).find('#a').attr("type");
+     			   console.log(province+"==="+p+"===="+city+"==="+c+"===="+area+"==="+a);
+     				if(province==p && city==c && area==a){
+                         ret= false;
+     				}
+     				if(province==p){
+     				    if(c=="" && city!=""){
+                             ret= false;
+     					}
+     				    if(c!="" && city==""){
+                             ret= false;
+     					}
+     				}
+     				if(province==p){
+     				    if(city==c){
+     				        if(a=="" && area!=""){
+                                 ret= false;
+     						}
+     				        if(a!="" && area==""){
+                                 ret= false;
+     						}
+     					}
+     				}
+                });
+                if(!ret){
+                    layer.msg("You have added the area");
+                    return false;
+                } */
+     		   var result='<tr class="item">'+
+                    '<td class="nowrap" id="oriFileNm" name="oriFileNm" type='+$('#oriFileNm').val()+'>'+result.data+'</td>'+
+     			   '<td class="nowrap" id="atchTp"  name="atchTp" type='+$('#atchTp').val()+'>'+$('#atchTp').val()+'</td>'+
+     			   '<td class="nowrap" id="rmrk" name="rmrk" type='+$('#rmrk').val()+'>'+$('#rmrk').val()+'</td>'+
+     			   '<td class="del1" style="cursor:pointer"onclick="del(this)">Delete</td>'+
+                '</tr>';
+     	       $('.list').append(result);
+     		   $("#systemModal").modal("hide");
+            	
+            	
+            }
+        });			   
+    }
+    
+	   function del(obj){
+		    bootbox.confirm({
+		        className : "del-model",
+		        message : '确定要删除？',
+		        callback : function(result) {
+		            if (!result) return;
+
+/* 		            E7.post('[[@{/marketingProduct/del}]]', {'id' : rows[0]['id']}, function(data) {
+		                bootbox.alert({'title' : "消息",'message' : '删除成功！'});
+		                $('#tbl_query').e7table('reload');
+		            }); */
+		            $(obj).parent().remove();
+		        },
+		        title : "删除确认"
+		    });
+		    
+		    
+//		   $(obj).parent().remove();
+ 			 //询问框
+/* 		    	layer.confirm('Please confirm whether the record is deleted', {
+		    		title: ['Tips'],btn: ['OK','Cancel'] //按钮
+		    	}, function(){
+		          	$(obj).parent().remove();
+		          	layer.closeAll();
+		    	}, function(){
+		    	});  */
+		     }
+	   
+ 	  /***
+     * 保存操作
+     */
+    function save2() {
+/*         for(instance in CKEDITOR.instances){
+            CKEDITOR.instances[instance].updateElement();
+        } */
+
+//        $('#productType').val(1);
+
+/*         $('#frm_detail').bootstrapValidator('validate');
+
+        if (!$('#frm_detail').data('bootstrapValidator').isValid()) {
+            return;
+        }*/
+
+/*         var formParams = E7.serialForm('#frm_detail');   */  
+        var formParams= {"agrmStg":"2","arEddt":"2","arStdt":"2","arTp":"01","btp":"","clsposLn":2.0,"crdn":2.0,"dctbAmt":2.0,"epap":"2","fncPctg":2.0,"fstBenf":"2","fstBenfAdr":"2","insAmt":2.0,"insEddt":"2","insObjNm":"2","insPtyAdr":"2","insStdt":"2","insrd":"2","insrdAdr":"2","lmt":2.0,"pchPrty":"2","pckupgdsCyc":2,"plchd":"2","plchdAdr":"2","prpyGldRto":2.0,"splovCrrovMod":"","splr":"2","svcfeeCmd":"",
+        		 "list": [
+        		        { "oriFileNm":"Google", "atchTp":"ddd", "rmrk":"ddd"},
+        		        { "name":"Runoob",  "atchTp":"ddd", "rmrk":"ddd"},
+        		        { "name":"Taobao",  "atchTp":"ddd", "rmrk":"ddd"}
+        		    ]
+        		    };
+/*         var list2={};
+        list2[atchTp]="a";
+        list2[rmrk]="b";
+        list2[oriFileNm]="a"; 
+        var list="[{'atchTp':'a','rmrk':1},{'name':'b','rmrk':2}]";
+         formParams[list]=list2; 
+        alert("ok"); */
+
+        E7.post('[[@{/postAddress/save}]]', formParams, function(data) {
+            hideDetail();
+            bootbox.alert({'title' : "消息", 'message' : '保存成功！'});
+            $('#tbl_query').e7table('reload', function(){
+                if(formParams['id'] != '') {
+                    $('#tbl_query').e7table('selectById', formParams['id']);
+                }
+            });
+        });
+    }
+
+ 	  
+/* 		var pageSetting = {
+			modelName : '流量套餐',
+			resetPath : '[[@{/postAddress}]]'
+		}; */
+
+		$(function() {
+			//e7table表格控件初始化
+			e7tableInit();
+			//表单校验控件初始化
+			validatorInit();
+		});
+
+
+
+		/***
+		 * 查询
+		 */
+		function query() {
+			$('#tbl_query').e7table('query', '#frm_query');
+		}
+
+		/***
+		 * 重置
+		 */
+		function reset() {
+			E7.resetForm('#frm_query');
+		}
+
+		/***
+		 * e7table表格控件初始化
+		 */
+		function e7tableInit() {
+			$('#tbl_query').e7table({
+				url : '[[@{/postAddress/queryPage}]]',
+				pageSize : 10,
+				autoLoading : true, //控件初始化后，自动远程请求数据
+				selectType : 'single',
+				sortName : 'userName', //排序列名
+				sortOrder : 'desc', //排序方向
+				columns : [ {
+					title : '买家账号',
+					field : 'userName',
+					sortable : false
+				}, {
+					title : '用户名',
+					field : 'chineseName',
+					sortable : false
+				}, {
+					title : '收货人',
+					field : 'name',
+					sortable : false
+				}, {
+					title : '联系电话',
+					field : 'phone',
+					sortable : false
+				}, {
+					title : '省',
+					field : 'province',
+					sortable : false
+				}, {
+					title : '市',
+					field : 'city',
+					sortable : false
+				},{
+					title : '区',
+					field : 'county',
+					sortable : false
+				},{
+					title : '详细地址',
+					field : 'area',
+					sortable : false
+				}, {
+					title : '邮编',
+					field : 'postalCode',
+					sortable : false
+				}, {
+					title : '默认地址',
+					field : 'preferred',
+					formatter : function(value, row, index) {
+						if (value == '1') {
+							return "是"
+						} else {
+							return "-";
+						}
+					}
+				}
+				]
+			});
+		}
+
+	
+
+		function export4Template() {
+			var ifrm = $('#ifr_export');
+			if (ifrm.length == 0) {
+				ifrm = $('<iframe id="ifr_export" style="display:none;height:0px,width:0px></iframe>');
+				$('body').append(ifrm);
+				$('#frm_query').attr('action',
+						pageSetting.resetPath + '/export4Template');
+				$('#frm_query').attr('target', 'ifr_export');
+			}
+			$('#frm_query').submit();
+		}
+
+	</script>
+</body>
+</html>

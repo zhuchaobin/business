@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+		<Target>System.out</Target>
+		<encoder>
+			<pattern>%date [%level] [%thread] %logger{80} [%file : %line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/home/admin/logs/operation.log</File>
+		<encoder>
+			<pattern>%date [%level] [%thread] %logger{80} [%file : %line] %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/home/admin/logs/operation.log.%d{yyyy-MM-dd}</fileNamePattern>
+			<maxHistory>20</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+	</appender>
+	<logger name="com.tianan" level="debug" />
+	<root level="info">
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<title>举报信息</title>
+	<link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>	
+	<link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/plugins/datepicker/css/bootstrap-datepicker.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/e7table/e7table-0.2.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/kl-iconfont/iconfont.css}"/> 
+	
+</head>
+
+<body>
+	<!-- Main content -->
+	<section id="sec_main" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom:0px;">
+				<form id="frm_query" class="form-horizontal">	
+					<div id="div_criteria" class="flowlayout">
+						<div class="col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">审核状态：</label>
+								<div class="col-sm-8">
+									<select name="reportStatus" class="form-control">
+							            <option value=""></option>
+							            <option value="0">未审核</option>
+							            <option value="1">审核通过</option>
+										<option value="2">驳回</option>
+							        </select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer">
+				 <button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>
+				<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>
+			</div>
+		</div>
+		
+		<!-- 信息列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-info">
+					<!-- /.box-header -->
+					<div class="box-body table-responsive no-padding">
+						<table id="tbl_query" class="table table-hover"></table>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!-- /.content -->
+
+	<footer layout:fragment="footer">
+		<div class="modal fade" id="mdl_report" tabindex="-1" role="dialog"
+			 aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">审核</h4>
+					</div>
+					<div class="modal-body" style="height: 200px; max-height: 200px; overflow: auto;">
+						<form id="frm_report" class="form-horizontal">
+							<input type="hidden" name="id" id="reportId"/>
+							<div class="row">
+								<div class="col-md-10">
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">审核状态</label>
+										<div class="col-sm-4">
+											<select id="reportStatus" name="reportStatus" class="form-control">
+												<option value="1">通过</option>
+												<option value="2">驳回</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">审核意见</label>
+										<div class="col-md-6">
+											<textarea class="form-control" id="reportResult" name="reportResult"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<!-- end loading -->
+					<div class="modal-footer">
+						<button id="btn_save_sale" type="button" class="btn btn-primary" onclick="javascript:auditReport();">确认</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	 
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/plugins/datepicker/js/bootstrap-datepicker.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+	
+	<script type="text/javascript">
+		var pageSetting = {
+			modelName : '动态举报',
+			resetPath : '[[@{/reportInfo}]]'
+		};
+		
+		$(function(){
+			//e7table表格控件初始化
+			e7tableInit();
+			//表单校验控件初始化
+			validatorInit();
+		});
+		
+		/***
+		 * 查询
+		 */
+		function query() {
+			$('#tbl_query').e7table('query','#frm_query');
+		}
+		
+		/***
+		 * 重置
+		 */
+		function reset() {
+			E7.resetForm('#frm_query');
+		}	
+
+		/***
+		 * e7table表格控件初始化
+		 */
+		function e7tableInit() {
+			$('#tbl_query').e7table({
+				url : '[[@{/reportInfo/queryPage}]]',
+				pageSize: 10,
+				autoLoading: true,			//控件初始化后，自动远程请求数据
+				selectType: 'single',
+				columns : [
+					{title: '动态内容', field: 'dynamicContext', sortable: false},
+					{title: '举报内容', field: 'content', sortable: false},
+                    {title: '举报时间', field: 'reportTime', formatter: function(value, row, index) {
+                        return new Date(value).format();
+                    }},
+					{title: '举报人', field: 'carOwnerName', sortable: false},
+					{title: '审核状态', field: 'reportStatus', formatter: function(value, row, index) {
+						if(value == 0) return '未审核';
+						if(value == 1) return '审核通过';
+						if(value == 2) return '<font color="red">驳回</font>';
+					}},
+					{title: '审核意见', field: 'reportResult', sortable: false},
+					{title: '操作', field: 'reportStatus', formatter: function(value, row, index) {
+						if(value == 0) return '<a style="cursor:pointer;" onclick="showDealDialog('+row.id+');">处理</a>';
+					}}
+				],
+				onDblclick : function(index, row) {
+					//showEditDialog();
+				}
+			});
+		}
+
+		function showDealDialog(id) {
+			E7.resetForm('#frm_report');
+			$("#reportId").val(id);
+			$('#mdl_report').modal('show');
+		}
+		
+		function auditReport() {
+			bootbox.confirm({
+				buttons : {
+					confirm : {label : '确定', className : 'btn-info'},
+					cancel : {label : '取消', className : 'btn-cancel'}
+				},
+				className : "del-model",
+				message : '确定保存？',
+				callback : function(result) {
+					if (!result) return;
+					E7.post(pageSetting.resetPath + '/auditReport',
+							{'id' : $("#reportId").val(),'reportStatus':$("#reportStatus").val(),'reportResult':$("#reportResult").val()},
+							function(data) {
+								$('#mdl_report').modal('hide');
+						bootbox.alert({'title' : "消息",'message' : '审核完成！'});
+		               	$('#tbl_query').e7table('reload');
+					});
+				},
+				title : "审核"
+			});	
+		}
+		
+		/***
+		 * 表单校验控件初始化
+		 */
+		function validatorInit() {
+		    $('#frm_detail').bootstrapValidator({
+			    feedbackIcons: {
+			        valid: 'glyphicon glyphicon-ok',
+			        invalid: 'glyphicon glyphicon-remove',
+			        validating: 'glyphicon glyphicon-refresh'
+			    },
+			    fields: {
+			    	/* companyId : {
+						validators : {
+							notEmpty : {message : '公司不能为空'}
+						}
+					},
+					companyCarGroupId : {
+						validators : {
+							notEmpty : {message : '车队不能为空'},
+						}
+					},
+					name : {
+						validators : {
+							notEmpty : {message : '围栏名称不能为空'}
+						}
+					} */
+				}
+			});
+
+			$('#btn_save').click(function() {
+				$('#frm_detail').bootstrapValidator('validate');
+			});
+		}
+
+		
+		/***
+		 * 显示详情div
+		 */
+		function showDetail(title, editable){
+			if(editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+			}
+			
+			$('#h3_detailTitle').text(title);
+			$('#sec_detail').fadeIn(300);
+			$('#sec_main').hide();
+		}
+		
+		/***
+		 * 隐藏详情div
+		 */
+		function hideDetail(){
+			$('#sec_detail').fadeOut(300);
+			setTimeout(function(){
+				$('#sec_main').show();
+			}, 300);
+		}
+		
+	</script>
+</body>
+</html>

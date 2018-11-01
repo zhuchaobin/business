@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<title>无模版</title>
+	<link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>	
+	<link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/e7table/e7table-0.2.css}"/>
+</head>
+
+<body>
+	<!-- Main content -->
+	<section id="sec_main" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom:0px;">
+				<form id="frm_query" class="form-horizontal">	
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">车厂名称：</label>
+								<div class="col-sm-8">
+									<input name="nameLike" class="form-control" placeholder="车厂名称"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">车厂编号：</label>
+								<div class="col-sm-8">
+									<input name="codeLike" class="form-control" placeholder="车厂编号"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">负责人：</label>
+								<div class="col-sm-8">
+									<input name="managerNameLike" class="form-control" placeholder="负责人"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">手机号：</label>
+								<div class="col-sm-8">
+									<input name="mobileLike" class="form-control" placeholder="手机号"/>
+								</div>
+							</div>
+						</div>
+					    <div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">省份：</label>
+								<div class="col-sm-8">
+									<!-- <input name="managerName" class="form-control" placeholder="公司"/> -->
+									<select id="province" name="province" class="form-control" onchange="javascript:refreshCity(this)"></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">城市：</label>
+								<div class="col-sm-8">
+									<!-- <input name="managerName" class="form-control" placeholder="公司"/> -->
+									<select id="city" name="city" class="form-control"></select>
+								</div>
+							</div>
+						</div>
+					<input id="exportFileName" name="fileName" type="hidden"/>
+				</form>
+			</div>
+			
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer">
+			    <button class="btn btn-default" onclick="javascript:showImportDialog();" th:if="${usertype=='Group'}">导入</button>
+				<button class="btn btn-default" onclick="javascript:showAddDialog();" th:if="${usertype=='Group'}">添加</button>
+				
+				<button class="btn btn-default" onclick="javascript:showEditDialog();">编辑</button>
+				<button class="btn btn-default" onclick="javascript:showViewDialog();" th:if="${usertype=='Group'}">查看</button>
+				<button class="btn btn-default" onclick="javascript:del();" th:if="${usertype=='Group'}">删除</button>
+				<button class="btn btn-default" onclick="javascript:export4Template();" th:if="${usertype=='Group'}">导出</button>
+                <button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>
+				<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>
+			</div>
+		</div>
+		
+		<!-- 信息列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-info">
+					<!-- <div class="box-header">
+						<h3 class="box-title">信息预览</h3>
+						<div class="box-tools">
+							<button class="btn btn-box-tool" data-widget="collapse">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div> -->
+					<!-- /.box-header -->
+					<div class="box-body table-responsive no-padding">
+						<table id="tbl_query" class="table table-hover"></table>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!-- /.content -->
+
+
+	<!-- 详细信息 -->
+	<section id="sec_detail" class="content detail" style="display:none;">
+		<div class="box box-info">
+			<div class="box-body">
+				<form id="frm_detail" class="form-horizontal" >  
+					<fieldset id='fld_detail'>
+						<input name="id" type="hidden" value=""/>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">车厂名称 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="name" class="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">车厂编号 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="code" class="form-control" id="factoryCode"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">负责人<span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="managerName" class="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">邮箱<span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="email" class="form-control"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">手机号 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="mobile" class="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">地址 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="address" class="form-control"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">省份 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<select id="provinces" name="province" class="form-control" onchange="javascript:refreshCitys(this)"></select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">城市 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<select id="citys" name="city" class="form-control"></select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">是否冻结<span style="color:red">*</span></label>
+									<div class="col-sm-8">
+									  <select name="locked" class="form-control">
+										<option value="FALSE">否</option>
+										<option value="TRUE">是</option>
+							          </select>
+									</div>
+								</div>
+							</div>
+						</div>
+						 -->
+					</fieldset>
+				</form>
+			</div>
+			<div class="box-footer">
+                <button id="btn_save" type="button" class="btn btn-primary pull-right" onclick="javascript:save();">保存</button>
+				<button id="btn_close" type="button" class="btn btn-default pull-right" onclick="javascript:hideDetail();" style="margin-right:15px;">返回</button>
+			</div>
+		</div>
+	</section>
+	<!-- /.content -->	
+	
+	<footer layout:fragment="footer">
+		<!-- Modal 详情-->
+		<div class="modal fade" id="mdl_import" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">车厂信息导入</h4>
+					</div>
+					<div class="modal-body" style="overflow: auto;">
+						<form id="frm_import" class="form-horizontal" enctype="multipart/form-data"  method="post">
+							<div>
+								<input id="file" name="file" type="file"  class="form-control"/><br/>
+								<a th:href="@{/factory/getImportTemplate}">模板下载</a>
+							</div>
+						</form>
+					</div>
+					<!-- Loading (remove the following to stop the loading)-->
+					<!-- end loading -->
+					<div class="modal-footer">
+						<button id="btn_save" type="button" class="btn btn-primary" onclick="javascript:subitImportFile();">导入</button>
+						<button id="btn_close" type="button" class="btn btn-default"  data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	 
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+	
+	<script type="text/javascript">	
+		var pageSetting = {
+			modelName : '车厂',
+			resetPath : '[[@{/factory}]]'
+		};
+	
+		$(function(){
+			//e7table表格控件初始化
+			e7tableInit();
+			//表单校验控件初始化
+			validatorInit();
+			//初始化省份
+			selectInitProvince();
+		});
+		
+		/***
+		 * 查询
+		 */
+		function query() {
+			$('#tbl_query').e7table('query','#frm_query');
+		}
+		
+		/***
+		 * 重置
+		 */
+		function reset() {
+			E7.resetForm('#frm_query');
+		}	
+
+		/***
+		 * e7table表格控件初始化
+		 */
+		function e7tableInit() {
+			$('#tbl_query').e7table({
+				url : '[[@{/factory/queryPage}]]',
+				pageSize: 10,
+				autoLoading: true,			//控件初始化后，自动远程请求数据
+				selectType: 'single',
+				sortName: 'createTime',		//排序列名
+				sortOrder: 'desc',			//排序方向
+				columns : [
+					{title: '名称', field: 'name', sortable: false},
+					{title: '编号', field: 'code', sortable: false},
+					{title: '负责人', field: 'managerName', sortable: false},
+					{title: '邮箱', field: 'email', sortable: false},
+					{title: '手机号', field: 'mobile', sortable: false},
+					{title: '地址', field: 'address', sortable: false}/* ,
+					{title: '是否冻结', field: 'locked', formatter: function(value, row, index) {
+						if(value == 'FALSE') return '否';
+						if(value == 'TRUE') return '是';
+					}} */
+				],
+				onDblclick : function(index, row) {
+					showEditDialog();
+				}
+			});
+		}
+		
+		/***
+		 * 表单校验控件初始化
+		 */
+		function validatorInit() {
+		    $('#frm_detail').bootstrapValidator({
+			    feedbackIcons: {
+			        valid: 'glyphicon glyphicon-ok',
+			        invalid: 'glyphicon glyphicon-remove',
+			        validating: 'glyphicon glyphicon-refresh'
+			    },
+			    fields: {
+			    	name : {
+						validators : {
+							notEmpty : {message : '车厂名称不能为空'},
+						}
+					},
+					code : {
+						validators : {
+							notEmpty : {message : '车厂编号不能为空'}
+						}
+					},
+					managerName : {
+						validators : {
+							notEmpty : {message : '负责人不能为空'}
+						}
+					},
+					province : {
+						validators : {
+							notEmpty : {message : '省份不能为空'}
+						}
+					},
+					city : {
+						validators : {
+							notEmpty : {message : '城市不能为空'}
+						}
+					},
+					email : {
+						validators : {
+							notEmpty : {message : '邮箱不能为空'},
+							emailAddress : {message : '邮箱格式不正确'}
+						}
+					},
+					mobile : {
+						validators : {
+							notEmpty : {message : '手机号不能为空'},
+					        regexp : {regexp : /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/, message : '手机号码格式不正确' }
+						}
+					},
+					address : {
+						validators : {
+							notEmpty : {message : '地址不能为空'}
+						}
+					}
+				}
+			});
+
+			$('#btn_save').click(function() {
+				$('#frm_detail').bootstrapValidator('validate');
+			});
+		}
+		
+		/***
+		 * 显示详情div
+		 */
+		function showDetail(title, editable){
+			if(editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+			}
+			$('#h3_detailTitle').text(title);
+			$('#sec_detail').fadeIn(300);
+			$('#sec_main').hide();
+		}
+		
+		/***
+		 * 隐藏详情div
+		 */
+		function hideDetail(){
+			$('#sec_detail').fadeOut(300);
+			setTimeout(function(){
+				$('#sec_main').show();
+			}, 300)
+		}
+
+		var cityCode = '';
+
+		/***
+		 * 初始化省份
+		 */
+		function selectInitProvince() {
+			E7.initSelectRemote('[[@{/factory/allProvince}]]', null, '#province,#provinces', 'provinceName', 'provinceCode', true);
+		}
+
+
+		/***
+		 * 显示添加对话框
+		 */
+		function showAddDialog() {
+			E7.resetForm('#frm_detail');
+			$('#factoryCode').removeAttr('readonly');
+			if($('#frm_detail').data('bootstrapValidator')){
+				$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			}
+			showDetail(pageSetting.modelName + '添加', true);
+		}
+
+		/***
+		 * 显示编辑对话框
+		 */
+		function showEditDialog() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if(rows.length == 0) {
+				bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+				return;
+			} else if(rows.length > 1) {
+				bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+				return;
+			}
+
+			$('#frm_detail')[0].reset();
+			$('#frm_detail [name="id"]').val('');
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+            $('#factoryCode').attr('readonly','readonly');
+			
+			E7.post(pageSetting.resetPath + '/get', {'id' : rows[0]['id']}, function(result) {
+				var detail = result.data;
+				for (key in detail) {
+					$('#frm_detail [name="' + key + '"]').val(detail[key]);
+					var pCode = $('#provinces').val();
+					if(pCode != '' && key == 'province'){
+						selectInitCitys(pCode);
+					}
+				}
+				cityCode = detail['city'];
+				showDetail(pageSetting.modelName + '编辑', true);
+			});	
+		}
+
+		/***
+		 * 显示查看对话框
+		 */
+		function showViewDialog() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if(rows.length == 0) {
+				bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+				return;
+			} else if(rows.length > 1) {
+				bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+				return;
+			}
+
+			$('#frm_detail')[0].reset();
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			
+			E7.post(pageSetting.resetPath + '/get', {'id' : rows[0]['id']}, function(result) {
+				var detail = result.data;
+				for (key in detail) {
+					$('#frm_detail [name="' + key + '"]').val(detail[key]);
+					var pCode = $('#provinces').val();
+					if(pCode != '' && key == 'province'){
+						selectInitCitys(pCode);
+					}
+				}
+				cityCode = detail['city'];
+				showDetail(pageSetting.modelName + '详情', false);
+			});	
+		}
+
+        function refreshCity(provice){
+        	selectInitCity(provice.value);
+        }
+        function refreshCitys(provice){
+        	selectInitCitys(provice.value);
+        }
+		
+		/***
+		 * 根据省份查看城市
+		 */
+		function selectInitCity(provinceCode) {
+			E7.initSelectRemote('[[@{/factory/cityList}]]', {'provinceCode':provinceCode}, '#city', 'cityName', 'cityCode', true);
+		}
+		/***
+		 * 根据省份查看城市
+		 */
+		function selectInitCitys(provinceCode) {
+			E7.initSelectRemote('[[@{/factory/cityList}]]', {'provinceCode':provinceCode}, '#citys', 'cityName', 'cityCode', true, null,changeCity);
+		}
+
+		function changeCity(){
+			$('#frm_detail [name="city"]').val(cityCode);
+		}
+
+		function showImportDialog() {
+			E7.resetForm('#frm_import');
+			$('#mdl_import').modal('show');
+		}
+
+		function subitImportFile(){
+			var formData = new FormData();
+			formData.append("file", document.getElementById("file").files[0]);
+			E7.postMultipart('/factory/importData', formData, function(result){
+				$('#mdl_import').modal('hide');
+				if(result.data == ''){
+				    bootbox.alert({'title':'消息', 'message': '导入成功！'});
+				    query();
+				}else{
+	                
+	                bootbox.confirm({
+	    				buttons : {
+	    					confirm : {label : '确定', className : 'btn-info'}/* ,
+	    					cancel : {label : '取消', className : 'btn-cancel'} */
+	    				},
+	    				className : "del-model",
+	    				message : '导入数据中存在错误信息，请导出错误信息！',
+	    				callback : function(msg) {
+	    					if (!msg) return;
+	    					exportError(result.data);
+	    					bootbox.alert({'title' : "消息",'message' : '导出成功！'});
+	    				},
+	    				title : "导出确认"
+	    			});
+				}
+			});
+			
+		}
+		
+		function exportError(fileName) {
+	        $('#exportFileName').val(fileName);
+			var ifrm = $('#ifr_export');
+			if(ifrm.length == 0) {
+				ifrm = $('<iframe id="ifr_export" style="display:none;height:0px,width:0px></iframe>');
+				$('body').append(ifrm);
+				$('#frm_query').attr('action', pageSetting.resetPath + '/downLoadError');
+				$('#frm_query').attr('target', 'ifr_export');
+			}
+			$('#frm_query').submit();
+			query();
+		}
+
+		function export4Template() {
+			var ifrm = $('#ifr_export');
+			if(ifrm.length == 0) {
+				ifrm = $('<iframe id="ifr_export" style="display:none;height:0px,width:0px></iframe>');
+				$('body').append(ifrm);
+				$('#frm_query').attr('action', pageSetting.resetPath + '/export4Template');
+				$('#frm_query').attr('target', 'ifr_export');
+			}
+			$('#frm_query').submit();
+		}
+		
+	</script>
+</body>
+</html>

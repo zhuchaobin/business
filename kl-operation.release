@@ -1,0 +1,23 @@
+# 请参考 https=//help.aliyun.com/document_detail/52241.html#release-file 了解更多关于release文件的编写方式
+
+# 构建源码语言类型
+code.language=java
+
+# 构建打包使用jdk版本
+baseline.jdk=jdk-1.8
+
+# 构建打包所用的maven版本
+build.tools.maven=maven3.2.5
+
+
+# 配置RDC对什么文件进行打包，RDC会把这个文件打成 container-app.tgz，并且会在docker 构建之前把这个文件放到docker.file所指定的文件的同级目录。对于本例来说，就是代码库根目录。
+build.output=deploy/target/product-war.tar.gz
+
+# docker构建所用的Dockerfile的路径
+testing.docker.file=Dockerfile
+# Docker镜像构建之后push的仓库地址
+testing.docker.repo=registry-vpc.cn-beijing.aliyuncs.com/tianan/kl-product
+# 使用时间戳做docker tag，这样打出来的docker镜像就形如：registry.cn-hangzhou.aliyuncs.com/mynamespace/container-app:20170622232633
+testing.docker.tag=${ENV_TYPE}_${TIMESTAMP}
+
+build.command=sh bin/container_build.sh

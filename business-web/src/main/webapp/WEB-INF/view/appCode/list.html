@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<title>无模版</title>
+	<link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>	
+	<link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/e7table/e7table-0.2.css}"/>
+</head>
+
+<body>
+	<!-- Main content -->
+	<section id="sec_main" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom:0px;">
+				<form id="frm_query" class="form-horizontal">	
+					<div id="div_criteria" class="flowlayout">
+						<div class="col-lg-3 col-md-4 col-sm-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">AppCode：</label>
+								<div class="col-sm-8">
+									<input name="appCode" class="form-control" placeholder="AppCode"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer">
+				<button class="btn btn-default" onclick="javascript:showAddDialog();">添加</button>
+				<button class="btn btn-default" onclick="javascript:showEditDialog();">编辑</button>
+				<button class="btn btn-default" onclick="javascript:showViewDialog();">查看</button>
+				<button class="btn btn-default" onclick="javascript:showDelDialog();">删除</button>
+				
+                <button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>
+				<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>
+			</div>
+		</div>
+		
+		<!-- 信息列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-info">
+					<!-- /.box-header -->
+					<div class="box-body table-responsive no-padding">
+						<table id="tbl_query" class="table table-hover"></table>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!-- /.content -->
+
+
+	<!-- 详细信息 -->
+	<section id="sec_detail" class="content detail" style="display:none;">
+		<div class="box box-info">
+			<div class="box-body">
+				<form id="frm_detail" class="form-horizontal" >  
+					<fieldset id='fld_detail'>
+						<input name="id" type="hidden" value=""/>
+						<input name="carModels" id="carModels" type="hidden" value=""/>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">AppCode <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="appCode" class="form-control" placeholder="AppCode" maxlength="50"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">允许管理员登录 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<select name="adminEnable" class="form-control">
+											<option  value="1">允许</option>
+											<option  value="0">不允许</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">允许车主登录/注册 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<select name="carOwnerEnable" class="form-control">
+											<option  value="1">允许</option>
+											<option  value="0">不允许</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">支持车型 <span style="color:red">*</span></label>
+									<div id="carModelsCheckBox" class="col-sm-8">
+										<!--<div id="carModelsCheckBox" class="form-control" >-->
+											<label><input name="carModelList" type="checkbox" value="1" onclick="checkBoxSelect(this)"/> </label>
+										<!--</div>-->
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="box-footer">
+                <button id="btn_save" type="button" class="btn btn-primary pull-right" onclick="javascript:save();">保存</button>
+				<button id="btn_close" type="button" class="btn btn-default pull-right" onclick="javascript:hideDetail();" style="margin-right:15px;">返回</button>
+			</div>
+		</div>
+	</section>
+	<!-- /.content -->	
+	 
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	
+	<script type="text/javascript">	
+		$(function(){
+			//e7table表格控件初始化
+			e7tableInit();
+			//表单校验控件初始化
+			validatorInit();
+		});
+		
+		/***
+		 * 查询
+		 */
+		function query() {
+			$('#tbl_query').e7table('query','#frm_query');
+		}
+		
+		/***
+		 * 重置
+		 */
+		function reset() {
+			E7.resetForm('#frm_query');
+		}	
+		
+		/***
+		 * 显示添加对话框
+		 */
+		function showAddDialog() {
+			E7.resetForm('#frm_detail');
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+            E7.post('[[@{/appCode/get}]]', {'id' : -1}, function(result) {
+                fillCheckBox(result);
+                showDetail('appCode添加', true);
+            });
+		}
+
+		/***
+		 * 显示编辑对话框
+		 */
+		function showEditDialog() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if(rows.length == 0) {
+				bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+				return;
+			} else if(rows.length > 1) {
+				bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+				return;
+			}
+
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			
+			E7.post('[[@{/appCode/get}]]', {'id' : rows[0]['id']}, function(result) {
+				E7.fillForm('#frm_detail', result.data);
+                fillCheckBox(result);
+				showDetail('appCode编辑', true);
+			});	
+		}
+
+		/***
+		 * 显示查看对话框
+		 */
+		function showViewDialog() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if(rows.length == 0) {
+				bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+				return;
+			} else if(rows.length > 1) {
+				bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+				return;
+			}
+
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			
+			E7.post('[[@{/appCode/get}]]', {'id' : rows[0]['id']}, function(result) {
+				E7.fillForm('#frm_detail', result.data);
+
+                fillCheckBox(result);
+				showDetail('查看详情', false);
+			});	
+		}
+
+		function fillCheckBox(result){
+            var content = "";
+
+            for (var i = 0;i< result.data.carModelList.length;i++){
+
+                var val = result.data.carModelList[i];
+
+                var selected = false;
+                if(result.data.carModels != undefined && result.data.carModels != '') {
+                    selected = result.data.carModels.indexOf(val.id) != -1;
+                }
+
+                if(selected){
+                    content += '<label><input name="carModelList" type="checkbox" checked="checked" onclick="checkBoxSelect(this)" value="'+val.id+'" />'+val.text+' </label>';
+                }else {
+                    content += '<label><input name="carModelList" type="checkbox" onclick="checkBoxSelect(this)" value="'+val.id+'" />'+val.text+' </label>';
+                }
+
+
+            }
+
+            $("#carModelsCheckBox").html(content);
+		}
+		
+		function checkBoxSelect(obj) {
+
+            var val = $("#carModels").val();
+            if (obj.checked == false) {
+                val.replace(","+obj.value," ");
+            }else {
+                val += ","+obj.value;
+			}
+            $("#carModels").attr("value",val);
+        }
+		
+		/***
+		 * 保存操作
+		 */
+		function save() {
+			$('#frm_detail').bootstrapValidator('validate');
+			
+			if (!$('#frm_detail').data('bootstrapValidator').isValid()) {
+				return;
+			}
+
+			var formParams = E7.serialForm('#frm_detail');
+
+			E7.post('[[@{/appCode/save}]]', formParams, function(data) {
+				hideDetail();
+				bootbox.alert({'title' : "消息", 'message' : '保存成功！'});
+				$('#tbl_query').e7table('reload', function(){
+					if(formParams['id'] != '') {
+						$('#tbl_query').e7table('selectById', formParams['id']);
+					}
+				});
+			});
+		}
+
+		/***
+		 * 删除
+		 */
+		function showDelDialog(){
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if(rows.length == 0) {
+				bootbox.alert({'title':'错误消息', 'message':'请选择数据。'});
+				return;
+			} else if(rows.length > 1) {
+				bootbox.alert({'title':'错误消息', 'message':'一次只能删除一条数据。'});
+				return;
+			}
+			
+			bootbox.confirm({
+				className : "del-model",
+				message : '确定要删除？',
+				callback : function(result) {
+					if (!result) return;
+					
+					E7.post('[[@{/appCode/del}]]', {'id' : rows[0]['id']}, function(data) {
+						bootbox.alert({'title' : "消息",'message' : '删除成功！'});
+		               	$('#tbl_query').e7table('reload');
+					});
+				},
+				title : "删除确认"
+			});			
+		}
+		
+		
+		/***
+		 * e7table表格控件初始化
+		 */
+		function e7tableInit() {
+			$('#tbl_query').e7table({
+				url : '[[@{/appCode/query}]]',
+				pageSize: 10,
+				autoLoading: true,			//控件初始化后，自动远程请求数据
+				selectType: 'single',
+				sortName: 'createTime',		//排序列名
+				sortOrder: 'desc',			//排序方向
+				columns : [
+                    {title: 'AppCode', field: 'appCode'},
+                    {title: '允许管理员登录', field: 'adminEnable', formatter: function(value, row, index) {
+                        if(value == '1'){
+                            return "允许"
+                        }else{
+                            return "不允许";
+                        }
+                    }},
+                    {title: '允许车主登录/注册', field: 'carOwnerEnable', formatter: function(value, row, index) {
+                        if(value == '1'){
+                            return "允许"
+                        }else{
+                            return "不允许";
+                        }
+                    }},
+                    {title: '提交时间', field: 'createTime', formatter: function(value, row, index) {
+                        return value == null ? '':new Date(value).format();
+                    }}
+				],
+				onDblclick : function(index, row) {
+					showEditDialog();
+				}
+			});
+		}
+		
+		/***
+		 * 表单校验控件初始化
+		 */
+		function validatorInit() {
+		    $('#frm_detail').bootstrapValidator({
+			    feedbackIcons: {
+			        valid: 'glyphicon glyphicon-ok',
+			        invalid: 'glyphicon glyphicon-remove',
+			        validating: 'glyphicon glyphicon-refresh'
+			    },
+			    fields: {	  	 
+			    	username : {
+						validators : {
+							notEmpty : {message : '用户名不能为空'},
+							stringLength : {min : 3, max : 20, message : '用户名长度必须在3-20之间' }
+						}
+					},
+					chineseName : {
+						validators : {
+							notEmpty : {message : '真实姓名不能为空'},
+							stringLength : {min : 2, max : 20, message : '真实姓名必须在2-20之间' }
+						}
+					},
+					mobile : {
+						validators : {
+							notEmpty : {message : '手机号码不能为空'},
+							regexp : {regexp : /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/, message : '手机号码格式不正确' },
+						}
+					},
+					email : {
+						validators : {
+							emailAddress : {message : '邮箱地址格式不正确'}
+						}
+					}
+				}
+			});
+		
+			$('#btn_save').click(function() {
+				$('#frm_detail').bootstrapValidator('validate');
+			});
+		}	
+		
+		
+		
+		/***
+		 * 显示详情div
+		 */
+		function showDetail(title, editable){
+			if(editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+			}
+			
+			$('#h3_detailTitle').text(title);
+			$('#sec_detail').fadeIn(300);
+			$('#sec_main').hide();
+		}
+
+		/***
+		 * 隐藏详情div
+		 */
+		function hideDetail(){
+			$('#sec_detail').fadeOut(300);
+			setTimeout(function(){
+				$('#sec_main').show();
+			}, 300)
+		}
+
+	</script>
+</body>
+</html>

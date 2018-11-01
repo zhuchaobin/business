@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<title>无模版</title>
+	<link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/e7table/e7table-0.2.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/plugins/iCheck/all.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/style.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/kl-iconfont/iconfont.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/plugins/daterangepicker/daterangepicker.css}"/>
+</head>
+
+<body>
+<!-- Main content -->
+<section id="sec_main" class="content">
+	<!-- 条件查询 -->
+	<div class="box box-info">
+		<!-- 条件区域 -->
+		<div class="box-body" style="padding-bottom:0px;">
+			<form id="frm_query" class="form-horizontal">
+				<div id="div_criteria" class="flowlayout">
+				  <div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="" class="col-sm-4 control-label">消息标题：</label>
+							<div class="col-sm-8">
+								<input id="msgTitle" name="msgTitle" class="form-control" placeholder="消息标题"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-4" hidden>
+                            <div class="form-group">
+                                <label for="" class="col-sm-4 control-label">开始时间：</label>
+                                <div class="col-sm-8">
+                                    <input name="pushTimeStart" id="startTime" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" hidden>
+                            <div class="form-group">
+                                <label for="" class="col-sm-4 control-label">结束时间：</label>
+                                <div class="col-sm-8">
+                                    <input name="pushTimeEnd" id="endTime" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="" class="col-sm-4 control-label">发布时间：</label>
+                                <div class="col-sm-8">
+                                    <input id="drp_range" name="dateRange" class="form-control" style="width:320px;"/>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="" class="col-sm-4 control-label">发布状态：</label>
+							<div class="col-sm-8">
+								<select name="msgPushStatus" class="form-control">
+									<option  value="">全部</option>
+									<option  value="2">上架中</option>
+									<option  value="1">上架</option>
+									<option  value="0">下架</option>
+								</select>
+							</div>
+						</div>
+					</div>
+                    </div>
+				</div>
+			</form>
+		</div>
+
+		<!-- 按钮区域 -->
+		<div id="div_buttons" class="box-footer">
+			
+		</div>
+	</div>
+
+	<!-- 信息列表 -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-info">
+				<div class="box-body table-responsive no-padding">
+					<table id="tbl_query" class="table table-hover"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+<!-- /.content -->
+
+
+<!-- 详细信息 -->
+<section id="sec_detail" class="content" style="display:none;">
+	<div class="box box-info">
+		<div class="box-header with-border">
+			<h3 id="h3_detailTitle" class="box-title"></h3>
+			<div class="box-tools pull-right">
+				<button class="btn btn-box-tool" data-widget="collapse">
+					<i class="fa fa-minus"></i>
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<form id="frm_detail" class="form-horizontal" >
+				<fieldset id='fld_detail'>
+					<div class="w-z-info">
+					<input type="hidden" id="fileId" name="msgUrl">
+					<input name="id" type="hidden" value=""/>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">消息标题 <span style="color:red">*</span></label>
+								<div class="col-sm-8">
+									<input name="msgTitle" class="form-control" placeholder="消息标题" rows="5"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="" class="col-sm-2 control-label">封面</label>
+								<div class="col-sm-8">
+									<form id="frm_transfer" class="form-horizontal" enctype="multipart/form-data"  method="post">
+										<div id="fujianId">
+										</div>
+										<div>
+										  <img id="pushImage" style="width:200px;height: 200px;" src="">
+										</div>
+									</form>
+									<div class="modal-footer">
+										<button id="btn_save1" type="button" class="btn btn-primary" onclick="javascript:submitTransferFile();">上传</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="" class="col-sm-2 control-label">消息内容</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<textarea id="editor1" name="msgContent" class="form-control" rows="10" cols="80"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+	                    <div class="col-md-6">
+							<div class="form-group" id="pushstatusDiv">
+								<label for="" class="col-sm-4 control-label">推送 <span style="color:red">*</span></label>
+								<div class="col-sm-8">
+									<input type="radio" name="msgPushStatus"  value="1" id="checked">立即推送</input>
+								</div>
+								<div class="col-sm-8">
+									<input type="radio" name="msgPushStatus"  value="2" >定时推送</input>
+									<input name="pushTime" id="pushTime" >
+								</div>
+							</div>
+						</div>
+					</div>
+				  </div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="box-footer">
+			<button id="btn_save" type="button" class="btn btn-primary pull-right" onclick="javascript:save();">保存</button>
+			<button id="btn_close" type="button" class="btn btn-default pull-right" onclick="javascript:hideDetail();" style="margin-right:15px;">取消</button>
+		</div>
+	</div>
+</section>
+
+	<div id="push_detail" class="modal fade box-body" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+	      <div class="modal-dialog modal-lg">
+			<div class="modal-content" style="width:800px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">投放</h4>
+				</div>
+				<div class="modal-body" style="height: 100px; max-height: 200px; overflow: auto;">
+	               <form id="frm_detail" class="form-horizontal" >
+	                 <div class="row">
+	                    <input type="hidden" name="id" id="pushId" value="">
+	                    <div class="col-md-12">
+							<div class="form-group" id="pushstatusDiv">
+								<label for="" class="col-sm-4 control-label">请选择投放APP <span style="color:red">*</span></label>
+								<div class="col-sm-6">
+									<select name="appId" class="form-control" id="appId">
+									 
+								    </select>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+	               </form>					
+	            </div>
+				<!-- Loading (remove the following to stop the loading)-->
+				<!-- end loading -->
+				<div class="modal-footer">
+					<button id="btn_save" type="button" class="btn btn-primary" onclick="javascript:pushMsg();">投放</button>
+					<button id="btn_close" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- /.content -->
+
+<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+<script th:src="@{/resources/plugins/daterangepicker/moment.min.js}"></script>
+<script th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+<script th:src="@{/resources/dist/js/app.min.js}"></script>
+<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+<script th:src="@{/resources/e7/e7table/e7table-0.3.js}"></script>
+<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+<script th:src="@{/resources/plugins/template/template-web.js}"></script>
+<script th:src="@{/resources/plugins/daterangepicker/daterangepicker.js}"></script>
+<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script>
+
+
+<script type="text/javascript" >
+	var pageSetting = {
+		modelName : '推广活动',
+		resetPath : '[[@{/publish}]]'
+	};
+	$(function(){
+		//e7table表格控件初始化
+		e7tableInit();
+		//表单校验控件初始化
+		validatorInit();
+		buttonInit();
+		CKEDITOR.replace("editor1",{
+			filebrowserImageUploadUrl : 'ossuploadimg' 
+		});
+		$('#drp_range').daterangepicker({
+            autoApply: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerIncrement: 1,
+            locale: daterangepicker.cn
+        });
+		reset();
+	});
+
+	/***
+	 * 查询
+	 */
+	function query() {
+            var range = new Array();
+            range = $('#drp_range').val().toString().split(" - ");
+            $('#startTime').val(range[0]);
+            $('#endTime').val(range[1]);
+            $('#tbl_query').e7table('query', '#frm_query');     
+	}
+
+	/***
+	 * 重置
+	 */
+	function reset() {
+		E7.resetForm('#frm_query');
+	}
+
+	function buttonInit() {
+		if('[[${userType}]]' == 'Group'){
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:showAddDialog();">添加</button>');
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:showEditDialog();">编辑</button>');
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:showViewDialog();">查看</button>');
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:del();">删除</button>');
+			$("#div_buttons").append('<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
+			$("#div_buttons").append('<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>');
+		}else{
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:showAddDialog();">添加</button>');
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:showEditDialog();">编辑</button>');
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:showViewDialog();">查看</button>');
+			$("#div_buttons").append('<button class="btn btn-default" onclick="javascript:del();">删除</button>');
+			$("#div_buttons").append('<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
+			$("#div_buttons").append('<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>');
+		}
+	}
+	/***
+	 * e7table表格控件初始化
+	 */
+	function e7tableInit() {
+		$('#tbl_query').e7table({
+			url : '[[@{/publish/queryPage}]]',
+			pageSize: 10,
+			autoLoading: true,			//控件初始化后，自动远程请求数据
+			selectType: 'single',
+			sortName: 'createTime',		//排序列名
+			sortOrder: 'desc',			//排序方向
+			columns : [
+				{title: '消息标题', field: 'msgTitle', sortable: false},
+				{title: '最后修改时间', field: 'updateTime', formatter: function(value, row, index) {
+					return value == null ? '':new Date(value).format();
+				}},
+				{title: '发布时间', field: 'pushTime', formatter: function(value, row, index) {
+					return value == null ? '':new Date(value).format();
+				}},
+				{title: '发布状态', field: 'msgPushStatus', formatter: function(value, row, index) {
+					if(value == '1'){
+						return "上架"
+					}else if(value == '0'){
+					    return "下架";
+					}else{
+						return "上架中";
+					}
+				}},
+				{title: '阅读量', field: 'lookCount', sortable: false},
+				{title: '转发量', field: 'repeatCount', sortable: false},
+				{title: '操作', formatter: function(value, row, index) {
+				    var s = '<a style="width: 10px;" onclick="initAppList(\''+row.id+'\')">'+(row.msgPushStatus == '1' ? "投放":"")+'</a>&nbsp;';
+                    s = s + '<a style="width: 10px;" onclick="updatePushStatus(\''+row.id+'\',\''+row.msgPushStatus+'\')">'+(row.msgPushStatus == '1' ? "下架":(row.msgPushStatus == '0' ? "上架":""))+'</a>&nbsp;';
+                    return s;
+				}}
+			]
+		});
+	}
+	/***
+	 * 显示添加对话框
+	 */
+	function showAddDialog() {
+		addInputItem();
+		E7.resetForm('#frm_detail');
+		CKEDITOR.instances.editor1.setData('');
+		$('#frm_detail').data('bootstrapValidator').resetForm(true);
+		$("#checked").attr("checked","checked");
+		$('#pushTime').daterangepicker({
+			singleDatePicker: true,
+            autoApply: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerIncrement: 1,
+            locale: daterangepicker.cn
+        });
+        $("#pushTime").val('');
+		showDetail('新增营销内容', true);
+	}
+	/***
+	 * 表单校验控件初始化
+	 */
+	function validatorInit() {
+		$('#frm_detail').bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+
+			}
+		});
+
+		$('#btn_save').click(function() {
+			$('#frm_detail').bootstrapValidator('validate');
+		});
+	}
+
+	function showDetail(title, editable){
+		if(editable) {
+			$('#fld_detail').prop('disabled', false);
+			$('#btn_save').show();
+		} else {
+			$('#fld_detail').prop('disabled', true);
+			$('#btn_save').hide();
+		}
+
+		$('#h3_detailTitle').text(title);
+		//$('#mdl_detail').modal('show');
+		$('#sec_detail').fadeIn(300);
+		$('#sec_main').hide();
+	}
+
+	/***
+	 * 显示详情div
+	 */
+	function showDetail1(title, editable){
+		if(editable) {
+			$('#fld_detail').prop('disabled', false);
+			$('#btn_save').show();
+		} else {
+			$('#fld_detail').prop('disabled', true);
+			$('#btn_save').hide();
+		}
+
+		$('#h3_detailTitle').text(title);
+		//$('#mdl_detail').modal('show');
+		$('#sec_detail_detail').fadeIn(300);
+		$('#sec_main').hide();
+	}
+
+	/***
+	 * 隐藏详情div
+	 */
+	function hideDetail(){
+		$('#fujianId').empty();
+
+		$('#sec_detail').fadeOut(300);
+		setTimeout(function(){
+			$('#sec_main').show();
+
+		}, 300)
+	}
+
+	function hideDetail1(){
+		$('#sec_detail_detail').fadeOut(300);
+		setTimeout(function(){
+			$('#sec_main').show();
+		}, 300)
+	}
+	function showViewDialog1() {
+		var rows = $('#tbl_query').e7table('getSelectedRows');
+		if(rows.length == 0) {
+			bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+			return;
+		} else if(rows.length > 1) {
+			bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+			return;
+		}
+
+		if($('#frm_detail').data('bootstrapValidator')){
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+		}
+		var key = $('#msgTitle').val();
+		$.post(pageSetting.resetPath + '/detail/get', {'id' : rows[0]['id'],"key":key},function(data) {
+			$('#detail').html(data);
+			showDetail1('查看详情', false);
+		})
+
+	}
+
+	function save() {
+		for(instance in CKEDITOR.instances){
+			CKEDITOR.instances[instance].updateElement();
+		}
+		$('#frm_detail').bootstrapValidator('validate');
+
+		if (!$('#frm_detail').data('bootstrapValidator').isValid()) {
+			return;
+		}
+
+		var formParams = E7.serialForm('#frm_detail');
+
+		E7.post(pageSetting.resetPath + '/save', formParams, function(data) {
+			hideDetail();
+			bootbox.alert({'title' : "消息", 'message' : '保存成功！'});
+			$('#tbl_query').e7table('reload', function(){
+				if(formParams['id'] != '') {
+					$('#tbl_query').e7table('selectById', formParams['id']);
+				}
+			});
+		});
+	}
+
+	function showEditDialog(disable) {
+		var rows = $('#tbl_query').e7table('getSelectedRows');
+		if(rows.length == 0) {
+			bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+			return;
+		} else if(rows.length > 1) {
+			bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+			return;
+		}
+
+		if($('#frm_detail').data('bootstrapValidator')){
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+		}
+
+		E7.post(pageSetting.resetPath + '/get', {'id' : rows[0]['id']}, function(result) {
+			$('#pushTime').daterangepicker({
+				singleDatePicker: true,
+	            autoApply: true,
+	            timePicker: true,
+	            timePicker24Hour: true,
+	            timePickerIncrement: 1,
+	            locale: daterangepicker.cn
+	        });
+			if(result.data.pushTime != null){
+				result.data.pushTime = new Date(result.data.pushTime).format();
+			}
+			fillForm('#frm_detail', result.data);
+			if (result.data.msgUrl != undefined) {
+					var item = result.data.msgUrl.split("||");
+					var itemtext = '<div name="inputDiv">'+'<input id="fileName" name="fileName" type="file" src="'+item[0]+'"  class="form-control" value="'+item[0]+'"/><br/></div>';
+					$("#fujianId").append(itemtext);
+					getItem(item[0],item[2],false);
+			}
+			if(disable){
+				showDetail(pageSetting.modelName + '查看', false);
+			} else {
+				showDetail(pageSetting.modelName + '编辑', true);
+			}
+		});
+	}
+
+	fillForm = function(frm, data, reset, parent) {
+		if(E7.isEmpty(parent) && (E7.getType(reset)=='undefined' || reset)) E7.resetForm(frm);
+
+		for (var key in data) {
+			var elName = E7.isEmpty(parent) ? key : (parent + '.' + key);
+			var elValue = data[key];
+
+			if(elValue == null) continue;
+
+			if(E7.getType(elValue) == 'object') {
+				E7.fillForm(frm, elValue, false, elName);
+				continue;
+			}
+
+			var els = $(frm + ' [name="' + elName + '"]');
+			if(els.length == 0) continue;
+
+			if(els[0].type == 'radio') {
+				$(frm + ' [name="' + elName + '"][value="' + elValue + '"]').prop("checked",true);
+			} else if(els[0].type == 'select-multiple') {
+				if(elValue instanceof Array) {
+					els.val(elValue);
+				} else if(typeof elValue == 'string') {
+					els.val(elValue.split(','));
+				} else if(typeof elValue == 'number') {
+					els.val(elValue + '');
+				} else {
+					els.val(elValue);
+				}
+			} else if(els[0].type == 'checkbox') {
+				if(els.length ==1) {
+					if(els.val() == elValue) {
+						els.prop('checked', true);
+					}
+				} else {
+					if(elValue instanceof Array) {
+						els.val(elValue);
+					} else if(typeof elValue == 'string') {
+						els.val(elValue.split(','));
+					} else if(typeof elValue == 'number') {
+						els.val(elValue + '');
+					} else {
+						els.val(elValue);
+					}
+				}
+			}else if(els[0].id == 'editor1'){
+				CKEDITOR.instances.editor1.setData(elValue);
+			} else {
+				els.val(elValue + '');
+			}
+		}
+	}
+
+	function submitTransferFile(){
+		var fileId = $("#fileId").val();
+		if(fileId != ''){
+			bootbox.alert({'title':'消息', 'message': '请先删除原图片在进行上传'});
+			return;
+		}
+		var file = document.getElementsByName("fileName")
+		//var file = $('.select-file').files//document.getElementById("file_transfer").files;
+		//TODO:valid
+		var formData = new FormData();
+		for (i = 0; i < file.length; i++) {
+			formData.append('files', file[i].files[0]);
+		}
+
+		E7.postMultipart('[[@{/publish/ossUpload}]]', formData, function(result){
+			var fileUrl = result.data.split('||');
+			$("#fileId").val(result.data);
+			bootbox.alert({'title':'消息', 'message': '上传成功, 文件：<code>' + fileUrl[1] + '</code>！'});
+			$("#pushImage").show();
+			getItem(fileUrl[0],fileUrl[2],false)
+		});
+	}
+
+	function addInputItem() {
+		var item = '<div name="inputDiv"><input id="fileName" name="fileName" type="file"  class="form-control"/> <br/></div>';
+		$("#fujianId").append(item);
+		$("#pushImage").hide();
+	}
+	function deleteItem(input) {
+		E7.post('[[@{/publish/ossDelete}]]', {"fileName":input}, function(result){
+			var fileUrl = result.data;
+			bootbox.alert({'title':'消息', 'message': '删除成功'});
+			$("#pushImage").hide();
+			$("#fileId").val('');
+			$("#viewImg").remove();
+		});
+		
+	}
+	
+	function getItem(fileName,url,disable) {
+	  if(disable){
+		E7.post('[[@{/publish/ossGet}]]', {"fileName":fileName}, function(result){
+			if(result.code == 0){
+				if(result.data == ''){
+			        $("#viewImg").hide()
+			        $("#fileId").val('');
+				}else{
+			        $("#pushImage").attr("src", result.data);
+			        if(!disable){
+					    $("#fileName").after('<a id="viewImg" onclick="deleteItem(\''+fileName+'\')">删除</a> ');
+			        }
+					$("#viewImg").show()
+				}
+			}else{
+				bootbox.alert({'title':'消息', 'message': '图片获取失败'});
+			}
+		});
+			
+	  }else{
+		  $("#pushImage").attr("src", url);
+	      $("#fileName").after('<a id="viewImg" onclick="deleteItem(\''+fileName+'\')">删除</a> ');
+		  $("#viewImg").show();
+	  }
+	}
+	
+	function updatePushStatus(id,msgPushStatus){
+		bootbox.confirm({
+			buttons : {
+				confirm : {label : '确定', className : 'btn-info'},
+				cancel : {label : '取消', className : 'btn-cancel'}
+			},
+			className : "del-model",
+			message : '确定要'+(msgPushStatus == '1' ? "下架":(msgPushStatus == '0' ? "上架":""))+'此活动',
+			callback : function(result) {
+				if (!result) return;
+				
+				E7.post('[[@{/publish/updatePushStatus}]]', {"id":id,"msgPushStatus":msgPushStatus}, function(result){
+					if(result.code == 0){
+					    bootbox.alert({'title':'消息', 'message': '设置成功'});
+					}else{
+						bootbox.alert({'title':'消息', 'message': '设置失败，请重试！'});
+					}
+					query();
+				});
+			},
+			title : "提示"
+		});		
+		
+	}
+	
+	function showPushStatus(id){
+		$('#pushTime').daterangepicker({
+			singleDatePicker: true,
+            autoApply: true,
+            timePicker: true,
+            timePicker24Hour: true,
+            timePickerIncrement: 1,
+            locale: daterangepicker.cn
+        });
+		$('#pushId').val(id);
+		$('#push_detail').modal('show');
+	}
+	
+	$("#pushstatusDiv").click(function(){
+		var pushStatus = $('input:radio:checked').val();
+		if(pushStatus == '2'){
+			$('#pushTimeDiv').show()
+		}else{
+			$('#pushTimeDiv').hide()
+		}
+	});
+	
+	function pushMsg(){
+		
+		E7.post('[[@{/publish/savePushPublish}]]', {"publishId":$('#pushId').val(),"appId":$('#appId').val()}, function(result){
+			if(result.code == 0){
+			    bootbox.alert({'title':'消息', 'message': '投放成功'});
+			}else{
+				bootbox.alert({'title':'消息', 'message': '投放失败，请重试！'});
+			}
+			$('#push_detail').modal('hide');
+			query();
+		});
+	}
+	
+	function initAppList(id){
+		$('#pushId').val(id);
+		$("#appId").text('');
+		E7.post(pageSetting.resetPath + '/initAppList', null, function(data) {
+			
+			if(data.code != 0){
+				return;
+			}
+			
+			var s = '';
+			for(var app of data.data){
+				s += '<option value="'+app.id+'">'+app.appCode+'</option>'
+			}
+			$("#appId").append(s);
+			$('#push_detail').modal('show');
+		});
+	}
+	
+	
+</script>
+</body>
+</html>

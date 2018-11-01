@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="GBK"?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.1">
+    <id>war</id>
+    <baseDirectory>ROOT</baseDirectory>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <directory>../operation-web/target/exploded/operation.war</directory>
+            <outputDirectory></outputDirectory>
+             <includes>
+                <include>**/**</include>
+            </includes>
+            <excludes>
+                <exclude>/WEB-INF/classes/application.properties</exclude>
+                <exclude>/WEB-INF/classes/logback.xml</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+    <files>
+        <file>
+            <source>src/main/assembly/overlay/${config}/env.conf</source>
+            <outputDirectory>/META-INF/</outputDirectory>
+        </file>
+        <file>
+            <source>src/main/assembly/overlay/${config}/application.properties</source>
+            <outputDirectory>/WEB-INF/classes/</outputDirectory>
+        </file>
+        <file>
+            <source>src/main/assembly/overlay/${config}/logback.xml</source>
+            <outputDirectory>/WEB-INF/classes/</outputDirectory>
+        </file>
+    </files>
+</assembly>

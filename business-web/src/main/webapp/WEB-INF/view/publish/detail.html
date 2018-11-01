@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <meta http-equiv="refresh" content="2"> -->
+	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/plugins/iCheck/all.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/style.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/kl-iconfont/iconfont.css}"/>
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="w-z-info">
+	<p class="w-z-title"><span class="w-z-t-title">消息标题:</span><span class="w-z-t-title" th:text="${item.abstracts}"></span></p>
+	<p class="w-z-class"><span class="w-z-t-title">消息类型:</span><span class="w-z-t-title" th:utext="${item.catelogName}"></span></p>
+	
+</div>
+
+
+
+
+</body>
+</html>
+
