@@ -51,7 +51,7 @@ public class AuthController {
      */
 	@RequestMapping(value = "/login", method=RequestMethod.GET)
     public String login(){
-        return "auth/login";
+        return "auth/ui/index";
     }
 	
 	/***
@@ -212,7 +212,14 @@ public class AuthController {
 	
 	@RequestMapping(value = "/forget", method = RequestMethod.GET)
 	public String forget() {
-		return "auth/forget";
+//		return "auth/forget";
+		return "auth/ui/password_getback";
+		
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register() {
+		return "auth/ui/register";
 	}
 
 	@LogAspect(type=LogType.Forget_Password)

@@ -32,7 +32,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Bean 
     public FilterRegistrationBean loginFilterRegistration() {
     	SecurityFilter.loginUrls = new String[] { "/", "/index", "/home", "/logout", "/modifyPassword", "/haveFault","/typeCode/*","/home/*"};
-    	SecurityFilter.anonUrls =  new String[] { "/checkstartup.html", "/resources/**", "/login", "/error", "/favicon.ico" ,"/forget","/forgetPassword","/publish/showPage","/dynamicApp/*"};
+    	SecurityFilter.anonUrls =  new String[] { "/checkstartup.html", "/resources/**", "/login", "/error", "/favicon.ico" ,"/forget","/forgetPassword","/publish/showPage","/dynamicApp/*" ,"/register"};
         FilterRegistrationBean registration = new FilterRegistrationBean(new SecurityFilter());
         registration.addUrlPatterns("/*");
         return registration;

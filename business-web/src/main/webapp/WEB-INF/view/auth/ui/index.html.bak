@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>欢迎页</title>
+<link type="text/css" rel="stylesheet" href="CSS/base.css">
+<link type="text/css" rel="stylesheet" href="CSS/jquery.fullPage-2.1.9.css" />
+<link type="text/css" rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="CSS/welcome.css">
+<style type="text/css">
+.samples_down {
+    width: 100%;
+    height: 400px;
+    margin-top: -260px;
+}
+</style>
+</head>
+
+<body>
+<ul id="fullpageMenu">
+  <li data-menuanchor="page1" class="active"><a href="#page1">系统介绍</a></li>
+  <li data-menuanchor="page2"><a href="#page2">公告新闻</a></li>
+  <li data-menuanchor="page3"><a href="#page3">业务案例</a></li>
+  <li data-menuanchor="page4"><a href="#page4">登录注册</a></li>
+  <li data-menuanchor="page5"><a href="#page5">联系我们</a></li>
+</ul>
+<div id="fullpage">
+  <div class="section section1">
+    <div class="container description">
+    	<div class="jumbotron">
+          <h1>欢迎使用</h1>
+          <p>TT供应链业务运行系统</p>
+          <p><a class="btn btn-primary btn-lg" href="#page4" role="button">进入</a></p>
+        </div>
+    </div>
+  </div>
+  <div class="section section2">
+    <div class="container" style="width:1000px; margin:0 auto;">
+    	<h2 class="announce_title">公告 <span>新闻</span></h2>
+        <ul class="list-group">
+          <li class="list-group-item">TT供应链业务运行系统用户突破5000万！ （2018年7月13日）</li>
+          <li class="list-group-item">双十一快递包裹攻陷全城 各方发力助配送（2018年夏季）</li>
+          <li class="list-group-item">日售100万卖家还亏钱？鞋企电商头顶两座大山咋破 （2018年7月3日）</li>
+          <li class="list-group-item">代购圈疯传SK-II天猫旗舰店是假店？（2018年7月3日）</li>
+          <li class="list-group-item">中国台湾二维码支付平台下月接入银联卡支付 （2018年7月13日）</li>
+          <li class="list-group-item">尴尬！京东市值输网易 拼多多也虎视眈眈 （2018年夏季）</li>
+          <li class="list-group-item">苏宁推客双十一累计发放佣金达到2.2亿！（2018年7月3日）</li>
+          <li class="list-group-item last">苏宁、物美相关人士否认将接盘全时 （2018年7月3日）</li>
+        </ul>
+    </div>
+  </div>
+  <div class="section section3">
+    <div class="slide">
+    	<div class="samples_wrap">
+        	<div class="samples one">
+            	<div class="samples_top">
+                </div>
+                <div class="samples_down">
+                	<p class="img" align="center"><img src="Images/welcome/sample_a.png" width="660" height="260"></p>
+                    <p class="text">供应链-票据融资</p>
+                </div>
+            </div>
+        	
+        </div>
+    </div>
+        <div class="slide">
+    	<div class="samples_wrap">
+        	<div class="samples one">
+            	<div class="samples_top">
+                </div>
+                <div class="samples_down">
+                	<p class="img" align="center"><img src="Images/welcome/sample_a.png" width="660" height="260"></p>
+                    <p class="text">供应链-应收款融资</p>
+                </div>
+            </div>
+        	
+        </div>
+    </div>
+            <div class="slide">
+    	<div class="samples_wrap">
+        	<div class="samples one">
+            	<div class="samples_top">
+                </div>
+                <div class="samples_down">
+                	<p class="img" align="center"><img src="Images/welcome/sample_a.png" width="660" height="260"></p>
+                    <p class="text">供应链-授信融资</p>
+                </div>
+            </div>
+        	
+        </div>
+    </div>
+            <div class="slide">
+    	<div class="samples_wrap">
+        	<div class="samples one">
+            	<div class="samples_top">
+                </div>
+                <div class="samples_down">
+                	<p class="img" align="center"><img src="Images/welcome/sample_a.png" width="660" height="260"></p>
+                    <p class="text">供应链-保证金融资</p>
+                </div>
+            </div>
+        	
+        </div>
+    </div>
+    
+                <div class="slide">
+    	<div class="samples_wrap">
+        	<div class="samples one">
+            	<div class="samples_top">
+                </div>
+                <div class="samples_down">
+                	<p class="img" align="center"><img src="Images/welcome/sample_a.png" width="660" height="260"></p>
+                    <p class="text">供应链-订单融资</p>
+                </div>
+            </div>
+              </div>
+            </div>
+        	
+      <div class="slide">
+    	<div class="samples_wrap">
+        	<div class="samples one">
+            	<div class="samples_top">
+                </div>
+                <div class="samples_down">
+                	<p class="img" align="center"><img src="Images/welcome/sample_a.png" width="660" height="260"></p>
+                    <p class="text">供应链-货物融资</p>
+                </div>
+            </div>          
+        </div>
+    </div>
+    
+    </div>
+
+  <div class="section section4">
+    <div class="welcome_login">
+    	<form role="form">
+          <h2></h2>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username">
+            <input type="password" class="form-control" placeholder="Password">
+            <div class="form-group" style="margin-left:0;">
+            	<input type="text" class="form-control" style="width:400px; float:left; margin-top:0;" placeholder="verification code"><span class="checkcode_img"></span><span class="checkcode_text">Refresh</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <a type="button" href="index.html" class="btn btn-info btn-lg welcome_btn1" role="button">LOG IN</a>
+          </div>
+          <div class="form-group">
+            <p class="line">or</p>
+          </div>
+          <div class="form-group">
+            <a href="register.html" type="button" class="btn btn-primary btn-lg welcome_btn1" role="button">SIGN UP</a>
+          </div>
+          <div class="form-group">
+            <a class="forget_password" href="password_getback.html">Forget password?</a>
+          </div>
+        </form>
+    </div>
+  </div>
+  <div class="section section5">
+    <div class="BbContact">
+    	<div class="Contact_infowrap">
+        	<div class="Contact_info">
+                <h2>< 联系我们 ></h2>
+                <div class="row">
+                  <div class="col-xs-4 col-sm-4 one">
+                    <address>
+                        中国广州市天河区黄埔大道西106号维多利酒店1楼01单元<br>
+                    </address>
+                  </div>
+                  <div class="col-xs-4 col-sm-4 two">
+                    <p>
+                        +86(020)-8373 9062 -13<br>
+                        +86(020)-3868 6150 -20
+                    </p>
+                  </div>
+                  <div class="col-xs-4 col-sm-4 three">
+                    <p>admin@tt.com.cn</p>
+                  </div>
+                </div>
+                <div class="copyrights"><p>备案号 | 友情链接 | 友情链接 | 友情链接</p></div>
+            </div>
+        </div>
+        
+    </div>
+  </div>
+</div>
+<script src="JS/jquery-2.0.0.min.js"></script> 
+<script src="JS/jquery.fullPage-2.6.7.min.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="JS/jquery.slimscroll.js"></script> 
+<script>
+	$(document).ready(function(e) {
+		$('#fullpage').fullpage({
+			paddingTop:'70px',
+			fixedElements:'#header',
+			anchors:['page1','page2','page3','page4','page5'],
+			menu:'#fullpageMenu',
+			navigation:true,
+			navigationPosition:'left',
+			scrollOverflow:true,
+		});
+    });
+</script>
+</body>
+</html>

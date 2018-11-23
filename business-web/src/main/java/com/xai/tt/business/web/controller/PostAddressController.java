@@ -7,10 +7,14 @@ import com.aliyun.oss.model.PutObjectResult;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
+import com.tianan.common.api.support.SecurityContext;
 import com.tianan.common.core.support.OssET;
 import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.biz.common.util.Constants;
+import com.xai.tt.business.client.enums.UserType;
+import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.inter.PostAddressDcService;
+import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.service.TB0001DcService;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.TB0001InVo;
@@ -43,47 +47,6 @@ public class PostAddressController extends BaseController {
 	@Autowired
 	private TB0001DcService tB0001DcService2;
 	
-/*    @RequestMapping(value = { "list" })
-    public ModelAndView list() {
-        ModelAndView mv = new ModelAndView("postAddress/list");
-
-        CarModelQuery query = new CarModelQuery();
-        query.setStatus(true);
-        query.setPageNo(1);
-        query.setPageSize(Integer.MAX_VALUE);
-        Result<PageInfo<CarModelBaseVo>> carModelResult = carModelService.queryPage(query);
-        if (carModelResult == null || carModelResult.getCode() != 0) {
-            throw new RuntimeException("查询车型异常");
-        }
-        mv.addObject("carModels", carModelResult.getData().getList());
-
-        LoginUser user = (LoginUser) SecurityContext.getAuthUser();
-        mv.addObject("usertype", user.getUserType().name());
-        return mv;
-    	
-    	ModelAndView mv = new ModelAndView("postAddress/list");
-
-		T1ARInfVo query = new T1ARInfVo();
-
-		Result<PageData<T1ARInfVo>> rlt = tB0001DcService2.queryPage(query, null);
-		
-        CarModelQuery query = new CarModelQuery();
-        query.setStatus(true);
-        query.setPageNo(1);
-        query.setPageSize(Integer.MAX_VALUE);
-        Result<PageInfo<CarModelBaseVo>> carModelResult = carModelService.queryPage(query);
-        if (carModelResult == null || carModelResult.getCode() != 0) {
-            throw new RuntimeException("查询车型异常");
-        }
-        mv.addObject("carModels", carModelResult.getData().getList());
-
-        LoginUser user = (LoginUser) SecurityContext.getAuthUser();
-        mv.addObject("usertype", user.getUserType().name());
-        return mv;
-    	return null;
-    }
-*/
-	
     @RequestMapping(value = { "add" })
     @ResponseBody
     public ModelAndView add(TB0001InVo postAddressDcQuery, PageParam pageParam) {
@@ -96,38 +59,52 @@ public class PostAddressController extends BaseController {
     public Result<?>  save(TB0001InVo inVo, PageParam pageParam) {
     	logger.info("保存长约信息请求报文：{}", JSON.toJSONString(inVo));
 //    	logger.info("长约附件信息长度：{}", inVo.getList().size());
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	inVo.setUserType(user.getUserType().ordinal());
+       	inVo.setUsername(user.getUsername());
+       	inVo.setCompanyId(user.getCompanyId());
+       	inVo.setNickname(user.getNickname());
+       	inVo.setChineseName(user.getChineseName());
     	Result<Boolean> result = tB0001DcService2.save(inVo);
     	logger.info("保存长约信息返回结果：{}", JSON.toJSONString(result));
         return result;
     }
     
     
-/*    @RequestMapping(value = { "list" })
+    @RequestMapping(value = { "submitAr" })
     @ResponseBody
-    public ModelAndView list(TB0001InVo postAddressDcQuery, PageParam pageParam) {
-    	ModelAndView mav = new ModelAndView("postAddress/list");
-        mav.addObject("catalogList", iKnowledgeBaseService.queryPage(new KnowledgeCatalogQuery()).getData().getList());
-        LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	UserType userType = user.getUserType();
-    	if(user.hasRole("ROLE_ADMIN")){
-    		userType = UserType.Group;
-    	}
-    	mav.addObject("userType", userType);
-        return mav;
-        
-    	logger.info("收货地址查询请求参数:{}，分页参数：{}", JSON.toJSONString(postAddressDcQuery),JSON.toJSONString(pageParam));
-        Result<PageData<T1ARInfVo>> result = tB0001DcService2.queryPage(postAddressDcQuery, pageParam);
-
-        return Result.createSuccessResult(result.getData());
-    }*/
+    public Result<?>  submitAr(SubmitArQuery query) {
+    	logger.info("提交长约请求报文：{}", JSON.toJSONString(query));
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	query.setUsername(user.getUsername());
+    	query.setCompanyId(user.getCompanyId());
+    	Result<Boolean> result = tB0001DcService2.submitAr(query);
+    	logger.info("提交长约返回结果：{}", JSON.toJSONString(result));
+        return result;
+    }
+    
     
     @RequestMapping(value = { "queryPage" })
     @ResponseBody
-    public Result<?>  queryPage(TB0001InVo postAddressDcQuery, PageParam pageParam) {
-        
-    	logger.info("收货地址查询请求参数:{}，分页参数：{}", JSON.toJSONString(postAddressDcQuery),JSON.toJSONString(pageParam));
-        Result<PageData<T1ARInfVo>> result = tB0001DcService2.queryPage(postAddressDcQuery, pageParam);
+    public Result<?>  queryPage(TB0001InVo tB0001InVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	tB0001InVo.setUserType(user.getUserType().ordinal());
+    	tB0001InVo.setUsername(user.getUsername());
+    	tB0001InVo.setCompanyId(user.getCompanyId());
+    	tB0001InVo.setNickname(user.getNickname());
+    	tB0001InVo.setChineseName(user.getChineseName());
+    	logger.info("收货地址查询请求参数:{}，分页参数：{}", JSON.toJSONString(tB0001InVo),JSON.toJSONString(pageParam));
+        Result<PageData<T1ARInfVo>> result = tB0001DcService2.queryPage(tB0001InVo, pageParam);
         return Result.createSuccessResult(result.getData());
+    }
+    
+    @RequestMapping(value = { "getDetail" })
+    @ResponseBody
+    public Result<?>  getDetail(String id) {
+    	logger.info("查询长约详情，请求参数id=：{}", id);
+    	Result<T1ARInfVo> rlt = tB0001DcService2.queryArDetail(id);
+    	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
+        return Result.createSuccessResult(rlt.getData());
     }
     
     @RequestMapping(value = { "list" })
@@ -153,56 +130,6 @@ public class PostAddressController extends BaseController {
     @RequestMapping("/ossUpload")
     @ResponseBody
     public Result<?> ossUpload(MultipartFile[] file) throws IOException {
- /*       logger.info("ossUpload:{}",files.length);
-        if(files == null || files.length == 0) {
-            return Result.createFailResult("请选择文件！");
-        }
-        if(files.length != 1) {
-            return Result.createFailResult("只能上传一个文件文件！");
-        }
-        String fileName = files[0].getOriginalFilename();
-        if(!fileName.contains(".jpg") && !fileName.contains(".png")) {
-            return Result.createFailResult("只能上传jpg或png文件！");
-        }
-        MultipartFile file = files[0];
-
-        OSSClient ossClient = OssET.createOSSClient();
-        String str = "";
-        //文件完整路径，不能以/开发
-        PutObjectResult por = null;
-        String newFileName = "test/" + UUID.randomUUID().toString();
-        int lastSeparator = file.getOriginalFilename().lastIndexOf(".");
-        if(lastSeparator >= 0) {
-            newFileName += file.getOriginalFilename().substring(lastSeparator);
-        }
-        try {
-            por = ossClient.putObject(bucket, newFileName, file.getInputStream());
-            str = newFileName+"||"+file.getOriginalFilename();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("上传失败,文件名:{}", file.getOriginalFilename());
-        }
-        
-        str = newFileName+"||"+file.getOriginalFilename();
-        byte[] bytes;
-        try {
-        	logger.error("aaaaaaaaaaaa" + file);	
-        bytes = file.getBytes();
-        FileOutputStream fos = new FileOutputStream("D:\\2.jpg");
-        fos.write(bytes);
-        fos.close();
-        logger.error("aaaaaaaaaaaa");
-        } catch (IOException e) {
-	        response.setException(e);
-	        response.setErrorMessage("文件写入错误！");
-	       response.setResponseCode(-1);
-        	logger.error("xxxxx" + e);
-        }
-
-        return Result.createSuccessResult(str);
-   */     
-        
-
         logger.info("ossUpload:{}",file.length);
         if(file == null || file.length == 0) {
             return Result.createFailResult("请选择文件！");
@@ -285,58 +212,5 @@ public class PostAddressController extends BaseController {
 
         return Result.createSuccessResult(oo.getResponse().getUri());
     }
-    
- /*   @RequestMapping("/get")
-    @ResponseBody
-    public Result<?> get(Integer id) {
-        logger.info("查询收货地址信息，id={}", id);
-        Result<postAddress> result = postAddressDcService.queryrById(id);
-        logger.info("查询养参数信息返回结果：{}", JSON.toJSONString(result));
-        return result;
-    }
-    
-    @RequestMapping("/save")
-    @ResponseBody
-    public Result<?> save(postAddress model) {
-        logger.info("保存收货地址信息：{}", JSON.toJSONString(model));
-
-        if(StringUtils.isBlank(model.getName())) {
-        	Log.error("保存或新增收货地址信息, [套餐名称]不能为空！");
-        	return Result.createFailResult("保存或新增收货地址信息, [套餐名称]不能为空！");
-        }
-        if(null == model.getFlowQuantity()) {
-        	Log.error("保存或新增收货地址信息, [流量]不能为空！");
-        	return Result.createFailResult("保存或新增收货地址信息, [流量]不能为空！");
-        }
-        if(null == model.getEffMonth()) {
-        	Log.error("保存或新增收货地址信息, [有效期]不能为空！");
-        	return Result.createFailResult("保存或新增收货地址信息, [有效期]不能为空！");
-        }
-        if(StringUtils.isBlank(model.getOperatorFlag())) {
-        	Log.error("保存或新增收货地址信息, [运营商标志]不能为空！");
-        	return Result.createFailResult("保存或新增收货地址信息, [运营商标志]不能为空！");
-        }
-        if(StringUtils.isBlank(model.getWhiteList())) {
-        	Log.error("保存或新增收货地址信息, [白名单]不能为空！");
-        	return Result.createFailResult("保存或新增收货地址信息, [白名单]不能为空！");
-        }
-        Result<?> result = postAddressDcService.updateOrInsert(model);
-        logger.info("保存收货地址信息返回结果：{}", JSON.toJSONString(result));
-
-        return result;
-    }
-    
-    @RequestMapping("/del")
-    @ResponseBody
-    public Result<?> del(Integer id) {
-        logger.info("删除收货地址信息，id={}", id);
-        if(null == id) {
-        	Log.error("删除收货地址信息, [收货地址ID]不能为空！");
-        	return Result.createFailResult("删除收货地址信息, [收货地址ID]不能为空！");
-        }
-        Result<?> result = postAddressDcService.deleteById(id);
-        logger.info("删除养参数信息返回结果：{}", JSON.toJSONString(result));
-        return result;
-    }*/
-   
+       
 }

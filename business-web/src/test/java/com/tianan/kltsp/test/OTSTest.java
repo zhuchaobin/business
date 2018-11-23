@@ -1,4 +1,4 @@
-package com.tianan.kltsp.test;
+/*package com.tianan.kltsp.test;
 
 import com.xai.tt.business.App;
 import com.tianan.kltsp.dt.client.vo.VehicleInfoReportPayload;
@@ -42,3 +42,4 @@ public class OTSTest {
 
     }
 }
+*/
