@@ -29,6 +29,30 @@
 <link rel="stylesheet" th:href="@{/resources/style.css}" />
 <link rel="stylesheet"
 	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
+<style type="text/css">	
+.btn_small {
+    display: inline-block;
+    padding: 1px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+ </style>   
+    
 </head>
 
 <body>
@@ -650,6 +674,16 @@
 											sortable : false
 										},
 										{
+											title : '供应链',
+											field : 'splchain',
+											sortable : false
+										},
+										{
+											title : '协议仓库',
+											field : 'agrmStg',
+											sortable : false
+										},
+										{
 											title : '供应商',
 											field : 'splr',
 											sortable : false
@@ -661,8 +695,29 @@
 										},
 										{
 											title : '长约状态',
-											field : 'arSt',
-											sortable : false
+											field : 'aplyPcstpCd',
+											sortable : false,
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "发起";
+												} else if (value == '02') {
+													return "供应链确认";
+												} else if (value == '03') {
+													return "下游确认";
+												} else if (value == '04') {
+													return "承保";
+												} else if (value == '05') {
+													return "一审";
+												} else if (value == '06') {
+													return "二审";;
+												} else if (value == '07') {
+													return "终止";
+												} else if (value == '') {
+													return "完成";
+												} else
+													return value;
+											}
 										},
 										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
 										 return new Date(value).format();
@@ -673,28 +728,27 @@
 											formatter : function(value, row,
 													index) {
 												if (value == '01') {
-													var s = '<button class="btn btn-default" onclick=showViewSubmitAr("01")>发起</button>&nbsp;';
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>发起</button>&nbsp;';
 													return s;
 												} else if (value == '02') {
-													var s = '<button class="btn btn-default" onclick=showViewSubmitAr("02")>确认</button>&nbsp;';
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>确认</button>&nbsp;';
 													return s;
 												} else if (value == '03') {
-													var s = '<button class="btn btn-default" onclick=showViewSubmitAr("03")>确认</button>&nbsp;';
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>确认</button>&nbsp;';
 													return s;
 												} else if (value == '04') {
-													var s = '<button class="btn btn-default" onclick=showViewSubmitAr("04")>承保</button>&nbsp;';
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>承保</button>&nbsp;';
 													return s;
 												} else if (value == '05') {
-													var s = '<button class="btn btn-default" onclick=showViewSubmitAr("05")>一审</button>&nbsp;';
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>一审</button>&nbsp;';
 													return s;
 												} else if (value == '06') {
-													var s = '<button class="btn btn-default" onclick=showViewSubmitAr("06")>二审</button>&nbsp;';
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>二审</button>&nbsp;';
 													return s;
 												} else if (value == '07') {
-													var s = '<button class="btn btn-default" onclick=showViewSubmitAr("07")>终止</button>&nbsp;';
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>终止</button>&nbsp;';
 													return s;
-												} else
-													alert(value);
+												} 
 											}
 										} ],
 								onDblclick : function(index, row) {
@@ -804,7 +858,7 @@
 		 */
 		function hideDetail() {
 			$('#fujianId').empty();
-
+			$('#submit_ar_detail').hide();
 			$('#sec_detail').fadeOut(300);
 			setTimeout(function() {
 				$('#sec_main').show();
@@ -819,12 +873,12 @@
 			}, 300)
 		}
 
-		function showViewSubmitAr(aplyPcstpCd) {
+		function showViewSubmitAr(id) {
 			$('#submit_ar_detail').fadeIn(300);
 			$('#submit_ar_detail_title').text("提交结论");
 			
 			var rows = $('#tbl_query').e7table('getSelectedRows');
-			if (rows.length == 0) {
+/* 			if (rows.length == 0) {
 				bootbox.alert({
 					'title' : '错误消息',
 					'message' : '请选择数据！'
@@ -836,7 +890,7 @@
 					'message' : '一次只能编辑一条数据！'
 				});
 				return;
-			}
+			} */
 
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
@@ -848,7 +902,7 @@
 			 })
 			 */
 			E7.post(pageSetting.resetPath + '/getDetail', {
-				'id' : rows[0]['id']
+				'id' : id
 			}, function(result) {
 				fillForm('#frm_detail', result.data);
 				var detail = result.data;
@@ -859,7 +913,7 @@
 				}
 				///
 				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
-				$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
+//				$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 				///
 				bespeakStatus = detail['bespeakStatus'];
 				showDetail('长约详情', false);
