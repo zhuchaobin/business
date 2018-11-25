@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 /*
  * 
  * @ClassName:  postAddressController   
- * @Description:收货地址信息管理
+ * @Description:长约信息信息管理
  * @author: zhuchaobin
  * @date:   2018年7月10日 下午7:00:23  
  *
@@ -93,8 +93,9 @@ public class PostAddressController extends BaseController {
     	tB0001InVo.setCompanyId(user.getCompanyId());
     	tB0001InVo.setNickname(user.getNickname());
     	tB0001InVo.setChineseName(user.getChineseName());
-    	logger.info("收货地址查询请求参数:{}，分页参数：{}", JSON.toJSONString(tB0001InVo),JSON.toJSONString(pageParam));
+    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(tB0001InVo),JSON.toJSONString(pageParam));
         Result<PageData<T1ARInfVo>> result = tB0001DcService2.queryPage(tB0001InVo, pageParam);
+        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
     
@@ -121,7 +122,7 @@ public class PostAddressController extends BaseController {
     	mav.addObject("userType", "Group");
         return mav;
         
-/*    	logger.info("收货地址查询请求参数:{}，分页参数：{}", JSON.toJSONString(postAddressDcQuery),JSON.toJSONString(pageParam));
+/*    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(postAddressDcQuery),JSON.toJSONString(pageParam));
         Result<PageData<T1ARInfVo>> result = tB0001DcService2.queryPage(postAddressDcQuery, pageParam);
 
         return Result.createSuccessResult(result.getData());*/
