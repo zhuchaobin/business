@@ -12,6 +12,11 @@
 	background: url(/resources/ui/Images/welcome/section3_bg.jpg) no-repeat center center;
 	background-size:100%;
 }
+.section6 {
+	background: url(/resources/ui/Images/welcome/section6_bg.jpg) no-repeat center center;
+	background-size:100%;
+	position:relative;
+}
 .section4 {
 	background: url(/resources/ui/Images/welcome/section4_bg.jpg) no-repeat center center;
 	background-size:100%;
@@ -23,7 +28,7 @@
 }
 #fullpageMenu {
 	height: 70px;
-	width: 750px;
+	width: 900px;
 	position: fixed;
 	top: 0;
 	z-index: 999;
@@ -208,6 +213,36 @@
 .welcome_login .form-group{
 	margin-bottom:20px;
 }
+
+.rongzi_request{
+	width:550px;
+	height:410px;
+	position:absolute;
+	top:50%;
+	margin-top:-205px;
+	left:50%;
+	margin-left:-275px;
+}
+.rongzi_request h2{
+	width:550px;
+	height:70px;
+/* 	background:url(/resources/ui/Images/welcome/yourlogo.png) no-repeat center center; */
+	margin-bottom:20px;
+}
+.rongzi_request input{
+/* 	background:#06111c; */
+	border:1px solid #1e5f99;
+	height:38px;
+	/*line-height:38px;*/
+	padding:0 0 0 20px;
+	color:#515e6c;
+	font-size:18px;
+	margin:15px 0;
+}
+.rongzi_request .form-group{
+	margin-bottom:20px;
+}
+
 .form-group .line{
 	height:30px;
 	line-height:30px;

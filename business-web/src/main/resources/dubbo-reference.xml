@@ -16,6 +16,6 @@
    <dubbo:reference id="userProtocolService" interface="com.xai.tt.dc.client.inter.UserProtocolService" version="1.0"/>
 	<!--车主收货地址管理，zhuchaobin, 20180721-->
 	<dubbo:reference id="postAddressDcService" interface="com.xai.tt.dc.client.inter.PostAddressDcService" version="1.0"/>
-	
-	<dubbo:reference id="tB0001DcService" interface="com.xai.tt.dc.client.service.TB0001DcService" version="1.0"/>
+	<!--长约管理, 20181121-->
+	<dubbo:reference id="arManagementDcService" interface="com.xai.tt.dc.client.service.ArManagementDcService" version="1.0"/>
 </beans>

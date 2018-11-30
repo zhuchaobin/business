@@ -18,6 +18,8 @@ public @interface LogAspect {
 	LogType type();
 
 	public enum LogType {
+		Upload_Ar_Atch("长约发起上传附件"),
+		//
 		Login("登录系统"),
 		Update_Password("修改密码"),
 		Forget_Password("忘记密码"),
