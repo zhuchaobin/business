@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<title>无模版</title>
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/skins/_all-skins.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/plugins/iCheck/all.css}" />
+<link rel="stylesheet" th:href="@{/resources/style.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
+<style type="text/css">	
+.btn_small {
+    display: inline-block;
+    padding: 1px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+ </style>   
+    
+</head>
+
+<body>
+	<!-- Main content -->
+	<section id="sec_main" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom: 0px;">
+				<form id="frm_query" class="form-horizontal">
+					<div id="div_criteria" class="flowlayout">
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<div class="col-sm-8">
+									<input id="arId" name="arId" class="form-control"
+										placeholder="长约编号" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">融资企业：</label>
+								<div class="col-sm-8">
+									<input id="fncEntp" name="fncEntp" class="form-control"
+										placeholder="融资企业" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">供应商：</label>
+								<div class="col-sm-8">
+									<input id="ustrmSplr" name="ustrmSplr" class="form-control"
+										placeholder="供应商" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约状态：</label>
+								<div class="col-sm-8">
+
+									<select name="arSt" class="form-control">
+										<option value="">全部</option>
+										<!-- 								<option  th:each="user: ${catalogList}" th:value="${user.id}"><div th:text="${user.catalogName}"/></option> -->
+											<option value="01">发起</option>
+											<option value="02">确认(供应链)</option>
+											<option value="03">确认(融资企业)</option>
+											<option value="04">承保</option>
+											<option value="05">一审</option>
+											<option value="06">二审</option>
+											<option value="07">终止</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">搜索关键字：</label>
+								<div class="col-sm-8">
+									<input id="keyWorlds" name="keyWorlds" class="form-control"
+										placeholder="搜索关键字" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
+
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer"></div>
+		</div>
+
+		<!-- 信息列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-info">
+					<div class="box-body table-responsive no-padding">
+						<table id="tbl_query" class="table table-hover"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!-- /.content -->
+
+
+	<!-- 详细信息 -->
+	<section id="sec_detail" class="content" style="display: none;">
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h3 id="h3_detailTitle" class="box-title"></h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail" class="form-horizontal">
+					<fieldset id='fld_detail'>
+						<div class="w-z-info">
+							<input type="hidden" id="fileId" name="fileUrl"> 
+							<input name="id" type="hidden" value="" />
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约编号：</label>
+									<div class="col-sm-8">
+										<input name="arId" class="form-control" placeholder="" />
+									</div>
+								</div>
+							</div>	
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约类型：</label>
+									<div class="col-sm-8">
+										<input type="radio" name="arTp" value="01" checked="checked">代销</input>
+										&nbsp<input type="radio" name="arTp" value="02">代购</input>
+										&nbsp<input type="radio" name="arTp" value="03">全流程</input>
+									</div>
+								</div>								
+							</div>				
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">融资企业：</label>
+									<div class="col-sm-8">
+										<input name="fncEntp" class="form-control" placeholder="融资企业"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">供应商：</label>
+									<div class="col-sm-8">
+										<input name="ustrmSplr" class="form-control" placeholder="上游供应商"
+											value="2" />
+									</div>
+								</div>
+							</div>
+														<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">银行：</label>
+									<div class="col-sm-8">
+										<input name="bnk" id="bnk" class="form-control" placeholder="长约开始日期"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">物流公司：</label>
+									<div class="col-sm-8">
+										<input name="lgstcCo" id="lgstcCo" class="form-control" placeholder="长约开始日期"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">供应链公司：</label>
+									<div class="col-sm-8">
+										<input name="splchainCo" id="splchainCo" class="form-control" placeholder="长约开始日期"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约开始日期：</label>
+									<div class="col-sm-8">
+										<input name="arStdt" class="form-control" placeholder="长约开始日期"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约结束日期：</label>
+									<div class="col-sm-8">
+										<input name="arEddt" class="form-control" placeholder="长约结束日期"
+											value="2" />
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">提货周期：</label>
+									<div class="col-sm-8">
+										<input name="pckupgdsCyc" class="form-control"
+											placeholder="提货周期" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">仓储公司：</label>
+									<div class="col-sm-8">
+										<input name="stgco" class="form-control" placeholder="仓储公司"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">业务类型：</label>
+									<div class="col-sm-8">
+										<select name="btp" class="form-control">
+											<option value="">-请选择-</option>
+											<option value="01" checked="checked">订单融资</option>
+											<option value="02">保证金融资</option>
+											<option value="03">质押融资</option>
+										</select>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">融资比例：</label>
+									<div class="col-sm-8">
+										<input name="fncPctg" class="form-control" placeholder="融资比例"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">预付金比率：</label>
+									<div class="col-sm-8">
+										<input name="prpyGldRto" class="form-control"
+											placeholder="预付金比率" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">额度：</label>
+									<div class="col-sm-8">
+										<input name="lmt" class="form-control" placeholder="额度"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">警戒线：</label>
+									<div class="col-sm-8">
+										<input name="crdn" class="form-control" placeholder="警戒线"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">平仓线：</label>
+									<div class="col-sm-8">
+										<input name="clsposLn" class="form-control" placeholder="平仓线"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">服务费收取方式：</label>
+									<div class="col-sm-8">
+										<select name="svcfeeCmd" class="form-control">
+											<option value="">-请选择-</option>
+											<option value="01" checked="checked">预收</option>
+											<option value="02">现结</option>
+										</select>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">溢短结转方式：</label>
+									<div class="col-sm-8">
+										<select name="splovCrrovMod" class="form-control">
+											<option value="">-请选择-</option>
+											<option value="01" checked="checked">多退少补</option>
+											<option value="02">结转下月</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">保险公司：</label>
+									<div class="col-sm-8">
+										<input name="insCo" id="insCo" class="form-control" placeholder="长约开始日期"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">投保人：</label>
+									<div class="col-sm-8">
+										<input name="plchd" class="form-control" placeholder="投保人"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">投保人地址：</label>
+									<div class="col-sm-8">
+										<input name="plchdAdr" class="form-control"
+											placeholder="投保人地址" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">被保险人：</label>
+									<div class="col-sm-8">
+										<input name="insrd" class="form-control" placeholder="被保险人"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">被保险人地址：</label>
+									<div class="col-sm-8">
+										<input name="insrdAdr" class="form-control"
+											placeholder="被保险人地址" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">第一受益人：</label>
+									<div class="col-sm-8">
+										<input name="fstBenf" class="form-control" placeholder="第一受益人"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">第一受益人地址：</label>
+									<div class="col-sm-8">
+										<input name="fstBenfAdr" class="form-control"
+											placeholder="第一受益人地址" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">保险财产地址：</label>
+									<div class="col-sm-8">
+										<input name="insPtyAdr" class="form-control"
+											placeholder="保险财产地址" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">保险标的名称：</label>
+									<div class="col-sm-8">
+										<input name="insObjNm" class="form-control"
+											placeholder="保险标的名称" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">保险金额：</label>
+									<div class="col-sm-8">
+										<input name="insAmt" class="form-control" placeholder="保险金额"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">免赔额：</label>
+									<div class="col-sm-8">
+										<input name="dctbAmt" class="form-control" placeholder="免赔额"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">特别约定：</label>
+									<div class="col-sm-8">
+										<input name="epap" class="form-control" placeholder="特别约定"
+											value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">保险开始日期：</label>
+									<div class="col-sm-8">
+										<input name="insStdt" class="form-control"
+											placeholder="保险开始日期" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">保险结束日期：</label>
+									<div class="col-sm-8">
+										<input name="insEddt" class="form-control"
+											placeholder="保险结束日期" value="2" />
+									</div>
+								</div>
+							</div>
+				<!-- 查询展示附件 -->				
+			<div class="row" >
+				<div class="col-md-8">
+					<div class="w-z-docx" >
+						<div class="w-z-d-title">附件</div>
+						<div class="w-z-d-list">
+							<div id="upload_atch_div"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+												
+							<div class="row" id="upload_div">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="" class="col-sm-2 control-label">附件</label>
+										<div class="col-sm-8">
+											<form id="frm_transfer" class="form-horizontal"
+												enctype="multipart/form-data" method="post">
+												<div id="fujianId"></div>
+											</form>
+											<div class="modal-footer">
+												<button id="btn_save2" type="button" class="btn btn-primary"
+													onclick="javascript:addInputItem();">新增附件</button>
+												<button id="btn_save1" type="button" class="btn btn-primary"
+													onclick="javascript:submitTransferFile();">上传</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</fieldset>
+				</form>
+			</div>
+					
+			<div class="box-footer">
+				<button id="btn_save" type="button"
+					class="btn btn-primary pull-right" onclick="javascript:save();">确定</button>
+				<button id="btn_close_sec_detail" type="button"
+					class="btn btn-default pull-right"
+					onclick="javascript:hideDetail();" style="margin-right: 15px;">取消</button>
+			</div>
+		</div>
+	</section>
+	
+	<!-- 长约流转信息 -->
+	<section id="ar_lnk_jrnl_inf_detail" class="content" style="display: none;">
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h3 id="ar_lnk_jrnl_inf_detail_title" class="box-title">长约流转信息</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail" class="form-horizontal">
+					<fieldset id='fld_detail'>
+						<div class="w-z-info">
+							<!-- 环节流水信息列表 -->
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="box box-info">
+										<div class="box-body table-responsive no-padding">
+											<table id="tbl_Lnk_Jrnl_Inf" class="table table-hover"></table>
+										</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>		
+<!-- 			<div class="box-footer">
+			</div> -->
+		</div>
+	</section>
+		
+	<!-- 提交结论 -->
+	<section id="submit_ar_detail" class="content" style="display: none;">
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h3 id="submit_ar_detail_title" class="box-title"></h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_submit_ar" class="form-horizontal" >
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">结论</label>
+								<div class="col-sm-8">
+									<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd"
+										value="01" checked="checked">通过</input> &nbsp&nbsp&nbsp&nbsp<input
+										type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02">退回</input>
+									<input name="arId" class="form-control" placeholder="" value="" type="hidden"/>
+									<input name="aplyPcstpCd" class="form-control" placeholder=""
+										value="" type="hidden"/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<label for="" class="col-sm-3 control-label">备注</label>
+								<div class="col-sm-9">
+									<!-- <input name="maintenanceContent" class="form-control"/> -->
+									<textarea name="maintenanceContent" rows="8"
+										class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<button id="btn_save" type="button"
+							class="btn btn-primary pull-right"
+							onclick="javascript:submitAr();">确定</button>
+						<button id="btn_close" type="button"
+							class="btn btn-default pull-right"
+							onclick="javascript:hideDetail();" style="margin-right: 15px;">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<section id="sec_detail_detail" class="content" style="display: none;">
+		<div id="detail"></div>
+		<div class="box-footer">
+			<div>
+				<button id="btn_close_detail" type="button"
+					class="btn btn-default pull-right"
+					onclick="javascript:hideDetail1();" style="margin-right: 15px;">返回</button>
+			</div>
+		</div>
+	</section>
+	
+	
+	<section id="sec_detail_detail_xq" class="content" style="display:none;">
+	<div id="detail_xq"></div>
+	<div class="box-footer">
+		<div>
+			<button id="btn_close_detail" type="button" class="btn btn-default pull-right" onclick="javascript:hideDetail1();" style="margin-right:15px;">返回</button>
+		</div>
+	</div>
+</section>
+
+	<!-- /.content -->
+
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+	<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script>
+
+	<script type="text/javascript">
+		var pageSetting = {
+			modelName : '知识库内容',
+			resetPath : '[[@{/postAddress}]]'
+		};
+		$(function() {
+			//e7table表格控件初始化
+			e7tableInit();
+			//表单校验控件初始化
+			validatorInit();
+			buttonInit();
+			CKEDITOR.replace("editor1")
+		});
+
+		/***
+		 * 查询
+		 */
+		function query() {
+			$('#tbl_query').e7table('query', '#frm_query');
+		}
+
+		/***
+		 * 重置
+		 */
+		function reset() {
+			E7.resetForm('#frm_query');
+		}
+
+		function buttonInit() {
+			if ('[[${userType}]]' == 'Group') {
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-default" onclick="javascript:showAddDialog();">添加</button>');
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-default" onclick="javascript:showEditDialog();">编辑</button>');
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-default" onclick="javascript:showViewDialog_xq();">查看</button>');
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-default" onclick="javascript:del();">删除</button>');
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>');
+			} else {
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-default" onclick="javascript:showViewDialog1();">查看33</button>');
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
+				$("#div_buttons")
+						.append(
+								'<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>');
+			}
+		}
+		/***
+		 * e7table表格控件初始化
+		 */
+		function e7tableInit() {
+			$('#tbl_query')
+					.e7table(
+							{
+								url : '[[@{/postAddress/queryPage}]]',
+								pageSize : 10,
+								autoLoading : true, //控件初始化后，自动远程请求数据
+								selectType : 'single',
+								sortName : 'createTime', //排序列名
+								striped: true, //奇偶行不同背景
+								pagination: true,
+								sortOrder : 'desc', //排序方向
+								columns : [
+										{
+											title : '长约编号',
+											field : 'arId',
+											sortable : true
+										},
+										{
+											title : '融资企业',
+											field : 'fncEntp',
+											sortable : true
+										},
+										{
+											title : '供应链',
+											field : 'splchainCo',
+											sortable : true
+										},
+										{
+											title : '仓储公司',
+											field : 'stgco',
+											sortable : true
+										},
+										{
+											title : '供应商',
+											field : 'ustrmSplr',
+											sortable : true
+										},
+										{
+											title : '业务类型',
+											field : 'btp',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "订单融资";
+												} else if (value == '02') {
+													return "保证金融资";
+												} else if (value == '03') {
+													return "质押融资";
+												} else
+													return value;
+											}
+										},
+										{
+											title : '长约状态',
+											field : 'aplyPcstpCd',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "发起";
+												} else if (value == '02') {
+													return "供应链确认";
+												} else if (value == '03') {
+													return "下游确认";
+												} else if (value == '04') {
+													return "承保";
+												} else if (value == '05') {
+													return "一审";
+												} else if (value == '06') {
+													return "二审";;
+												} else if (value == '07') {
+													return "终止";
+												} else if (value == '') {
+													return "完成";
+												} else
+													return value;
+											}
+										},
+										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
+										 return new Date(value).format();
+										 }}, */
+										{
+											title : '操作',
+											field : 'aplyPcstpCd',
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>发起</button>&nbsp;';
+													return s;
+												} else if (value == '02') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>确认</button>&nbsp;';
+													return s;
+												} else if (value == '03') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>确认</button>&nbsp;';
+													return s;
+												} else if (value == '04') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>承保</button>&nbsp;';
+													return s;
+												} else if (value == '05') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>一审</button>&nbsp;';
+													return s;
+												} else if (value == '06') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>二审</button>&nbsp;';
+													return s;
+												} else if (value == '07') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id +')>终止</button>&nbsp;';
+													return s;
+												} 
+											}
+										} ],
+								onDblclick : function(index, row) {
+									showViewDialog1();
+								}
+							});
+		}
+
+		/***
+		 * 长约提交
+		 */
+		function submitAr() {
+			for (instance in CKEDITOR.instances) {
+				CKEDITOR.instances[instance].updateElement();
+			}
+			$('#frm_submit_ar').bootstrapValidator('validate');
+
+			if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
+				return;
+			}
+
+			var formParams = E7.serialForm('#frm_submit_ar');
+
+			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
+					data) {
+				hideDetail();
+				bootbox.alert({
+					'title' : "消息",
+					'message' : '提交成功！'
+				});
+				$('#tbl_query').e7table(
+						'reload',
+						function() {
+							if (formParams['id'] != '') {
+								$('#tbl_query').e7table('selectById',
+										formParams['id']);
+							}
+						});
+			});
+		}
+
+		/***
+		 * 显示添加对话框
+		 */
+		function showAddDialog() {
+			addInputItem();
+			E7.resetForm('#frm_detail');
+			//		CKEDITOR.instances.editor1.setData('');
+			$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			showDetail('长约发起', true);
+		}
+		/***
+		 * 表单校验控件初始化
+		 */
+		function validatorInit() {
+			$('#frm_detail').bootstrapValidator({
+				feedbackIcons : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+
+				}
+			});
+
+			$('#btn_save').click(function() {
+				$('#frm_detail').bootstrapValidator('validate');
+			});
+		}
+
+		function showDetail(title, editable) {
+			if (editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+			}
+
+			$('#h3_detailTitle').text(title);
+			//$('#mdl_detail').modal('show');
+			$('#sec_detail').fadeIn(300);
+			$('#sec_main').hide();
+		}
+		
+		function showDetailSubmitAr(title, editable) {
+			if (editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+				$('#btn_close_sec_detail').hide();
+			}
+			$('#upload_div').hide();
+			
+			$('#h3_detailTitle').text(title);
+			//$('#mdl_detail').modal('show');
+			$('#sec_detail').fadeIn(300);
+			$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
+			$('#sec_main').hide();
+		}
+
+		/***
+		 * 显示详情div
+		 */
+		function showDetail1(title, editable) {
+			if (editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+			}
+
+			$('#h3_detailTitle').text(title);
+			//$('#mdl_detail').modal('show');
+			$('#sec_detail_detail').fadeIn(300);
+			
+			$('#sec_main').hide();
+		}
+
+		/***
+		 * 隐藏详情div
+		 */
+		function hideDetail() {
+			$('#fujianId').empty();
+			$('#submit_ar_detail').hide();
+			$('#sec_detail').fadeOut(300);
+			setTimeout(function() {
+				$('#sec_main').show();
+
+			}, 300)
+		}
+
+		function hideDetail1() {
+			$('#sec_detail_detail').fadeOut(300);
+			setTimeout(function() {
+				$('#sec_main').show();
+			}, 300)
+		}
+
+		function showViewSubmitAr(id) {
+			$('#submit_ar_detail').fadeIn(300);
+			$('#submit_ar_detail_title').text("提交结论");
+			
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+
+			if ($('#frm_detail').data('bootstrapValidator')) {
+				$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			}
+
+			E7.post(pageSetting.resetPath + '/getDetail', {
+				'id' : id
+			}, function(result) {
+				fillForm('#frm_detail', result.data);
+				var detail = result.data;
+
+				for (key in detail) {
+
+					$('#frm_detail [name="' + key + '"]').val(detail[key]);
+				}
+				///
+				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
+//				$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
+				///
+
+				var td = detail["t2UploadAtch01List"];
+				var insertHtml="";
+				for ( var kk = 0; kk < td.length; kk++) {
+					alert(td[kk].srFileRte);
+					insertHtml = insertHtml + '<i class="iconfont icon-kl-wendang"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'</div></a>';
+				}
+				
+				  var testdiv = document.getElementById("upload_atch_div");
+				  testdiv.innerHTML=insertHtml;
+				
+				bespeakStatus = detail['bespeakStatus'];
+				
+				///
+								$('#tbl_Lnk_Jrnl_Inf')
+					.e7table(
+							{
+								url : '[[@{/postAddress/queryLnkJrnlInfPage}]]',
+								pageSize : 10,
+								autoLoading : true, //控件初始化后，自动远程请求数据
+								selectType : 'single',
+								sortName : 'createTime', //排序列名
+								striped: true, //奇偶行不同背景
+								pagination: false,
+								sortOrder : 'desc', //排序方向
+								columns : [
+										{
+											title : '长约编号',
+											field : 'rltvId',
+											sortable : true
+										},
+										{
+											title : '长约状态',
+											field : 'aplyPcstpCd',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "发起";
+												} else if (value == '02') {
+													return "供应链确认";
+												} else if (value == '03') {
+													return "下游确认";
+												} else if (value == '04') {
+													return "承保";
+												} else if (value == '05') {
+													return "一审";
+												} else if (value == '06') {
+													return "二审";;
+												} else if (value == '07') {
+													return "终止";
+												} else if (value == '') {
+													return "完成";
+												} else
+													return value;
+											}
+										},
+										{
+											title : '用户名',
+											field : 'username',
+											sortable : true
+										},
+										{
+											title : '公司名',
+											field : 'companyId',
+											sortable : true
+										},
+										{
+											title : '处理结果',
+											field : 'aplyPsrltCd',
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "通过";
+												} else if (value == '02') {
+													return "退回";
+												} else if (value == '03') {
+													return "拒绝";
+												}
+											}
+										},
+										
+										{
+											title : '备注',
+											field : 'rmrk',
+											sortable : true
+										},
+										{
+											title : '处理时间',
+											field : 'lnkEdtm',
+											sortable : true
+										}
+										],
+								onDblclick : function(index, row) {
+									showViewDialog1();
+								}
+							});
+							///
+				showDetailSubmitAr('长约详情', false);
+			});
+
+		}
+
+		
+		function showViewDialog_xq() {
+
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if(rows.length == 0) {
+				bootbox.alert({'title':'错误消息', 'message':'请选择数据！'});
+				return;
+			} else if(rows.length > 1) {
+				bootbox.alert({'title':'错误消息', 'message':'一次只能编辑一条数据！'});
+				return;
+			}
+
+			if($('#frm_detail').data('bootstrapValidator')){
+				$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			}
+	//		var key = $('#keyWorlds').val();
+			$.post(pageSetting.resetPath + '/detail2', {'id' : rows[0]['id']},function(data) {
+
+				$('#detail_xq').html(data);
+				showDetail_xq('查看详情xq', false); 
+			})
+
+		}
+		
+		/***
+		 * 显示详情div
+		 */
+		function showDetail_xq(title, editable){
+
+			$('#h3_detailTitle').text(title);
+			//$('#mdl_detail').modal('show');
+			$('#sec_detail_detail_xq').fadeIn(300);
+			$('#sec_main').hide();
+
+		}
+		
+		
+		function showViewDialog1() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if (rows.length == 0) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '请选择数据！'
+				});
+				return;
+			} else if (rows.length > 1) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '一次只能编辑一条数据！'
+				});
+				return;
+			}
+
+			if ($('#frm_detail').data('bootstrapValidator')) {
+				$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			}
+			/* 	var key = $('#keyWorlds').val(); */
+			/* 		$.post(pageSetting.resetPath + '/getDetail', {'id' : rows[0]['id'] ,"key":key },function(data) {
+			 $('#detail').html(data);
+			 showDetail1('查看详情', false);
+			 })
+			 */
+			E7.post(pageSetting.resetPath + '/getDetail2', {
+				'id' : rows[0]['id']
+			}, function(result) {
+				fillForm('#frm_detail', result.data);
+				var detail = result.data;
+
+				for (key in detail) {
+
+					$('#frm_detail [name="' + key + '"]').val(detail[key]);
+				}
+				///
+				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
+				///
+				bespeakStatus = detail['bespeakStatus'];		
+		
+				///
+				$('#tbl_Lnk_Jrnl_Inf')
+					.e7table(
+							{
+								url : '[[@{/postAddress/queryLnkJrnlInfPage}]]',
+								pageSize : 10,
+								autoLoading : true, //控件初始化后，自动远程请求数据
+								selectType : 'single',
+								sortName : 'createTime', //排序列名
+								striped: true, //奇偶行不同背景
+								pagination: false,
+								sortOrder : 'desc', //排序方向
+								columns : [
+										{
+											title : '长约编号',
+											field : 'rltvId',
+											sortable : true
+										},
+										{
+											title : '长约状态',
+											field : 'aplyPcstpCd',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "发起";
+												} else if (value == '02') {
+													return "供应链确认";
+												} else if (value == '03') {
+													return "下游确认";
+												} else if (value == '04') {
+													return "承保";
+												} else if (value == '05') {
+													return "一审";
+												} else if (value == '06') {
+													return "二审";;
+												} else if (value == '07') {
+													return "终止";
+												} else if (value == '') {
+													return "完成";
+												} else
+													return value;
+											}
+										},
+										{
+											title : '用户名',
+											field : 'username',
+											sortable : true
+										},
+										{
+											title : '公司名',
+											field : 'companyId',
+											sortable : true
+										},
+										{
+											title : '处理结果',
+											field : 'aplyPsrltCd',
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "通过";
+												} else if (value == '02') {
+													return "退回";
+												} else if (value == '03') {
+													return "拒绝";
+												}
+											}
+										},
+										
+										{
+											title : '备注',
+											field : 'rmrk',
+											sortable : true
+										},
+										{
+											title : '处理时间',
+											field : 'lnkEdtm',
+											sortable : true
+										}
+										],
+								onDblclick : function(index, row) {
+									showViewDialog1();
+								}
+							});
+				///
+				showDetail('查看长约详情', false);
+			});
+
+		}
+
+		function save() {
+			for (instance in CKEDITOR.instances) {
+				CKEDITOR.instances[instance].updateElement();
+			}
+			$('#frm_detail').bootstrapValidator('validate');
+
+			if (!$('#frm_detail').data('bootstrapValidator').isValid()) {
+				return;
+			}
+
+			var formParams = E7.serialForm('#frm_detail');
+
+			E7.post(pageSetting.resetPath + '/save', formParams,
+					function(data) {
+						hideDetail();
+						bootbox.alert({
+							'title' : "消息",
+							'message' : '保存成功！'
+						});
+						$('#tbl_query').e7table(
+								'reload',
+								function() {
+									if (formParams['id'] != '') {
+										$('#tbl_query').e7table('selectById',
+												formParams['id']);
+									}
+								});
+					});
+		}
+
+		function showEditDialog(disable) {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if (rows.length == 0) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '请选择数据！'
+				});
+				return;
+			} else if (rows.length > 1) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '一次只能编辑一条数据！'
+				});
+				return;
+			}
+
+			if ($('#frm_detail').data('bootstrapValidator')) {
+				$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			}
+
+			E7
+					.post(
+							pageSetting.resetPath + '/get',
+							{
+								'id' : rows[0]['id']
+							},
+							function(result) {
+								fillForm('#frm_detail', result.data);
+								if (result.data.fileInfos != undefined) {
+									for (i = 0; i < result.data.fileInfos.length; i++) {
+										var item = result.data.fileInfos[i];
+										var item = '<div name="inputDiv">'
+												+ item.fileName
+												+ '<input name="fileName" type="file" src="'+item.fileUrl+'"  class="form-control" value="'+item.fileUrl+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+										$("#fujianId").append(item);
+									}
+								}
+								if (disable) {
+									showDetail(pageSetting.modelName + '查看',
+											false);
+								} else {
+									showDetail(pageSetting.modelName + '编辑',
+											true);
+								}
+							});
+		}
+
+		fillForm = function(frm, data, reset, parent) {
+			if (E7.isEmpty(parent)
+					&& (E7.getType(reset) == 'undefined' || reset))
+				E7.resetForm(frm);
+
+			for ( var key in data) {
+				var elName = E7.isEmpty(parent) ? key : (parent + '.' + key);
+				var elValue = data[key];
+
+				if (elValue == null)
+					continue;
+
+				if (E7.getType(elValue) == 'object') {
+					E7.fillForm(frm, elValue, false, elName);
+					continue;
+				}
+
+				var els = $(frm + ' [name="' + elName + '"]');
+				if (els.length == 0)
+					continue;
+
+				if (els[0].type == 'radio') {
+					$(frm + ' [name="' + elName + '"][value="' + elValue + '"]')
+							.prop("checked", true);
+				} else if (els[0].type == 'select-multiple') {
+					if (elValue instanceof Array) {
+						els.val(elValue);
+					} else if (typeof elValue == 'string') {
+						els.val(elValue.split(','));
+					} else if (typeof elValue == 'number') {
+						els.val(elValue + '');
+					} else {
+						els.val(elValue);
+					}
+				} else if (els[0].type == 'checkbox') {
+					if (els.length == 1) {
+						if (els.val() == elValue) {
+							els.prop('checked', true);
+						}
+					} else {
+						if (elValue instanceof Array) {
+							els.val(elValue);
+						} else if (typeof elValue == 'string') {
+							els.val(elValue.split(','));
+						} else if (typeof elValue == 'number') {
+							els.val(elValue + '');
+						} else {
+							els.val(elValue);
+						}
+					}
+				} else if (els[0].id == 'editor1') {
+					CKEDITOR.instances.editor1.setData(elValue);
+				} else {
+					els.val(elValue + '');
+				}
+			}
+		}
+
+		function submitTransferFile() {
+			var file = document.getElementsByName("fileName")
+			//var file = $('.select-file').files//document.getElementById("file_transfer").files;
+			//TODO:valid
+			var formData = new FormData();
+			for (i = 0; i < file.length; i++) {
+				formData.append('file', file[i].files[0]);
+			}
+
+			E7.postMultipart('[[@{/postAddress/ossUpload}]]', formData,
+					function(result) {
+						var fileUrl = result.data;
+						$("#fileId").val(fileUrl);
+						bootbox.alert({
+							'title' : '消息',
+							'message' : '上传成功, 文件：<code>' + result.data
+									+ '</code>！'
+						});
+					});
+		}
+
+		function addInputItem() {
+			var item = '<div name="inputDiv"><input name="fileName" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+			$("#fujianId").append(item);
+		}
+		function deleteItem(input) {
+			$(input).parent().remove();
+		}
+		
+		
+	</script>
+</body>
+</html>

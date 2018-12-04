@@ -21,6 +21,7 @@ import com.xai.tt.dc.client.service.ArManagementDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -97,7 +98,7 @@ public class PostAddressController extends BaseController {
     @RequestMapping(value = { "queryLnkJrnlInfPage" })
     @ResponseBody
     public Result<?>  queryLnkJrnlInfPage(ArManagementInVo ArManagementInVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+/*    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	ArManagementInVo.setUserType(user.getUserType().ordinal());
     	ArManagementInVo.setUsername(user.getUsername());
     	ArManagementInVo.setCompanyId(user.getCompanyId());
@@ -106,13 +107,14 @@ public class PostAddressController extends BaseController {
     	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(ArManagementInVo),JSON.toJSONString(pageParam));
         Result<PageData<T0LnkJrnlInf>> result = ArManagementDcService2.queryLnkJrnlInfPage(ArManagementInVo, pageParam);
         logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
+        return Result.createSuccessResult(result.getData());*/
+    	return null;
     }
     
     @RequestMapping(value = { "queryUploadFilePage" })
     @ResponseBody
     public Result<?>  queryUploadFilePage(ArManagementInVo ArManagementInVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+   /* 	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	ArManagementInVo.setUserType(user.getUserType().ordinal());
     	ArManagementInVo.setUsername(user.getUsername());
     	ArManagementInVo.setCompanyId(user.getCompanyId());
@@ -121,7 +123,8 @@ public class PostAddressController extends BaseController {
     	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(ArManagementInVo),JSON.toJSONString(pageParam));
         Result<PageData<T0LnkJrnlInf>> result = ArManagementDcService2.queryLnkJrnlInfPage(ArManagementInVo, pageParam);
         logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
+        return Result.createSuccessResult(result.getData());*/
+    	return null;
     }
     
     @RequestMapping(value = { "queryPage" })
@@ -134,7 +137,7 @@ public class PostAddressController extends BaseController {
     	ArManagementInVo.setNickname(user.getNickname());
     	ArManagementInVo.setChineseName(user.getChineseName());
     	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(ArManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<T1ARInfVo>> result = ArManagementDcService2.queryPage(ArManagementInVo, pageParam);
+        Result<PageData<QueryPageArOutVo>> result = ArManagementDcService2.queryPage(ArManagementInVo, pageParam);
         logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }

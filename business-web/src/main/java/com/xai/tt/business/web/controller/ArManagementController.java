@@ -22,6 +22,9 @@ import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
+import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -86,8 +89,11 @@ public class ArManagementController extends BaseController {
     
     @RequestMapping(value = { "submitAr" })
     @ResponseBody
-    public Result<?>  submitAr(SubmitArQuery query) {
-    	logger.info("提交长约请求报文：{}", JSON.toJSONString(query));
+    public Result<?>  submitAr(SubmitArQuery query, String fileUrl2) {
+    	logger.info("提交长约请求报文：{}, fileUrl2={}", JSON.toJSONString(query), JSON.toJSONString(fileUrl2));
+        if (StringUtils.isNotEmpty(fileUrl2)) {
+        	query.setFileNames(fileUrl2);
+        }
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	query.setUsername(user.getUsername());
     	query.setCompanyId(user.getCompanyId());
@@ -105,7 +111,7 @@ public class ArManagementController extends BaseController {
         return Result.createSuccessResult(rlt.getData());        
     }
     
-    @RequestMapping(value = { "queryLnkJrnlInfPage" })
+ /*   @RequestMapping(value = { "queryLnkJrnlInfPage" })
     @ResponseBody
     public Result<?>  queryLnkJrnlInfPage(ArManagementInVo ArManagementInVo, PageParam pageParam, String arId) {
     	logger.info("arId=" + arId);
@@ -121,9 +127,9 @@ public class ArManagementController extends BaseController {
         Result<PageData<T0LnkJrnlInf>> result = arManagementDcService.queryLnkJrnlInfPage(ArManagementInVo, pageParam);
         logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
-    }
+    }*/
     
-    @RequestMapping(value = { "queryUploadFilePage" })
+ /*   @RequestMapping(value = { "queryUploadFilePage" })
     @ResponseBody
     public Result<?>  queryUploadFilePage(ArManagementInVo arManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
@@ -136,7 +142,7 @@ public class ArManagementController extends BaseController {
         Result<PageData<T0LnkJrnlInf>> result = arManagementDcService.queryLnkJrnlInfPage(arManagementInVo, pageParam);
         logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
-    }
+    }*/
     
     @RequestMapping(value = { "queryPage" })
     @ResponseBody
@@ -147,8 +153,22 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = arManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		arManagementInVo.setSortName(sortName);
+    	}
+    		
     	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<T1ARInfVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
+        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
         logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
@@ -170,6 +190,15 @@ public class ArManagementController extends BaseController {
     	logger.info("查询长约详情，请求参数id=：{}", id);
     	Result<T1ARInfDetailVo> rlt = arManagementDcService.queryArDetail(id);
     	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
+        return Result.createSuccessResult(rlt.getData());        
+    }
+    
+    @RequestMapping(value = { "getArSubmmitDetail" })
+    @ResponseBody
+    public Result<?>   getArSubmmitDetail(String id, String arId, String aplyPcstpCd) {
+    	logger.info("查询长约提交详情，请求参数id=:{} arId=：{} aplyPcstpCd=：{}", id, arId, aplyPcstpCd);
+    	Result<QueryArSubmmitDetailOutVo> rlt = arManagementDcService.getArSubmmitDetail(id, arId, aplyPcstpCd);
+    	logger.info("查询长约提交详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
     

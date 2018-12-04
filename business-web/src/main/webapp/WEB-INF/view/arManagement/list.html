@@ -29,6 +29,7 @@
 <link rel="stylesheet" th:href="@{/resources/style.css}" />
 <link rel="stylesheet"
 	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
+<link rel="stylesheet" th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}"/>
 <style type="text/css">	
 .btn_small {
     display: inline-block;
@@ -74,6 +75,18 @@
 
 						<div class="col-md-4">
 							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">供应链：</label>
+									<div class="col-sm-8">
+										<select name="fncEntp"   class="form-control">
+											<option value="">请选择</option>
+											<option th:each="model: ${splchainCoModels}" th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
+									</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">融资企业：</label>
 									<div class="col-sm-8">
 										<select name="fncEntp"   class="form-control">
@@ -83,7 +96,7 @@
 									</div>
 							</div>
 						</div>
-
+						
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">供应商：</label>
@@ -167,9 +180,9 @@
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">长约类型：</label>
 									<div class="col-sm-8">
-										<input type="radio" name="arTp" value="01" checked="checked">代销</input>
-										&nbsp<input type="radio" name="arTp" value="02">代购</input>
-										&nbsp<input type="radio" name="arTp" value="03">全流程</input>
+										<input type="radio" name="arTp" value="01" checked="checked"> 代销</input>
+										&nbsp<input type="radio" name="arTp" value="02"> 代购</input>
+										&nbsp<input type="radio" name="arTp" value="03"> 全流程</input>
 									</div>
 								</div>								
 							</div>				
@@ -234,8 +247,7 @@
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">长约开始日期：</label>
 									<div class="col-sm-8">
-										<input name="arStdt" class="form-control" placeholder="长约开始日期"
-											value="2" />
+										<input name="arStdt" id ="arStdt" class="form-control" placeholder="长约开始日期"/>
 									</div>
 								</div>
 							</div>
@@ -243,7 +255,7 @@
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">长约结束日期：</label>
 									<div class="col-sm-8">
-										<input name="arEddt" class="form-control" placeholder="长约结束日期"
+										<input name="arEddt" id="arEddt" class="form-control" placeholder="长约结束日期"
 											value="2" />
 									</div>
 								</div>
@@ -356,8 +368,8 @@
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">投保：</label>
 										<div class="col-sm-8">
-											<input type="radio" onClick="return show_or_hide_ins_div(true)" name=isNeedIns value="1" >是</input>
-											&nbsp<input type="radio" onClick="return show_or_hide_ins_div(false)" name="isNeedIns" value="0" checked="checked">否</input>
+											<input type="radio" onClick="return show_or_hide_ins_div(true)" name=isNeedIns value="1" checked="false"> 新投保</input>
+											&nbsp<input type="radio" onClick="return show_or_hide_ins_div(true)" name="isNeedIns" value="0" checked="false"> 批改</input>
 										</div>
 									</div>								
 								</div>	
@@ -493,7 +505,7 @@
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">保险开始日期：</label>
 										<div class="col-sm-8">
-											<input name="insStdt" class="form-control"
+											<input name="insStdt" id="insStdt" class="form-control"
 												placeholder="保险开始日期" value="2" />
 										</div>
 									</div>
@@ -502,20 +514,20 @@
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">保险结束日期：</label>
 										<div class="col-sm-8">
-											<input name="insEddt" class="form-control"
+											<input name="insEddt" id="insEddt" class="form-control"
 												placeholder="保险结束日期" value="2" />
 										</div>
 									</div>
 								</div>
 								</div>
 							</div>
-							
+														
 							<div class="row" id="query_ar_atch_div">
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="" class="col-sm-2 control-label"></label>
 										<div class="col-sm-8">
-											<div class="w-z-docx" >
+											<div class="w-z-docx" >	
 												<div class="w-z-d-title">附件</div>
 												<div class="w-z-d-list">	
 													<div class="row" align="center">											
@@ -538,9 +550,9 @@
 											</form>
 											<div class="modal-footer">
 												<button id="btn_save2" type="button" class="btn btn-primary"
-													onclick="javascript:addInputItem();">新增附件</button>
+													onclick="javascript:addInputItem(1);">新增附件</button>
 												<button id="btn_save1" type="button" class="btn btn-primary"
-													onclick="javascript:submitTransferFile();">上传</button>
+													onclick="javascript:submitTransferFile(1);">上传</button>
 											</div>
 										</div>
 									</div>
@@ -555,36 +567,30 @@
 					class="btn btn-primary pull-right" onclick="javascript:save();">确定</button>
 				<button id="btn_close" type="button"
 					class="btn btn-default pull-right"
-					onclick='javascript:showOrHideDetail(true, 1);' style="margin-right: 15px;">取消</button>
+					onclick='javascript:showOrHideDetail(true, 1);' style="margin-right: 15px;">取消</button>					
 			</div>
 		</div>
 	</section>
 	<!-- 详细信息 end-->	
+		
 	<!-- 长约流转信息 start-->
 	<section id="ar_lnk_jrnl_inf_detail" class="content" style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
 				<h3 id="ar_lnk_jrnl_inf_detail_title" class="box-title">长约流转信息</h3>
-				<div class="box-tools pull-right">
-					<button class="btn btn-box-tool" data-widget="collapse">
-						<i class="fa fa-minus"></i>
-					</button>
+				<div class="box-tools pull-right">				
 				</div>
 			</div>
 			<div class="box-body">
-				<form id="frm_detail" class="form-horizontal">
-					<fieldset id='fld_detail'>
+				<form id="frm_detail3" class="form-horizontal">		
+					<fieldset id='fld_detail3'>
 						<div class="w-z-info">
 							<!-- 环节流水信息列表 -->
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="box box-info">
-										<div class="box-body table-responsive no-padding">
-											<table id="tbl_Lnk_Jrnl_Inf" class="table table-hover"></table>
-								
-								<div id="lnk_jrnl_inf_tbl_div"></div>			
- 							
-							
+										<div class="box-body table-responsive no-padding">														
+												<div id="lnk_jrnl_inf_tbl_div"></div>			
 										</div> 
 									</div>
 								</div>
@@ -598,6 +604,7 @@
 		</div>
 	</section>
 	<!-- 长约流转信息 end-->	
+	
 	<!-- 提交结论 start-->
 	<section id="submit_ar_detail" class="content" style="display: none;">
 		<div class="box box-info">
@@ -611,14 +618,15 @@
 			</div>
 			<div class="box-body">
 				<form id="frm_submit_ar" class="form-horizontal" >
+				<input type="hidden" id="fileId2" name="fileUrl2"> 
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-9">
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">结论</label>
 								<div class="col-sm-8">
 									<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd"
-										value="01" checked="checked">通过</input> &nbsp&nbsp&nbsp&nbsp<input
-										type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02">退回</input>
+										value="01" checked="checked"> 通过</input> &nbsp&nbsp&nbsp&nbsp<input
+										type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02"> 退回</input>
 									<input name="arId" class="form-control" placeholder="" value="" type="hidden"/>
 									<input name="aplyPcstpCd" class="form-control" placeholder=""
 										value="" type="hidden"/>
@@ -627,17 +635,36 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
+						<div class="col-md-9">
 							<div class="form-group">
-								<label for="" class="col-sm-3 control-label">备注</label>
-								<div class="col-sm-9">
+								<label for="" class="col-sm-4 control-label">备注</label>
+								<div class="col-sm-8">
 									<!-- <input name="maintenanceContent" class="form-control"/> -->
-									<textarea name="rmrk" rows="8"
+									<textarea name="rmrk" rows="4"
 										class="form-control"></textarea>
 								</div>
 							</div>
 						</div>
 					</div>
+							<div class="row" id="submmit_ar_upload_ar_div">
+								<div class="col-md-9">
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">附件</label>
+										<div class="col-sm-8">
+											<form id="frm_transfer" class="form-horizontal"
+												enctype="multipart/form-data" method="post">
+												<div id="fujianId2"></div>
+											</form>
+											<div class="modal-footer">
+												<button id="btn_save2" type="button" class="btn btn-primary"
+													onclick="javascript:addInputItem(2);">新增附件</button>
+												<button id="btn_save1" type="button" class="btn btn-primary"
+													onclick="javascript:submitTransferFile(2);">上传</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
 					<div class="box-footer">
 						<button id="btn_save" type="button"
 							class="btn btn-primary pull-right"
@@ -658,6 +685,86 @@
 					onclick='javascript:showOrHideDetail(true, 1);' style="margin-right: 15px;">返回</button>
 	</div>	
 	<!-- 查看界面的返回按钮 end-->
+	
+	<!-- 查询长约提交详细信息 start-->
+	<section id="query_ar_submmit_detail" style="display: none;">
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h3 id="main_edit_detail_title" class="box-title">长约提交详情</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail2" class="form-horizontal">
+					<fieldset id='fld_detail'>
+						<div class="w-z-info">																											
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h4 id="submmitUsername"></h4>
+									</div>
+									<div class="col-sm-6">
+										<h4 id="companyName"></h4>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h4 id="aplyPcstpCdDesc"></h4>
+									</div>
+									<div class="col-sm-6">
+										<h4 id="aplyPsrltCdDesc"></h4>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h4 id="lnkEdtm"></h4>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h4 id="rmrkDesc"></h4>
+									</div>
+								</div>
+							</div>
+							<div class="row" id="query_ar_atch_div2">
+								<div class="col-md-12">                                                                                                                                                
+									<div class="form-group">
+										<label for="" class="col-sm-2 control-label"></label>
+										<div class="col-sm-8">
+											<div class="w-z-docx" >
+												<div class="w-z-d-title">附件</div>
+												<div class="w-z-d-list">	
+													<div class="row" align="center">											
+													<div id="upload_atch_div2"></div>
+													</div>
+												</div>
+											</div>
+										</div>                                     
+									</div>
+								</div>
+							</div>																		
+						</div>
+					</fieldset>
+				</form>
+			</div>					
+			<div class="box-footer">
+				<button id="btn_close" type="button"
+					class="btn btn-default pull-right"
+					onclick='javascript:showOrHideDetail(false, 4);' style="margin-right: 15px;">返回</button>
+			</div>
+		</div>
+	</section>
+	<!-- 查询长约提交详细信息 end-->
+	
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -669,7 +776,45 @@
 	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
 	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
 	<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script>
+	<script th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+	<script th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script type="text/javascript">
+	/* 日期选择控件-长约开始日期 */
+	$('#arStdt').datetimepicker({
+        language: 'zh-CN',
+        minView: "month",//设置只显示到月份
+        format : "yyyy-mm-dd",//日期格式
+        autoclose:true,//选中关闭
+        todayBtn: true//今日按钮
+     });
+	/* 日期选择控件-长约结束日期 */
+	$('#arEddt').datetimepicker({
+        language: 'zh-CN',
+        minView: "month",//设置只显示到月份
+        format : "yyyy-mm-dd",//日期格式
+        autoclose:true,//选中关闭
+        todayBtn: true//今日按钮
+     });
+	/* 日期选择控件 - 保险开始日期*/
+	$('#insStdt').datetimepicker({
+        language: 'zh-CN',
+        minView: "month",//设置只显示到月份
+        format : "yyyy-mm-dd",//日期格式
+        autoclose:true,//选中关闭
+        todayBtn: true//今日按钮
+     });
+	/* 日期选择控件 - 保险结束日期*/
+	$('#insEddt').datetimepicker({
+        language: 'zh-CN',
+        minView: "month",//设置只显示到月份
+        format : "yyyy-mm-dd",//日期格式
+        autoclose:true,//选中关闭
+        todayBtn: true//今日按钮
+     });
+	
+	
+
+	
 		var pageSetting = {
 			modelName : '长约信息管理',
 			resetPath : '[[@{/arManagement}]]'
@@ -680,7 +825,10 @@
 			//表单校验控件初始化
 			validatorInit();
 			buttonInit();
+			// 是否投保默认不选中，用户自己选择
+//			$("input:radio[name="isNeedIns"]").attr("checked",false);
 			CKEDITOR.replace("editor1")
+
 		});
 
 		/***
@@ -707,13 +855,15 @@
 				$('#submit_ar_detail').hide();
 				// 返回按钮
 				$('#btn_close_div').hide();	
+				$('#query_ar_submmit_detail').hide();
 			} else if(flag == 2){// 长约发起	
 				// section
 				$('#main_edit_detail_title').text("长约发起");
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();	
+				$('#submit_ar_detail').hide();
+				$('#query_ar_submmit_detail').hide();
 				// 返回按钮
 				$('#btn_close_div').hide();	
 				// 附件
@@ -732,7 +882,8 @@
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
-				$('#submit_ar_detail').hide();				
+				$('#submit_ar_detail').hide();
+				$('#query_ar_submmit_detail').hide();
 				// 附件
 				$('#upload_ar_div').hide();
 				$('#query_ar_atch_div').show();
@@ -743,13 +894,34 @@
 				// 按钮	
 				$('#btn_close').hide();
 				$('#btn_save').hide();
+			} else if(flag == 6){// 长约修改
+				// section
+				$('#main_edit_detail_title').text("长约修改");
+				$('#main_edit_detail').fadeIn(300);
+				$('#main_search_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').hide();
+				$('#submit_ar_detail').hide();
+				$('#query_ar_submmit_detail').hide();
+				// 返回按钮
+				$('#btn_close_div').hide();	
+				// 附件
+				$('#upload_ar_div').show();
+				$('#query_ar_atch_div').hide();
+				// 保险信息输入部门默认隐藏
+				show_or_hide_ins_div(false);
+				// 参数
+				$('#arIdDiv').hide();
+				// 按钮				
+				$('#btn_close').show();
+				$('#btn_save').show();
 			} else if(flag == 4){// 长约提交
 				//$('#main_edit_detail_title').text("长约信息");
 				// section
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
-				$('#submit_ar_detail').fadeIn(300);			
+				$('#submit_ar_detail').fadeIn(300);
+				$('#query_ar_submmit_detail').hide();
 				// 附件
 				$('#upload_ar_div').hide();
 				$('#query_ar_atch_div').show();
@@ -760,7 +932,15 @@
 				// 按钮
 				$('#btn_close').hide();
 				$('#btn_save').hide();
-			} 
+			} else if(flag == 5){//长约提交详情查看
+				$('#main_search_detail').hide();
+				$('#main_edit_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').hide();
+				$('#submit_ar_detail').hide();
+				// 返回按钮
+				$('#btn_close_div').hide();	
+				$('#query_ar_submmit_detail').fadeIn(300);	
+			}
 		}
 		/***
 		 * 重置
@@ -768,18 +948,22 @@
 		function reset() {
 			E7.resetForm('#frm_query');
 		}
+		
 		/***
 		 * 长约提交
 		 */
 		function submitAr() {
-			for (instance in CKEDITOR.instances) {
+			
+			/*			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
 			}
-			$('#frm_submit_ar').bootstrapValidator('validate');
+ 			$('#frm_submit_ar').bootstrapValidator('validate');
 			if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
 				return;
-			}
+			} */
+
 			var formParams = E7.serialForm('#frm_submit_ar');
+
 			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
 					data) {
 				showOrHideDetail(true, 1);
@@ -802,7 +986,8 @@
 		 * 显示发起对话框
 		 */
 		function showAddDialog() {
-			initInputItem();
+			// 初始化上传附件控件
+			initInputItem(1);
 			E7.resetForm('#frm_detail');
 			//		CKEDITOR.instances.editor1.setData('');
 			$('#frm_detail').data('bootstrapValidator').resetForm(true);
@@ -865,16 +1050,56 @@
 				///环节流转列表table生成
  				var lnk_jrnl_inf = detail["list"];
 				insertHtml="";
-				insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">长约编号</th><th style="border-bottom: none;">环节</th><th style="border-bottom: none;">处理结果</th><th style="border-bottom: none;">用户名</th><th style="border-bottom: none;">公司名</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">附件</th></tr> </thead><tbody> ';
+				insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">长约编号</th><th style="border-bottom: none;">环节</th><th style="border-bottom: none;">结果</th><th style="border-bottom: none;">提交人</th><th style="border-bottom: none;">公司</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">详情</th></tr> </thead><tbody>';
 				for ( var jj = 0; jj < lnk_jrnl_inf.length; jj++) {
-					insertHtml = insertHtml + '<tr><td>'+lnk_jrnl_inf[jj].rltvId+'</td><td>'+transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)+'</td><td>'+transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)+'</td><td>'+lnk_jrnl_inf[jj].username+'</td><td>'+lnk_jrnl_inf[jj].companyId+'</td><td>'+lnk_jrnl_inf[jj].rmrk+'</td><td>'+transDateTime(lnk_jrnl_inf[jj].lnkEdtm)+'</td><td></td></tr>';
-				}
+					var rmrkDesc = lnk_jrnl_inf[jj].rmrk;
+					if((null != rmrkDesc) && (rmrkDesc.length > 5)){
+						rmrkDesc = '<a onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '")>' + rmrkDesc.substring(0,5) + "..." + '</a>';
+					}
+					if((null == rmrkDesc) || (""==rmrkDesc)){
+						rmrkDesc = "无";
+					}
+					insertHtml = insertHtml + '<tr><td>'+lnk_jrnl_inf[jj].rltvId+'</td><td>'+transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)+'</td><td>'+transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)+'</td><td>'+lnk_jrnl_inf[jj].username+'</td><td>'+lnk_jrnl_inf[jj].companyName+
+					'</td><td>'+rmrkDesc+'</td><td>'+transDateTime(lnk_jrnl_inf[jj].lnkEdtm)+
+					'</td><td><input type="button" class="btn btn_small" onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '") value="查看"> </td></tr>';
+				}				
 				insertHtml = insertHtml + "</tbody></table>";
 				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
 				testdiv.innerHTML=insertHtml;
 			});
 		}
 		
+			function getArSubmmitDetail(id, arId, aplyPcstpCd){
+ 			// 带过来的环节编号
+			E7.post(pageSetting.resetPath + '/getArSubmmitDetail', {
+				'id' : id,'arId':arId,'aplyPcstpCd':aplyPcstpCd
+			}, function(result) {
+//				fillForm('#frm_detail2', result.data);
+				var detail = result.data;
+/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
+				$('#frm_detail2 [name="companyName"]').val(detail["name"]);
+				$('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
+				$('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
+				$('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
+				$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
+				document.getElementById('companyName').innerText = "公司  : " + detail["name"];
+				document.getElementById('submmitUsername').innerText = "提交人  : " + detail["username"];
+				document.getElementById('aplyPcstpCdDesc').innerText = "环节  : " + transAplyPcstpCd(detail["aplyPcstpCd"]);
+				document.getElementById('lnkEdtm').innerText = "提交时间  : " + transDateTime(detail["lnkEdtm"]);
+				document.getElementById('aplyPsrltCdDesc').innerText = "结果 : " + transAplyPsrltCd(detail["aplyPsrltCd"]);
+				document.getElementById('rmrkDesc').innerText = "备注 : " + detail["rmrk"];
+				///附件列表
+				var td = detail["t2UploadAtch01List"];
+				var insertHtml="";
+				for ( var kk = 0; kk < td.length; kk++) {
+					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-wendang"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'</div></a></div>';
+				}				
+				var testdiv = document.getElementById("upload_atch_div2");
+				testdiv.innerHTML=insertHtml;
+				showOrHideDetail(false,5);
+			}); 
+		}                                                                                
+				
 		function transAplyPsrltCd(aplyPsrltCd) {
 			if (aplyPsrltCd == '01') {
 				return "通过";
@@ -908,6 +1133,8 @@
 		}	
 		
 		function showViewSubmitAr(id, aplyPcstpCd) {
+			// 初始化上传附件控件
+			initInputItem(2);
 			queryArDetails(id, aplyPcstpCd);
 			showOrHideDetail(false, 4);
 		}	
@@ -963,7 +1190,6 @@
 		}
 
 		function save() {
-			alert("test");
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
 			}
@@ -1016,23 +1242,18 @@
 							},
 							function(result) {
 								fillForm('#frm_detail', result.data);
-/* 								if (result.data.fileInfos != undefined) {
-									for (i = 0; i < result.data.fileInfos.length; i++) {
-										var item = result.data.fileInfos[i];
+								// 多次修改，清空上次div追加的内容
+								$("#fujianId").empty(); 
+ 								if (result.data.t2UploadAtch01List != undefined) {
+									for (i = 0; i < result.data.t2UploadAtch01List.length; i++) {
+										var elem = result.data.t2UploadAtch01List[i];
 										var item = '<div name="inputDiv">'
-												+ item.fileName
-												+ '<input name="fileName" type="file" src="'+item.fileUrl+'"  class="form-control" value="'+item.fileUrl+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+												+ elem.oriFileNm
+												+ '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
 										$("#fujianId").append(item);
 									}
-								} */
-// 								if (disable) {
-//									showDetail(pageSetting.modelName + '查看',
-//											false);
-//								} else {
-//									showDetail(pageSetting.modelName + '修改',
-//											true);
-//								} 
-								showOrHideDetail(true, 2);
+								} 
+								showOrHideDetail(true, 6);
 							});
 		}
 		fillForm = function(frm, data, reset, parent) {
@@ -1089,7 +1310,8 @@
 			}
 		}
 
-		function submitTransferFile() {
+		function submitTransferFile(flag) {
+			if(flag == 1){			
 			var file = document.getElementsByName("fileName")
 			//var file = $('.select-file').files//document.getElementById("file_transfer").files;
 			//TODO:valid
@@ -1107,16 +1329,48 @@
 									+ '</code>！'
 						});
 					});
+			} else if(flag == 2){
+				var file = document.getElementsByName("fileName2")
+				//var file = $('.select-file').files//document.getElementById("file_transfer").files;
+				//TODO:valid
+				var formData = new FormData();
+				for (i = 0; i < file.length; i++) {
+					formData.append('file', file[i].files[0]);
+				}
+				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
+						function(result) {
+							var fileUrl2 = result.data;
+							$("#fileId2").val(fileUrl2);
+							bootbox.alert({
+								'title' : '消息',
+								'message' : '上传成功, 文件：<code>' + result.data
+										+ '</code>！'
+							});
+						});
+			}
 		}
 
-		function addInputItem() {
-			var item = '<div name="inputDiv"><input name="fileName" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
-			$("#fujianId").append(item);
+		function addInputItem(flag) {
+
+			if(flag == 1){
+				var item = '<div name="inputDiv"><input name="fileName" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+				$("#fujianId").append(item);
+			} else if (flag == 2){
+				var item = '<div name="inputDiv"><input name="fileName2" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+				$("#fujianId2").append(item);
+			}
 		}
-		function initInputItem() {
-			var item = '<div name="inputDiv"><input name="fileName" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
-			var testdiv = document.getElementById("fujianId");
-			testdiv.innerHTML=item;
+		function initInputItem(flag) {
+			
+			if(flag ==1 ){
+				var item = '<div name="inputDiv"><input name="fileName" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+				var testdiv = document.getElementById("fujianId");
+				testdiv.innerHTML=item;
+			} else if(flag == 2){
+				var item = '<div name="inputDiv"><input name="fileName2" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+				var testdiv = document.getElementById("fujianId2");
+				testdiv.innerHTML=item;
+			}
 		}
 		function deleteItem(input) {
 			$(input).parent().remove();
@@ -1165,7 +1419,7 @@
 								pageSize : 10,
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
-								sortName : 'createTime', //排序列名
+								sortName : 'crtTm', //排序列名,创建时间
 								striped: true, //奇偶行不同背景
 								pagination: true,
 								sortOrder : 'desc', //排序方向
@@ -1176,23 +1430,23 @@
 											sortable : true
 										},
 										{
-											title : '融资企业',
-											field : 'fncEntp',
-											sortable : true
-										},
-										{
 											title : '供应链',
-											field : 'splchainCo',
+											field : 'splchainCoName',
 											sortable : true
 										},
 										{
-											title : '仓储公司',
-											field : 'stgco',
+											title : '融资企业',
+											field : 'fncEntpName',
 											sortable : true
 										},
 										{
 											title : '供应商',
-											field : 'ustrmSplr',
+											field : 'ustrmSplrName',
+											sortable : true
+										},
+										{
+											title : '仓储公司',
+											field : 'stgcoName',
 											sortable : true
 										},
 										{
@@ -1212,29 +1466,21 @@
 											}
 										},
 										{
-											title : '长约状态',
+											title : '发起时间',
+											field : 'crtTm',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												return transDateTime(value);
+											}
+										},
+										{
+											title : '状态',
 											field : 'aplyPcstpCd',
 											sortable : true,
 											formatter : function(value, row,
 													index) {
-												if (value == '01') {
-													return "发起";
-												} else if (value == '02') {
-													return "供应链确认";
-												} else if (value == '03') {
-													return "下游确认";
-												} else if (value == '04') {
-													return "承保";
-												} else if (value == '05') {
-													return "一审";
-												} else if (value == '06') {
-													return "二审";;
-												} else if (value == '07') {
-													return "终止";
-												} else if (value == '') {
-													return "完成";
-												} else
-													return value;
+												return transAplyPcstpCd(value);
 											}
 										},
 										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
