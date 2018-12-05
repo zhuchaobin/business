@@ -847,6 +847,9 @@
          oneYearAfter.setDate(oneYearAfter.getDate()-1); 
          $('#arEddtDTPicker').datetimepicker('setStartDate',ev.date);
          $('#arEddtDTPicker').datetimepicker('setDate',oneYearAfter);
+
+         $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
+         $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt');          
      }); 
 	/* 日期选择控件-长约结束日期 */
 	$('#arEddtDTPicker').datetimepicker({
@@ -855,7 +858,10 @@
         format : "yyyy-mm-dd",//日期格式
         autoclose:true,//选中关闭
         todayBtn: true//今日按钮
-     });
+     }).on('changeDate',function(ev){    	 
+         $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
+         $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt');  
+     }); 
 	/* 日期选择控件 - 保险开始日期*/
 	$('#insStdtDTPicker').datetimepicker({
         language: 'zh-CN',
@@ -869,6 +875,8 @@
          oneYearAfter.setDate(oneYearAfter.getDate()-1); 
          $('#insEddtDTPicker').datetimepicker('setStartDate',ev.date);
          $('#insEddtDTPicker').datetimepicker('setDate',oneYearAfter);
+         $('#frm_detail').data('bootstrapValidator').updateStatus('insStdt', 'NOT_VALIDATED',null).validateField('insStdt');  
+         $('#frm_detail').data('bootstrapValidator').updateStatus('insEddt', 'NOT_VALIDATED',null).validateField('insEddt'); 
      }); 
 	/* 日期选择控件 - 保险结束日期*/
 	$('#insEddtDTPicker').datetimepicker({
@@ -877,7 +885,10 @@
         format : "yyyy-mm-dd",//日期格式
         autoclose:true,//选中关闭
         todayBtn: true//今日按钮
-     });
+     }).on('changeDate',function(ev){ 
+         $('#frm_detail').data('bootstrapValidator').updateStatus('insStdt', 'NOT_VALIDATED',null).validateField('insStdt');  
+         $('#frm_detail').data('bootstrapValidator').updateStatus('insEddt', 'NOT_VALIDATED',null).validateField('insEddt'); 
+     }); 
 		
 		var pageSetting = {
 			modelName : '长约信息管理',
@@ -1247,6 +1258,30 @@
 							notEmpty : {message : '特别约定不能为空'}
 						}
 					},
+			    	"insStdt" : {
+			    		trigger:"change3", //监听change动作
+						validators : {
+							notEmpty : {message : '保险开始日期不能为空'}
+						}
+					},
+			    	"insEddt" : {
+			    		trigger:"change4", //监听change动作
+						validators : {
+							notEmpty : {message : '保险结束日期不能为空'}
+						}
+					},
+			    	"arStdt" : {
+			//    		trigger:"change1", //监听change动作
+						validators : {
+							notEmpty : {message : '长约开始日期不能为空'}
+						}
+					},
+			    	"arEddt" : {
+			  //  		trigger:"change2", //监听change动作
+						validators : {
+							notEmpty : {message : '长约结束日期不能为空'}
+						}
+					},
 			    	"isNeedIns" : {
 						validators : {
 							notEmpty : {message : '投保类型不能为空'}
@@ -1468,7 +1503,7 @@
 						//showOrHideDetail(true, 1);
 						bootbox.alert({
 							'title' : "消息",
-							'message' : '保存成功！'
+							'message' : '长约发起成功！'
 						});
 						$('#tbl_query').e7table(
 								'reload',
