@@ -615,8 +615,7 @@
 			</div>
 			<div class="box-footer">
 				<button id="btn_save" type="button"
-					class="btn btn-primary pull-right" data-toggle="modal"
-					data-target="#saveSubmitModal" data-whatever="@mdo">确定</button>
+					class="btn btn-primary pull-right" onclick='javascript:validate_frm_detail();'>确定</button>
 				<button id="btn_close" type="button"
 					class="btn btn-default pull-right"
 					onclick='javascript:showOrHideDetail(true, 1);'
@@ -720,8 +719,7 @@
 					</div>
 					<div class="box-footer">
 						<button id="btn_submit_ar" type="button"
-							class="btn btn-primary pull-right" data-toggle="modal"
-							data-target="#submitArModal" data-whatever="@mdo">确定</button>
+							class="btn btn-primary pull-right" onclick='javascript:validate_frm_submit_ar()'>确定</button>  
 						<button id="btn_close" type="button"
 							class="btn btn-default pull-right"
 							onclick='javascript:showOrHideDetail(true, 1);'
@@ -820,31 +818,6 @@
 		</div>
 	</section>
 	<!-- 查询长约提交详细信息 end-->
-
-	<!-- 保险起止日期不符提示框 start-->
-	<div class="modal fade" id="saveSubmitModal" tabindex="-1"
-		role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header" align="center">
-					<h4 class="modal-title">友情提示</h4>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div id="insDtCheckMsgDiv" class="modal-body" align="center">提交后将自动流转到[供应链确认]，若需修改需要下一环节退回，确定提交吗?</div>
-				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:save()" class="btn"
-						data-dismiss="modal">确定</button>
-					<button type="button" class="btn" data-dismiss="modal">取消</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-	<!-- 保险起止日期不符提示框 end -->
 
 	<!-- 发起确认提示框 start-->
 	<div class="modal fade" id="saveSubmitModal" tabindex="-1"
@@ -980,10 +953,10 @@
 	function checkInsDtAndArDt(){
 	    var msg = "";
 	    if(($('#insStdtDTPicker').val() != "") && ($('#arStdtDTPicker').val() !="") && ($('#insStdtDTPicker').val() > $('#arStdtDTPicker').val())){
-	   	 msg += "[保险开始日期] 晚于 [长约开始日期]!";
+	   	 msg += "[保险开始日期] 晚于 [长约开始日期] !";
 	    }
 	    if( ($('#insEddtDTPicker').val() != "") && ($('#arEddtDTPicker').val() !="") && ($('#insEddtDTPicker').val() < $('#arEddtDTPicker').val())){
-	   	 msg += "[保险结束日期] 早于 [长约结束日期]!";
+	   	 msg += "[保险结束日期] 早于 [长约结束日期] !";
 	    }
 	    if(msg != ""){
 				bootbox.alert({
@@ -1128,16 +1101,22 @@
 			E7.resetForm('#frm_query');
 		}
 		
+		
+		function validate_frm_submit_ar(){
+			$('#frm_submit_ar').bootstrapValidator('validate');
+			if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
+				return;
+			} else {
+				$('#submitArModal').modal('show');
+			}
+		}
+		
 		/***
 		 * 长约提交
 		 */
 		function submitAr() {			
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
-			}
- 			$('#frm_submit_ar').bootstrapValidator('validate');
-			if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
-				return;
 			}
 			var formParams = E7.serialForm('#frm_submit_ar');
 			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
@@ -1591,21 +1570,20 @@
 			});
 		}
 
-		function save() {
-
-/* 			var start_date1 =document.getElementById("arStdtDTPicker").value;
-			var end_date1 =document.getElementById("arEddtDTPicker").value;
-			var start_date2 =document.getElementById("insStdtDTPicker").value;
-			var end_date2 =document.getElementById("insEddtDTPicker").value;
-			if(start_date1 < start_date2) */
-			
-			for (instance in CKEDITOR.instances) {
-				CKEDITOR.instances[instance].updateElement();
-			}
+		function validate_frm_detail(){
 			$('#frm_detail').bootstrapValidator('validate');
 			if (!$('#frm_detail').data('bootstrapValidator').isValid()) {
 				return;
+			} else {
+				$('#saveSubmitModal').modal('show');
 			}
+		}
+		
+		function save() {			
+			for (instance in CKEDITOR.instances) {
+				CKEDITOR.instances[instance].updateElement();
+			}
+
 			var formParams = E7.serialForm('#frm_detail');
 			E7.post(pageSetting.resetPath + '/save', formParams,
 					function(data) {
