@@ -177,7 +177,8 @@
 				<form id="frm_detail" class="form-horizontal">
 					<fieldset id='fld_detail'>
 						<div class="w-z-info">
-							<input type="hidden" id="fileId" name="fileUrl"> <input
+							<input type="hidden" id="fileId" name="fileUrl">
+							<input type="hidden" id="fileToDeleteId" name="filesToDelete"> <input
 								name="id" type="hidden" value="" /> <input name="arId"
 								type="hidden" value="" />
 							<div class="row" style="margin-left: 0px">
@@ -1670,13 +1671,18 @@
  								if (result.data.t2UploadAtch01List != undefined) {
 									for (i = 0; i < result.data.t2UploadAtch01List.length; i++) {
 										var elem = result.data.t2UploadAtch01List[i];
-										var item = '<div name="inputDiv">'
+/* 										var item = '<div name="inputDiv">'
 												+ elem.oriFileNm
-												+ '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
-										$("#fujianId").append(item);
+												+ '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>'; */
+										var atchId = elem.id;
+												var item = '<div name="inputDiv"> <a href="' + elem.srFileRte +'" target="_blank">'+elem.oriFileNm  +'&nbsp&nbsp</a>&nbsp&nbsp<a onclick="deleteItem2(this, ' + elem.id +')"> 删除</a> <br/></div>';
+												
+												$("#fujianId").append(item);
 									}
 								} 
 								showOrHideDetail(true, 6);
+								// 展示保险div
+								show_or_hide_ins_div(true);
 							});
 		}
 		fillForm = function(frm, data, reset, parent) {
@@ -1798,6 +1804,16 @@
 		function deleteItem(input) {
 			$(input).parent().remove();
 		}
+		function deleteItem2(input, id) {
+			var preValue = $("#fileToDeleteId").val();
+			if(preValue == null || preValue == "")
+				$("#fileToDeleteId").val(id);
+			else				
+				$("#fileToDeleteId").val(preValue + "||" + id);
+
+			$(input).parent().remove();
+		}
+		
 		
 		function buttonInit() {
 			if ('[[${userType}]]' == 'Group') {
