@@ -270,15 +270,15 @@
 									<label for="" class="col-sm-4 control-label">长约起止日期：</label>
 									<div class="col-sm-8 pull-right">
 										<div class="col-xs-5" style="padding: 0px;">
-											<input name="arStdt" id="arStdtDTPicker" class="form-control" style="padding-left: 3px;"
-												placeholder="开始日期" />
+											<input name="arStdt" id="arStdtDTPicker" class="form-control"
+												style="padding-left: 3px;" placeholder="开始日期" />
 										</div>
 										<div class="col-xs-1 ">
 											<label for="" class="control-label">- </label>
 										</div>
 										<div class="col-xs-5" style="padding: 0px;">
-											<input name="arEddt" id="arEddtDTPicker" class="form-control" style="padding-left: 3px;"
-												placeholder="结束日期" />
+											<input name="arEddt" id="arEddtDTPicker" class="form-control"
+												style="padding-left: 3px;" placeholder="结束日期" />
 										</div>
 									</div>
 								</div>
@@ -545,15 +545,17 @@
 										<label for="" class="col-sm-4 control-label">保险起止日期：</label>
 										<div class="col-sm-8">
 											<div class="col-xs-5" style="padding: 0px;">
-												<input name="insStdt" id="insStdtDTPicker" style="padding-left: 3px;"
-													class="form-control" placeholder="开始日期" />
+												<input name="insStdt" id="insStdtDTPicker"
+													style="padding-left: 3px;" class="form-control"
+													placeholder="开始日期" />
 											</div>
 											<div class="col-xs-1">
 												<label for="" class="control-label">-</label>
 											</div>
 											<div class="col-xs-5" style="padding: 0px;">
-												<input name="insEddt" id="insEddtDTPicker" style="padding-left: 3px;"
-													class="form-control" placeholder="结束日期" />
+												<input name="insEddt" id="insEddtDTPicker"
+													style="padding-left: 3px;" class="form-control"
+													placeholder="结束日期" />
 											</div>
 										</div>
 									</div>
@@ -615,7 +617,8 @@
 			</div>
 			<div class="box-footer">
 				<button id="btn_save" type="button"
-					class="btn btn-primary pull-right" onclick='javascript:validate_frm_detail();'>确定</button>
+					class="btn btn-primary pull-right"
+					onclick='javascript:validate_frm_detail();'>确定</button>
 				<button id="btn_close" type="button"
 					class="btn btn-default pull-right"
 					onclick='javascript:showOrHideDetail(true, 1);'
@@ -633,7 +636,7 @@
 				<h3 id="ar_lnk_jrnl_inf_detail_title" class="box-title">长约流转信息</h3>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
-							<i class="fa fa-minus"></i>
+						<i class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
@@ -723,7 +726,8 @@
 					</div>
 					<div class="box-footer">
 						<button id="btn_submit_ar" type="button"
-							class="btn btn-primary pull-right" onclick='javascript:validate_frm_submit_ar()'>确定</button>  
+							class="btn btn-primary pull-right"
+							onclick='javascript:validate_frm_submit_ar()'>确定</button>
 						<button id="btn_close" type="button"
 							class="btn btn-default pull-right"
 							onclick='javascript:showOrHideDetail(true, 1);'
@@ -764,7 +768,7 @@
 										<h5 id="submmitUsername"></h5>
 									</div>
 									<div class="col-sm-6">
-									<h5 id="companyName"></h5>
+										<h5 id="companyName"></h5>
 									</div>
 								</div>
 							</div>
@@ -822,7 +826,7 @@
 				<button id="btn_close_return4" type="button"
 					class="btn btn-default pull-right"
 					onclick='javascript:showOrHideDetail(false, 4);'
-					style="margin-right: 15px;">返回</button>	
+					style="margin-right: 15px;">返回</button>
 			</div>
 		</div>
 	</section>
@@ -1536,6 +1540,8 @@
 		}	
 		
 		function showViewSubmitAr(id, aplyPcstpCd) {
+			E7.resetForm('#frm_submit_ar');
+			$('#frm_submit_ar').data('bootstrapValidator').updateStatus('aplyPsrltCd', 'NOT_VALIDATED',null).validateField('aplyPsrltCd');  
 			// 初始化上传附件控件
 			initInputItem(2);
 			queryArDetails(id, aplyPcstpCd, 1);// flag 1:长约提交  0：长约详情查询
@@ -1651,6 +1657,14 @@
 							},
 							function(result) {
 								fillForm('#frm_detail', result.data);
+								// 实时判断长约是否可以修改	
+								if(result.data["aplyPcstpCd"] != "01"){
+									bootbox.alert({
+										'title' : '错误消息',
+										'message' : '当前长约不在发起环节禁止修改！请退回到发起环节再修改。'
+									});
+									return;
+								}
 								// 多次修改，清空上次div追加的内容
 								$("#fujianId").empty(); 
  								if (result.data.t2UploadAtch01List != undefined) {
@@ -1884,7 +1898,7 @@
 											}
 										},
 										{
-											title : '状态',
+											title : '环节',
 											field : 'aplyPcstpCd',
 											sortable : true,
 											formatter : function(value, row,
