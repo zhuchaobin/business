@@ -54,8 +54,6 @@
 	border-radius: 4px;
 }
 </style>
-<!-- 自定义按钮样式 -->
-<link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -1823,30 +1821,22 @@
 			if ('[[${userType}]]' == 'Group') {
 				$("#div_buttons")
 						.append(
-						/* 		'<button class="btn btn-default" onclick="javascript:showAddDialog();" style="margin-right:5px;">发起</button>'
-						+ */ '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
-						);
-				 
+								'<button class="btn btn-default" onclick="javascript:showAddDialog();" style="margin-right:5px;">发起</button>');
 				$("#div_buttons")
 						.append(
-							/* 	'<button class="btn btn-default" onclick="javascript:showEditDialog();" style="margin-right:5px;">修改</button>'); */
-				'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
+								'<button class="btn btn-default" onclick="javascript:showEditDialog();" style="margin-right:5px;">修改</button>');
 				$("#div_buttons")
 						.append(
-								/* '<button class="btn btn-default" onclick="javascript:showArDetailDialog();" style="margin-right:5px;">查看</button>'); */
-			'<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showArDetailDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i>查看</button>');
+								'<button class="btn btn-default" onclick="javascript:showArDetailDialog();" style="margin-right:5px;">查看</button>');
 				$("#div_buttons")
 						.append(
-								/* '<button class="btn btn-default" onclick="javascript:del();">删除</button>'); */
-				 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:del();"><i class="glyphicon glyphicon-trash"></i>删除</button>');
+								'<button class="btn btn-default" onclick="javascript:del();">删除</button>');
 				$("#div_buttons")
 						.append(
-								/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
-				'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
+								'<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
 				$("#div_buttons")
 						.append(
-								/* '<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>'); */
-				'<button id="btn_search"  type="button" class="btn btn-primary-red btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
+								'<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>');
 			} else {
 				$("#div_buttons")
 						.append(

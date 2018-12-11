@@ -1,0 +1,107 @@
+<!-- 列表查询 start-->
+	<section id="main_search_detail" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom: 0px;">
+				<form id="frm_query" class="form-horizontal">
+					<div id="div_criteria" class="flowlayout">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<div class="col-sm-8">
+								<input type="hidden" id="queryTypeId" name="queryType">
+									<input id="arId" name="arId" class="form-control"
+										placeholder="长约编号" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">供应链：</label>
+								<div class="col-sm-8">
+									<select name="fncEntp" class="form-control">
+										<option value="">请选择</option>
+										<option th:each="model: ${splchainCoModels}"
+											th:value="${model.id}" th:text="${model.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">融资企业：</label>
+								<div class="col-sm-8">
+									<select name="fncEntp" class="form-control">
+										<option value="">请选择</option>
+										<option th:each="model: ${fncEntpModels}"
+											th:value="${model.id}" th:text="${model.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">供应商：</label>
+								<div class="col-sm-8">
+									<select name="ustrmSplr" class="form-control">
+										<option value="">请选择</option>
+										<option th:each="model: ${ustrmSplrModels}"
+											th:value="${model.id}" th:text="${model.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约状态：</label>
+								<div class="col-sm-8">
+
+									<select name="arSt" class="form-control">
+										<option value="">全部</option>
+										<!-- 								<option  th:each="user: ${catalogList}" th:value="${user.id}"><div th:text="${user.catalogName}"/></option> -->
+										<option value="01">发起</option>
+										<option value="02">确认(供应链)</option>
+										<option value="03">确认(融资企业)</option>
+										<option value="04">承保</option>
+										<option value="05">一审</option>
+										<option value="06">二审</option>
+										<option value="07">终止</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">关键字：</label>
+								<div class="col-sm-8">
+									<input id="keyWorlds" name="keyWorlds" class="form-control"
+										placeholder="搜索关键字" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer"></div>
+		</div>
+
+		<!-- 信息列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-info">
+					<div class="box-body table-responsive no-padding">
+						<table id="tbl_query" class="table table-hover"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!-- 列表查询 end-->

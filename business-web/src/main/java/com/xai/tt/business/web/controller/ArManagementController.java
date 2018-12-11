@@ -30,6 +30,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
@@ -173,6 +175,126 @@ public class ArManagementController extends BaseController {
         return Result.createSuccessResult(result.getData());
     }
     
+    @RequestMapping(value = { "queryPage_add" })
+    @ResponseBody
+    public Result<?>  queryPage_add(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	arManagementInVo.setUserType(user.getUserType().ordinal());
+    	arManagementInVo.setUsername(user.getUsername());
+    	arManagementInVo.setCompanyId(user.getCompanyId());
+    	arManagementInVo.setNickname(user.getNickname());
+    	arManagementInVo.setChineseName(user.getChineseName());
+    	arManagementInVo.setQueryType(4);
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = arManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		arManagementInVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
+        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
+    @RequestMapping(value = { "queryPage_ing" })
+    @ResponseBody
+    public Result<?>  queryPage_ing(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	arManagementInVo.setUserType(user.getUserType().ordinal());
+    	arManagementInVo.setUsername(user.getUsername());
+    	arManagementInVo.setCompanyId(user.getCompanyId());
+    	arManagementInVo.setNickname(user.getNickname());
+    	arManagementInVo.setChineseName(user.getChineseName());
+    	arManagementInVo.setQueryType(1);
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = arManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		arManagementInVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
+        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
+    @RequestMapping(value = { "queryPage_adt" })
+    @ResponseBody
+    public Result<?>  queryPage_adt(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	arManagementInVo.setUserType(user.getUserType().ordinal());
+    	arManagementInVo.setUsername(user.getUsername());
+    	arManagementInVo.setCompanyId(user.getCompanyId());
+    	arManagementInVo.setNickname(user.getNickname());
+    	arManagementInVo.setChineseName(user.getChineseName());
+    	arManagementInVo.setQueryType(2);
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = arManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		arManagementInVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
+        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
+    @RequestMapping(value = { "queryPage_fnsh" })
+    @ResponseBody
+    public Result<?>  queryPage_fnsh(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	arManagementInVo.setUserType(user.getUserType().ordinal());
+    	arManagementInVo.setUsername(user.getUsername());
+    	arManagementInVo.setCompanyId(user.getCompanyId());
+    	arManagementInVo.setNickname(user.getNickname());
+    	arManagementInVo.setChineseName(user.getChineseName());
+    	arManagementInVo.setQueryType(3);
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = arManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		arManagementInVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
+        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
 /*    @RequestMapping("/detail2")
     public ModelAndView  getDetail2(String id) {
     	logger.info("查询长约详情，请求参数id=：{}", id);       
@@ -202,6 +324,105 @@ public class ArManagementController extends BaseController {
         return Result.createSuccessResult(rlt.getData());        
     }
     
+    @RequestMapping(value = { "list_ing" })
+    public ModelAndView list_ing() {
+    	logger.info("查询执行中的长约开始");
+    	ModelAndView mav = lists(1);
+    	return mav;
+    }
+    
+    @RequestMapping(value = { "list_adt" })
+    public ModelAndView list_adt() {
+    	ModelAndView mav = lists(2);
+    	return mav;
+    }
+    
+    @RequestMapping(value = { "list_fnsh" })
+    public ModelAndView list_fnsh() {
+    	ModelAndView mav = lists(3);
+    	return mav;
+    }
+    
+    @RequestMapping(value = { "add" })
+    public ModelAndView add() {
+    	ModelAndView mav = new ModelAndView("arManagement/add");
+    	CompanyQuery query = new CompanyQuery();        
+    	// 查询平台下拉菜单
+        query.setUsrTp("01");
+        Result<PageInfo<Company>> result = companyDcService.queryPage(query);
+    	logger.info("查询[平台]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[平台]公司信息异常");
+//            throw new RuntimeException("查询[平台]公司信息异常");
+        }
+        mav.addObject("pltfrmModels", result.getData().getList());
+    	// 查询上游供应商下拉菜单
+        query.setUsrTp("02");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[上游供应商]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[上游供应商]公司信息异常");
+//            throw new RuntimeException("查询[上游供应商]公司信息异常");
+        }
+        mav.addObject("ustrmSplrModels", result.getData().getList());
+    	// 查询供应链公司下拉菜单
+        query.setUsrTp("03");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[供应链公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[供应链公司]公司信息异常");
+//            throw new RuntimeException("查询[供应链公司]公司信息异常");
+        }
+        mav.addObject("splchainCoModels", result.getData().getList());
+    	// 查询融资企业下拉菜单
+        query.setUsrTp("04");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[融资企业]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[融资企业]公司信息异常");
+//            throw new RuntimeException("查询[融资企业]公司信息异常");
+        }
+        mav.addObject("fncEntpModels", result.getData().getList());
+    	// 查询保险公司下拉菜单
+        query.setUsrTp("05");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[保险公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[保险公司]公司信息异常");
+//            throw new RuntimeException("查询[保险公司]公司信息异常");
+        }
+        mav.addObject("insCoModels", result.getData().getList());
+    	// 查询银行下拉菜单
+        query.setUsrTp("06");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[银行]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[银行]公司信息异常");
+//            throw new RuntimeException("查询[银行]公司信息异常");
+        }
+        mav.addObject("bnkModels", result.getData().getList());
+    	// 查询物流公司下拉菜单
+        query.setUsrTp("07");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[物流公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[物流公司]公司信息异常");
+//            throw new RuntimeException("查询[物流公司]公司信息异常");
+        }
+        mav.addObject("lgstcCoModels", result.getData().getList());
+    	// 查询仓储公司下拉菜单
+        query.setUsrTp("08");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[仓储公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[仓储公司]公司信息异常");
+//            throw new RuntimeException("查询[仓储公司]公司信息异常");
+        }
+        mav.addObject("stgcoModels", result.getData().getList());    
+    	mav.addObject("userType", "Group");
+    	return mav;
+    }
+    	
     @RequestMapping(value = { "list" })
     public ModelAndView list() {
     	ModelAndView mav = new ModelAndView("arManagement/list");
@@ -294,7 +515,14 @@ public class ArManagementController extends BaseController {
 //        OSSClient ossClient = OssET.createOSSClient();
         StringBuilder str = new StringBuilder();
         //文件完整路径，不能以/开发
+        // 文件名重复去重
+        Map<String, Integer> fileExistMap = new HashMap<String, Integer>();
         Arrays.asList(file).stream().forEach(item->{
+        	// 判断文件是否已存在
+        	if(1 == fileExistMap.get(item.getOriginalFilename()))
+        		return;
+        	else
+        		fileExistMap.put(item.getOriginalFilename(), 1);
 			// 获取工程路径
 			String webContentPath = "";
 			try {
@@ -325,16 +553,14 @@ public class ArManagementController extends BaseController {
             str.append(newFilePathRear+Constants.LINELINE+item.getOriginalFilename()).append(Constants.COMMA);
             byte[] bytes;
             try {
-            	logger.error("aaaaaaaaaaaa" + file);	
-            bytes = item.getBytes();
-            FileOutputStream fos = new FileOutputStream(newFileName);
-            fos.write(bytes);
-            fos.close();
+            	logger.debug("上传文件：" + file);	
+	            bytes = item.getBytes();
+	            FileOutputStream fos = new FileOutputStream(newFileName);
+	            fos.write(bytes);
+	            fos.close();
             } catch (IOException e) {
-/*    	        response.setException(e);
-    	        response.setErrorMessage("文件写入错误！");
-    	       response.setResponseCode(-1);*/
-            	logger.error("xxxxx" + e);
+            	logger.error("文件写入错误" + e);
+            	return;
             }
         });
         String result = str.toString();
@@ -379,5 +605,92 @@ public class ArManagementController extends BaseController {
         }
         return Result.createSuccessResult(oo.getResponse().getUri());
     }
+    
+    public ModelAndView lists(Integer flag) {
+    	ModelAndView mav = null;
+    	if(1 == flag)
+    		mav = new ModelAndView("arManagement/list_ing");
+    	else if(2 == flag)
+    		mav = new ModelAndView("arManagement/list_adt");
+    	else if(3 == flag)
+    		mav = new ModelAndView("arManagement/list_fnsh");
+    	
+    	logger.info("flag=" + flag);
+    	CompanyQuery query = new CompanyQuery(); 
+    	// 查询平台下拉菜单
+        query.setUsrTp("01");  	
+        Result<PageInfo<Company>> result = companyDcService.queryPage(query);
+    	logger.info("查询[平台]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[平台]公司信息异常");
+//            throw new RuntimeException("查询[平台]公司信息异常");
+        }
+        mav.addObject("pltfrmModels", result.getData().getList());
+    	// 查询上游供应商下拉菜单
+        query.setUsrTp("02");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[上游供应商]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[上游供应商]公司信息异常");
+//            throw new RuntimeException("查询[上游供应商]公司信息异常");
+        }
+        mav.addObject("ustrmSplrModels", result.getData().getList());
+    	// 查询供应链公司下拉菜单
+        query.setUsrTp("03");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[供应链公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[供应链公司]公司信息异常");
+//            throw new RuntimeException("查询[供应链公司]公司信息异常");
+        }
+        mav.addObject("splchainCoModels", result.getData().getList());
+    	// 查询融资企业下拉菜单
+        query.setUsrTp("04");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[融资企业]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[融资企业]公司信息异常");
+//            throw new RuntimeException("查询[融资企业]公司信息异常");
+        }
+        mav.addObject("fncEntpModels", result.getData().getList());
+    	// 查询保险公司下拉菜单
+        query.setUsrTp("05");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[保险公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[保险公司]公司信息异常");
+//            throw new RuntimeException("查询[保险公司]公司信息异常");
+        }
+        mav.addObject("insCoModels", result.getData().getList());
+    	// 查询银行下拉菜单
+        query.setUsrTp("06");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[银行]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[银行]公司信息异常");
+//            throw new RuntimeException("查询[银行]公司信息异常");
+        }
+        mav.addObject("bnkModels", result.getData().getList());
+    	// 查询物流公司下拉菜单
+        query.setUsrTp("07");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[物流公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[物流公司]公司信息异常");
+//            throw new RuntimeException("查询[物流公司]公司信息异常");
+        }
+        mav.addObject("lgstcCoModels", result.getData().getList());
+    	// 查询仓储公司下拉菜单
+        query.setUsrTp("08");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[仓储公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[仓储公司]公司信息异常");
+//            throw new RuntimeException("查询[仓储公司]公司信息异常");
+        }
+        mav.addObject("stgcoModels", result.getData().getList());    
+    	mav.addObject("userType", "Group");
+        return mav;
+    } 
        
 }

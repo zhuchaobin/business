@@ -28,16 +28,44 @@
 			content: "\e600";
 		}
 		
+		/* 左侧导航栏项目前图标样式 */
 		.sidebar-menu .fa {
-			color:#0095ff;
+			color:#8F8383;
 		}
+		
+		/* 左侧一级目录选中前字体样式 */
+		.skin-blue-light .sidebar-menu > li > a {
+	    border-left: 3px solid transparent;
+	    font-weight: 600;
+	    color: white;
+		}
+
+		/* 左侧一级目录选中前字体样式 */
+		.skin-blue-light .sidebar-menu > li:hover > a, .skin-blue-light .sidebar-menu > li.active > a {
+		    color: #3b578c;
+		    background: #f4f4f5;
+		}
+		
+/* .box-footer {
+    background: #ABC6DB;
+}
+
+		.box.box-info {
+		border-top-color: #ABC6DB;
+		 background: #ABC6DB;
+		}
+		
+		.box.box-info {
+		border-top-color: #ABC6DB;
+		} */
 	</style>
 </head>
 
 <body class="hold-transition skin-blue-light sidebar-mini fixed" style="overflow-y:hidden;">
 	<div class="wrapper">
 		<header class="main-header">
-			<a href="javascript:void(0)" class="logo" style="background:#0095ff;"> 
+			<!-- <a href="javascript:void(0)" class="logo" style="background:#0095ff;">  -->
+			<a href="javascript:void(0)" class="logo" style="background:#0066B3;"> 
 				<!-- <span class="logo-mini"><img alt="御捷管理平台" src="resources/image/logo_3.png" style="width:30px; height:30px;"/></span>
 				<span class="logo-lg"><img alt="御捷管理平台" src="resources/image/logo_3.png" style="width:30px; height:30px; margin-top:-5px;"/> <b style="margin-top:5px;">御捷管理平台</b></span> -->
 				<span class="logo-mini">
@@ -48,7 +76,8 @@
 					<span href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="margin-top:-14px; float:right;"> </span>
 				</span>
 			</a>
-			<nav class="navbar navbar-static-top" role="navigation"  style="background:#0095ff;">
+			<!-- <nav class="navbar navbar-static-top" role="navigation"  style="background:#0095ff;"> -->
+			<nav class="navbar navbar-static-top" role="navigation"  style="background:#0066B3;">
 				<a id="min_offcanvas" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>
 				<a href="#" style="color: #fff; margin-left:10px;font-size: 20px; font-weight: 600; line-height: 50px; font-family: 'Helvetica,Arial,';">
             		TT供应链业务运行系统
@@ -85,10 +114,10 @@
 			</nav>
 		</header>
 		
-		<aside class="main-sidebar" style="overflow-y: auto; min-height:0px; ">
-			<section class="sidebar">
+		<aside class="main-sidebar" style="overflow-y: auto; min-height:0px; " >
+			<section class="sidebar" style="background:#233646;">
 				<!-- <div class="user-panel" style="text-align:center;">
-					<img src="resources/image/logo.png" alt="御捷管理平台" />
+					<img src="resources/image/logo.png" alt="xxxxx平台" />
 				</div>
 				<div class="user-panel">
 			        <div class="pull-left image">
@@ -99,14 +128,14 @@
 			          <a href="javascript:void(0)" th:text="${session.loginUser.username}" style="margin-left: 1px;"></a>
 			        </div>
 			    </div> -->
-				<ul class="sidebar-menu">
+				<ul class="sidebar-menu" >
 					
 				</ul>
 			</section>
 		</aside>
 
-		<div class="content-wrapper" style="min-height: 0px;">
-			<ul id="tabPanel" class="nav nav-tabs"> </ul>
+		<div class="content-wrapper" style="min-height: 0px;background:#233646;" ><!-- 页面工作区tab栏背景色及页面最底部边线背景色 -->
+			<ul id="tabPanel" class="nav nav-tabs" style="background:#FFFFFF;"> </ul><!-- 页面工作区tab栏背景色 -->
 		</div>
 	</div>
 </body>

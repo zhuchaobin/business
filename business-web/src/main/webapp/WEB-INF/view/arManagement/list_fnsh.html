@@ -116,7 +116,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-4">
+						<div class="col-md-4" style="display: none;">
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">长约状态：</label>
 								<div class="col-sm-8">
@@ -1821,25 +1821,20 @@
 		
 		function buttonInit() {
 			if ('[[${userType}]]' == 'Group') {
+			/* 	$("#div_buttons")
+						.append(
+							 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
+						);				 
 				$("#div_buttons")
 						.append(
-						/* 		'<button class="btn btn-default" onclick="javascript:showAddDialog();" style="margin-right:5px;">发起</button>'
-						+ */ '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
-						);
-				 
+							'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
 				$("#div_buttons")
 						.append(
-							/* 	'<button class="btn btn-default" onclick="javascript:showEditDialog();" style="margin-right:5px;">修改</button>'); */
-				'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
+							'<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showArDetailDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i>查看</button>');
 				$("#div_buttons")
 						.append(
-								/* '<button class="btn btn-default" onclick="javascript:showArDetailDialog();" style="margin-right:5px;">查看</button>'); */
-			'<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showArDetailDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i>查看</button>');
-				$("#div_buttons")
-						.append(
-								/* '<button class="btn btn-default" onclick="javascript:del();">删除</button>'); */
-				 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:del();"><i class="glyphicon glyphicon-trash"></i>删除</button>');
-				$("#div_buttons")
+							 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:del();"><i class="glyphicon glyphicon-trash"></i>删除</button>');
+		 */		$("#div_buttons")
 						.append(
 								/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
 				'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
@@ -1866,7 +1861,7 @@
 			$('#tbl_query')
 					.e7table(
 							{
-								url : '[[@{/arManagement/queryPage}]]',
+								url : '[[@{/arManagement/queryPage_fnsh}]]',
 								pageSize : 10,
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
