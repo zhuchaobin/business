@@ -176,6 +176,36 @@ public class ArManagementController extends BaseController {
         return Result.createSuccessResult(result.getData());
     }
     
+    @RequestMapping(value = { "queryPage_adted" })
+    @ResponseBody
+    public Result<?>  queryPage_adted(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	arManagementInVo.setUserType(user.getUserType().ordinal());
+    	arManagementInVo.setUsername(user.getUsername());
+    	arManagementInVo.setCompanyId(user.getCompanyId());
+    	arManagementInVo.setNickname(user.getNickname());
+    	arManagementInVo.setChineseName(user.getChineseName());
+    	arManagementInVo.setQueryType(5);
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = arManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		arManagementInVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
+        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
     @RequestMapping(value = { "queryPage_add" })
     @ResponseBody
     public Result<?>  queryPage_add(ArManagementInVo arManagementInVo, PageParam pageParam) {
@@ -348,6 +378,12 @@ public class ArManagementController extends BaseController {
     public ModelAndView list_ing() {
     	logger.info("查询执行中的长约开始");
     	ModelAndView mav = lists(1);
+    	return mav;
+    }
+    
+    @RequestMapping(value = { "list_adted" })
+    public ModelAndView list_adted() {
+    	ModelAndView mav = lists(5);
     	return mav;
     }
     
@@ -634,6 +670,8 @@ public class ArManagementController extends BaseController {
     		mav = new ModelAndView("arManagement/list_adt");
     	else if(3 == flag)
     		mav = new ModelAndView("arManagement/list_fnsh");
+    	else if(5 == flag)
+    		mav = new ModelAndView("arManagement/list_adted");
     	
     	logger.info("flag=" + flag);
     	CompanyQuery query = new CompanyQuery(); 
