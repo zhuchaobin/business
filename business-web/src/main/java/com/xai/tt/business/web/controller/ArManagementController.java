@@ -70,6 +70,7 @@ public class ArManagementController extends BaseController {
        	inVo.setCompanyId(user.getCompanyId());
        	inVo.setNickname(user.getNickname());
        	inVo.setChineseName(user.getChineseName());
+       	// 
     	Result<Boolean> result = arManagementDcService.save(inVo);
     	logger.info("保存长约信息返回结果：{}", JSON.toJSONString(result));
         return result;
@@ -314,6 +315,25 @@ public class ArManagementController extends BaseController {
     	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
+    
+    // 撤销长约
+    @RequestMapping(value = { "unDoAr" })
+    @ResponseBody
+    public Result<?>   unDoAr(String id) {
+    	logger.info("撤销长约，请求参数id=：{}", id);
+    	ArManagementInVo arManagementInVo = new ArManagementInVo();
+    	arManagementInVo.setId(Long.parseLong(id));
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	arManagementInVo.setUserType(user.getUserType().ordinal());
+    	arManagementInVo.setUsername(user.getUsername());
+    	arManagementInVo.setCompanyId(user.getCompanyId());
+    	arManagementInVo.setNickname(user.getNickname());
+    	arManagementInVo.setChineseName(user.getChineseName());
+    	Result<Boolean> rlt = arManagementDcService.unDoAr(arManagementInVo);
+    	logger.info("撤销长约，返回结果rlt：{}", JSON.toJSONString(rlt));
+        return Result.createSuccessResult(rlt.getData());        
+    }
+    
     
     @RequestMapping(value = { "getArSubmmitDetail" })
     @ResponseBody

@@ -718,24 +718,24 @@
 										enctype="multipart/form-data" method="post">
 										<div id="fujianId2"></div>
 									</form>
-									<div class="modal-footer">
-										<button id="btn_save2" type="button" class="btn btn-primary"
-											onclick="javascript:addInputItem(2);">新增附件</button>
-										<button id="btn_save1" type="button" class="btn btn-primary"
-											onclick="javascript:submitTransferFile(2);">上传</button>
-									</div>
+											<div class="modal-footer">												
+												<button id="btn_save2" type="button" class="btn btn-primary-red"
+													onclick="javascript:addInputItem(2);"><i class="glyphicon glyphicon-plus"></i>新增附件</button>
+												<button id="btn_save1" type="button" class="btn btn-primary-red"
+													onclick="javascript:submitTransferFile(2);"><i class="glyphicon glyphicon-upload"></i>上传</button>
+											</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="box-footer">
-						<button id="btn_submit_ar" type="button"
-							class="btn btn-primary pull-right"
-							onclick='javascript:validate_frm_submit_ar()'>确定</button>
-						<button id="btn_close" type="button"
-							class="btn btn-default pull-right"
+ 						<button id="btn_close" type="button"
+							class="btn btn-primary-gray  pull-right"
 							onclick='javascript:showOrHideDetail(true, 1);'
-							style="margin-right: 15px;">取消</button>
+							style="margin-right: 15px;"><i class="glyphicon glyphicon-remove-sign"></i>取消</button>
+						<button id="btn_submit_ar" type="button"
+							class="btn btn-primary-red  pull-right"
+							onclick='javascript:validate_frm_submit_ar()' style="margin-right:10px;"><i class="glyphicon glyphicon-ok-sign"></i>确定</button>
 					</div>
 				</form>
 			</div>

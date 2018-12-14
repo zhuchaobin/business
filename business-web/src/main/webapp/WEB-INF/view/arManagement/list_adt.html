@@ -167,12 +167,12 @@
 	<!-- 列表查询 end-->
 	<!-- 详细信息 start-->
 	<section id="main_edit_detail" class="content" style="display: none;">
-		<div class="box box-info">
+		<div id="main_edit_detail_clapse" class="box box-info">
 			<div class="box-header with-border">
-				<h3 id="main_edit_detail_title" class="box-title">长约信息</h3>
+				<h4 id="main_edit_detail_title" class="text-info">长约信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
-						<i class="fa fa-minus"></i>
+						<i id="main_edit_detail_li" class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
@@ -605,11 +605,11 @@
 												enctype="multipart/form-data" method="post">
 												<div id="fujianId"></div>
 											</form>
-											<div class="modal-footer">
-												<button id="btn_save2" type="button" class="btn btn-primary"
-													onclick="javascript:addInputItem(1);">新增附件</button>
-												<button id="btn_save1" type="button" class="btn btn-primary"
-													onclick="javascript:submitTransferFile(1);">上传</button>
+											<div class="modal-footer">												
+												<button id="btn_save2" type="button" class="btn btn-primary-red"
+													onclick="javascript:addInputItem(1);"><i class="glyphicon glyphicon-plus"></i>新增附件</button>
+												<button id="btn_save1" type="button" class="btn btn-primary-red"
+													onclick="javascript:submitTransferFile(1);"><i class="glyphicon glyphicon-upload"></i>上传</button>
 											</div>
 										</div>
 									</div>
@@ -635,12 +635,12 @@
 	<!-- 长约流转信息 start-->
 	<section id="ar_lnk_jrnl_inf_detail" class="content"
 		style="display: none;">
-		<div class="box box-info">
+		<div id="ar_lnk_jrnl_inf_detail_clapse_box" class="box box-info">
 			<div class="box-header with-border">
-				<h3 id="ar_lnk_jrnl_inf_detail_title" class="box-title">长约流转信息</h3>
+				<h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">长约流转信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
-						<i class="fa fa-minus"></i>
+						<i  id="ar_lnk_jrnl_inf_detail_li" class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
@@ -672,7 +672,7 @@
 	<section id="submit_ar_detail" class="content" style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h3 id="submit_ar_detail_title" class="box-title">提交结论</h3>
+				<h4 id="submit_ar_detail_title" class="text-info">提交结论</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -692,7 +692,7 @@
 										type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02"
 										selected=""> 退回</input> <input name="arId"
 										class="form-control" placeholder="" value="" type="hidden" />
-									<input name="aplyPcstpCd" class="form-control" placeholder=""
+									<input id="aplyPcstpCd" name="aplyPcstpCd" class="form-control" placeholder=""
 										value="" type="hidden" />
 								</div>
 							</div>
@@ -719,23 +719,23 @@
 										<div id="fujianId2"></div>
 									</form>
 									<div class="modal-footer">
-										<button id="btn_save2" type="button" class="btn btn-primary"
-											onclick="javascript:addInputItem(2);">新增附件</button>
-										<button id="btn_save1" type="button" class="btn btn-primary"
-											onclick="javascript:submitTransferFile(2);">上传</button>
+										<button id="btn_save2" type="button" class="btn btn-primary-red"
+													onclick="javascript:addInputItem(2);"><i class="glyphicon glyphicon-plus"></i>新增附件</button>
+										<button id="btn_save1" type="button" class="btn btn-primary-red"
+													onclick="javascript:submitTransferFile(2);"><i class="glyphicon glyphicon-upload"></i>上传</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="box-footer">
-						<button id="btn_submit_ar" type="button"
-							class="btn btn-primary pull-right"
-							onclick='javascript:validate_frm_submit_ar()'>确定</button>
-						<button id="btn_close" type="button"
-							class="btn btn-default pull-right"
+ 						<button id="btn_close" type="button"
+							class="btn btn-primary-gray  pull-right"
 							onclick='javascript:showOrHideDetail(true, 1);'
-							style="margin-right: 15px;">取消</button>
+							style="margin-right: 15px;"><i class="glyphicon glyphicon-remove-sign"></i>取消</button>
+						<button id="btn_submit_ar" type="button"
+							class="btn btn-primary-red  pull-right"
+							onclick='javascript:validate_frm_submit_ar()' style="margin-right:10px;"><i class="glyphicon glyphicon-ok-sign"></i>确定</button>
 					</div>
 				</form>
 			</div>
@@ -755,7 +755,7 @@
 	<section id="query_ar_submmit_detail" style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h3 id="query_ar_submmit_title" class="box-title">长约提交详情</h3>
+				<h4 id="query_ar_submmit_title" class="text-info">长约提交详情</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -871,12 +871,12 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
-				<div class="modal-body" align="center">提交后将自动流转到下一环节，若需修改需要下一环节退回，确定提交吗?</div>
+				</div> 
+				<div class="modal-body" align="center" id="saveSubmitModalTips">提交后将自动流转到下一环节，若需修改需要下一环节退回，确定提交吗?</div>
 				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:submitAr()" class="btn"
-						data-dismiss="modal">确定</button>
-					<button type="button" class="btn" data-dismiss="modal">取消</button>
+					<button type="button" onclick="javascript:submitAr()" class="btn btn-primary-red"
+						data-dismiss="modal"><i class="glyphicon glyphicon-ok-sign"></i>确定</button>
+					<button type="button" class="btn btn-primary-gray" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i>取消</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -885,6 +885,31 @@
 	</div>
 	<!-- 长约提交确认提示框 end -->
 
+		<!-- 长约删除确认提示框 start -->
+	<div class="modal fade" id="arUndoModal" tabindex="-1" role="dialog"
+		aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">友情提示</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center">您确定要撤销该长约吗?</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:arUndo()" class="btn btn-primary-red"
+						data-dismiss="modal"><i class="glyphicon glyphicon-ok-sign"></i>确定</button>
+					<button type="button" class="btn btn-primary-gray" data-dismiss="modal"><i class="glyphicon glyphicon-remove-sign"></i>取消</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 长约删除确认提示框 end -->
+	
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -1045,6 +1070,12 @@
 				// 按钮				
 				$('#btn_close').show();
 				$('#btn_save').show();
+				//面板收缩控制
+				var div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-minus"); 
 			} else if(flag == 3){// 长约详情查看
 				//$('#main_edit_detail_title').text("长约信息");
 				// section
@@ -1063,6 +1094,14 @@
 				// 按钮	
 				$('#btn_close').hide();
 				$('#btn_save').hide();
+				//面板收缩控制
+				var div = document.getElementById('ar_lnk_jrnl_inf_detail_clapse_box'); 
+				div.setAttribute("class", "box box-info");
+				div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-minus"); 
 			} else if(flag == 6){// 长约修改
 				// section
 				$('#main_edit_detail_title').text("长约修改");
@@ -1083,6 +1122,12 @@
 				// 按钮				
 				$('#btn_close').show();
 				$('#btn_save').show();
+				//面板收缩控制
+				var div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-minus"); 
 			} else if(flag == 4){// 长约提交
 				//$('#main_edit_detail_title').text("长约信息");
 				// section
@@ -1101,6 +1146,16 @@
 				// 按钮
 				$('#btn_close').hide();
 				$('#btn_save').hide();
+				//面板收缩控制
+				var div = document.getElementById('ar_lnk_jrnl_inf_detail_clapse_box'); 
+				div.setAttribute("class", "box box-info collapsed-box");
+				div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info collapsed-box"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-plus"); 
+				div = document.getElementById('ar_lnk_jrnl_inf_detail_li'); 
+				div.setAttribute("class", "fa fa-plus"); 
 			} else if(flag == 5){//长约提交详情查看
 				$('#main_search_detail').hide();
 				$('#main_edit_detail').hide();
@@ -1117,15 +1172,60 @@
 		function reset() {
 			E7.resetForm('#frm_query');
 		}
-		
-		
+				
 		function validate_frm_submit_ar(){
 			$('#frm_submit_ar').bootstrapValidator('validate');
 			if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
 				return;
-			} else {
+			} else {	
+				var nestStepName = "";
+				var aplyPsrltCd = "";
+				var aplyPsrltCdRadio = document.getElementsByName("aplyPsrltCd");
+				 for(var i=0;i<aplyPsrltCdRadio.length;i++)
+				 {
+					 if(aplyPsrltCdRadio[i].checked)
+						 aplyPsrltCd = aplyPsrltCdRadio[i].value;
+				 }	
+					
+				if("01" ==  aplyPsrltCd){
+					nestStepName=getNextStepName($('#aplyPcstpCd').val(),1);
+					if(null == nestStepName || ""==nestStepName)
+						nestStepName="下一环节";
+					$('#saveSubmitModalTips').text("提交后将流转到 [ "+ nestStepName+" ] ，确定提交吗?");
+				} else if("02" ==  aplyPsrltCd){
+					nestStepName=getNextStepName($('#aplyPcstpCd').val(),2);
+					$('#saveSubmitModalTips').text("提交后将退回到 [ "+ nestStepName+" ] ，确定提交吗?");
+				}
 				$('#submitArModal').modal('show');
 			}
+		}
+		
+		function getNextStepName(currStep, flag){
+			// currStep,当前环节；flag，跳转方向1通过，2退回
+			var nextStepName = "";
+			if("01" == currStep){
+				if(1==flag) nextStepName="长约确认(供应链)";
+				else if(2==flag) nextStepName="";
+			} else if("02" == currStep){
+				if(1==flag) nextStepName="长约确认(下游)";
+				else if(2==flag) nextStepName="长约发起（平台）";
+			}  else if("03" == currStep){
+				if(1==flag) nextStepName="确认承保（保险公司）";
+				else if(2==flag) nextStepName="长约确认(供应链)";
+			} else if("04" == currStep){
+				if(1==flag) nextStepName="长约一审（平台）";
+				else if(2==flag) nextStepName="长约确认(下游)";
+			} else if("05" == currStep){
+				if(1==flag) nextStepName="长约二审（平台）";
+				else if(2==flag) nextStepName="确认承保（保险公司）";
+			} else if("06" == currStep){
+				if(1==flag) nextStepName="长约终止（平台）";
+				else if(2==flag) nextStepName="长约一审（平台）";
+			} else if("07" == currStep){
+				if(1==flag) nextStepName="长约结束";
+				else if(2==flag) nextStepName="长约二审（平台）";
+			}	
+			return nextStepName;
 		}
 		
 		/***
@@ -1454,8 +1554,9 @@
 				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
 				// 长约流转div标题
 				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["arId"]+" ]");
-				// 长约提交div标题
-				$('#submit_ar_detail_title').text("长约提交 [ " + detail["arId"]+" ]");
+				// 长约提交div标题				
+				var titleDesc = "长约" + transAplyPcstpCd(aplyPcstpCd);				
+				$('#submit_ar_detail_title').text("您所在位置 : 长约管理 > 待审批长约 > " + titleDesc + " [ " + detail["arId"] + " ]");
 				// 长约提交详情查询div标题
 				$('#query_ar_submmit_title').text("长约提交详情 [ " + detail["arId"]+" ]");
 				
@@ -1573,8 +1674,40 @@
 			showOrHideDetail(false, 3);
 		}
 		
+		function confirmArUndo(){
+			$('#arUndoModal').modal('show');
+		}
+		
+		function arUndo() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if (rows.length == 0) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '请选择数据！'
+				});
+				return;
+			} else if (rows.length > 1) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '一次只能撤销一条长约！'
+				});
+				return;
+			}
+			if ($('#frm_detail').data('bootstrapValidator')) {
+				$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			}
+			E7.post(pageSetting.resetPath + '/unDoAr', {
+				'id' : rows[0]['id']
+			}, function(result) {
+				query_ar_list();
+				bootbox.alert({
+					'title' : "消息",
+					'message' : '长约撤销成功!'
+				});
+			});
+		}
+		
 		function del() {
-			alert($('#queryTypeId').val());
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
 				bootbox.alert({
@@ -1611,6 +1744,8 @@
 				$('#saveSubmitModal').modal('show');
 			}
 		}
+		
+
 		
 		function save() {			
 			for (instance in CKEDITOR.instances) {
@@ -1834,14 +1969,19 @@
 		$("#div_buttons")
 				.append(
 					 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:del();"><i class="glyphicon glyphicon-trash"></i>删除</button>');
- */		$("#div_buttons")
-						.append(
-								/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
-				'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
-				$("#div_buttons")
-						.append(
-								/* '<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>'); */
-				'<button id="btn_search"  type="button" class="btn btn-primary-red btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
+ */		
+ $("#div_buttons")
+	.append(
+		 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:confirmArUndo();" style="margin-left:20px;"><i class="glyphicon glyphicon-minus-sign"></i>撤销</button>'		
+	);
+ $("#div_buttons")
+	.append(
+			/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
+		'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
+		$("#div_buttons")
+			.append(
+					/* '<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>'); */
+		'<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
 			} else {
 				$("#div_buttons")
 						.append(
