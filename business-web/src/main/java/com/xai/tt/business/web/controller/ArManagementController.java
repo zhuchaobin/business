@@ -47,7 +47,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @Description:长约信息信息管理
  * @author: zhuchaobin
  * @date:   2018年7月10日 下午7:00:23  
- *
+ * 
  */
 @Controller
 @RequestMapping("arManagement")

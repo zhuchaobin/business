@@ -12,7 +12,7 @@
 				fileType = "[ Excel文档 ]";
 			} else if("rar" == suffix || "zip" == suffix || "gz" == suffix){
 				fileType = "[ 压缩文档 ]";
-			}
+			} 
 			return fileType;
 		 }
 		
