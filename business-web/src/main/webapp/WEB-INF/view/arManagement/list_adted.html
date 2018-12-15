@@ -385,6 +385,20 @@
 									</div>
 								</div>
 							</div>
+														<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">预警线：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="wnln" class="form-control" placeholder="预警线"
+												value="2" />
+										</div>
+										<div class="col-xs-1">
+											<label for="" class="control-label">%</label>
+										</div>
+									</div>
+								</div>
+							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">服务费收取：</label>
@@ -925,6 +939,7 @@
 		th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+		<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1079,6 +1094,8 @@
 			} else if(flag == 3){// 长约详情查看
 				//$('#main_edit_detail_title').text("长约信息");
 				// section
+				// 保险信息输入部门显示隐藏
+				show_or_hide_ins_div(true);
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
@@ -1116,7 +1133,7 @@
 				$('#upload_ar_div').show();
 				$('#query_ar_atch_div').hide();
 				// 保险信息输入部门默认隐藏
-				show_or_hide_ins_div(false);
+				show_or_hide_ins_div(true);
 				// 参数
 				$('#arIdDiv').hide();
 				// 按钮				
@@ -1513,18 +1530,18 @@
 				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
 				// 长约详情div标题
 				$('#main_edit_detail_title').text("长约信息 [ " + detail["arId"]+" ]");
-				// 投保信息是否显示
+/* 				// 投保信息是否显示
 				var isNeedIns = detail["isNeedIns"];
 				if(isNeedIns == 1){
 					show_or_hide_ins_div(true);
 				} else {
 					show_or_hide_ins_div(false);
-				}
+				} */
 				///附件列表
 				var td = detail["t2UploadAtch01List"];
 				var insertHtml="";
 				for ( var kk = 0; kk < td.length; kk++) {
-					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-wendang"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'</div></a></div>';
+					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm)+'</div></a></div>';
 				}
 				if(td.length > 0){
 					var testdiv = document.getElementById("upload_atch_div");
@@ -1599,7 +1616,7 @@
 				var td = detail["t2UploadAtch01List"];
 				var insertHtml="";
 				for ( var kk = 0; kk < td.length; kk++) {
-					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-wendang"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'</div></a></div>';
+					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm) + transDateTime(suffix) +'</div></a></div>';
 				}								
 				if(td.length > 0){
 					var testdiv = document.getElementById("upload_atch_div2");

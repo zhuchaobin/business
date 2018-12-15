@@ -575,7 +575,7 @@ public class ArManagementController extends BaseController {
         Map<String, Integer> fileExistMap = new HashMap<String, Integer>();
         Arrays.asList(file).stream().forEach(item->{
         	// 判断文件是否已存在
-        	if(1 == fileExistMap.get(item.getOriginalFilename()))
+        	if(null != fileExistMap.get(item.getOriginalFilename()) && (1== fileExistMap.get(item.getOriginalFilename())))
         		return;
         	else
         		fileExistMap.put(item.getOriginalFilename(), 1);

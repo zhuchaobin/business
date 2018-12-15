@@ -385,6 +385,20 @@
 									</div>
 								</div>
 							</div>
+														<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">预警线：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="wnln" class="form-control" placeholder="预警线"
+												value="2" />
+										</div>
+										<div class="col-xs-1">
+											<label for="" class="control-label">%</label>
+										</div>
+									</div>
+								</div>
+							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">服务费收取：</label>
@@ -1118,12 +1132,12 @@
 					// 长约详情div标题
 					$('#main_edit_detail_title').text("长约信息 [ " + detail["arId"]+" ]");
 					// 投保信息是否显示
-					var isNeedIns = detail["isNeedIns"];
+/* 					var isNeedIns = detail["isNeedIns"];
 					if(isNeedIns == 1){
 						show_or_hide_ins_div(true);
 					} else {
 						show_or_hide_ins_div(false);
-					}
+					} */
 					///附件列表
 					var td = detail["t2UploadAtch01List"];
 					var insertHtml="";
