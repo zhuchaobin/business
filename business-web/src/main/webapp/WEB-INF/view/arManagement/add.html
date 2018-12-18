@@ -1295,7 +1295,7 @@
 			    	"pckupgdsCyc" : {
 						validators : {
 							notEmpty : {message : '提货周期不能为空'},
-							digits: {message: '提货周期只能输入数字'}
+							number: {message: '提货周期只能输入数字'}
 						}
 					},
 			    	"btp" : {
@@ -1306,7 +1306,7 @@
 			    	"fncPctg" : {
 						validators : {
 							notEmpty : {message : '融资比例不能为空'},
-							digits: {message: '输入只能为0~100的数字'},
+							number: {message: '输入只能为0~100的数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}
 						}
@@ -1314,7 +1314,7 @@
 			    	"prpyGldRto" : {
 						validators : {
 							notEmpty : {message : '预付金比率不能为空'},
-							digits: {message: '输入只能为数字'},
+							number: {message: '输入只能为数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}
 						}
@@ -1322,13 +1322,13 @@
 			    	"lmt" : {
 						validators : {
 							notEmpty : {message : '额度不能为空'},
-							digits: {message: '输入只能为数字'}
+							number: {message: '输入只能为数字'}
 						}
 					},
 			    	"crdn" : {
 						validators : {
 							notEmpty : {message : '警戒线不能为空'},
-							digits: {message: '输入只能为数字'},
+							number: {message: '输入只能为数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}
 						}
@@ -1336,7 +1336,7 @@
 			    	"clsposLn" : {
 						validators : {
 							notEmpty : {message : '平仓线不能为空'},
-							digits: {message: '输入只能为数字'},
+							number: {message: '输入只能为数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}
 						}
@@ -1344,7 +1344,7 @@
 			    	"wnln" : {
 						validators : {
 							notEmpty : {message : '预警线不能为空'},
-							digits: {message: '输入只能为数字'},
+							number: {message: '输入只能为数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}
 						}
@@ -1403,13 +1403,13 @@
 			    	"insAmt" : {
 						validators : {
 							notEmpty : {message : '保险金额不能为空'},
-							digits: {message: '输入只能为数字'}
+							number: {message: '输入只能为数字'}
 						}
 					},
 			    	"dctbAmt" : {
 						validators : {
 							notEmpty : {message : '免赔额不能为空'},
-							digits: {message: '输入只能为数字'}
+							number: {message: '输入只能为数字'}
 						}
 					},
 			    	"epap" : {

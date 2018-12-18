@@ -919,6 +919,31 @@
 	</div>
 	<!-- 长约提交确认提示框 end -->
 
+	<!-- 发起订单确认提示框 start-->
+	<div class="modal fade" id="saveOrderSubmitModal" tabindex="-1"
+		role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">友情提示</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center">提交后将自动流转到[平台审核]，若需修改需要下一环节退回，确定提交吗?</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:saveOrder()" class="btn"
+						data-dismiss="modal">确定</button>
+					<button type="button" class="btn" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 发起订单确认提示框 end -->
+	
 	<!-- 订单详细信息 start-->
 	<section id="main_order_edit_detail" class="content"
 		style="display: none;">
@@ -935,10 +960,10 @@
 				<form id="frm_detail_order" class="form-horizontal">
 					<fieldset id='fld_detail'>
 						<div class="w-z-info">
-							<input type="hidden" id="fileId" name="fileUrl"> <input
+							<input type="hidden" id="fileId3" name="fileUrl3"> <input
 								type="hidden" id="fileToDeleteId" name="filesToDelete">
-							<input name="id" type="hidden" value="" /> <input id="arId"
-								name="arId" type="hidden" value="" /> <input id="secSrvCd"
+							<input name="id" type="hidden" value="" />
+							<input id="secSrvCd"
 								name="secSrvCd" type="hidden" value="" /> <input id="arSt"
 								name=arSt type="hidden" value="" />
 							<div class="col-md-6">
@@ -1187,7 +1212,7 @@
 											<label for="" class="control-label">%</label>
 										</div>
 										<div class="col-xs-4" style="padding-left: 0px;">
-											<input name="fncRto" class="form-control" placeholder="融资金额"
+											<input name="fncAmt" class="form-control" placeholder="融资金额"
 												value="2" />
 										</div>
 										<div class="col-xs-2">
@@ -1316,17 +1341,6 @@
 									</div>
 								</div>
 							</div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">订单状态<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<input name="ordrSt" class="form-control" placeholder="订单状态" />
-									</div>
-								</div>
-							</div>
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">服务费率<span
@@ -1506,13 +1520,13 @@
 			</button>
 			<button id="btn_save" type="button"
 				class="btn btn-primary-red pull-right"
-				onclick='javascript:validate_frm_detail(2);'
+				onclick='javascript:validate_order_edit_detail(2);'
 				style="margin-right: 5px;">
 				<i class="glyphicon glyphicon-floppy-disk"></i>保存
 			</button>
 			<button id="btn_save_submmit" type="button"
 				class="btn btn-primary-red pull-right"
-				onclick='javascript:validate_frm_detail(1);'
+				onclick='javascript:validate_order_edit_detail(1);'
 				style="margin-right: 5px;">
 				<i class="glyphicon glyphicon-ok-sign"></i>提交
 			</button>
@@ -1549,6 +1563,7 @@
 			//表单校验控件初始化
 			validator_1_Init();
 			validator_2_Init();
+			validator_3_Init();
 			buttonInit();
 			// 是否投保默认不选中，用户自己选择
 			//			$("input:radio[name="isNeedIns"]").attr("checked",false);
@@ -2056,6 +2071,21 @@
 			}
 		}
 
+		function validate_order_edit_detail(flag){
+			$('#main_order_edit_detail').bootstrapValidator('validate');
+			if (!$('#main_order_edit_detail').data('bootstrapValidator').isValid()) {
+				return;
+			} else {
+				if(1 == flag){
+					$('#secSrvCd').val("02");//提交
+					$('#saveOrderSubmitModal').modal('show');
+				} else if(2 == flag){
+					$("#secSrvCd").val("01");//保存
+					save(1);
+				}
+			}
+		}
+
 		function save() {
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
@@ -2080,6 +2110,34 @@
 								});
 					});
 		}
+		
+		function saveOrder() {
+		 alert("3333");
+			for (instance in CKEDITOR.instances) {
+				CKEDITOR.instances[instance].updateElement();
+			}
+
+			var formParams = E7.serialForm('#frm_detail_order');
+			alert(pageSetting.resetPath);
+			E7.post('/orderManagement/save', formParams,
+					function(data) {
+						query_ar_list();
+						//showOrHideDetail(true, 1);
+						bootbox.alert({
+							'title' : "消息",
+							'message' : '长约发起成功！'
+						});
+						$('#tbl_query').e7table(
+								'reload',
+								function() {
+									if (formParams['id'] != '') {
+										$('#tbl_query').e7table('selectById',
+												formParams['id']);
+									}
+								});
+					});
+		}
+		
 		function showEditDialog(disable) {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
@@ -2817,7 +2875,7 @@
 							notEmpty : {
 								message : '提货周期不能为空'
 							},
-							digits : {
+							number : {
 								message : '提货周期只能输入数字'
 							}
 						}
@@ -2834,7 +2892,7 @@
 							notEmpty : {
 								message : '融资比例不能为空'
 							},
-							digits : {
+							number : {
 								message : '输入只能为0~100的数字'
 							},
 							greaterThan : {
@@ -2852,7 +2910,7 @@
 							notEmpty : {
 								message : '预付金比率不能为空'
 							},
-							digits : {
+							number : {
 								message : '输入只能为数字'
 							},
 							greaterThan : {
@@ -2870,7 +2928,7 @@
 							notEmpty : {
 								message : '额度不能为空'
 							},
-							digits : {
+							number : {
 								message : '输入只能为数字'
 							}
 						}
@@ -2880,7 +2938,7 @@
 							notEmpty : {
 								message : '警戒线不能为空'
 							},
-							digits : {
+							number : {
 								message : '输入只能为数字'
 							},
 							greaterThan : {
@@ -2898,7 +2956,7 @@
 							notEmpty : {
 								message : '平仓线不能为空'
 							},
-							digits : {
+							number : {
 								message : '输入只能为数字'
 							},
 							greaterThan : {
@@ -2987,7 +3045,7 @@
 							notEmpty : {
 								message : '保险金额不能为空'
 							},
-							digits : {
+							number : {
 								message : '输入只能为数字'
 							}
 						}
@@ -2997,7 +3055,7 @@
 							notEmpty : {
 								message : '免赔额不能为空'
 							},
-							digits : {
+							number : {
 								message : '输入只能为数字'
 							}
 						}
@@ -3053,6 +3111,272 @@
 
 			$('#btn_save').click(function() {
 				$('#frm_detail').bootstrapValidator('validate');
+			});
+		}
+		
+		/***
+		 * 表单校验控件初始化3（订单发起）
+		 */
+		function validator_3_Init() {
+			$('#frm_detail_order').bootstrapValidator({
+				feedbackIcons : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+					"pdNm" : {
+						validators : {
+							notEmpty : {
+								message : '品名不能为空'
+							}
+						}
+					},
+					"spec" : {
+						validators : {
+							notEmpty : {
+								message : '规格不能为空'
+							}
+						}
+					},
+					"qlyStd" : {
+						validators : {
+							notEmpty : {
+								message : '质量标准不能为空'
+							}
+						}
+					},
+					"ordrStdt" : {
+						validators : {
+							notEmpty : {
+								message : '订单开始日期不能为空'
+							}
+						}
+					},
+					"ordrEddt" : {
+						validators : {
+							notEmpty : {
+								message : '订单结束日期不能为空'
+							}
+						}
+					},
+					"pchUnitprc" : {
+						validators : {
+							notEmpty : {
+								message : '采购单价不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"wght" : {
+						validators : {
+							notEmpty : {
+								message : '重量不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"pchPymfrgdsTamt" : {
+						validators : {
+							notEmpty : {
+								message : '采购货款总额不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"txnPrcdif" : {
+						validators : {
+							notEmpty : {
+								message : '交易差价不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"saleTntvPrc" : {
+						validators : {
+							notEmpty : {
+								message : '销售暂定价不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"fncRto" : {
+						validators : {
+							notEmpty : {
+								message : '融资比率不能为空'
+							},
+							number : {
+								message : '输入只能为0~100的数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
+						}
+					},
+					"fncAmt" : {
+						validators : {
+							notEmpty : {
+								message : '融资金额不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"ctrTamt" : {
+						validators : {
+							notEmpty : {
+								message : '合同总额不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"prpyGldRto" : {
+						validators : {
+							notEmpty : {
+								message : '预付金比率不能为空'
+							},
+							number : {
+								message : '输入只能为0~100的数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
+						}
+					},
+					"rskctrUnitprc" : {
+						validators : {
+							notEmpty : {
+								message : '风控单价不能为空'
+							},
+							number : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"rskctrPrcRef" : {
+						validators : {
+							notEmpty : {
+								message : '风控价格参考不能为空'
+							}
+						}
+					},
+					"wnln" : {
+						validators : {
+							notEmpty : {
+								message : '预警线不能为空'
+							},
+							number : {
+								message : '输入只能为0~100的数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
+						}
+					},
+					"crdn" : {
+						validators : {
+							notEmpty : {
+								message : '警戒线不能为空'
+							},
+							number : {
+								message : '输入只能为0~100的数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
+						}
+					},
+					"clsposLn" : {
+						validators : {
+							notEmpty : {
+								message : '平仓线不能为空'
+							},
+							number : {
+								message : '输入只能为0~100的数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
+						}
+					},
+					"splovCrrovMod" : {
+						validators : {
+							notEmpty : {
+								message : '溢短结转方式不能为空'
+							}
+						}
+					},
+					"fncSvcfeeRate" : {
+						validators : {
+							notEmpty : {
+								message : '服务费率不能为空'
+							},
+							number : {
+								message : '输入只能为0~100的数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
+						}
+					},
+					"pymtmod" : {
+						validators : {
+							notEmpty : {
+								message : '付款方式不能为空'
+							}
+						}
+					}
+				}
+			});
+
+			$('#btn_save').click(function() {
+				$('#frm_detail_order').bootstrapValidator('validate');
+			});
+			$('#btn_save_submmit').click(function() {
+				$('#frm_detail_order').bootstrapValidator('validate');
 			});
 		}
 
