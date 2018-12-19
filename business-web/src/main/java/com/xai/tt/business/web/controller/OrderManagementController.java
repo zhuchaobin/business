@@ -75,7 +75,7 @@ public class OrderManagementController extends BaseController {
     @RequestMapping(value = { "queryCompanyModels" })
     public ModelAndView queryCompanyModels(CompanyQuery query) {
     	logger.info("查询公司信息请求报文：CompanyQuery={}", JSON.toJSONString(query));
-    	ModelAndView mv = new ModelAndView("arManagement/add");
+    	ModelAndView mv = new ModelAndView("orderManagement/add");
     	Result<PageInfo<Company>> result = companyDcService.queryPage(query);
     	logger.info("查询公司信息返回结果：{}", JSON.toJSONString(result));
         if (result == null || result.getCode() != 0) {
@@ -109,39 +109,6 @@ public class OrderManagementController extends BaseController {
     	logger.info("删除长约，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
-    
- /*   @RequestMapping(value = { "queryLnkJrnlInfPage" })
-    @ResponseBody
-    public Result<?>  queryLnkJrnlInfPage(OrderManagementInVo OrderManagementInVo, PageParam pageParam, String arId) {
-    	logger.info("arId=" + arId);
-    	logger.info("OrderManagementInVo" + JSON.toJSONString(OrderManagementInVo));
-    	logger.info("pageParam" + JSON.toJSONString(pageParam));
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	OrderManagementInVo.setUserType(user.getUserType().ordinal());
-    	OrderManagementInVo.setUsername(user.getUsername());
-    	OrderManagementInVo.setCompanyId(user.getCompanyId());
-    	OrderManagementInVo.setNickname(user.getNickname());
-    	OrderManagementInVo.setChineseName(user.getChineseName());
-    	logger.info("订单信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(OrderManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<T0LnkJrnlInf>> result = orderManagementDcService.queryLnkJrnlInfPage(OrderManagementInVo, pageParam);
-        logger.info("订单信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
-    }*/
-    
- /*   @RequestMapping(value = { "queryUploadFilePage" })
-    @ResponseBody
-    public Result<?>  queryUploadFilePage(OrderManagementInVo orderManagementInVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	orderManagementInVo.setUserType(user.getUserType().ordinal());
-    	orderManagementInVo.setUsername(user.getUsername());
-    	orderManagementInVo.setCompanyId(user.getCompanyId());
-    	orderManagementInVo.setNickname(user.getNickname());
-    	orderManagementInVo.setChineseName(user.getChineseName());
-    	logger.info("订单信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(orderManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<T0LnkJrnlInf>> result = orderManagementDcService.queryLnkJrnlInfPage(orderManagementInVo, pageParam);
-        logger.info("订单信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
-    }*/
     
     @RequestMapping(value = { "queryPage" })
     @ResponseBody
@@ -396,7 +363,7 @@ public class OrderManagementController extends BaseController {
     
     @RequestMapping(value = { "add" })
     public ModelAndView add() {
-    	ModelAndView mav = new ModelAndView("arManagement/add");
+    	ModelAndView mav = new ModelAndView("orderManagement/add");
     	CompanyQuery query = new CompanyQuery();        
     	// 查询平台下拉菜单
         query.setUsrTp("01");
@@ -476,7 +443,7 @@ public class OrderManagementController extends BaseController {
     	
     @RequestMapping(value = { "list" })
     public ModelAndView list() {
-    	ModelAndView mav = new ModelAndView("arManagement/list");
+    	ModelAndView mav = new ModelAndView("orderManagement/list");
     	CompanyQuery query = new CompanyQuery();        
     	// 查询平台下拉菜单
         query.setUsrTp("01");
@@ -660,13 +627,13 @@ public class OrderManagementController extends BaseController {
     public ModelAndView lists(Integer flag) {
     	ModelAndView mav = null;
     	if(1 == flag)
-    		mav = new ModelAndView("arManagement/list_ing");
+    		mav = new ModelAndView("orderManagement/list_ing");
     	else if(2 == flag)
-    		mav = new ModelAndView("arManagement/list_adt");
+    		mav = new ModelAndView("orderManagement/list_adt");
     	else if(3 == flag)
-    		mav = new ModelAndView("arManagement/list_fnsh");
+    		mav = new ModelAndView("orderManagement/list_fnsh");
     	else if(5 == flag)
-    		mav = new ModelAndView("arManagement/list_adted");
+    		mav = new ModelAndView("orderManagement/list_adted");
     	
     	logger.info("flag=" + flag);
     	CompanyQuery query = new CompanyQuery(); 
