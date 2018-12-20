@@ -1572,9 +1572,11 @@
 				return "二审";;
 			} else if (value == '07') {
 				return "终止";
+			} else if (value == '99') {
+				return "完结";
 			} else if (value == '') {
-				return "完成";
-			} else
+				return "完结";
+			}else
 				return value;
 		}	
 		
@@ -1964,42 +1966,7 @@
 													index) {
 												return transAplyPcstpCd(value);
 											}
-										},
-										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
-										 return new Date(value).format();
-										 }}, */
-										{
-											title : '操作',
-											field : 'aplyPcstpCd',
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>发起</button>&nbsp;';
-													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												} else if (value == '03') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												} else if (value == '04') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>承保</button>&nbsp;';
-													return s;
-												} else if (value == '05') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>一审</button>&nbsp;';
-													return s;
-												} else if (value == '06') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>二审</button>&nbsp;';
-													return s;
-												} else if (value == '07') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
-													return s; 
-												} 
-											}
-										} ],
+										}],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
