@@ -129,7 +129,7 @@
 				if(1==flag) nextStepName="订单终止(供应链)";
 				else if(2==flag) nextStepName="确认收款(供应链)";
 			} else if("39" == currStep){
-				if(1==flag) nextStepName="发货发起(上游)";
+				if(1==flag) nextStepName="订单完结";
 				else if(2==flag) nextStepName="确认承保(保险公司)";
 			} else if("61" == currStep){
 				if(1==flag) nextStepName="接货承运(物流)";
