@@ -1710,27 +1710,6 @@
 										field : 'ustrmSplrName',
 										sortable : true
 									},
-						/* 			{
-										title : '仓储公司',
-										field : 'stgcoName',
-										sortable : true
-									},
-									{
-										title : '业务类型',
-										field : 'btp',
-										sortable : true,
-										formatter : function(value, row,
-												index) {
-											if (value == '01') {
-												return "订单融资";
-											} else if (value == '02') {
-												return "保证金融资";
-											} else if (value == '03') {
-												return "质押融资";
-											} else
-												return value;
-										}
-									}, */
 									{
 										title : '发起时间',
 										field : 'crtTm',
@@ -1849,8 +1828,7 @@
 			}
 		}
 
-		// 长约相关js
-		function queryArDetails(id, aplyPcstpCd, type) {// type 1:长约提交  0：长约详情查询
+		function queryArDetails(id, aplyPcstpCd, type){// type 1:订单提交  0：订单详情查询
 
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
@@ -1858,126 +1836,79 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7
-					.post(
-							pageSetting.resetPath + '/getDetail',
-							{
-								'id' : id
-							},
-							function(result) {
-								fillForm('#frm_detail', result.data);
-								var detail = result.data;
-								for (key in detail) {
-									$('#frm_detail [name="' + key + '"]').val(
-											detail[key]);
-								}
-								///
-								$('#frm_submit_ar [name="arId"]').val(
-										detail["arId"]);
-								$('#frm_submit_ar [name="aplyPcstpCd"]').val(
-										detail["aplyPcstpCd"]);
+			E7.post(pageSetting.resetPath + '/getDetail', {
+				'id' : id
+			}, function(result) {
+				fillForm('#frm_detail', result.data);
+				var detail = result.data;
+				for (key in detail) {
+					$('#frm_detail [name="' + key + '"]').val(detail[key]);
+				}
+				///
+				$('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
+				// 订单详情div标题
+				$('#main_edit_detail_title').text("订单信息 [ " + detail["ordrId"]+" ]");
+/* 				// 投保信息是否显示
+				var isNeedIns = detail["isNeedIns"];
+				if(isNeedIns == 1){
+					show_or_hide_ins_div(true);
+				} else {
+					show_or_hide_ins_div(false);
+				} */
+				///附件列表
+				var td = detail["t2UploadAtch01List"];
+				var insertHtml="";
+				for ( var kk = 0; kk < td.length; kk++) {
+					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm)+'</div></a></div>';
+				}
+				if(td.length > 0){
+					var testdiv = document.getElementById("upload_atch_div");
+					testdiv.innerHTML=insertHtml;
+					$('#query_ar_atch_div').fadeIn(300);
+				} else {
+					$('#query_ar_atch_div').hide();	
+				}				
+//				bespeakStatus = detail['bespeakStatus'];				
+				///环节流转列表table生成
+ 				var lnk_jrnl_inf = detail["list"];
+				insertHtml="";
+				insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">环节</th><th style="border-bottom: none;">结果</th><th style="border-bottom: none;">提交人</th><th style="border-bottom: none;">公司</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">详情</th></tr> </thead><tbody>';
+				for ( var jj = 0; jj < lnk_jrnl_inf.length; jj++) {
+					var rmrkDesc = lnk_jrnl_inf[jj].rmrk;
+					if((null != rmrkDesc) && (rmrkDesc.length > 5)){
+						rmrkDesc = '<a onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '")>' + rmrkDesc.substring(0,5) + "..." + '</a>';
+					}
+					if((null == rmrkDesc) || (""==rmrkDesc)){
+						rmrkDesc = "无";
+					}
+					insertHtml = insertHtml + '<tr><td>'+transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)+'</td><td>'+transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)+'</td><td>'+lnk_jrnl_inf[jj].username+'</td><td>'+lnk_jrnl_inf[jj].companyName+
+					'</td><td>'+rmrkDesc+'</td><td>'+transDateTime(lnk_jrnl_inf[jj].lnkEdtm)+
+					'</td><td><input type="button" class="btn btn_small" onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '") value="查看"> </td></tr>';
+				}				
+				insertHtml = insertHtml + "</tbody></table>";
+				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
+				// 订单流转div标题
+				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["ordrId"]+" ]");
+				// 订单提交div标题				
+				var titleDesc = "订单" + transAplyPcstpCd(aplyPcstpCd);				
+				$('#submit_ar_detail_title').text("您所在位置 : 订单管理 > 待审批订单 > " + titleDesc + " [ " + detail["ordrId"] + " ]");
+				// 订单提交详情查询div标题
+				$('#query_ar_submmit_title').text("订单提交详情 [ " + detail["ordrId"]+" ]");
+				
+				testdiv.innerHTML=insertHtml;
+				
+				// 决定显示哪一个返回按钮
+				if(type == 1){
+					// 返回到订单详情查询
+					$('#btn_close_return4').fadeIn(300);
+					$('#btn_close_return3').hide();	
+				} else {
 
-								// 长约详情div标题
-								$('#main_edit_detail_title').text(
-										"长约信息 [ " + detail["arId"] + " ]");
-								// 投保信息是否显示
-								/* 					var isNeedIns = detail["isNeedIns"];
-								 if(isNeedIns == 1){
-								 show_or_hide_ins_div(true);
-								 } else {
-								 show_or_hide_ins_div(false);
-								 } */
-								///附件列表
-								var td = detail["t2UploadAtch01List"];
-								var insertHtml = "";
-								for (var kk = 0; kk < td.length; kk++) {
-									insertHtml = insertHtml
-											+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
-											+ td[kk].oriFileNm + '<p>'
-											+ getFileType(td[kk].oriFileNm)
-											+ '</div></a></div>';
-								}
-								if (td.length > 0) {
-									var testdiv = document
-											.getElementById("upload_atch_div");
-									testdiv.innerHTML = insertHtml;
-									$('#query_ar_atch_div').fadeIn(300);
-								} else {
-									$('#query_ar_atch_div').hide();
-								}
-								//					bespeakStatus = detail['bespeakStatus'];				
-								///环节流转列表table生成
-								var lnk_jrnl_inf = detail["list"];
-								insertHtml = "";
-								insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">环节</th><th style="border-bottom: none;">结果</th><th style="border-bottom: none;">提交人</th><th style="border-bottom: none;">公司</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">详情</th></tr> </thead><tbody>';
-								for (var jj = 0; jj < lnk_jrnl_inf.length; jj++) {
-									var rmrkDesc = lnk_jrnl_inf[jj].rmrk;
-									if ((null != rmrkDesc)
-											&& (rmrkDesc.length > 5)) {
-										rmrkDesc = '<a onclick=getArSubmmitDetail("'
-												+ lnk_jrnl_inf[jj].id
-												+ '","'
-												+ lnk_jrnl_inf[jj].rltvId
-												+ '","'
-												+ lnk_jrnl_inf[jj].aplyPcstpCd
-												+ '")>'
-												+ rmrkDesc.substring(0, 5)
-												+ "..." + '</a>';
-									}
-									if ((null == rmrkDesc) || ("" == rmrkDesc)) {
-										rmrkDesc = "无";
-									}
-									insertHtml = insertHtml
-											+ '<tr><td>'
-											+ transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)
-											+ '</td><td>'
-											+ transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)
-											+ '</td><td>'
-											+ lnk_jrnl_inf[jj].username
-											+ '</td><td>'
-											+ lnk_jrnl_inf[jj].companyName
-											+ '</td><td>'
-											+ rmrkDesc
-											+ '</td><td>'
-											+ transDateTime(lnk_jrnl_inf[jj].lnkEdtm)
-											+ '</td><td><input type="button" class="btn btn_small" onclick=getArSubmmitDetail("'
-											+ lnk_jrnl_inf[jj].id + '","'
-											+ lnk_jrnl_inf[jj].rltvId + '","'
-											+ lnk_jrnl_inf[jj].aplyPcstpCd
-											+ '") value="查看"> </td></tr>';
-								}
-								insertHtml = insertHtml + "</tbody></table>";
-								testdiv = document
-										.getElementById("lnk_jrnl_inf_tbl_div");
-								// 长约流转div标题
-								$('#ar_lnk_jrnl_inf_detail_title').text(
-										"流转信息 [ " + detail["arId"] + " ]");
-								// 长约提交div标题				
-								var titleDesc = "长约"
-										+ transAplyPcstpCd(aplyPcstpCd);
-								$('#submit_ar_detail_title')
-										.text(
-												"您所在位置 : 长约管理 > 执行中长约 > "
-														+ titleDesc + " [ "
-														+ detail["arId"] + " ]");
-								// 长约提交详情查询div标题
-								$('#query_ar_submmit_title').text(
-										"长约提交详情 [ " + detail["arId"] + " ]");
-
-								testdiv.innerHTML = insertHtml;
-
-								// 决定显示哪一个返回按钮
-								if (type == 1) {
-									// 返回到长约详情查询
-									$('#btn_close_return4').fadeIn(300);
-									$('#btn_close_return3').hide();
-								} else {
-
-									// 返回到长约提交
-									$('#btn_close_return3').fadeIn(300);
-									$('#btn_close_return4').hide();
-								}
-							});
+					// 返回到订单提交
+					$('#btn_close_return3').fadeIn(300);
+					$('#btn_close_return4').hide();	
+				}
+			});
 		}
 
 		function getArSubmmitDetail(id, arId, aplyPcstpCd) {
@@ -2040,16 +1971,14 @@
 							});
 		}
 
-	    function showViewSubmitAr(id, aplyPcstpCd) {
+		function showViewSubmitOrder(id, aplyPcstpCd) {
 			E7.resetForm('#frm_submit_ar');
-			$('#frm_submit_ar').data('bootstrapValidator').updateStatus(
-					'aplyPsrltCd', 'NOT_VALIDATED', null).validateField(
-					'aplyPsrltCd');
+			$('#frm_submit_ar').data('bootstrapValidator').updateStatus('aplyPsrltCd', 'NOT_VALIDATED',null).validateField('aplyPsrltCd');  
 			// 初始化上传附件控件
 			initInputItem(2);
-			queryArDetails(id, aplyPcstpCd, 1);// flag 1:长约提交  0：长约详情查询
+			queryArDetails(id, aplyPcstpCd, 1);// flag 1:订单提交  0：订单详情查询
 			showOrHideDetail(false, 4);
-		}
+		}	
 		function showArDetailDialog() {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
@@ -3381,9 +3310,9 @@
 
 		function show_or_hide_ins_div(flag) {
 			if (flag) {
-				document.getElementById('ins_div').style.display = "";
+				document.getElementById('ins_order_div').style.display = "";
 			} else {
-				document.getElementById('ins_div').style.display = "none";
+				document.getElementById('ins_order_div').style.display = "none";
 			}
 		}
 

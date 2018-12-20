@@ -1206,7 +1206,7 @@
 			}
 			// 订单列表查询
 			if(flag == 1){
-				$('#main_search_detail').fadeIn(300);
+				$('#main_search_detail').fadeIn(800);
 				$('#main_edit_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
@@ -1216,7 +1216,7 @@
 			} else if(flag == 2){// 订单发起	
 				// section
 				$('#main_edit_detail_title').text("订单发起");
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
@@ -1244,9 +1244,9 @@
 				// section
 				// 保险信息输入部门显示隐藏
 				show_or_hide_ins_div(true);
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
+				$('#ar_lnk_jrnl_inf_detail').fadeIn(800);
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
 				// 附件
@@ -1270,7 +1270,7 @@
 			} else if(flag == 6){// 订单修改
 				// section
 				$('#main_edit_detail_title').text("订单修改");
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
@@ -1296,10 +1296,10 @@
 			} else if(flag == 4){// 订单提交
 				//$('#main_edit_detail_title').text("订单信息");
 				// section
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
-				$('#submit_ar_detail').fadeIn(300);
+				$('#ar_lnk_jrnl_inf_detail').fadeIn(800);
+				$('#submit_ar_detail').fadeIn(800);
 				$('#query_ar_submmit_detail').hide();
 				// 附件
 				$('#upload_ar_div').hide();
@@ -1328,7 +1328,7 @@
 				$('#submit_ar_detail').hide();
 				// 返回按钮
 				$('#btn_close_div').hide();	
-				$('#query_ar_submmit_detail').fadeIn(300);	
+				$('#query_ar_submmit_detail').fadeIn(800);	
 			}
 		}
 		/***
@@ -1632,6 +1632,7 @@
 		}
  
 		function queryArDetails(id, aplyPcstpCd, type){// type 1:订单提交  0：订单详情查询
+
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 
@@ -1666,7 +1667,7 @@
 				if(td.length > 0){
 					var testdiv = document.getElementById("upload_atch_div");
 					testdiv.innerHTML=insertHtml;
-					$('#query_ar_atch_div').fadeIn(300);
+					$('#query_ar_atch_div').fadeIn(800);
 				} else {
 					$('#query_ar_atch_div').hide();	
 				}				
@@ -1695,19 +1696,19 @@
 				var titleDesc = "订单" + transAplyPcstpCd(aplyPcstpCd);				
 				$('#submit_ar_detail_title').text("您所在位置 : 订单管理 > 待审批订单 > " + titleDesc + " [ " + detail["ordrId"] + " ]");
 				// 订单提交详情查询div标题
-				$('#query_ar_submmit_title').text("订单提交详情 [ " + detail["arId"]+" ]");
+				$('#query_ar_submmit_title').text("订单提交详情 [ " + detail["ordrId"]+" ]");
 				
 				testdiv.innerHTML=insertHtml;
 				
 				// 决定显示哪一个返回按钮
 				if(type == 1){
 					// 返回到订单详情查询
-					$('#btn_close_return4').fadeIn(300);
+					$('#btn_close_return4').fadeIn(800);
 					$('#btn_close_return3').hide();	
 				} else {
 
 					// 返回到订单提交
-					$('#btn_close_return3').fadeIn(300);
+					$('#btn_close_return3').fadeIn(800);
 					$('#btn_close_return4').hide();	
 				}
 			});
@@ -1741,7 +1742,7 @@
 				if(td.length > 0){
 					var testdiv = document.getElementById("upload_atch_div2");
 					testdiv.innerHTML=insertHtml;
-					$('#query_ar_atch_div2').fadeIn(300);
+					$('#query_ar_atch_div2').fadeIn(800);
 				} else {
 					$('#query_ar_atch_div2').hide();	
 				}				
@@ -1758,6 +1759,7 @@
 			showOrHideDetail(false, 4);
 		}	
 		function showArDetailDialog() {
+
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
 				bootbox.alert({
@@ -2141,27 +2143,6 @@
 											field : 'ustrmSplrName',
 											sortable : true
 										},
-							/* 			{
-											title : '仓储公司',
-											field : 'stgcoName',
-											sortable : true
-										},
-										{
-											title : '业务类型',
-											field : 'btp',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													return "订单融资";
-												} else if (value == '02') {
-													return "保证金融资";
-												} else if (value == '03') {
-													return "质押融资";
-												} else
-													return value;
-											}
-										}, */
 										{
 											title : '发起时间',
 											field : 'crtTm',
@@ -2225,9 +2206,9 @@
 		}		
 		function show_or_hide_ins_div(flag){
 			if(flag){
-				document.getElementById('ins_div').style.display="";
+				document.getElementById('ins_order_div').style.display="";
 			} else {
-				document.getElementById('ins_div').style.display="none";
+				document.getElementById('ins_order_div').style.display="none";
 			}
 		}
 	</script>

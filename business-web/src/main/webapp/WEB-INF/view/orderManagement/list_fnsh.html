@@ -81,7 +81,7 @@
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">供应链：</label>
 								<div class="col-sm-8">
-									<select name="fncEntp" class="form-control">
+									<select name="splchainCo" class="form-control">
 										<option value="">请选择</option>
 										<option th:each="model: ${splchainCoModels}"
 											th:value="${model.id}" th:text="${model.name}"></option>
@@ -933,6 +933,7 @@
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/common.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1018,7 +1019,7 @@
 		
 		var pageSetting = {
 			modelName : '长约信息管理',
-			resetPath : '[[@{/arManagement}]]'
+			resetPath : '[[@{/orderManagement}]]'
 		};
 		$(function() {
 			//e7table表格控件初始化
@@ -1546,38 +1547,7 @@
 			}); 
 		}                                                                                
 				
-		function transAplyPsrltCd(aplyPsrltCd) {
-			if (aplyPsrltCd == '01') {
-				return "通过";
-			} else if (aplyPsrltCd == '02') {
-				return "退回";
-			} else if (aplyPsrltCd == '03') {
-				return "拒绝";
-			}  else
-				return aplyPsrltCd;
-		}
-		
-		function transAplyPcstpCd(value) {
-			if (value == '01') {
-				return "发起";
-			} else if (value == '02') {
-				return "供应链确认";
-			} else if (value == '03') {
-				return "下游确认";
-			} else if (value == '04') {
-				return "承保";
-			} else if (value == '05') {
-				return "一审";
-			} else if (value == '06') {
-				return "二审";;
-			} else if (value == '07') {
-				return "终止";
-			} else if (value == '') {
-				return "完成";
-			} else
-				return value;
-		}	
-		
+
 		function showViewSubmitAr(id, aplyPcstpCd) {
 			E7.resetForm('#frm_submit_ar');
 			$('#frm_submit_ar').data('bootstrapValidator').updateStatus('aplyPsrltCd', 'NOT_VALIDATED',null).validateField('aplyPsrltCd');  
@@ -1896,7 +1866,7 @@
 			$('#tbl_query')
 					.e7table(
 							{
-								url : '[[@{/arManagement/queryPage_fnsh}]]',
+								url : '[[@{/orderManagement/queryPage_fnsh}]]',
 								pageSize : 10,
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
@@ -1906,100 +1876,49 @@
 								rownumbers: false,		//如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
-										{
-											title : '长约编号',
-											field : 'arId',
-											sortable : true
-										},
-										{
-											title : '供应链',
-											field : 'splchainCoName',
-											sortable : true
-										},
-										{
-											title : '融资企业',
-											field : 'fncEntpName',
-											sortable : true
-										},
-										{
-											title : '供应商',
-											field : 'ustrmSplrName',
-											sortable : true
-										},
-							/* 			{
-											title : '仓储公司',
-											field : 'stgcoName',
-											sortable : true
-										},
-										{
-											title : '业务类型',
-											field : 'btp',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													return "订单融资";
-												} else if (value == '02') {
-													return "保证金融资";
-												} else if (value == '03') {
-													return "质押融资";
-												} else
-													return value;
-											}
-										}, */
-										{
-											title : '发起时间',
-											field : 'crtTm',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												return transDateTime(value);
-											}
-										},
-										{
-											title : '环节',
-											field : 'aplyPcstpCd',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												return transAplyPcstpCd(value);
-											}
-										},
-										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
-										 return new Date(value).format();
-										 }}, */
-										{
-											title : '操作',
-											field : 'aplyPcstpCd',
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>发起</button>&nbsp;';
-													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												} else if (value == '03') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												} else if (value == '04') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>承保</button>&nbsp;';
-													return s;
-												} else if (value == '05') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>一审</button>&nbsp;';
-													return s;
-												} else if (value == '06') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>二审</button>&nbsp;';
-													return s;
-												} else if (value == '07') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
-													return s; 
-												} 
-											}
-										} ],
+									{
+										title : '订单编号',
+										field : 'ordrId',
+										sortable : true
+									},
+									{
+										title : '长约编号',
+										field : 'arId',
+										sortable : true
+									},
+									{
+										title : '供应链',
+										field : 'splchainCoName',
+										sortable : true
+									},
+									{
+										title : '融资企业',
+										field : 'fncEntpName',
+										sortable : true
+									},
+									{
+										title : '供应商',
+										field : 'ustrmSplrName',
+										sortable : true
+									},
+									{
+										title : '发起时间',
+										field : 'crtTm',
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+											return transDateTime(value);
+										}
+									},
+									{
+										title : '状态',
+										value : '',
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+											return '完成';
+										}
+									}],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
@@ -2007,36 +1926,12 @@
 		}		
 		function show_or_hide_ins_div(flag){
 			if(flag){
-				document.getElementById('ins_div').style.display="";
+				document.getElementById('ins_order_div').style.display="";
 			} else {
-				document.getElementById('ins_div').style.display="none";
+				document.getElementById('ins_order_div').style.display="none";
 			}
 		}
-		// 引入日期时间格式转换
-		Date.prototype.Format = function(fmt)   
-		 { 
-		//author:wangweizhen
-		   var o = {   
-		     "M+" : this.getMonth()+1,                 //月份   
-		     "d+" : this.getDate(),                    //日
-		    "h+" : this.getHours(),                   //小时   
-		     "m+" : this.getMinutes(),                 //分   
-		     "s+" : this.getSeconds(),                 //秒   
-		     "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-		     "S"  : this.getMilliseconds()             //毫秒   
-		   };   
-		   if(/(y+)/.test(fmt))   
-		     fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-		   for(var k in o)   
-		     if(new RegExp("("+ k +")").test(fmt))   
-		   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-		   return fmt;   
-		 }; 
-		 // js 一串数字1403149534转换为日期格式 
-		function transDateTime(timestamp){
-			var date = new Date(timestamp);    //根据时间戳生成的时间对象
-	        return date.format("yyyy-MM-dd hh:mm:ss");
-        }
+	
 	</script>
 </body>
 </html>

@@ -974,6 +974,7 @@
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/common.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -2146,10 +2147,9 @@
 		}		
 		function show_or_hide_ins_div(flag){
 			if(flag){
-				document.getElementById('ins_div').style.display="";
+				document.getElementById('ins_order_div').style.display="";
 			} else {
-				document.getElementById('ins_div').style.display="none";
-			}
+				document.getElementById('ins_order_div').style.display="none";
 		}
 		// 引入日期时间格式转换
 		Date.prototype.Format = function(fmt)   
