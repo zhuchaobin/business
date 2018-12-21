@@ -1839,7 +1839,7 @@
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
 			E7.post(pageSetting.resetPath + '/getDetail', {
-				'id' : id
+				'id' : id 
 			}, function(result) {
 				fillForm('#frm_detail', result.data);
 				var detail = result.data;
