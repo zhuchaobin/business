@@ -940,7 +940,7 @@
 				</div>
 				<div class="modal-body" align="center">提交后将自动流转到[平台审核]，若需修改需要下一环节退回，确定提交吗?</div>
 				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:saveOrder()" class="btn"
+					<button type="button" onclick="javascript:saveOrder(2)" class="btn"
 						data-dismiss="modal">确定</button>
 					<button type="button" class="btn" data-dismiss="modal">取消</button>
 				</div>
@@ -1653,11 +1653,8 @@
 													index) {
 												return transAplyPcstpCd(value);
 											}
-										},
-										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
-										 return new Date(value).format();
-										 }}, */
-										{
+										}
+										/* {
 											title : '操作',
 											field : 'aplyPcstpCd',
 											formatter : function(value, row,
@@ -1720,7 +1717,7 @@
 													return s;
 												}
 											}
-										} ],
+										}  */],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
@@ -2089,7 +2086,7 @@
 					$('#saveOrderSubmitModal').modal('show');
 				} else if (2 == flag) {
 					$("#secSrvCd").val("01");//保存
-					save(1);
+					saveOrder(1);
 				}
 			}
 		}
@@ -2119,7 +2116,7 @@
 					});
 		}
 
-		function saveOrder() {
+		function saveOrder(flag) {
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
 			}
@@ -2129,10 +2126,22 @@
 			E7.post('/orderManagement/save', formParams, function(data) {
 				query_ar_list();
 				showOrHideDetail(true, 1);
-				bootbox.alert({
-					'title' : "消息",
-					'message' : '订单发起成功！'
-				});
+				if(flag==1){
+					bootbox.alert({
+						'title' : "消息",
+						'message' : '订单保存成功！'
+					});
+				} else if(flag==2){
+					bootbox.alert({
+						'title' : "消息",
+						'message' : '订单发起成功！'
+					});
+				} else {
+					bootbox.alert({
+						'title' : "消息",
+						'message' : '操作成功！'
+					});
+				}
 				$('#tbl_query').e7table(
 						'reload',
 						function() {
@@ -3420,7 +3429,7 @@
 				arId = result.data["arId"];
 				arSt = result.data["arSt"];
 				// 实时判断长约是否可以修改	
-				if (result.data["arSt"] != "06") {
+				if (result.data["arSt"] != "07") {
 					bootbox.alert({
 						'title' : '错误消息',
 						'message' : '该长约非执行中长约禁止发起订单！'

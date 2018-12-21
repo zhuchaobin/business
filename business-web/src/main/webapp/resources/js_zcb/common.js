@@ -80,7 +80,11 @@
 				return value;
 		}	
 		
+		
+
+		
 		function getNextStepName(currStep, flag){
+			
 			// currStep,当前环节；flag，跳转方向1通过，2退回
 			var nextStepName = "";
 			if("01" == currStep){
