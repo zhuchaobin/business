@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>com.tianan.kltsp</groupId>
-    <artifactId>operation-biz</artifactId>
+    <artifactId>business-biz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>operation-biz</name>
+    <name>business-biz</name>
 
     <dependencies>
         <!-- 		<dependency>

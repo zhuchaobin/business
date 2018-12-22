@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>operation-web</name>
+	<name>business-web</name>
 
 	<dependencies>
 		<dependency>

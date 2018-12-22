@@ -8,7 +8,7 @@
 	</parent>
 
 	<groupId>com.tianan.kltsp</groupId>
-	<artifactId>operation</artifactId>
+	<artifactId>business</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
@@ -16,20 +16,20 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.tianan.kltsp</groupId>
-				<artifactId>operation-client</artifactId>
+				<artifactId>business-client</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>com.tianan.kltsp</groupId>
-				<artifactId>operation-biz</artifactId>
+				<artifactId>business-biz</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<modules>
-		<module>operation-client</module>
-		<module>operation-biz</module>
-		<module>operation-web</module>
+		<module>business-client</module>
+		<module>business-biz</module>
+		<module>business-web</module>
 	</modules>
 </project>
