@@ -23,4 +23,7 @@
 	<!--长约管理, 20181218-->
 	<dubbo:reference id="orderManagementDcService" interface="com.xai.tt.dc.client.service.OrderManagementDcService" version="1.0"/>
 
+    <!--发货管理, 20181223-->
+    <dubbo:reference id="spgManagementDcService" interface="com.xai.tt.dc.client.service.SpgManagementDcService" version="1.0"/>
+
 </beans>
