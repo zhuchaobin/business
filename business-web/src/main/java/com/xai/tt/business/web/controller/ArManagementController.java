@@ -70,6 +70,10 @@ public class ArManagementController extends BaseController {
        	inVo.setCompanyId(user.getCompanyId());
        	inVo.setNickname(user.getNickname());
        	inVo.setChineseName(user.getChineseName());
+/*       	inVo.setUsrTp(user.getUsrTp());
+       	inVo.setSplchainCo(user.getSplchainCo());
+       	inVo.setCtfnTp(user.getCtfnTp());
+       	inVo.setAdtInd(user.getAdtInd());*/
        	// 
     	Result<Boolean> result = arManagementDcService.save(inVo);
     	logger.info("保存长约信息返回结果：{}", JSON.toJSONString(result));
@@ -156,6 +160,11 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+/*    	arManagementInVo.setUsrTp(user.getUsrTp());
+    	arManagementInVo.setSplchainCo(user.getSplchainCo());
+    	arManagementInVo.setCtfnTp(user.getCtfnTp());
+    	arManagementInVo.setAdtInd(user.getAdtInd());*/
+    	
     	// 因前后端名字不一样，转义排序参数
     	String sortName = arManagementInVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
@@ -185,6 +194,10 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+/*    	arManagementInVo.setUsrTp(user.getUsrTp());
+    	arManagementInVo.setSplchainCo(user.getSplchainCo());
+    	arManagementInVo.setCtfnTp(user.getCtfnTp());
+    	arManagementInVo.setAdtInd(user.getAdtInd());*/
     	arManagementInVo.setQueryType(5);
     	// 因前后端名字不一样，转义排序参数
     	String sortName = arManagementInVo.getSortName();
@@ -215,6 +228,10 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+/*    	arManagementInVo.setUsrTp(user.getUsrTp());
+    	arManagementInVo.setSplchainCo(user.getSplchainCo());
+    	arManagementInVo.setCtfnTp(user.getCtfnTp());
+    	arManagementInVo.setAdtInd(user.getAdtInd());*/
     	arManagementInVo.setQueryType(4);
     	// 因前后端名字不一样，转义排序参数
     	String sortName = arManagementInVo.getSortName();
@@ -227,6 +244,7 @@ public class ArManagementController extends BaseController {
     		sortName = sortName.replace("insCoName", "insCo");
     		sortName = sortName.replace("splchainCoName", "splchainCo");
     		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		
     		arManagementInVo.setSortName(sortName);
     	}
     		
@@ -245,6 +263,10 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+/*    	arManagementInVo.setUsrTp(user.getUsrTp());
+    	arManagementInVo.setSplchainCo(user.getSplchainCo());
+    	arManagementInVo.setCtfnTp(user.getCtfnTp());
+    	arManagementInVo.setAdtInd(user.getAdtInd());*/
     	arManagementInVo.setQueryType(1);
     	// 因前后端名字不一样，转义排序参数
     	String sortName = arManagementInVo.getSortName();
@@ -275,6 +297,10 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+/*    	arManagementInVo.setUsrTp(user.getUsrTp());
+    	arManagementInVo.setSplchainCo(user.getSplchainCo());
+    	arManagementInVo.setCtfnTp(user.getCtfnTp());
+    	arManagementInVo.setAdtInd(user.getAdtInd());*/
     	arManagementInVo.setQueryType(2);
     	// 因前后端名字不一样，转义排序参数
     	String sortName = arManagementInVo.getSortName();
@@ -305,6 +331,10 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+/*    	arManagementInVo.setUsrTp(user.getUsrTp());
+    	arManagementInVo.setSplchainCo(user.getSplchainCo());
+    	arManagementInVo.setCtfnTp(user.getCtfnTp());
+    	arManagementInVo.setAdtInd(user.getAdtInd());*/
     	arManagementInVo.setQueryType(3);
     	// 因前后端名字不一样，转义排序参数
     	String sortName = arManagementInVo.getSortName();
@@ -359,6 +389,10 @@ public class ArManagementController extends BaseController {
     	arManagementInVo.setCompanyId(user.getCompanyId());
     	arManagementInVo.setNickname(user.getNickname());
     	arManagementInVo.setChineseName(user.getChineseName());
+/*    	arManagementInVo.setUsrTp(user.getUsrTp());
+    	arManagementInVo.setSplchainCo(user.getSplchainCo());
+    	arManagementInVo.setCtfnTp(user.getCtfnTp());
+    	arManagementInVo.setAdtInd(user.getAdtInd());*/
     	Result<Boolean> rlt = arManagementDcService.unDoAr(arManagementInVo);
     	logger.info("撤销长约，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
