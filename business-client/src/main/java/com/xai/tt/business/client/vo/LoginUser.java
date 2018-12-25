@@ -35,7 +35,67 @@ public class LoginUser implements AuthUser {
 	private String location;
 	private String registerApp;
 	private String dataRange;
-	
+	// 供应链
+	private Integer splchainCo;
+	// 角色类型
+	private String usrTp;
+	// 认证类型
+	private String ctfnTp;
+	// 联系人
+	private String ctcpsn;
+	// 联系电话
+	private String ctcTel;
+	// 审核标志
+	private Integer adtInd;
+		
+	public Integer getSplchainCo() {
+		return splchainCo;
+	}
+
+	public void setSplchainCo(Integer splchainCo) {
+		this.splchainCo = splchainCo;
+	}
+
+	public String getUsrTp() {
+		return usrTp;
+	}
+
+	public void setUsrTp(String usrTp) {
+		this.usrTp = usrTp;
+	}
+
+	public String getCtfnTp() {
+		return ctfnTp;
+	}
+
+	public void setCtfnTp(String ctfnTp) {
+		this.ctfnTp = ctfnTp;
+	}
+
+	public String getCtcpsn() {
+		return ctcpsn;
+	}
+
+	public void setCtcpsn(String ctcpsn) {
+		this.ctcpsn = ctcpsn;
+	}
+
+	public String getCtcTel() {
+		return ctcTel;
+	}
+
+	public void setCtcTel(String ctcTel) {
+		this.ctcTel = ctcTel;
+	}
+
+	public Integer getAdtInd() {
+		return adtInd;
+	}
+
+	public void setAdtInd(Integer adtInd) {
+		this.adtInd = adtInd;
+	}
+
 	private List<Role> roles = new ArrayList<Role>();
 	private List<Menu> menus = new ArrayList<Menu>();
 	private List<String> permits = new ArrayList<String>();

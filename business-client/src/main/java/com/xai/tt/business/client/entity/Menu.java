@@ -23,7 +23,17 @@ public class Menu extends IncrEntity {
 	private String buttons;
 	private String memo;
 	private Integer sort;
+	// zhuchaobin, 20181222
+	private String tabname;
 	
+	public String getTabname() {
+		return tabname;
+	}
+
+	public void setTabname(String tabname) {
+		this.tabname = tabname;
+	}
+
 	private List<Menu> childrens;
 
 	@Column(updatable=false)
