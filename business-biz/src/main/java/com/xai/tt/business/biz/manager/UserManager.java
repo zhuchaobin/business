@@ -28,6 +28,22 @@ import com.xai.tt.business.client.vo.LoginUser;
 public class UserManager extends BaseManager<User, Integer> {
 	private static final Map <UserType, Integer> userRoleMap = new HashMap<>();
 	static {
+		// 平台角色ID
+		userRoleMap.put(UserType.pltfrm, 1);
+		// 上游供应商角色ID
+		userRoleMap.put(UserType.ustrmSplr, 2);
+		// 供应链公司角色ID
+		userRoleMap.put(UserType.splchainCo, 3);
+		// 融资企业角色ID
+		userRoleMap.put(UserType.fncEntp, 4);
+		// 保险公司角色ID
+		userRoleMap.put(UserType.insCo, 5);
+		// 银行角色ID
+		userRoleMap.put(UserType.bnk, 6);
+		// 物流公司角色ID
+		userRoleMap.put(UserType.lgstcCo, 7);
+		// 仓储公司角色ID
+		userRoleMap.put(UserType.stgco, 8);
 		// 集团用户角色ID
 		userRoleMap.put(UserType.Group, 2);
 		// 厂商用户角色ID
