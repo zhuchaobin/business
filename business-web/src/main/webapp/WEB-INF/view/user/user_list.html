@@ -55,6 +55,15 @@
 							<option value="Factory">厂商用户</option>
 							<option value="Dealer">经销商用户</option>
 							<option value="Company">大客户用户</option> -->
+							<option value="pltfrm">平台</option>
+							<option value="ustrmSplr">上游供应商</option>
+							<option value="splchainCo">供应链公司</option>
+							<option value="fncEntp">融资企业</option>
+							<option value="insCo">保险公司</option>
+							<option value="bnk">银行</option>
+							<option value="lgstcCo">物流公司</option>
+							<option value="stgco">仓储公司</option>
+							
 						</select>
 					</div>
 				</div>
@@ -141,7 +150,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
+<!-- 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="" class="col-sm-4 control-label">允许APP登陆 <span style="color:red">*</span></label>
 					<div class="col-sm-8">
@@ -151,7 +160,7 @@
 						</select>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -205,12 +214,31 @@
 				]
 			};
 
-			if(userType == 'Group'){
+/* 			if(userType == 'Group'){
 				pageSetting.buttons.push({'text':'分配角色', 'class':'btn-default', 'click':'showRoleDialog'});
-			}
+			} */
+			
+			pageSetting.buttons.push({'text':'分配角色', 'class':'btn-default', 'click':'showRoleDialog'});
 			
 			$(function(){
 				//初始化下拉框
+			$("#userType_eq").append('<option value="pltfrm">平台</option>');
+			$("#sel_userType").append('<option value="pltfrm">平台</option>');
+			$("#userType_eq").append('<option value="ustrmSplr">上游供应商</option>');
+			$("#sel_userType").append('<option value="ustrmSplr">上游供应商</option>');
+			$("#userType_eq").append('<option value="splchainCo">供应链公司</option>');
+			$("#sel_userType").append('<option value="splchainCo">供应链公司</option>');
+			$("#userType_eq").append('<option value="fncEntp">融资企业</option>');
+			$("#sel_userType").append('<option value="fncEntp">融资企业</option>');
+			$("#userType_eq").append('<option value="insCo">保险公司</option>');
+			$("#sel_userType").append('<option value="insCo">保险公司</option>');
+			$("#userType_eq").append('<option value="bnk">银行</option>');
+			$("#sel_userType").append('<option value="bnk">银行</option>');
+			$("#userType_eq").append('<option value="lgstcCo">物流公司</option>');
+			$("#sel_userType").append('<option value="lgstcCo">物流公司</option>');
+			$("#userType_eq").append('<option value="stgco">仓储公司</option>');
+			$("#sel_userType").append('<option value="stgco">仓储公司</option>');
+					
 				if(userType == 'Group'){
 					$("#userType_eq").append('<option value="Group">集团用户</option>');
 					$("#userType_eq").append('<option value="Factory">厂商用户</option>');
@@ -252,6 +280,14 @@
 							if(value == 'Factory') return '上游企业用户';
 							if(value == 'Dealer') return '经销商用户';
 							if(value == 'Company') return '保险公司用户';
+							if(value == 'pltfrm') return '平台';
+							if(value == 'ustrmSplr') return '上游供应商';
+							if(value == 'splchainCo') return '供应链公司';
+							if(value == 'fncEntp') return '融资企业';
+							if(value == 'insCo') return '保险公司';
+							if(value == 'bnk') return '银行';
+							if(value == 'lgstcCo') return '物流公司';
+							if(value == 'stgco') return '仓储公司';
 						}},
 						{title: '账号状态', field: 'locked', formatter: function(value, row, index) {
 							if(value) {
@@ -462,6 +498,31 @@
 				} 
 
 				$('#div_company').show();
+			if (value == '1') {
+				$('#label_company').text('平台');
+				E7.initSelect('#sel_company', dealerList);
+			} else if (value == '2') {
+				$('#label_company').text('上游供应商');
+				E7.initSelect('#sel_company', dealerList);
+			} else if (value == '3') {
+				$('#label_company').text('供应链公司');
+				E7.initSelect('#sel_company', dealerList);
+			} else if (value == '4') {
+				$('#label_company').text('融资企业');
+				E7.initSelect('#sel_company', dealerList);
+			} else if (value == '5') {
+				$('#label_company').text('保险公司');
+				E7.initSelect('#sel_company', dealerList);
+			} else if (value == '6') {
+				$('#label_company').text('银行');
+				E7.initSelect('#sel_company', dealerList);
+			} else if (value == '7') {
+				$('#label_company').text('物流公司');
+				E7.initSelect('#sel_company', dealerList);
+			} else if (value == '8') {
+				$('#label_company').text('仓储公司');
+				E7.initSelect('#sel_company', dealerList);
+			}
 				if(value == 'Factory') {
 					$('#label_company').text('工厂');
 					E7.initSelect('#sel_company', factoryList);
