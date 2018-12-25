@@ -195,10 +195,10 @@
 
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">订单编号<span
+									<label for="" class="col-sm-4 control-label">长约编号<span
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<input name="arId" class="form-control" placeholder="订单编号"
+										<input name="arId" class="form-control" placeholder="长约编号"
 											disabled="disabled" />
 									</div>
 								</div>
@@ -887,16 +887,28 @@
 		</div>
 	</section>
 	<!-- 提交结论 end-->
-	<!-- 查看界面的返回按钮 start-->
-	<div id="btn_close_div" style="display: none;">
+<!-- 查看界面的返回按钮 start-->
+<!-- 	<div id="btn_close_div" style="display: none;">
 		<button id="btn_close_detail" type="button"
 			class="btn btn-primary-gray pull-right"
 			onclick='javascript:showOrHideDetail(true, 1);'
 			style="margin-right: 15px;">
 			<i class="glyphicon glyphicon-repeat"></i>返回
 		</button>
-	</div>
+	</div> -->
 	<!-- 查看界面的返回按钮 end-->
+<!-- 查看界面的返回按钮 start-->
+<div id="btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
+	<table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
+			<button id="btn_close_detail" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 1);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+	</table>
+</div>
+<!-- 查看界面的返回按钮 end-->
 
 	<!-- 查询订单提交详细信息 start-->
 	<section id="query_ar_submmit_detail" style="display: none;">
