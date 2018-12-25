@@ -121,9 +121,13 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.tianan.kltsp</groupId>
+			<groupId>com.xai.tt</groupId>
 			<artifactId>business-client</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tianan.kltsp</groupId>
+			<artifactId>operation-client</artifactId>
 		</dependency>
 
 
