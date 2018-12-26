@@ -1,4 +1,4 @@
-﻿$.AdminLTE.options = $.extend($.AdminLTE.options, {
+﻿Menu.init$.AdminLTE.options = $.extend($.AdminLTE.options, {
 	sidebarExpandOnHover:true
 });
 
@@ -93,9 +93,7 @@ var Menu = {
 			
 			root.find('a[data-url]').click(function() {
 				var id = $(this).data("id");
-//modified by zhuchaobin, 20181224,左侧导航菜单和tab名字差异化
-//				var title = $(this).text();
-				var title = $(this).data("tabname");
+				var title = $(this).text();
 				var url = $(this).data("url");
 
 				//var tab = {'id' : id + '', 'title' : title, 'url' : url};
@@ -124,12 +122,7 @@ var Menu = {
 					Menu.createNode(item.childrens, folder, CTX)
 					nodes.append(folder);
 				} else {
-					//modified by zhuchaobin, 20181224,左侧导航菜单和tab名字差异化
-					title=item['name'];
-					title = title.replace("长约","");
-					title=title.replace("订单","");
-					title=title.replace("发货","");
-					nodes.append($('<li><a href="#" data-id="' + item['id'] + '" data-tabname="' + item['name'] + '" data-url="' + CTX + item['url'] + '"><i class="fa ' + item['icon'] + '"></i> ' + title + '</a></li>'));
+					nodes.append($('<li><a href="#" data-id="' + item['id'] + '" data-url="' + CTX + item['url'] + '"><i class="fa ' + item['icon'] + '"></i> ' + item['name'] + '</a></li>'));
 				}
 			}
 			
