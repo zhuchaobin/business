@@ -77,7 +77,7 @@ public class SpgManagementController extends BaseController {
     @RequestMapping(value = { "queryCompanyModels" })
     public ModelAndView queryCompanyModels(CompanyQuery query) {
     	logger.info("查询公司信息请求报文：CompanyQuery={}", JSON.toJSONString(query));
-    	ModelAndView mv = new ModelAndView("arManagement/add");
+    	ModelAndView mv = new ModelAndView("spgManagement/add");
     	Result<PageInfo<Company>> result = companyDcService.queryPage(query);
     	logger.info("查询公司信息返回结果：{}", JSON.toJSONString(result));
         if (result == null || result.getCode() != 0) {
@@ -359,7 +359,7 @@ public class SpgManagementController extends BaseController {
     
     @RequestMapping(value = { "add" })
     public ModelAndView add() {
-    	ModelAndView mav = new ModelAndView("arManagement/add");
+    	ModelAndView mav = new ModelAndView("spgManagement/add");
     	CompanyQuery query = new CompanyQuery();        
     	// 查询平台下拉菜单
         query.setUsrTp("01");
@@ -439,7 +439,7 @@ public class SpgManagementController extends BaseController {
     	
     @RequestMapping(value = { "list" })
     public ModelAndView list() {
-    	ModelAndView mav = new ModelAndView("arManagement/list");
+    	ModelAndView mav = new ModelAndView("spgManagement/list");
     	CompanyQuery query = new CompanyQuery();        
     	// 查询平台下拉菜单
         query.setUsrTp("01");
@@ -623,13 +623,13 @@ public class SpgManagementController extends BaseController {
     public ModelAndView lists(Integer flag) {
     	ModelAndView mav = null;
     	if(1 == flag)
-    		mav = new ModelAndView("arManagement/list_ing");
+    		mav = new ModelAndView("spgManagement/list_ing");
     	else if(2 == flag)
-    		mav = new ModelAndView("arManagement/list_adt");
+    		mav = new ModelAndView("spgManagement/list_adt");
     	else if(3 == flag)
-    		mav = new ModelAndView("arManagement/list_fnsh");
+    		mav = new ModelAndView("spgManagement/list_fnsh");
     	else if(5 == flag)
-    		mav = new ModelAndView("arManagement/list_adted");
+    		mav = new ModelAndView("spgManagement/list_adted");
     	
     	logger.info("flag=" + flag);
     	CompanyQuery query = new CompanyQuery(); 
