@@ -48,7 +48,7 @@ public class UserController extends BaseController {
     @RequestMapping("/list")
     public ModelAndView list(){
     	ModelAndView mav = new ModelAndView("user/user_list");
-    	//根据用户角色决定下拉框内容 edit by yechao 2017.10.31
+    	//根据用户角色决定下拉框内容 
     	boolean flag = false;
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	UserType userType = user.getUserType();
