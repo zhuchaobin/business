@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.tianan.kltsp</groupId>
+	<groupId>com.xai.tt</groupId>
 	<artifactId>business</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -15,12 +15,12 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.tianan.kltsp</groupId>
+				<groupId>com.xai.tt</groupId>
 				<artifactId>business-client</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>com.tianan.kltsp</groupId>
+				<groupId>com.xai.tt</groupId>
 				<artifactId>business-biz</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
