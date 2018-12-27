@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
 import com.tianan.common.api.bean.AuthUser;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Pair;
@@ -30,20 +32,29 @@ import com.xai.tt.business.client.entity.User;
 import com.xai.tt.business.client.enums.UserType;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.business.client.vo.UserVo;
+import com.xai.tt.dc.client.model.Company;
+import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.FactoryQuery;
+import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.service.FactoryService;
+import com.xai.tt.dc.client.service.UserManagementDcService;
 import com.xai.tt.dc.client.vo.FactoryVo;
+import com.xai.tt.dc.client.vo.UserManagementVo;
 
-@RequestMapping("user")
 @Controller
+@RequestMapping("user")
 public class UserController extends BaseController {
     @Autowired
     private UserManager userManager;
     @Autowired
-    private UserRoleManager userRoleManager;
-    
+    private UserRoleManager userRoleManager;   
+    @Autowired
+    private UserManagementDcService userManagementDcService;
     @Autowired
     private FactoryService factoryService;
+    
+	@Autowired
+	private CompanyDcService companyDcService;   
 
     @RequestMapping("/list")
     public ModelAndView list(){
@@ -112,6 +123,50 @@ public class UserController extends BaseController {
         return Result.createSuccessResult();
     }
     
+    
+    /***
+     * 打开注册页面
+     * @return
+     */
+	@RequestMapping(value = "/toRegisterPage", method=RequestMethod.GET)
+    public ModelAndView toRegisterPage(){
+    	ModelAndView mv = new ModelAndView("auth/ui/register");
+
+    	CompanyQuery query = new CompanyQuery(); 
+    	// 查询供应链公司下拉菜单
+        query.setUsrTp("03");
+        Result<PageInfo<Company>> result = companyDcService.queryPage(query);
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[供应链公司]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[供应链公司]公司信息异常");
+        }
+        mv.addObject("splchainCoModels", result.getData().getList());        
+        return mv;
+    }
+	
+    /***
+     * 打开用户注册协议页面
+     * @return
+     */
+	@RequestMapping(value = "/privacy", method=RequestMethod.GET)
+    public ModelAndView privacy(){
+    	ModelAndView mv = new ModelAndView("auth/ui/privacy");
+        return mv;
+    }
+	
+	@RequestMapping(value = "/register")
+    @ResponseBody
+    public Result<?> register(UserManagementVo inVo){
+    	logger.info("register UserManagementInVo", JSON.toJSONString(inVo));
+		
+    	if(inVo.getAppEnabled() == null) {
+    		inVo.setAppEnabled(false);
+    	}        
+        Result<Boolean> result = userManagementDcService.save(inVo);
+    	logger.info("用户注册返回结果：{}", JSON.toJSONString(result));
+        return result;
+    }
     @LogAspect(type=LogType.Reset_Password, argNames="id")
     @RequestMapping("/resetPassword")
     @ResponseBody
@@ -187,7 +242,7 @@ public class UserController extends BaseController {
     	logger.info("saveRole userId:{}, ids:{}", userId, ids);
     	//用户身份
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	if(UserType.Group != user.getUserType() && !user.hasRole("ROLE_ADMIN")) {
+    	if(UserType.Group != user.getUserType() && !user.hasRole("ROLE_ADMIN") && UserType.pltfrm != user.getUserType()) {
     		return Result.createFailResult(CommonErrors.PARAM_INVALID, "没有权限！");
     	}
     	
