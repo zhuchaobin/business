@@ -16,12 +16,17 @@ import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.SubmitArQuery;
-import com.xai.tt.dc.client.service.ArManagementDcService;
+
 import com.xai.tt.dc.client.service.CompanyDcService;
+import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
+import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
+import com.xai.tt.dc.client.vo.outVo.QueryPageSpgOutVo;
+import com.xai.tt.dc.client.vo.outVo.QuerySpgSubmmitDetailOutVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,18 +55,24 @@ import java.util.UUID;
 @Controller
 @RequestMapping("spgManagement")
 public class SpgManagementController extends BaseController {
+//	@Autowired
+//	private ArManagementDcService arManagementDcService;
 	@Autowired
-	private ArManagementDcService arManagementDcService;
+	private CompanyDcService companyDcService;
+
+
 	@Autowired
-	private CompanyDcService companyDcService;    
+	private SpgManagementDcService spgManagementDcService;
+
+
     @RequestMapping(value = { "save" })
     @ResponseBody
-    public Result<?>  save(ArManagementInVo inVo, String fileUrl) {
-    	logger.info("保存长约信息请求报文：ArManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
+    public Result<?>  save(SpgManagementInVo inVo, String fileUrl) {
+    	logger.info("保存发货信息请求报文：ArManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
         if (StringUtils.isNotEmpty(fileUrl)) {
         	inVo.setFileNames(fileUrl);
         }
-//    	logger.info("长约附件信息长度：{}", inVo.getList().size());
+//    	logger.info("发货附件信息长度：{}", inVo.getList().size());
        	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
        	inVo.setUserType(user.getUserType().ordinal());
        	inVo.setUsername(user.getUsername());
@@ -69,8 +80,8 @@ public class SpgManagementController extends BaseController {
        	inVo.setNickname(user.getNickname());
        	inVo.setChineseName(user.getChineseName());
        	// 
-    	Result<Boolean> result = arManagementDcService.save(inVo);
-    	logger.info("保存长约信息返回结果：{}", JSON.toJSONString(result));
+    	Result<Boolean> result = spgManagementDcService.save(inVo);
+    	logger.info("保存发货信息返回结果：{}", JSON.toJSONString(result));
         return result;
     }   
     
@@ -91,24 +102,24 @@ public class SpgManagementController extends BaseController {
     @RequestMapping(value = { "submitAr" })
     @ResponseBody
     public Result<?>  submitAr(SubmitArQuery query, String fileUrl2) {
-    	logger.info("提交长约请求报文：{}, fileUrl2={}", JSON.toJSONString(query), JSON.toJSONString(fileUrl2));
+    	logger.info("提交发货请求报文：{}, fileUrl2={}", JSON.toJSONString(query), JSON.toJSONString(fileUrl2));
         if (StringUtils.isNotEmpty(fileUrl2)) {
         	query.setFileNames(fileUrl2);
         }
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	query.setUsername(user.getUsername());
     	query.setCompanyId(user.getCompanyId());
-    	Result<Boolean> result = arManagementDcService.submitAr(query);
-    	logger.info("提交长约返回结果：{}", JSON.toJSONString(result));
+    	Result<Boolean> result = spgManagementDcService.submitSpg(query);
+    	logger.info("提交发货返回结果：{}", JSON.toJSONString(result));
         return result;
     }   
     
     @RequestMapping(value = { "deleteAr" })
     @ResponseBody
     public Result<?>   deleteAr(String id) {
-    	logger.info("删除长约，请求参数id=：{}", id);
-    	Result<Boolean> rlt = arManagementDcService.deleteAr(id);
-    	logger.info("删除长约，返回结果rlt：{}", JSON.toJSONString(rlt));
+    	logger.info("删除发货，请求参数id=：{}", id);
+    	Result<Boolean> rlt = spgManagementDcService.deleteSpg(id);
+    	logger.info("删除发货，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
     
@@ -116,15 +127,15 @@ public class SpgManagementController extends BaseController {
     
     @RequestMapping(value = { "queryPage" })
     @ResponseBody
-    public Result<?>  queryPage(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    public Result<?>  queryPage(SpgManagementInVo spgManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	arManagementInVo.setUserType(user.getUserType().ordinal());
-    	arManagementInVo.setUsername(user.getUsername());
-    	arManagementInVo.setCompanyId(user.getCompanyId());
-    	arManagementInVo.setNickname(user.getNickname());
-    	arManagementInVo.setChineseName(user.getChineseName());
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
     	// 因前后端名字不一样，转义排序参数
-    	String sortName = arManagementInVo.getSortName();
+    	String sortName = spgManagementInVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
     		sortName = sortName.replace("fncEntpName", "fncEntp");
     		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
@@ -134,27 +145,27 @@ public class SpgManagementController extends BaseController {
     		sortName = sortName.replace("insCoName", "insCo");
     		sortName = sortName.replace("splchainCoName", "splchainCo");
     		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		arManagementInVo.setSortName(sortName);
+    		spgManagementInVo.setSortName(sortName);
     	}
     		
-    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
-        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
     
     @RequestMapping(value = { "queryPage_adted" })
     @ResponseBody
-    public Result<?>  queryPage_adted(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    public Result<?>  queryPage_adted(SpgManagementInVo spgManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	arManagementInVo.setUserType(user.getUserType().ordinal());
-    	arManagementInVo.setUsername(user.getUsername());
-    	arManagementInVo.setCompanyId(user.getCompanyId());
-    	arManagementInVo.setNickname(user.getNickname());
-    	arManagementInVo.setChineseName(user.getChineseName());
-    	arManagementInVo.setQueryType(5);
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
+    	spgManagementInVo.setQueryType(5);
     	// 因前后端名字不一样，转义排序参数
-    	String sortName = arManagementInVo.getSortName();
+    	String sortName = spgManagementInVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
     		sortName = sortName.replace("fncEntpName", "fncEntp");
     		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
@@ -164,18 +175,17 @@ public class SpgManagementController extends BaseController {
     		sortName = sortName.replace("insCoName", "insCo");
     		sortName = sortName.replace("splchainCoName", "splchainCo");
     		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		arManagementInVo.setSortName(sortName);
+    		spgManagementInVo.setSortName(sortName);
     	}
     		
-    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
-        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
     
-    @RequestMapping(value = { "queryPage_add" })
-    @ResponseBody
-    public Result<?>  queryPage_add(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    @RequestMapping(value = { "queryPage_add" })  @ResponseBody
+    public Result<?>  queryPage_add(SpgManagementInVo arManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	arManagementInVo.setUserType(user.getUserType().ordinal());
     	arManagementInVo.setUsername(user.getUsername());
@@ -197,24 +207,24 @@ public class SpgManagementController extends BaseController {
     		arManagementInVo.setSortName(sortName);
     	}
     		
-    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
-        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(arManagementInVo, pageParam);
+        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
     
     @RequestMapping(value = { "queryPage_ing" })
     @ResponseBody
-    public Result<?>  queryPage_ing(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    public Result<?>  queryPage_ing(SpgManagementInVo spgManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	arManagementInVo.setUserType(user.getUserType().ordinal());
-    	arManagementInVo.setUsername(user.getUsername());
-    	arManagementInVo.setCompanyId(user.getCompanyId());
-    	arManagementInVo.setNickname(user.getNickname());
-    	arManagementInVo.setChineseName(user.getChineseName());
-    	arManagementInVo.setQueryType(1);
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
+    	spgManagementInVo.setQueryType(1);
     	// 因前后端名字不一样，转义排序参数
-    	String sortName = arManagementInVo.getSortName();
+    	String sortName = spgManagementInVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
     		sortName = sortName.replace("fncEntpName", "fncEntp");
     		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
@@ -224,27 +234,27 @@ public class SpgManagementController extends BaseController {
     		sortName = sortName.replace("insCoName", "insCo");
     		sortName = sortName.replace("splchainCoName", "splchainCo");
     		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		arManagementInVo.setSortName(sortName);
+    		spgManagementInVo.setSortName(sortName);
     	}
     		
-    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
-        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
     
     @RequestMapping(value = { "queryPage_adt" })
     @ResponseBody
-    public Result<?>  queryPage_adt(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    public Result<?>  queryPage_adt(SpgManagementInVo spgManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	arManagementInVo.setUserType(user.getUserType().ordinal());
-    	arManagementInVo.setUsername(user.getUsername());
-    	arManagementInVo.setCompanyId(user.getCompanyId());
-    	arManagementInVo.setNickname(user.getNickname());
-    	arManagementInVo.setChineseName(user.getChineseName());
-    	arManagementInVo.setQueryType(2);
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
+    	spgManagementInVo.setQueryType(2);
     	// 因前后端名字不一样，转义排序参数
-    	String sortName = arManagementInVo.getSortName();
+    	String sortName = spgManagementInVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
     		sortName = sortName.replace("fncEntpName", "fncEntp");
     		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
@@ -254,27 +264,27 @@ public class SpgManagementController extends BaseController {
     		sortName = sortName.replace("insCoName", "insCo");
     		sortName = sortName.replace("splchainCoName", "splchainCo");
     		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		arManagementInVo.setSortName(sortName);
+    		spgManagementInVo.setSortName(sortName);
     	}
     		
-    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
-        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
     
     @RequestMapping(value = { "queryPage_fnsh" })
     @ResponseBody
-    public Result<?>  queryPage_fnsh(ArManagementInVo arManagementInVo, PageParam pageParam) {
+    public Result<?>  queryPage_fnsh(SpgManagementInVo spgManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	arManagementInVo.setUserType(user.getUserType().ordinal());
-    	arManagementInVo.setUsername(user.getUsername());
-    	arManagementInVo.setCompanyId(user.getCompanyId());
-    	arManagementInVo.setNickname(user.getNickname());
-    	arManagementInVo.setChineseName(user.getChineseName());
-    	arManagementInVo.setQueryType(3);
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
+    	spgManagementInVo.setQueryType(3);
     	// 因前后端名字不一样，转义排序参数
-    	String sortName = arManagementInVo.getSortName();
+    	String sortName = spgManagementInVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
     		sortName = sortName.replace("fncEntpName", "fncEntp");
     		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
@@ -284,12 +294,12 @@ public class SpgManagementController extends BaseController {
     		sortName = sortName.replace("insCoName", "insCo");
     		sortName = sortName.replace("splchainCoName", "splchainCo");
     		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		arManagementInVo.setSortName(sortName);
+    		spgManagementInVo.setSortName(sortName);
     	}
     		
-    	logger.info("长约信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageArOutVo>> result = arManagementDcService.queryPage(arManagementInVo, pageParam);
-        logger.info("长约信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
     
@@ -298,27 +308,27 @@ public class SpgManagementController extends BaseController {
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
     public Result<?>   getDetail(String id) {
-    	logger.info("查询长约详情，请求参数id=：{}", id);
-    	Result<T1ARInfDetailVo> rlt = arManagementDcService.queryArDetail(id);
-    	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
+    	logger.info("查询发货详情，请求参数id=：{}", id);
+    	Result<T6SpgInfDetailVo> rlt = spgManagementDcService.querySpgDetail(id);
+    	logger.info("查询发货详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
     
-    // 撤销长约
+    // 撤销发货
     @RequestMapping(value = { "unDoAr" })
     @ResponseBody
-    public Result<?>   unDoAr(String id) {
-    	logger.info("撤销长约，请求参数id=：{}", id);
-    	ArManagementInVo arManagementInVo = new ArManagementInVo();
-    	arManagementInVo.setId(Long.parseLong(id));
+    public Result<?>   unDoSpg(String id) {
+    	logger.info("撤销发货，请求参数id=：{}", id);
+    	SpgManagementInVo spgManagementInVo = new SpgManagementInVo();
+    	spgManagementInVo.setId(Long.parseLong(id));
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	arManagementInVo.setUserType(user.getUserType().ordinal());
-    	arManagementInVo.setUsername(user.getUsername());
-    	arManagementInVo.setCompanyId(user.getCompanyId());
-    	arManagementInVo.setNickname(user.getNickname());
-    	arManagementInVo.setChineseName(user.getChineseName());
-    	Result<Boolean> rlt = arManagementDcService.unDoAr(arManagementInVo);
-    	logger.info("撤销长约，返回结果rlt：{}", JSON.toJSONString(rlt));
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
+    	Result<Boolean> rlt = spgManagementDcService.unDoSpg(spgManagementInVo);
+    	logger.info("撤销发货，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
     
@@ -326,15 +336,15 @@ public class SpgManagementController extends BaseController {
     @RequestMapping(value = { "getArSubmmitDetail" })
     @ResponseBody
     public Result<?>   getArSubmmitDetail(String id, String arId, String aplyPcstpCd) {
-    	logger.info("查询长约提交详情，请求参数id=:{} arId=：{} aplyPcstpCd=：{}", id, arId, aplyPcstpCd);
-    	Result<QueryArSubmmitDetailOutVo> rlt = arManagementDcService.getArSubmmitDetail(id, arId, aplyPcstpCd);
-    	logger.info("查询长约提交详情，返回结果rlt：{}", JSON.toJSONString(rlt));
+    	logger.info("查询发货提交详情，请求参数id=:{} arId=：{} aplyPcstpCd=：{}", id, arId, aplyPcstpCd);
+    	Result<QuerySpgSubmmitDetailOutVo> rlt = spgManagementDcService.getSpgSubmmitDetail(id, arId, aplyPcstpCd);
+    	logger.info("查询发货提交详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
     
     @RequestMapping(value = { "list_ing" })
     public ModelAndView list_ing() {
-    	logger.info("查询执行中的长约开始");
+    	logger.info("查询执行中的发货开始");
     	ModelAndView mav = lists(1);
     	return mav;
     }
@@ -533,10 +543,13 @@ public class SpgManagementController extends BaseController {
         Map<String, Integer> fileExistMap = new HashMap<String, Integer>();
         Arrays.asList(file).stream().forEach(item->{
         	// 判断文件是否已存在
-        	if(null != fileExistMap.get(item.getOriginalFilename()) && (1== fileExistMap.get(item.getOriginalFilename())))
-        		return;
-        	else
-        		fileExistMap.put(item.getOriginalFilename(), 1);
+        	if(null != fileExistMap.get(item.getOriginalFilename()) && (1== fileExistMap.get(item.getOriginalFilename()))){
+				return;
+			}
+        	else{
+				fileExistMap.put(item.getOriginalFilename(), 1);
+			}
+
 			// 获取工程路径
 			String webContentPath = "";
 			try {
@@ -622,14 +635,16 @@ public class SpgManagementController extends BaseController {
     
     public ModelAndView lists(Integer flag) {
     	ModelAndView mav = null;
-    	if(1 == flag)
-    		mav = new ModelAndView("spgManagement/list_ing");
-    	else if(2 == flag)
-    		mav = new ModelAndView("spgManagement/list_adt");
-    	else if(3 == flag)
-    		mav = new ModelAndView("spgManagement/list_fnsh");
-    	else if(5 == flag)
-    		mav = new ModelAndView("spgManagement/list_adted");
+    	if(1 == flag){
+			mav = new ModelAndView("spgManagement/list_ing");
+		} else if(2 == flag){
+			mav = new ModelAndView("spgManagement/list_adt");
+		} else if(3 == flag){
+			mav = new ModelAndView("spgManagement/list_fnsh");
+		} else if(5 == flag){
+			mav = new ModelAndView("spgManagement/list_adted");
+		}
+
     	
     	logger.info("flag=" + flag);
     	CompanyQuery query = new CompanyQuery(); 

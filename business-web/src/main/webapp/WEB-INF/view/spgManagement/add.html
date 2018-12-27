@@ -178,9 +178,6 @@
 
 		</div>
 
-
-
-
 		<!-- 信息列表 -->
 		<div class="row">
 			<div class="col-xs-12">
@@ -194,6 +191,8 @@
 
 	</section>
 	<!-- 列表查询 end-->
+
+
 	<!-- 详细信息 start-->
 	<section id="main_edit_detail" class="content" style="display: none;">
 		<div class="box box-info">
@@ -698,7 +697,7 @@
 	</section>
 	<!-- 详细信息 end-->
 
-	<!-- 长约流转信息 start-->
+	<!-- 发货流转信息 start-->
 	<section id="ar_lnk_jrnl_inf_detail" class="content"
 		style="display: none;">
 		<div class="box box-info">
@@ -1118,7 +1117,9 @@
 			showOrHideDetail(true, 1);
 			$('#tbl_query').e7table('query', '#frm_query');
 
-		}		
+		}
+
+
 		function showOrHideDetail(editable, flag) {
 			if (editable) {
 				$('#fld_detail').prop('disabled', false);
@@ -1523,7 +1524,8 @@
 			});
 		}
 
-		function queryArDetails(id, aplyPcstpCd, type){// type 1:长约提交  0：长约详情查询
+		function queryArDetails(id, aplyPcstpCd, type){
+		    // type 1:长约提交  0：长约详情查询
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 
@@ -2071,7 +2073,7 @@
 			$('#tbl_query')
 					.e7table(
 							{
-								url : '[[@{/arManagement/queryPage_add}]]',
+								url : '[[@{/spgManagement/queryPage_add}]]',
 								pageSize : 10,
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
