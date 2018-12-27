@@ -1094,7 +1094,7 @@
 		
 		var pageSetting = {
 			modelName : '长约信息管理',
-			resetPath : '[[@{/arManagement}]]'
+			resetPath : '[[@{/spgManagement}]]'
 		};
 		$(function() {
 			//e7table表格控件初始化
@@ -1958,7 +1958,7 @@
 			for (i = 0; i < file.length; i++) {
 				formData.append('file', file[i].files[0]);
 			}
-			E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
+			E7.postMultipart('[[@{/spgManagement/ossUpload}]]', formData,
 					function(result) {
 						var fileUrl = result.data;
 						$("#fileId").val(fileUrl);
@@ -1976,7 +1976,7 @@
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/spgManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl2 = result.data;
 							$("#fileId2").val(fileUrl2);
@@ -2089,41 +2089,43 @@
 											sortable : true
 										},
 										{
-											title : '供应链',
-											field : 'splchainCoName',
+											title : '订单编号',
+											field : 'ordrId',
 											sortable : true
 										},
 										{
-											title : '融资企业',
-											field : 'fncEntpName',
+											title : '发货编号',
+											field : 'spgId',
 											sortable : true
 										},
 										{
-											title : '供应商',
-											field : 'ustrmSplrName',
+											title : '发货人',
+											field : 'spgPsn',
 											sortable : true
 										},
-							/* 			{
-											title : '仓储公司',
-											field : 'stgcoName',
-											sortable : true
-										},
+
+                                    	{
+                                        title : '发货人联系电话',
+                                        field : 'spgPsnCtcTel',
+                                        sortable : true
+                                   		 },
+
 										{
-											title : '业务类型',
-											field : 'btp',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													return "订单融资";
-												} else if (value == '02') {
-													return "保证金融资";
-												} else if (value == '03') {
-													return "质押融资";
-												} else
-													return value;
-											}
-										},  */
+                                        title : '收货人',
+                                        field : 'cnsgn',
+                                        sortable : true
+                                    	},
+
+                                    	{
+                                        title : '收货人联系电话',
+                                        field : 'cnsgnCtcTel',
+                                        sortable : true
+                                    	},
+                                    	{
+                                        title : '目的地',
+                                        field : 'ppsLnd',
+                                        sortable : true
+                                   		 },
 										{
 											title : '更新时间',
 											field : 'crtTm',
@@ -2133,50 +2135,16 @@
 												return transDateTime(value);
 											}
 										},
-										{
-											title : '类型',
-											field : 'arSt',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												return transAplyPcstpCdToArSt(value);
-											}
-										}/* , */
-										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
-										 return new Date(value).format();
-										 }}, */
-										/* {
-											title : '操作',
-											field : 'aplyPcstpCd',
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>发起</button>&nbsp;';
-													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												} else if (value == '03') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
-													return s;
-												} else if (value == '04') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>承保</button>&nbsp;';
-													return s;
-												} else if (value == '05') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>一审</button>&nbsp;';
-													return s;
-												} else if (value == '06') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>二审</button>&nbsp;';
-													return s;
-												} else if (value == '07') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
-													return s; 
-												} 
-											}
-										}  */],
+										// {
+										// 	title : '类型',
+										// 	field : 'arSt',
+										// 	sortable : true,
+										// 	formatter : function(value, row,
+										// 			index) {
+										// 		return transAplyPcstpCdToArSt(value);
+										// 	}
+										// }
+										],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
