@@ -194,7 +194,7 @@
 							<input name="id" type="hidden" value="" /> <input name="arId"
 								type="hidden" value="" />
 
-							<div class="col-md-6">
+							<div class="col-md-6" id="arId_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">长约编号<span
 										style="color: red">*</span></label>
@@ -1764,7 +1764,7 @@
 		}
  
 		function queryArDetails(id, aplyPcstpCd, type){// type 1:订单提交  0：订单详情查询
-
+		//	alert([[${userType}]]);
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 
@@ -1779,6 +1779,10 @@
 				for (key in detail) {
 					$('#frm_detail [name="' + key + '"]').val(detail[key]);
 				}
+				
+				var test = "arId34";
+				$('#' + test+ '_div').hide();
+				$('#' + test + '_div').fadeIn(800);
 				///
 				$('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
 				$('#frm_submit_ar [name="pymtmod"]').val(detail["pymtmod"]);
