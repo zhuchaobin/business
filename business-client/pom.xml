@@ -12,7 +12,6 @@
 	<groupId>com.xai.tt</groupId>
 	<artifactId>business-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
 	<name>business-client</name>
 
 	<dependencies>
