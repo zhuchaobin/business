@@ -116,11 +116,7 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-		<dependency>
-			<groupId>com.tianan.kltsp</groupId>
-			<artifactId>business-biz</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 		<dependency>
 			<groupId>com.xai.tt</groupId>
 			<artifactId>business-client</artifactId>
