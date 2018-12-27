@@ -6,215 +6,373 @@
 <meta name="viewport" content="width=device-width,initial-scale-1">
 <title>注册</title>
 <link type="text/css" rel="stylesheet" href="/resources/ui/CSS/base.css">
-<link type="text/css" rel="stylesheet" href="/resources/ui/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-<link type="text/css" rel="stylesheet" href="/resources/ui/datetime-picker/bootstrap-datetimepicker.min.css">
-<link type="text/css" rel="stylesheet" href="/resources/ui/CSS/select2.min.css">
-<link type="text/css" rel="stylesheet" href="/resources/ui/CSS/register.css">
+<link type="text/css" rel="stylesheet"
+	href="/resources/ui/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet"
+	href="/resources/ui/datetime-picker/bootstrap-datetimepicker.min.css">
+<link type="text/css" rel="stylesheet"
+	href="/resources/ui/CSS/select2.min.css">
+<link type="text/css" rel="stylesheet"
+	href="/resources/ui/CSS/register.css">
 
 </head>
 
-<body style="background:url(/resources/ui/Images/register/section4_bg.jpg) no-repeat center center;">
-    <div class="BbRegisterWrap">
-        <div class="BbRegister">
-        	<h2></h2>
-            <div class="container">
-                <form class="form-horizontal form_selfinfo" style="width: 839px; margin: 0 auto;" method="post">
-                <div class="form_selfinfo" id="preDiv">
-                  <p class="title">申请公司用户 - 公司信息</p>
-                  
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">用户名</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="username" placeholder="用户名">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">密码</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="password" placeholder="密码">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">密码</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="passwordConfirm" placeholder="密码">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">联系人</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="chineseName" placeholder="联系人">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">联系电话</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="mobile" placeholder="联系电话">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">公司名称</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="companyName" placeholder="公司名称">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">供应链</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="splchainCo" placeholder="供应链">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">角色类型</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="usrTp" placeholder="角色类型">
-                    </div>
-                  </div>
-
-<div class="form-group">
-                    <label class="col-sm-2 control-label">email</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="email" placeholder="email">
-                    </div>
-                  </div>
+<body
+	style="background: url(/resources/ui/Images/register/section4_bg.jpg) no-repeat center center; background-size: 100%; position: relative;">
 
 
-                  
+	<div class="BbRegisterWrap">
+		<div class="BbRegister">
+			<h2></h2>
+			<div class="container">
+				<form class="form-horizontal form_selfinfo"
+					style="width: 839px; margin: 0 auto;" id="register_form">
+					<div class="form_selfinfo" id="preDiv">
+						<p class="title">申请用户 - 基本信息</p>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">用户名<span
+								style="color: red">*</span></label>
+							<div class="col-sm-8">
+								<input type="text" value="223" class="form-control"
+									name="username" placeholder="用户名">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">密码<span
+								style="color: red">*</span></label>
+							<div class="col-sm-8">
+								<input type="password" value="123456" class="form-control"
+									name="password" placeholder="密码">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">密码<span
+								style="color: red">*</span></label>
+							<div class="col-sm-8">
+								<input type="password" class="form-control"
+									name="passwordConfirm" value="123456" placeholder="密码">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">联系人<span
+								style="color: red">*</span></label>
+							<div class="col-sm-8">
+								<input type="text" value="333" class="form-control"
+									name="chineseName" placeholder="联系人">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">联系电话<span
+								style="color: red">*</span></label>
+							<div class="col-sm-8">
+								<input type="text" value="12345678912" class="form-control"
+									name="mobile" placeholder="联系电话">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">公司全称<span
+								style="color: red">*</span></label>
+							<div class="col-sm-8">
+								<input type="text" value="555" class="form-control"
+									name="companyName" placeholder="公司全称">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">角色类型</label>
+							<div class="col-sm-8">
+								<select id="userType" name="userType" class="form-control"
+									onchange="usertype_change()">
+									<option value="" selected="selected">-请选择-</option>
+									<option value="1">平台</option>
+									<option value="2">上游供应商</option>
+									<option value="3">供应链公司</option>
+									<option value="4">融资企业</option>
+									<option value="5">保险公司</option>
+									<option value="6">银行</option>
+									<option value="7">物流公司</option>
+									<option value="8">仓储公司</option>
+
+								</select>
+							</div>
+						</div>
+						<div class="form-group" style="padding: 0px; display: none;"
+							id="splchainCoDiv">
+							<label class="col-sm-2 control-label">供应链</label>
+							<div class="col-sm-8">
+								<select name="splchainCo" class="form-control">
+									<option value="">请选择</option>
+									<option th:each="model: ${splchainCoModels}"
+										th:value="${model.id}" th:text="${model.name}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">电子邮箱</label>
+							<div class="col-sm-8">
+								<input type="text" value="888" class="form-control"
+									name="用来接收通知" placeholder="用来接收通知">
+							</div>
+						</div>
+
 						<div class="form-group" style="margin-top: 25px;">
 							<p>
-								<button type="button"
-								class="btn btn-primary btn-lg btn_selfinfo" onclick="showOrHide(1)">Next step >></button> 
+								<button type="button" class="btn btn-primary btn-lg"
+									onclick="showOrHide(1)" id="next_button">下一步 >></button>
 							</p>
 						</div>
 						<div class="form-group">
 							<p class="account_in">
-								Already have an account? <a href="${cxt!}/jf/thairice/t3user/login?returnUrl=/jf/thairice/t3user/exit#page4">Sign
-									In</a>
+								已有账户? <a
+									href="${cxt!}/jf/thairice/t3user/login?returnUrl=/jf/thairice/t3user/exit#page4">登录</a>
 							</p>
 						</div>
 					</div>
-					
-					<div class="form-horizontal form_serviceinfo"
-						style="width: 801px; margin: 0 auto;display: none;" id="nextDiv">
-						<p class="title">Create account- Service information</p>
-<div class="form-group">
-                    <label class="col-sm-2 control-label">注册地址</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="rgtads" placeholder="注册地址">
-                    </div>
-                  </div>
 
-<div class="form-group">
-                    <label class="col-sm-2 control-label">纳税人识别号</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="taxpyrIdNo" placeholder="纳税人识别号">
-                    </div>
-                  </div>
+					<div class="form-horizontal" style="display: none;" id="nextDiv">
+						<p class="title">公司发票信息</p>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">注册地址</label>
+							<div class="col-sm-8">
+								<input type="text" value="999" class="form-control"
+									name="rgtads" placeholder="注册地址">
+							</div>
+						</div>
 
-<div class="form-group">
-                    <label class="col-sm-2 control-label">开户行</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="depbnk" placeholder="开户行">
-                    </div>
-                  </div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">纳税人识别号</label>
+							<div class="col-sm-8">
+								<input type="text" value="1212" class="form-control"
+									name="taxpyrIdNo" placeholder="纳税人识别号">
+							</div>
+						</div>
 
-<div class="form-group">
-                    <label class="col-sm-2 control-label">银行账户号</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="bnkAccNo" placeholder="银行账户号">
-                    </div>
-                  </div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">开户行</label>
+							<div class="col-sm-8">
+								<input type="text" value="2323" class="form-control"
+									name="depbnk" placeholder="开户行">
+							</div>
+						</div>
 
-<div class="form-group">
-                    <label class="col-sm-2 control-label">备注</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" name="rmrk" placeholder="备注">
-                    </div>
-                  </div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">银行账户号</label>
+							<div class="col-sm-8">
+								<input type="text" value="3434" class="form-control"
+									name="bnkAccNo" placeholder="银行账户号">
+							</div>
+						</div>
 
-                  
-                  
+						<div class="form-group">
+							<label class="col-sm-2 control-label">备注</label>
+							<div class="col-sm-8">
+								<input type="text" value="4545" class="form-control" name="rmrk"
+									placeholder="备注">
+							</div>
+						</div>
 
-
-						
-						<div class="fw"> <input type="checkbox" id="agree">&nbsp&nbsp<a onclick="privacy()">I have read and agree to the relevant terms of service and privacy policy</a></div>
+						<div class="form-group">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-8">
+								<input type="checkbox" id="agree">&nbsp<a
+									onclick="privacy()">我已经阅读并同意遵守用户注册协议</a>
+							</div>
+						</div>
 						<div class="form-group" style="margin: 35px 0 0;">
 							<p>
-							    <button type="button"  class="btn btn-primary btn-lg" id="previous" style="margin-right: 50px;" > << Previous step</button>
 								<button type="button" class="btn btn-primary btn-lg"
-									onclick="submitForm()">Create Account</button>
+									id="previous" style="margin-right: 50px;"
+									onclick="showOrHide(2)"><< 上一步</button>
+								<button type="button" class="btn btn-primary btn-lg"
+									onclick="submitForm()">创建账号</button>
 							</p>
 						</div>
 						<div class="form-group">
 							<p class="account_in">
-								Already have an account? <a href="${cxt!}/jf/thairice/t3user/login?returnUrl=/jf/thairice/t3user/exit#page4">Sign
-									In</a>
+								已有账户? <a
+									href="${cxt!}/jf/thairice/t3user/login?returnUrl=/jf/thairice/t3user/exit#page4">登录</a>
 							</p>
 						</div>
 					</div>
-					
-                </form>
-          
-            </div>
-            
-        </div>
-    </div>
-    <!-- audit Modal-->
-    <div class="modal fade" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">System message</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-      </div>
-      <div class="modal-body">material under review</div>
-      <div class="modal-footer">
-        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="welcome.html#page4">Sure</a>
-      </div>  
-    </div>
-  </div>
-</div>
-<script src="/resources/ui/JS/jquery-2.0.0.min.js"></script> 
-<script src="/resources/ui/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script src="/resources/ui/datetime-picker/moment.js"></script>
-<script src="/resources/ui/datetime-picker/bootstrap-datetimepicker.min.js"></script>
-<script src="/resources/ui/JS/select2.min.js"></script>
-<script>
-	$(function () {  
-		//日期选择插件
-		$('#starttime').datetimepicker({  
-			format: 'YYYY-MM-DD',  
-			locale: moment.locale('zh-cn')  
-		}); 
-		$('#endtime').datetimepicker({  
-			format: 'YYYY-MM-DD',  
-			locale: moment.locale('zh-cn')  
-		});
-		$('.btn_selfinfo').click(function(e) {
-            $('.form_selfinfo').hide();
-			$('.form_serviceinfo').show();
-        });
-		$('.js-example-basic-multiple').select2();
-	})
-	
-	function showOrHide(flag){
-		alert(flag);
-		if(flag==1){
-			document.getElementById("nextDiv").style.display = "";
-			document.getElementById("preDiv").style.display = "none";
-		}else if(flag==2){
-			document.getElementById("preDiv").style.display = "";
-			document.getElementById("nextDiv").style.display = "none";
+
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+	<!-- audit Modal-->
+	<div class="modal fade" id="auditModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">System message</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">material under review</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="welcome.html#page4">Sure</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/resources/ui/JS/jquery-2.0.0.min.js"></script>
+	<script src="/resources/ui/datetime-picker/moment.js"></script>
+	<script
+		src="/resources/ui/datetime-picker/bootstrap-datetimepicker.min.js"></script>
+	<script src="/resources/ui/JS/select2.min.js"></script>
+	<script src="/resources/ui/JS/jquery.fullPage-2.6.7.min.js"></script>
+	<script src="/resources/ui/JS/jquery.slimscroll.js"></script>
+	<script th:src="@{/resources/plugins/iCheck/icheck.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
+	<script
+		th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script>
+		function submitForm() {
+			var formParams = E7.serialForm('#register_form');
+			if(formParams.password.trim()!=formParams.passwordConfirm.trim()){
+				 bootbox.alert({'title':'错误', 'message':'密码与密码确认必须相同！'});
+				 return;
+			}
+			
+ 			var id = document.getElementById('agree');
+			if(! id.checked){				
+				bootbox.alert({
+					'title' : "友情提醒",
+					'message' : '您必须先阅读并同意用户注册协议才能提交注册！'
+				});
+				return;
+			}
+
+			E7.post('/user/register', formParams, function(data) {
+				//showOrHideDetail(true, 1);
+				bootbox.alert({
+					'title' : "消息",
+					'message' : '您已注册成功,等待平台管理员审核后可使用系统.'
+				});
+
+			});
 		}
-	}
-</script>
+
+		
+		/***
+		 * 表单校验控件初始化1（长约发起提交）
+		 */
+		function validator_Init() {						
+			$('#register_form').bootstrapValidator({
+				feedbackIcons : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+			    	"username" : {
+						validators : {
+							notEmpty : {message : '用户名不能为空'}
+						}
+					},
+
+			    	"password" : {
+						validators : {
+							notEmpty : {message : '密码不能为空'}
+						}
+					},
+			    	"passwordConfirm" : {
+						validators : {
+							notEmpty : {message : '密码确认不能为空'}
+						}
+					},
+			    	"chineseName" : {
+						validators : {
+							notEmpty : {message : '联系人姓名不能为空'}
+						}
+					},
+					//验证手机
+		            'mobile' : {          //input中的name 值
+		                validators:{
+		                    regexp: {
+		                        regexp: /^1\d{10}$/ ,
+		                        message: '请输入正确的11位手机号'
+		                    }		                    
+		                }
+		            },
+			    	"companyName" : {
+						validators : {
+							notEmpty : {message : '公司全称不能为空'}
+						}
+					}
+				}
+			});
+
+			$('#next_button').click(function() {
+				$('#register_form').bootstrapValidator('validate');
+			});
+		}
+		
+		$(function() {
+			validator_Init();
+		})
+
+		function showOrHide(flag) {
+			if (flag == 1) {
+				if (!$('#register_form').data('bootstrapValidator').isValid()) {
+					return;
+				} 
+				var formParams = E7.serialForm('#register_form');
+				if(formParams.password.trim()!=formParams.passwordConfirm.trim()){
+					 bootbox.alert({'title':'错误', 'message':'密码与密码确认必须相同！'});
+					 return;
+				}
+				document.getElementById("preDiv").style.display = "none";
+				document.getElementById("nextDiv").style.display = "";
+			} else if (flag == 2) {
+				document.getElementById("nextDiv").style.display = "none";
+				document.getElementById("preDiv").style.display = "";
+			}
+		}
+
+		/***
+		 * 判断角色类型，如果非供应链用户需要选择合作的供应链
+		 */
+		function usertype_change() {
+			var userType = $('#userType').val();
+			if ("3" == userType || "1" == userType) {
+				document.getElementById('splchainCoDiv').style.display = "none";
+			} else {
+				bootbox.alert({
+					'title' : "友情提示",
+					'message' : '请选择您要合作的供应链公司！'
+				});
+				document.getElementById('splchainCoDiv').style.display = "";
+			}
+		}
+
+		function privacy() {
+			layer.open({
+				type : 2,
+				title : '用户注册协议',
+				shadeClose : true,
+				shade : 0.7,
+				area : [ '70%', '100%' ],
+				content : '/user/privacy' //iframe的url
+			});
+
+		}
+	</script>
 </body>
 </html>
