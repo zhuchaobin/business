@@ -56,6 +56,7 @@
 </style>
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+	<link rel="stylesheet" th:href="@{/resources/bootstrap-table/bootstrap-table.css}" />
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -1310,6 +1311,7 @@
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/js_zcb/common.js}"></script>
+	<script th:src="@{/resources/bootstrap-table/bootstrap-table.js}"></script>
 	<!-- 	<script th:src="@{/resources/js_zcb/ar.js}"></script> -->
 	<script type="text/javascript">
 		var pageSetting = {
@@ -3013,7 +3015,7 @@
 				// }
 
 				$('#main_spg_edit_detail_title').text(
-						"您所在位置 : 订单管理 > 执行中订单 [ " + arId + " ] > 发起发货");
+						"您所在位置 : 发货发起");
 				showOrHideDetail(true, 7);
 
 			});
