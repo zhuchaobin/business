@@ -1053,12 +1053,12 @@
 	</div>
 	<!-- 发起订单确认提示框 end -->
 
-	<!-- 订单详细信息 start-->
-	<section id="main_order_edit_detail" class="content"
+	<!-- 发货详细信息 start-->
+	<section id="main_spg_edit_detail" class="content"
 		style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="main_order_edit_detail_title" class="text-info">订单信息</h4>
+				<h4 id="main_spg_edit_detail_title" class="text-info">发货信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -1066,14 +1066,14 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<form id="frm_detail_order" class="form-horizontal">
+				<form id="frm_detail_spg" class="form-horizontal">
 					<fieldset id='fld_detail'>
 						<div class="w-z-info">
-							<input type="hidden" id="fileId3" name="fileUrl3"> <input
-								type="hidden" id="fileToDeleteId" name="filesToDelete">
-							<input name="id" type="hidden" value="" /> <input id="secSrvCd"
-								name="secSrvCd" type="hidden" value="" /> <input id="arSt"
-								name=arSt type="hidden" value="" />
+							<input type="hidden" id="fileId3" name="fileUrl3">
+							<input type="hidden" id="fileToDeleteId" name="filesToDelete">
+							<input name="id" type="hidden" value="" />
+							<input id="secSrvCd" name="secSrvCd" type="hidden" value="" />
+							<input id="arSt" name=arSt type="hidden" value="" />
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">长约编号<span
@@ -1085,34 +1085,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">业务类型<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<select name="btp" class="form-control" disabled="disabled">
-											<option value="">-请选择-</option>
-											<option value="01" selected="selected">订单融资</option>
-											<option value="02">保证金融资</option>
-											<option value="03">质押融资</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">服务费收取<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<select name="svcfeeCmd" class="form-control"
-											disabled="disabled">
-											<option value="">-请选择-</option>
-											<option value="01" selected="selected">预收</option>
-											<option value="02">现结</option>
-										</select>
-									</div>
-								</div>
-							</div>
+
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">融资企业<span
@@ -1154,14 +1127,14 @@
 									</div>
 								</div>
 							</div>
-							<!-- 						<div class="col-md-6">
+						    <div class="col-md-6">
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">订单编号<span style="color:red">*</span></label>
 								<div class="col-sm-8">
 									<input name="ordrId" class="form-control" placeholder="订单编号"/>
 								</div>
 							</div>
-						</div> -->
+						</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">品名<span
@@ -1261,334 +1234,8 @@
 
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">采购货款总额<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="pchPymfrgdsTamt" class="form-control"
-												placeholder="采购货款总额" value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">吨</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">交易差价<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
 
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="txnPrcdif" class="form-control"
-												placeholder="交易差价" value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">元</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">销售暂定价<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="saleTntvPrc" class="form-control"
-												placeholder="销售(暂定)价" value="2" disabled="disabled" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">元</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资金额<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<div class="col-xs-4" style="padding-left: 0px;">
-											<input name="fncRto" class="form-control" placeholder="融资比率"
-												value="4" />
-										</div>
-										<div class="col-xs-2">
-											<label for="" class="control-label">%</label>
-										</div>
-										<div class="col-xs-4" style="padding-left: 0px;">
-											<input name="fncAmt" class="form-control" placeholder="融资金额"
-												value="2" />
-										</div>
-										<div class="col-xs-2">
-											<label for="" class="control-label">元</label>
-										</div>
 
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">合同总额<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="ctrTamt" class="form-control" placeholder="合同总额"
-												value="2" disabled="disabled" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">元</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预付金比率<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="prpyGldRto" class="form-control"
-												placeholder="预付金比率" value="2" disabled="disabled" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">元</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">风控单价<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="rskctrUnitprc" class="form-control"
-												placeholder="风控单价" value="2" disabled="disabled" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">元</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">风控价格参考<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="rskctrPrcRef" class="form-control"
-												placeholder="风控价格参考" value="2" disabled="disabled" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">元</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预警线<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="wnln" class="form-control" placeholder="预警线"
-												value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">警戒线<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="crdn" class="form-control" placeholder="警戒线"
-												value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">平仓线<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="clsposLn" class="form-control" placeholder="平仓线"
-												value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">溢短结转方式<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<input name="splovCrrovMod" class="form-control"
-											placeholder="溢短结转方式" />
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">服务费率<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<input name="fncSvcfeeRate" class="form-control"
-											placeholder="服务费率" />
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">付款方式<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<select id="pymtmod" name="pymtmod" class="form-control"
-											onchange="pymtmod_change()">
-											<option value="" selected="selected">-请选择-</option>
-											<option value="01">全额预付</option>
-											<option value="02">见货付款</option>
-											<option value="03">货到付款</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<!-- 保险信息div -->
-							<div id="ins_order_div" style="padding: 0px; display: none;">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">货物名称<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<input name="gdsNm" class="form-control" placeholder="货物名称" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">货物件数<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<div class="col-xs-10" style="padding-left: 0px;">
-												<input name="gdsPtsNum" class="form-control"
-													placeholder="货物件数" value="2" />
-											</div>
-											<div class="col-xs-1">
-												<label for="" class="control-label">件</label>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">货物重量<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<div class="col-xs-10" style="padding-left: 0px;">
-												<input name="gdsWght" class="form-control"
-													placeholder="货物重量" value="2" />
-											</div>
-											<div class="col-xs-1">
-												<label for="" class="control-label">吨</label>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险金额<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<div class="col-xs-10" style="padding-left: 0px;">
-												<input name="insAmt" class="form-control" placeholder="保险金额"
-													value="2" />
-											</div>
-											<div class="col-xs-1">
-												<label for="" class="control-label">元</label>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">免赔额<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<div class="col-xs-10" style="padding-left: 0px;">
-												<input name="dctbAmt" class="form-control" placeholder="免赔额"
-													value="2" />
-											</div>
-											<div class="col-xs-1">
-												<label for="" class="control-label">元</label>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">起运日期<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<input name="tprtDt" id="tprtDtDTPicker" class="form-control"
-												style="padding-left: 3px;" placeholder="起运日期"
-												value="2018-12-12" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">目的地<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<input name="ppsLnd" class="form-control" placeholder="目的地" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">运输方式及工具<span
-											style="color: red">*</span></label>
-										<div class="col-sm-8">
-											<input name="tprtModAndImt" class="form-control"
-												placeholder="运输方式及工具" />
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12" style="padding-right: 15px;">
-										<div class="form-group" style="padding-left: 15px;">
-											<label for="" class="col-md-2 control-label"
-												style="padding-left: 15px;">特别约定<span
-												style="color: red">*</span></label>
-											<div class="col-md-10" style="padding-left: 10px;">
-												<textarea name="epap" rows="4" class="form-control" margin>rerere</textarea>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
 							<input type="hidden" id="fileId3" name="fileUrl3">
 							<div class="row" id="upload_order_div">
 								<div class="col-md-12">
@@ -2055,8 +1702,8 @@
 		}
 
 		function validate_order_edit_detail(flag) {
-			$('#main_order_edit_detail').bootstrapValidator('validate');
-			if (!$('#main_order_edit_detail').data('bootstrapValidator')
+			$('#main_spg_edit_detail').bootstrapValidator('validate');
+			if (!$('#main_spg_edit_detail').data('bootstrapValidator')
 					.isValid()) {
 				return;
 			} else {
@@ -2100,7 +1747,7 @@
 				CKEDITOR.instances[instance].updateElement();
 			}
 
-			var formParams = E7.serialForm('#frm_detail_order');
+			var formParams = E7.serialForm('#frm_detail_spg');
 			alert(pageSetting.resetPath);
 			E7.post('/orderManagement/save', formParams, function(data) {
 				query_ar_list();
@@ -2500,7 +2147,7 @@
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				//新发起订单
-				$('#main_order_edit_detail').hide();
+				$('#main_spg_edit_detail').hide();
 				// 返回按钮
 				$('#btn_close_div').hide();
 				$('#query_ar_submmit_detail').hide();
@@ -2513,7 +2160,7 @@
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
 				//新发起订单
-				$('#main_order_edit_detail').hide();
+				$('#main_spg_edit_detail').hide();
 				// 返回按钮
 				$('#btn_close_div').hide();
 				// 附件
@@ -2541,7 +2188,7 @@
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
 				//新发起订单
-				$('#main_order_edit_detail').hide();
+				$('#main_spg_edit_detail').hide();
 				// 附件
 				$('#upload_ar_div').hide();
 				//				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
@@ -2570,7 +2217,7 @@
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
 				//新发起订单
-				$('#main_order_edit_detail').hide();
+				$('#main_spg_edit_detail').hide();
 				// 返回按钮
 				$('#btn_close_div').hide();
 				// 附件
@@ -2598,7 +2245,7 @@
 				$('#submit_ar_detail').fadeIn(300);
 				$('#query_ar_submmit_detail').hide();
 				//新发起订单
-				$('#main_order_edit_detail').hide();
+				$('#main_spg_edit_detail').hide();
 				// 附件
 				$('#upload_ar_div').hide();
 				$('#query_ar_atch_div').show();
@@ -2626,7 +2273,7 @@
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				//新发起订单
-				$('#main_order_edit_detail').fadeIn(800);
+				$('#main_spg_edit_detail').fadeIn(800);
 				// 返回按钮
 				$('#btn_close_div').hide();
 				//新发起订单
@@ -2641,7 +2288,7 @@
 				//长约审批提交
 				$('#query_ar_submmit_detail').hide();
 				//新发起订单
-				$('#main_order_edit_detail').fadeIn(800);
+				$('#main_spg_edit_detail').fadeIn(800);
 			}
 		}
 		/***
@@ -3060,7 +2707,7 @@
 		 * 表单校验控件初始化3（订单发起）
 		 */
 		function validator_3_Init() {
-			$('#frm_detail_order').bootstrapValidator({
+			$('#frm_detail_spg').bootstrapValidator({
 				feedbackIcons : {
 					valid : 'glyphicon glyphicon-ok',
 					invalid : 'glyphicon glyphicon-remove',
@@ -3315,10 +2962,10 @@
 			});
 
 			$('#btn_save').click(function() {
-				$('#frm_detail_order').bootstrapValidator('validate');
+				$('#frm_detail_spg').bootstrapValidator('validate');
 			});
 			$('#btn_save_submmit').click(function() {
-				$('#frm_detail_order').bootstrapValidator('validate');
+				$('#frm_detail_spg').bootstrapValidator('validate');
 			});
 		}
 
@@ -3352,24 +2999,28 @@
 			E7.post(pageSetting.resetPath + '/getDetail', {
 				'id' : rows[0]['id']
 			}, function(result) {
-				fillForm('#frm_detail_order', result.data);
+				fillForm('#frm_detail_spg', result.data);
 				arId = result.data["arId"];
 				arSt = result.data["arSt"];
 				// 实时判断长约是否可以修改	
-				if (result.data["arSt"] != "06") {
-					bootbox.alert({
-						'title' : '错误消息',
-						'message' : '该长约非执行中长约禁止发起订单！'
-					});
-					return;
-				}
+				// if (result.data["arSt"] != "06") {
+				// 	bootbox.alert({
+				// 		'title' : '错误消息',
+				// 		'message' : '该长约非执行中长约禁止发起订单！'
+				// 	});
+				// 	return;
+				// }
 
-				$('#main_order_edit_detail_title').text(
-						"您所在位置 : 长约管理 > 执行中长约 [ " + arId + " ] > 发起订单");
+				$('#main_spg_edit_detail_title').text(
+						"您所在位置 : 长约管理 > 执行中长约 [ " + arId + " ] > 发起发货");
 				showOrHideDetail(true, 7);
 
 			});
 		}
+
+
+
+
 		// 初始化上传附件控件
 		initInputItem(3);
 
