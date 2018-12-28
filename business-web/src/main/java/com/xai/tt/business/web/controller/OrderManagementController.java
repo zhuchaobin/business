@@ -304,7 +304,15 @@ public class OrderManagementController extends BaseController {
     @ResponseBody
     public Result<?>   getDetail(String id) {
     	logger.info("查询长约详情，请求参数id=：{}", id);
-    	Result<QueryOrderInfDetailOutVo> rlt = orderManagementDcService.queryArDetail(id);
+    	OrderManagementInVo inVo = new OrderManagementInVo();
+    	inVo.setId(Long.parseLong(id));
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	inVo.setUserType(user.getUserType().ordinal());
+    	inVo.setUsername(user.getUsername());
+    	inVo.setCompanyId(user.getCompanyId());
+    	inVo.setNickname(user.getNickname());
+    	inVo.setChineseName(user.getChineseName());
+    	Result<QueryOrderInfDetailOutVo> rlt = orderManagementDcService.queryArDetail(inVo);
     	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
