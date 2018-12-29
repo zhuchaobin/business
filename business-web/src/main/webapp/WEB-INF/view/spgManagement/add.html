@@ -69,11 +69,11 @@
 					<div id="div_criteria" class="flowlayout">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<label for="" class="col-sm-4 control-label">发货编号：</label>
 								<div class="col-sm-8">
 									<input type="hidden" id="queryTypeId" name="queryType"
 										value="4"> <input id="arId" name="arId"
-										class="form-control" placeholder="长约编号" />
+										class="form-control" placeholder="发货编号" />
 								</div>
 							</div>
 						</div>
@@ -197,7 +197,7 @@
 	<section id="main_edit_detail" class="content" style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="main_edit_detail_title" class="text-info">长约信息</h4>
+				<h4 id="main_edit_detail_title" class="text-info">发货信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -217,7 +217,7 @@
 							<div class="row" style="margin-left: 0px">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">长约类型：</label>
+										<label for="" class="col-sm-4 control-label">发货类型：</label>
 										<div class="col-sm-8">
 											<input type="radio" name="arTp" value="01" checked="checked">
 											代销</input> &nbsp<input type="radio" name="arTp" value="02">
@@ -301,7 +301,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">长约起止日期：</label>
+									<label for="" class="col-sm-4 control-label">发货起止日期：</label>
 									<div class="col-sm-8 pull-right">
 										<div class="col-xs-5" style="padding: 0px;">
 											<input name="arStdt" id="arStdtDTPicker" class="form-control"
@@ -702,7 +702,7 @@
 		style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h3 id="ar_lnk_jrnl_inf_detail_title" class="box-title">长约流转信息</h3>
+				<h3 id="ar_lnk_jrnl_inf_detail_title" class="box-title">发货流转信息</h3>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -731,7 +731,7 @@
 			</div> -->
 		</div>
 	</section>
-	<!-- 长约流转信息 end-->
+	<!-- 发货流转信息 end-->
 
 	<!-- 提交结论 start-->
 	<section id="submit_ar_detail" class="content" style="display: none;">
@@ -820,11 +820,11 @@
 </div>
 <!-- 查看界面的返回按钮 end-->
 
-	<!-- 查询长约提交详细信息 start-->
+	<!-- 查询发货提交详细信息 start-->
 	<section id="query_ar_submmit_detail" style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h3 id="query_ar_submmit_title" class="box-title">长约提交详情</h3>
+				<h3 id="query_ar_submmit_title" class="box-title">发货提交详情</h3>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -907,7 +907,7 @@
 			</div>
 		</div>
 	</section>
-	<!-- 查询长约提交详细信息 end-->
+	<!-- 查询发货提交详细信息 end-->
 
 	<!-- 发起确认提示框 start-->
 	<div class="modal fade" id="saveSubmitModal" tabindex="-1"
@@ -938,7 +938,7 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- 发起确认提示框 end -->
-	<!-- 长约提交确认提示框 start -->
+	<!-- 发货提交确认提示框 start -->
 	<div class="modal fade" id="submitArModal" tabindex="-1" role="dialog"
 		aria-labelledby="submitModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -961,9 +961,9 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- 长约提交确认提示框 end -->
+	<!-- 发货提交确认提示框 end -->
 
-	<!-- 长约删除确认提示框 start -->
+	<!-- 发货删除确认提示框 start -->
 	<div class="modal fade" id="delArModal" tabindex="-1" role="dialog"
 		aria-labelledby="submitModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -975,7 +975,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" align="center">您确定要删除该长约吗?</div>
+				<div class="modal-body" align="center">您确定要删除该发货吗?</div>
 				<div class="modal-footer" align="center">
 					<button type="button" onclick="javascript:del()"
 						class="btn btn-primary-red" data-dismiss="modal">
@@ -991,7 +991,7 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- 长约删除确认提示框 end -->
+	<!-- 发货删除确认提示框 end -->
 
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
@@ -1010,7 +1010,7 @@
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script type="text/javascript">
-	/* 日期选择控件-长约开始日期 */
+	/* 日期选择控件-发货开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
         language: 'zh-CN',
         minView: "month",//设置只显示到月份
@@ -1026,10 +1026,10 @@
 
          $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
          $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt');   
-         // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
+         // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt();
      }); 
-	/* 日期选择控件-长约结束日期 */
+	/* 日期选择控件-发货结束日期 */
 	$('#arEddtDTPicker').datetimepicker({
         language: 'zh-CN',
         minView: "month",//设置只显示到月份
@@ -1039,7 +1039,7 @@
      }).on('changeDate',function(ev){   
          $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
          $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt'); 
-         // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
+         // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt(); 
      }); 
 	/* 日期选择控件 - 保险开始日期*/
@@ -1058,7 +1058,7 @@
          $('#insEddtDTPicker').datetimepicker('setDate',oneYearAfter);
          $('#frm_detail').data('bootstrapValidator').updateStatus('insStdt', 'NOT_VALIDATED',null).validateField('insStdt');  
          $('#frm_detail').data('bootstrapValidator').updateStatus('insEddt', 'NOT_VALIDATED',null).validateField('insEddt');
-         // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
+         // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt();
      }); 
 	/* 日期选择控件 - 保险结束日期*/
@@ -1071,18 +1071,18 @@
      }).on('changeDate',function(ev){ 
          $('#frm_detail').data('bootstrapValidator').updateStatus('insStdt', 'NOT_VALIDATED',null).validateField('insStdt');  
          $('#frm_detail').data('bootstrapValidator').updateStatus('insEddt', 'NOT_VALIDATED',null).validateField('insEddt'); 
-      // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
+      // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt();
      }); 
 	
-    // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
+    // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
 	function checkInsDtAndArDt(){
 	    var msg = "";
 	    if(($('#insStdtDTPicker').val() != "") && ($('#arStdtDTPicker').val() !="") && ($('#insStdtDTPicker').val() > $('#arStdtDTPicker').val())){
-	   	 msg += "[保险开始日期] 晚于 [长约开始日期] !";
+	   	 msg += "[保险开始日期] 晚于 [发货开始日期] !";
 	    }
 	    if( ($('#insEddtDTPicker').val() != "") && ($('#arEddtDTPicker').val() !="") && ($('#insEddtDTPicker').val() < $('#arEddtDTPicker').val())){
-	   	 msg += "[保险结束日期] 早于 [长约结束日期] !";
+	   	 msg += "[保险结束日期] 早于 [发货结束日期] !";
 	    }
 	    if(msg != ""){
 				bootbox.alert({
@@ -1093,7 +1093,7 @@
 	}
 		
 		var pageSetting = {
-			modelName : '长约信息管理',
+			modelName : '发货信息管理',
 			resetPath : '[[@{/spgManagement}]]'
 		};
 		$(function() {
@@ -1129,7 +1129,7 @@
 				$('#btn_save').hide();
 				$('#btn_save_submmit').hide();
 			}
-			// 长约列表查询
+			// 发货列表查询
 			if(flag == 1){
 				$('#main_search_detail').fadeIn(300);
 				$('#main_edit_detail').hide();
@@ -1138,9 +1138,9 @@
 				// 返回按钮
 				$('#btn_close_div').hide();	
 				$('#query_ar_submmit_detail').hide();
-			} else if(flag == 2){// 长约发起	
+			} else if(flag == 2){// 发货发起	
 				// section
-				$('#main_edit_detail_title').text("您所在位置 ： 长约管理 > 待发起长约 > 全新发起");
+				$('#main_edit_detail_title').text("您所在位置 ： 发货管理 > 待发起发货 > 全新发起");
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
@@ -1159,8 +1159,8 @@
 				$('#btn_close').show();
 				$('#btn_save').show();
 				$('#btn_save_submmit').show();
-			} else if(flag == 3){// 长约详情查看
-				//$('#main_edit_detail_title').text("长约信息");
+			} else if(flag == 3){// 发货详情查看
+				//$('#main_edit_detail_title').text("发货信息");
 				// section
 				// 保险信息输入部门显示隐藏
 				show_or_hide_ins_div(true);
@@ -1182,9 +1182,9 @@
 				$('#btn_save').hide();
 				$('#btn_save_submmit').hide();
 				
-			} else if(flag == 6){// 长约修改
+			} else if(flag == 6){// 发货修改
 				// section
-			//	$('#main_edit_detail_title').text("您所在位置 ： 长约管理 > 待发起长约 > 长约修改");
+			//	$('#main_edit_detail_title').text("您所在位置 ： 发货管理 > 待发起发货 > 发货修改");
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
@@ -1204,8 +1204,8 @@
 				$('#btn_close').show();
 				$('#btn_save').show();
 				$('#btn_save_submmit').show();
-			} else if(flag == 4){// 长约提交
-				//$('#main_edit_detail_title').text("长约信息");
+			} else if(flag == 4){// 发货提交
+				//$('#main_edit_detail_title').text("发货信息");
 				// section
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
@@ -1223,7 +1223,7 @@
 				$('#btn_close').hide();
 				$('#btn_save').hide();
 				$('#btn_save_submmit').hide();
-			} else if(flag == 5){//长约提交详情查看
+			} else if(flag == 5){//发货提交详情查看
 				$('#main_search_detail').hide();
 				$('#main_edit_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
@@ -1251,7 +1251,7 @@
 		}
 		
 		/***
-		 * 长约提交
+		 * 发货提交
 		 */
 		function submitAr() {			
 			for (instance in CKEDITOR.instances) {
@@ -1289,7 +1289,7 @@
 		}
 		
 		/***
-		 * 表单校验控件初始化2(长约各环节提交)
+		 * 表单校验控件初始化2(发货各环节提交)
 		 */
 		function validator_2_Init() {			
 			$('#frm_submit_ar').bootstrapValidator({
@@ -1312,7 +1312,7 @@
 			});
 		}
 		/***
-		 * 表单校验控件初始化1（长约发起提交）
+		 * 表单校验控件初始化1（发货发起提交）
 		 */
 		function validator_1_Init() {						
 			$('#frm_detail').bootstrapValidator({
@@ -1324,7 +1324,7 @@
 				fields : {
 			    	"arTp" : {
 						validators : {
-							notEmpty : {message : '长约类型不能为空'}
+							notEmpty : {message : '发货类型不能为空'}
 						}
 					},
 			    	"fncEntp" : {
@@ -1502,13 +1502,13 @@
 			    	"arStdt" : {
 			//    		trigger:"change1", //监听change动作
 						validators : {
-							notEmpty : {message : '长约开始日期不能为空'}
+							notEmpty : {message : '发货开始日期不能为空'}
 						}
 					},
 			    	"arEddt" : {
 			  //  		trigger:"change2", //监听change动作
 						validators : {
-							notEmpty : {message : '长约结束日期不能为空'}
+							notEmpty : {message : '发货结束日期不能为空'}
 						}
 					},
 			    	"isNeedIns" : {
@@ -1525,7 +1525,7 @@
 		}
 
 		function queryArDetails(id, aplyPcstpCd, type){
-		    // type 1:长约提交  0：长约详情查询
+		    // type 1:发货提交  0：发货详情查询
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 
@@ -1542,8 +1542,8 @@
 				}
 				///
 				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
-				// 长约详情div标题
-				$('#main_edit_detail_title').text("长约信息 [ " + detail["arId"]+" ]");
+				// 发货详情div标题
+				$('#main_edit_detail_title').text("发货信息 [ " + detail["arId"]+" ]");
 				// 投保信息是否显示
 				//是否需要保险参数取消，默认都需要
 /* 				var isNeedIns = detail["isNeedIns"];
@@ -1584,23 +1584,23 @@
 				}				
 				insertHtml = insertHtml + "</tbody></table>";
 				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
-				// 长约流转div标题
+				// 发货流转div标题
 				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["arId"]+" ]");
-				// 长约提交div标题
-				$('#submit_ar_detail_title').text("长约提交 [ " + detail["arId"]+" ]");
-				// 长约提交详情查询div标题
-				$('#query_ar_submmit_title').text("长约提交详情 [ " + detail["arId"]+" ]");
+				// 发货提交div标题
+				$('#submit_ar_detail_title').text("发货提交 [ " + detail["arId"]+" ]");
+				// 发货提交详情查询div标题
+				$('#query_ar_submmit_title').text("发货提交详情 [ " + detail["arId"]+" ]");
 				
 				testdiv.innerHTML=insertHtml;
 				
 				// 决定显示哪一个返回按钮
 				if(type == 1){
-					// 返回到长约详情查询
+					// 返回到发货详情查询
 					$('#btn_close_return4').fadeIn(300);
 					$('#btn_close_return3').hide();	
 				} else {
 
-					// 返回到长约提交
+					// 返回到发货提交
 					$('#btn_close_return3').fadeIn(300);
 					$('#btn_close_return4').hide();	
 				}
@@ -1711,7 +1711,7 @@
 			$('#frm_submit_ar').data('bootstrapValidator').updateStatus('aplyPsrltCd', 'NOT_VALIDATED',null).validateField('aplyPsrltCd');  
 			// 初始化上传附件控件
 			initInputItem(2);
-			queryArDetails(id, aplyPcstpCd, 1);// flag 1:长约提交  0：长约详情查询
+			queryArDetails(id, aplyPcstpCd, 1);// flag 1:发货提交  0：发货详情查询
 			showOrHideDetail(false, 4);
 		}	
 		function showArDetailDialog() {
@@ -1732,7 +1732,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			queryArDetails(rows[0]['id'], "", 0);// flag 1:长约提交  0：长约详情查询
+			queryArDetails(rows[0]['id'], "", 0);// flag 1:发货提交  0：发货详情查询
 			showOrHideDetail(false, 3);
 		}
 		
@@ -1812,12 +1812,12 @@
 						if(flag == 1){
 							bootbox.alert({
 								'title' : "消息",
-								'message' : '长约保存成功！'
+								'message' : '发货保存成功！'
 							});
 						} else if(flag == 2){
 							bootbox.alert({
 								'title' : "消息",
-								'message' : '长约发起成功！'
+								'message' : '发货发起成功！'
 							});
 						}
 						$('#tbl_query').e7table(
@@ -1860,11 +1860,11 @@
 								fillForm('#frm_detail', result.data);
 								arId = result.data["arId"];
 								arSt = result.data["arSt"];
-								// 实时判断长约是否可以修改	
+								// 实时判断发货是否可以修改	
 								if(result.data["arSt"] != "01" && result.data["arSt"] != "10" && result.data["arSt"] != "11"){
 									bootbox.alert({
 										'title' : '错误消息',
-										'message' : '当前长约状态禁止修改！'
+										'message' : '当前发货状态禁止修改！'
 									});
 									return;
 								}
@@ -1882,14 +1882,14 @@
 												$("#fujianId").append(item);
 									}
 								} 
- 								var arStDesc = "长约修改";
+ 								var arStDesc = "发货修改";
  								if("01" == arSt)
  									arStDesc= "退回件修改";
  								else if("10" == arSt)
  									arStDesc= "草稿件修改";
  								else if("11" == arSt)
  									arStDesc= "撤销件修改";
- 								$('#main_edit_detail_title').text("您所在位置 : 长约管理 > 待发起长约 > " + arStDesc + " [ " + arId + " ]");
+ 								$('#main_edit_detail_title').text("您所在位置 : 发货管理 > 待发起发货 > " + arStDesc + " [ " + arId + " ]");
 								showOrHideDetail(true, 6);
 								// 展示保险div
 								show_or_hide_ins_div(true);
@@ -2027,11 +2027,7 @@
 		
 		function buttonInit() {
 			if ('[[${userType}]]' == 'Group') {
-				$("#div_buttons")
-						.append(
-						/* 		'<button class="btn btn-default" onclick="javascript:showAddDialog();" style="margin-right:5px;">发起</button>'
-						+ */ '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
-						);
+				
 				 
 				$("#div_buttons")
 						.append(
@@ -2084,7 +2080,7 @@
 								sortOrder : 'desc', //排序方向
 								columns : [
 										{
-											title : '长约编号',
+											title : '发货编号',
 											field : 'arId',
 											sortable : true
 										},

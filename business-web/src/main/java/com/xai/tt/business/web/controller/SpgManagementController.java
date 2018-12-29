@@ -185,16 +185,16 @@ public class SpgManagementController extends BaseController {
     }
     
     @RequestMapping(value = { "queryPage_add" })  @ResponseBody
-    public Result<?>  queryPage_add(SpgManagementInVo arManagementInVo, PageParam pageParam) {
+    public Result<?>  queryPage_add(SpgManagementInVo spgManagementInVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	arManagementInVo.setUserType(user.getUserType().ordinal());
-    	arManagementInVo.setUsername(user.getUsername());
-    	arManagementInVo.setCompanyId(user.getCompanyId());
-    	arManagementInVo.setNickname(user.getNickname());
-    	arManagementInVo.setChineseName(user.getChineseName());
-    	arManagementInVo.setQueryType(4);
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
+    	spgManagementInVo.setQueryType(4);
     	// 因前后端名字不一样，转义排序参数
-    	String sortName = arManagementInVo.getSortName();
+    	String sortName = spgManagementInVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
     		sortName = sortName.replace("fncEntpName", "fncEntp");
     		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
@@ -204,11 +204,11 @@ public class SpgManagementController extends BaseController {
     		sortName = sortName.replace("insCoName", "insCo");
     		sortName = sortName.replace("splchainCoName", "splchainCo");
     		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		arManagementInVo.setSortName(sortName);
+    		spgManagementInVo.setSortName(sortName);
     	}
     		
-    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(arManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(arManagementInVo, pageParam);
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
