@@ -4,10 +4,10 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="operation-biz-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/business-biz/business-biz">
+        <dependent-module archiveName="business-client-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/business-client/business-client">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="operation-client-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/business-client/business-client">
+        <dependent-module archiveName="business-biz-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/business-biz/business-biz">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/operation-web/target/classes"/>

@@ -1566,6 +1566,15 @@
 				for (key in detail) {
 					$('#frm_detail [name="' + key + '"]').val(detail[key]);
 				}
+				// 根据角色不同控制数据展示
+  				var datas = detail["roleParmsList"];
+				if(null != datas){
+					for ( var i = 0; i < datas.length; i++) {
+						alert(datas[i]);
+						$('#' + datas[i] + '_div').hide();
+					}
+				}
+				///
 				///
 				$('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
 				$('#frm_submit_ar [name="pymtmod"]').val(detail["pymtmod"]);

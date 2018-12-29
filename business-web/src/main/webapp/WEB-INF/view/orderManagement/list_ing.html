@@ -56,7 +56,8 @@
 </style>
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
-	<link rel="stylesheet" th:href="@{/resources/bootstrap-table/bootstrap-table.css}" />
+<!-- bootstrap表格 -->
+<link rel="stylesheet" th:href="@{/resources/bootstrap-table/bootstrap-table.css}" />
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -1508,6 +1509,15 @@
 				for (key in detail) {
 					$('#frm_detail [name="' + key + '"]').val(detail[key]);
 				} 
+				// 根据角色不同控制数据展示
+  				var datas = detail["roleParmsList"];
+				if(null != datas){
+					for ( var i = 0; i < datas.length; i++) {
+						alert(datas[i]);
+						$('#' + datas[i] + '_div').hide();
+					}
+				}
+				///
 				///
 				$('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
 				// 订单详情div标题
@@ -3015,7 +3025,7 @@
 				// }
 
 				$('#main_spg_edit_detail_title').text(
-						"您所在位置 : 发货发起");
+						"您所在位置 : 订单管理 > 执行中订单 [ " + arId + " ] > 发起发货");
 				showOrHideDetail(true, 7);
 
 			});
