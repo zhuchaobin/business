@@ -75,7 +75,7 @@ public class OrderManagementController extends BaseController {
        	// 
     	Result<Boolean> result = orderManagementDcService.save(orderManagementInVo);
     	logger.info("保存订单信息返回结果：{}", JSON.toJSONString(result));
-        return null;
+        return result;
     }   
     
     @RequestMapping(value = { "queryCompanyModels" })

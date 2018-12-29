@@ -957,7 +957,7 @@
 	</div>
 	<!-- 发起订单确认提示框 end -->
 
-	<!-- 订单详细信息 start-->
+	<!-- 订单详细信息 start-->	
 	<section id="main_order_edit_detail" class="content"
 		style="display: none;">
 		<div class="box box-info">
@@ -978,7 +978,7 @@
 							<input name="id" type="hidden" value="" /> <input id="secSrvCd"
 								name="secSrvCd" type="hidden" value="" /> <input id="arSt"
 								name=arSt type="hidden" value="" />
-							<div class="col-md-6" id="arId_div">
+							<div class="col-md-6" id="长约编号_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">长约编号<span
 										style="color: red">*</span></label>
@@ -989,7 +989,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-6" id="btp_div">
+							<div class="col-md-6" id="业务类型_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">业务类型<span
 										style="color: red">*</span></label>
@@ -1003,21 +1003,8 @@
 									</div>
 								</div>
 							</div>
-<!-- 							<div class="col-md-6" id="svcfeeCmd_div">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">服务费收取<span
-										style="color: red">*</span></label>
-									<div class="col-sm-8">
-										<select name="svcfeeCmd" class="form-control"
-											disabled="disabled">
-											<option value="">-请选择-</option>
-											<option value="01" selected="selected">预收</option>
-											<option value="02">现结</option>
-										</select>
-									</div>
-								</div>
-							</div> -->
-							<div class="col-md-6" id="fncEntp_div">
+
+							<div class="col-md-6" id="融资企业_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">融资企业<span
 										style="color: red">*</span></label>
@@ -1031,7 +1018,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="ustrmSplr_div">
+							<div class="col-md-6" id="供应商_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">供应商<span
 										style="color: red">*</span></label>
@@ -1045,7 +1032,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="stgco_div">
+							<div class="col-md-6" id="仓储公司_div">
 							<div class="form-group">
 									<label for="" class="col-sm-4 control-label">仓储公司<span
 										style="color: red">*</span></label>
@@ -1058,7 +1045,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="ordrStdt_div">
+							<div class="col-md-6" id="订单起止日期_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">订单起止日期<span
 										style="color: red">*</span></label>
@@ -1080,7 +1067,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-6" id="pchPymfrgdsTamt_div">
+							<div class="col-md-6" id="采购货款总额_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">采购货款总额<span
 										style="color: red">*</span></label>
@@ -1095,7 +1082,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="fncRto_div">
+							<div class="col-md-6" id="融资金额_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">融资金额<span
 										style="color: red">*</span></label>
@@ -1119,7 +1106,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-6" id="ctrTamt_div">
+							<div class="col-md-6" id="合同总额_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">合同总额<span
 										style="color: red">*</span></label>
@@ -1134,7 +1121,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="prpyGldRto_div">
+							<div class="col-md-6" id="预付金比率_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">预付金比率<span
 										style="color: red">*</span></label>
@@ -1150,7 +1137,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="splovCrrovMod_div">
+							<div class="col-md-6" id="溢短结转方式_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">溢短结转方式<span
 										style="color: red">*</span></label>
@@ -1178,7 +1165,7 @@
 							</div>
 							<!-- 保险信息div -->
 							<div id="ins_order_div" style="padding: 0px; display: none;">
-								<div class="col-md-6">
+								<div class="col-md-6" id="货物名称_div">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">货物名称<span
 											style="color: red">*</span></label>
@@ -1187,7 +1174,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="保险金额_div">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">保险金额<span
 											style="color: red">*</span></label>
@@ -1202,7 +1189,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="免赔额_div">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">免赔额<span
 											style="color: red">*</span></label>
@@ -1217,7 +1204,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="起运日期_div">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">起运日期<span
 											style="color: red">*</span></label>
@@ -1228,7 +1215,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="目的地_div">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">目的地<span
 											style="color: red">*</span></label>
@@ -1237,7 +1224,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="运输方式及工具_div">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">运输方式及工具<span
 											style="color: red">*</span></label>
@@ -1247,7 +1234,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row" id="特别约定_div">
 									<div class="col-md-12" style="padding-right: 15px;">
 										<div class="form-group" style="padding-left: 15px;">
 											<label for="" class="col-md-2 control-label"
@@ -1261,14 +1248,16 @@
 								</div>
 							</div>
 
-							</div>
+
+														
 							<input type="hidden" id="fileId3" name="fileUrl3">
-							<div class="row" id="upload_order_div">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label for="" class="col-sm-2 control-label">附件<span
+							
+							<div class="row" id="upload_order_div" >
+								<div class="col-md-12" style="padding-right: 15px;">
+									<div class="form-group" style="padding-left: 15px;">
+										<label for="" class="col-sm-2 control-label" style="padding-left: 15px;">订单附件<span
 											style="color: red">*</span></label>
-										<div class="col-sm-10">
+										<div class="col-sm-10" style="padding-left: 10px;">
 											<form id="frm_transfer" class="form-horizontal"
 												enctype="multipart/form-data" method="post">
 												<div id="fujianId3"></div>
@@ -1289,13 +1278,16 @@
 									</div>
 								</div>
 							</div>
-							<!-- 订单明细部分 -->
-							<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"   data-target="#orderDetailModal">订单明细</button>
 							
-							<div class="col-sm-8">
-								<table id="boot-table" data-toggle="table" data-toolbar="#toolbar" align="center"class="table table-hover" name="area" style="table-layout:fixed">
+							<div class="col-md-12" style="padding-right: 15px;">
+							<!-- 订单明细部分 -->
+							<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"   data-target="#orderDetailModal" style="margin-right:15px;"><i class="glyphicon glyphicon-th"></i>订单明细</button>
+							</div>
+							
+							<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;" id="boot_table_div">
+								<table id="boot-table"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
 									<thead>
-									<tr>
+									<tr bgcolor="#337AB7">
 										<th style="border-bottom: none;" data-field="pdNm">品名</th>
 										<th style="border-bottom: none;" data-field="spec">规格</th>
 										<th style="border-bottom: none;" data-field="spec">型号</th>
@@ -1307,13 +1299,14 @@
 										<th style="border-bottom: none;" data-field="pchUnitprc">采购单价</th>
 										<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
 										<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th>
-										<th style="border-bottom: none;width:80px">操作</th>
+										<!-- <th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th> -->
 									</tr>
 									</thead>
 										<!-- <tbody class="list">
 									</tbody> -->
 								</table>
 							</div>
+							
 						</div>
 			</fieldset>
 			</form>
@@ -2076,28 +2069,7 @@
 			// 取订单明细表格的数据
 			var all = $('#boot-table').bootstrapTable('getData');
 			var formParams = E7.serialForm('#frm_detail_order');
-/* 			var t8OrderDetailList = {};
-			for(var i=0,l=all.length;i<l;i++){
-
-				　　for(var key in all[i]){
-					var ttt = 't8OrderDetailList[' + i +'].'+ key;
-					t8OrderDetailList["'" + ttt + "'" ] = all[i][key];
-		//		　　　　alert(key+':'+all[i][key]);
-
-				　　}
-
-				}
-		
-		
-	//	var test2=JSON.parse(JSON.stringify(all));
-
-	//		formParams["processInstId"]=t8OrderDetailList;
-/* 			formParams["t8OrderDetailList"]=test; 
-			formParams["t8OrderDetailList"]=array;
-			var test2 = JSON.stringify(formParams); */
-//			formParams["t8OrderDetailList"]=t8OrderDetailList; */
-var fileUrl3 = ${"#fileId3"}.val();
-alert(fileUrl3);
+			var fileUrl3 = document.getElementById("fileId3").value;
 
 			E7.post('/orderManagement/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl3}, function(data) {
 				query_ar_list();
@@ -3494,6 +3466,7 @@ alert(fileUrl3);
 		 * 添加订单明细到页面表格
 		 */
 		function addOrderDetail() {	
+			
 /* 			var result='<tr class="item"><td class="nowrap">'+$('#pdNm').val()+'</td>'
 			+'<td class="nowrap">'+$('#spec').val()+'</td>'
 			+'<td class="nowrap">'+$('#modl').val()+'</td>'
@@ -3511,7 +3484,7 @@ alert(fileUrl3);
         rows.push({
         	pdNm:$('#pdNm').val(),
         	spec:$('#spec').val(),
-        	spec:$('#spec').val(),
+        	spec:$('#modl').val(),
         	qlyStd:$('#qlyStd').val(),
         	brnd:$('#brnd').val(),
         	pdFctr:$('#pdFctr').val(),
@@ -3519,12 +3492,12 @@ alert(fileUrl3);
         	msunit:$('#msunit').val(),
         	pchUnitprc:$('#pchUnitprc').val(),
         	txnPrcdif:$('#txnPrcdif').val(),
-        	saleTntvPrc:$('#saleTntvPrc').val()
+        	saleTntvPrc:$('#saleTntvPrc').val() 
+        	
         })
         $('#boot-table').bootstrapTable('append', rows);
-/*         
-        alert(result);
-	       $('.list').append(result); */
+
+		   $("#boot_table_div").fadeIn(800);
 		   $("#orderDetailModal").modal("hide");
 		}
 		
@@ -3539,6 +3512,10 @@ alert(fileUrl3);
 		    	}, function(){
 		    	});
 		     }
+		
+		function operateFormatter(value, row, index) {
+			return "xxxx";
+		}
 	</script>
 </body>
 </html>
