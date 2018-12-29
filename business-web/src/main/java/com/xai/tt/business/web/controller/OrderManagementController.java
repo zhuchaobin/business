@@ -14,6 +14,7 @@ import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
+import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.SubmitOrderQuery;
 import com.xai.tt.dc.client.service.OrderManagementDcService;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -54,22 +56,26 @@ public class OrderManagementController extends BaseController {
 	private CompanyDcService companyDcService;    
     @RequestMapping(value = { "save" })
     @ResponseBody
-    public Result<?>  save(OrderManagementInVo inVo, String fileUrl) {
+    public Result<?>  save(String inVo, String detail, String fileUrl) {
     	logger.info("保存订单信息请求报文：OrderManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
+
+		List<T8OrderDetail> t8OrderDetailList = JSON.parseArray(detail, T8OrderDetail.class);
+		OrderManagementInVo orderManagementInVo = JSON.parseObject(inVo,OrderManagementInVo.class);
         if (StringUtils.isNotEmpty(fileUrl)) {
-        	inVo.setFileNames(fileUrl);
+        	orderManagementInVo.setFileNames(fileUrl);
         }
-//    	logger.info("长约附件信息长度：{}", inVo.getList().size());
+   // 	logger.info("长约附件信息长度：{}", orderManagementInVo.getList().size());
        	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-       	inVo.setUserType(user.getUserType().ordinal());
-       	inVo.setUsername(user.getUsername());
-       	inVo.setCompanyId(user.getCompanyId());
-       	inVo.setNickname(user.getNickname());
-       	inVo.setChineseName(user.getChineseName());
+       	orderManagementInVo.setUserType(user.getUserType().ordinal());
+       	orderManagementInVo.setUsername(user.getUsername());
+       	orderManagementInVo.setCompanyId(user.getCompanyId());
+       	orderManagementInVo.setNickname(user.getNickname());
+       	orderManagementInVo.setChineseName(user.getChineseName());
+       	orderManagementInVo.setT8OrderDetailList(t8OrderDetailList);
        	// 
-    	Result<Boolean> result = orderManagementDcService.save(inVo);
+    	Result<Boolean> result = orderManagementDcService.save(orderManagementInVo);
     	logger.info("保存订单信息返回结果：{}", JSON.toJSONString(result));
-        return result;
+        return null;
     }   
     
     @RequestMapping(value = { "queryCompanyModels" })

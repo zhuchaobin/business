@@ -15,6 +15,15 @@ public class Role extends IncrEntity {
 	private Boolean system;
 	private Boolean locked;
 	private String memo;
+	private String parms;
+
+	public String getParms() {
+		return parms;
+	}
+
+	public void setParms(String parms) {
+		this.parms = parms;
+	}
 
 	public String getCode() {
 		return code;
