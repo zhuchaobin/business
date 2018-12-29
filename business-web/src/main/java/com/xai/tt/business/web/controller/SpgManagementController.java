@@ -17,6 +17,7 @@ import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 
+import com.xai.tt.dc.client.query.SubmitSpgQuery;
 import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
@@ -99,9 +100,9 @@ public class SpgManagementController extends BaseController {
         return mv;
     }  
     
-    @RequestMapping(value = { "submitAr" })
+    @RequestMapping(value = { "submitSpg" })
     @ResponseBody
-    public Result<?>  submitAr(SubmitArQuery query, String fileUrl2) {
+    public Result<?>  submitSpg(SubmitSpgQuery query, String fileUrl2) {
     	logger.info("提交发货请求报文：{}, fileUrl2={}", JSON.toJSONString(query), JSON.toJSONString(fileUrl2));
         if (StringUtils.isNotEmpty(fileUrl2)) {
         	query.setFileNames(fileUrl2);
@@ -114,9 +115,9 @@ public class SpgManagementController extends BaseController {
         return result;
     }   
     
-    @RequestMapping(value = { "deleteAr" })
+    @RequestMapping(value = { "deleteSpg" })
     @ResponseBody
-    public Result<?>   deleteAr(String id) {
+    public Result<?>   deleteSpg(String id) {
     	logger.info("删除发货，请求参数id=：{}", id);
     	Result<Boolean> rlt = spgManagementDcService.deleteSpg(id);
     	logger.info("删除发货，返回结果rlt：{}", JSON.toJSONString(rlt));
@@ -315,7 +316,7 @@ public class SpgManagementController extends BaseController {
     }
     
     // 撤销发货
-    @RequestMapping(value = { "unDoAr" })
+    @RequestMapping(value = { "unDoSpg" })
     @ResponseBody
     public Result<?>   unDoSpg(String id) {
     	logger.info("撤销发货，请求参数id=：{}", id);
@@ -333,9 +334,9 @@ public class SpgManagementController extends BaseController {
     }
     
     
-    @RequestMapping(value = { "getArSubmmitDetail" })
+    @RequestMapping(value = { "getSpgSubmmitDetail" })
     @ResponseBody
-    public Result<?>   getArSubmmitDetail(String id, String arId, String aplyPcstpCd) {
+    public Result<?>   getSpgSubmmitDetail(String id, String arId, String aplyPcstpCd) {
     	logger.info("查询发货提交详情，请求参数id=:{} arId=：{} aplyPcstpCd=：{}", id, arId, aplyPcstpCd);
     	Result<QuerySpgSubmmitDetailOutVo> rlt = spgManagementDcService.getSpgSubmmitDetail(id, arId, aplyPcstpCd);
     	logger.info("查询发货提交详情，返回结果rlt：{}", JSON.toJSONString(rlt));
