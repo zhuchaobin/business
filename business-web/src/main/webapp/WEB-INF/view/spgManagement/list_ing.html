@@ -1917,7 +1917,7 @@
 			// 带过来的环节编号
 			E7
 					.post(
-							pageSetting.resetPath + '/getArSubmmitDetail',
+							pageSetting.resetPath + '/getSpgSubmmitDetail',
 							{
 								'id' : id,
 								'arId' : arId,
@@ -2057,7 +2057,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7.post(pageSetting.resetPath + '/deleteAr', {
+			E7.post(pageSetting.resetPath + '/deleteSpg', {
 				'id' : rows[0]['id']
 			}, function(result) {
 				query_ar_list();

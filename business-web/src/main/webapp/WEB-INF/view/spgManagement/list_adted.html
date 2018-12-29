@@ -1290,7 +1290,7 @@
 				CKEDITOR.instances[instance].updateElement();
 			}
 			var formParams = E7.serialForm('#frm_submit_ar');
-			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
+			E7.post(pageSetting.resetPath + '/submitSpg', formParams, function(
 					data) {
 				showOrHideDetail(true, 1);
 				bootbox.alert({
@@ -1632,7 +1632,7 @@
 		
 			function getArSubmmitDetail(id, arId, aplyPcstpCd){
  			// 带过来的环节编号
-			E7.post(pageSetting.resetPath + '/getArSubmmitDetail', {
+			E7.post(pageSetting.resetPath + '/getSpgSubmmitDetail', {
 				'id' : id,'arId':arId,'aplyPcstpCd':aplyPcstpCd
 			}, function(result) {
 //				fillForm('#frm_detail2', result.data);
@@ -1750,7 +1750,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7.post(pageSetting.resetPath + '/unDoAr', {
+			E7.post(pageSetting.resetPath + '/unDoSpg', {
 				'id' : rows[0]['id']
 			}, function(result) {
 				query_ar_list();
@@ -1779,7 +1779,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7.post(pageSetting.resetPath + '/deleteAr', {
+			E7.post(pageSetting.resetPath + '/deleteSpg', {
 				'id' : rows[0]['id']
 			}, function(result) {
 				query_ar_list();
