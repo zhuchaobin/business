@@ -23,11 +23,9 @@ import com.xai.tt.dc.client.service.SpgManagementDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
-import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryPageSpgOutVo;
-import com.xai.tt.dc.client.vo.outVo.QuerySpgSubmmitDetailOutVo;
+import com.xai.tt.dc.client.vo.outVo.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -309,11 +307,22 @@ public class SpgManagementController extends BaseController {
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
     public Result<?>   getDetail(String id) {
-    	logger.info("查询发货详情，请求参数id=：{}", id);
-    	Result<T6SpgInfDetailVo> rlt = spgManagementDcService.querySpgDetail(id);
-    	logger.info("查询发货详情，返回结果rlt：{}", JSON.toJSONString(rlt));
-        return Result.createSuccessResult(rlt.getData());        
-    }
+
+
+		logger.info("查询长约详情，请求参数id=：{}", id);
+		SpgManagementInVo inVo = new SpgManagementInVo();
+		inVo.setId(Long.parseLong(id));
+		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+		inVo.setUserType(user.getUserType().ordinal());
+		inVo.setUsername(user.getUsername());
+		inVo.setCompanyId(user.getCompanyId());
+		inVo.setNickname(user.getNickname());
+		inVo.setChineseName(user.getChineseName());
+		Result<QuerySpgInfDetailOutVo> rlt = spgManagementDcService.querySpgDetail(inVo);
+		logger.info("查询发货详情，返回结果rlt：{}", JSON.toJSONString(rlt));
+		return Result.createSuccessResult(rlt.getData());
+
+	}
     
     // 撤销发货
     @RequestMapping(value = { "unDoSpg" })
