@@ -70,23 +70,41 @@
 					<div id="div_criteria" class="flowlayout">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">订单编号：</label>
-								<div class="col-sm-8">
-									<input type="hidden" id="queryTypeId" name="queryType">
-									<input id="ordrId" name="ordrId" class="form-control"
-										placeholder="订单编号" />
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">长约编号：</label>
 								<div class="col-sm-8">
-									<input id="arId" name="arId" class="form-control"
-										placeholder="长约编号" />
+									<input type="hidden" id="queryTypeId" name="queryType"
+										   value="4"> <input id="arId" name="arId"
+															 class="form-control" placeholder="长约编号" />
 								</div>
 							</div>
 						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">订单编号：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										   value="4"> <input id="orderId" name="orderId"
+															 class="form-control" placeholder="订单编号" />
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">发货编号：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										   value="4"> <input id="spgId" name="spgId"
+															 class="form-control" placeholder="发货编号" />
+								</div>
+							</div>
+						</div>
+
+
+
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">供应链：</label>
@@ -94,7 +112,7 @@
 									<select name="splchainCo" class="form-control">
 										<option value="">请选择</option>
 										<option th:each="model: ${splchainCoModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
+												th:value="${model.id}" th:text="${model.name}"></option>
 									</select>
 								</div>
 							</div>
@@ -107,7 +125,7 @@
 									<select name="fncEntp" class="form-control">
 										<option value="">请选择</option>
 										<option th:each="model: ${fncEntpModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
+												th:value="${model.id}" th:text="${model.name}"></option>
 									</select>
 								</div>
 							</div>
@@ -120,27 +138,22 @@
 									<select name="ustrmSplr" class="form-control">
 										<option value="">请选择</option>
 										<option th:each="model: ${ustrmSplrModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
+												th:value="${model.id}" th:text="${model.name}"></option>
 									</select>
 								</div>
 							</div>
 						</div>
 
-						<div class="col-md-4" style="display: none;">
+						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">订单状态：</label>
+								<label for="" class="col-sm-4 control-label">类型：</label>
 								<div class="col-sm-8">
 
-									<select name="arSt" class="form-control">
+									<select name="spgSt" class="form-control">
 										<option value="">全部</option>
-										<!-- 								<option  th:each="user: ${catalogList}" th:value="${user.id}"><div th:text="${user.catalogName}"/></option> -->
-										<option value="01">发起</option>
-										<option value="02">确认(供应链)</option>
-										<option value="03">确认(融资企业)</option>
-										<option value="04">承保</option>
-										<option value="05">一审</option>
-										<option value="06">二审</option>
-										<option value="07">终止</option>
+										<option value="01">退回件</option>
+										<option value="10">草稿件</option>
+										<option value="11">撤销件</option>
 									</select>
 								</div>
 							</div>
@@ -150,10 +163,13 @@
 								<label for="" class="col-sm-4 control-label">关键字：</label>
 								<div class="col-sm-8">
 									<input id="keyWorlds" name="keyWorlds" class="form-control"
-										placeholder="搜索关键字" />
+										   placeholder="搜索关键字" />
 								</div>
 							</div>
 						</div>
+
+
+
 					</div>
 				</form>
 			</div>
@@ -1022,7 +1038,7 @@
 
 		var pageSetting = {
 			modelName : '订单信息管理',
-			resetPath : '[[@{/orderManagement}]]'
+			resetPath : '[[@{/spgManagement}]]'
 		};
 		$(function() {
 			//e7table表格控件初始化
@@ -2238,7 +2254,7 @@
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/spgManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl = result.data;
 							$("#fileId").val(fileUrl);
@@ -2256,7 +2272,7 @@
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/spgManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl2 = result.data;
 							$("#fileId2").val(fileUrl2);
@@ -2306,30 +2322,16 @@
 
 		function buttonInit() {
 			if ('[[${userType}]]' == 'Group') {
-				/* 	$("#div_buttons")
-				.append(
-					 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
-				);				 
-				$("#div_buttons")
-				.append(
-					'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
-				$("#div_buttons")
-				.append(
-					'<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showArDetailDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i>查看</button>');
-				$("#div_buttons")
-				.append(
-					 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:del();"><i class="glyphicon glyphicon-trash"></i>删除</button>');
-				 */
+
 				$("#div_buttons")
 						.append(
 								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:confirmArUndo();" style="margin-left:20px;"><i class="glyphicon glyphicon-minus-sign"></i>撤销</button>');
 				$("#div_buttons")
 						.append(
-								/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
+
 								'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
 				$("#div_buttons")
 						.append(
-								/* '<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>'); */
 								'<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
 			} else {
 				$("#div_buttons")
@@ -2350,7 +2352,7 @@
 			$('#tbl_query')
 					.e7table(
 							{
-								url : '[[@{/orderManagement/queryPage_adt}]]',
+								url : '[[@{/spgManagement/queryPage_adt}]]',
 								pageSize : 10,
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
@@ -2360,39 +2362,47 @@
 								rownumbers : false, //如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
-										{
-											title : '订单编号',
-											field : 'ordrId',
-											sortable : true
-										},
-										{
-											title : '长约编号',
-											field : 'arId',
-											sortable : true
-										},
-										{
-											title : '供应链',
-											field : 'splchainCoName',
-											sortable : true
-										},
-										{
-											title : '融资企业',
-											field : 'fncEntpName',
-											sortable : true
-										},
-										{
-											title : '供应商',
-											field : 'ustrmSplrName',
-											sortable : true
-										},
+                                    {
+                                        title : '长约编号',
+                                        field : 'arId',
+                                        sortable : true
+                                    },
+                                    {
+                                        title : '订单编号',
+                                        field : 'ordrId',
+                                        sortable : true
+                                    },
+                                    {
+                                        title : '发货编号',
+                                        field : 'spgId',
+                                        sortable : true
+                                    },
+                                    {
+                                        title : '发货人',
+                                        field : 'spgPsn',
+                                        sortable : true
+                                    },
+
+
+
+                                    {
+                                        title : '收货人',
+                                        field : 'cnsgn',
+                                        sortable : true
+                                    },
+
+
+                                    {
+                                        title : '目的地',
+                                        field : 'ppsLnd',
+                                        sortable : true
+                                    },
+
 										{
 											title : '发起时间',
 											field : 'crtTm',
 											sortable : true,
-											formatter : function(value, row,
-													index) {
-												return transDateTime(value);
-											}
+
 										},
 										{
 											title : '环节',

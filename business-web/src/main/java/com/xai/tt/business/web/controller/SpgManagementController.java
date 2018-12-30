@@ -148,7 +148,7 @@ public class SpgManagementController extends BaseController {
     	}
     		
     	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
@@ -178,7 +178,7 @@ public class SpgManagementController extends BaseController {
     	}
     		
     	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
@@ -207,7 +207,7 @@ public class SpgManagementController extends BaseController {
     	}
     		
     	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
@@ -237,7 +237,7 @@ public class SpgManagementController extends BaseController {
     	}
     		
     	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
@@ -267,7 +267,7 @@ public class SpgManagementController extends BaseController {
     	}
     		
     	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
@@ -297,7 +297,7 @@ public class SpgManagementController extends BaseController {
     	}
     		
     	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageSpgOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
