@@ -167,12 +167,12 @@
 	<!-- 列表查询 end-->
 	<!-- 详细信息 start-->
 	<section id="main_edit_detail" class="content" style="display: none;">
-		<div class="box box-info">
+		<div id="main_edit_detail_clapse" class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="main_edit_detail_title" class="text-info">长约信息</h4>
+				<h4 id="main_edit_detail_title" class="text-info">订单信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
-						<i class="fa fa-minus"></i>
+						<i id="main_edit_detail_li" class="fa fa-minus"></i>
 					</button>
 				</div>
 			</div>
@@ -184,36 +184,40 @@
 								type="hidden" id="fileToDeleteId" name="filesToDelete">
 							<input name="id" type="hidden" value="" /> <input name="arId"
 								type="hidden" value="" />
-							<div class="row" style="margin-left: 0px">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">长约类型：</label>
-										<div class="col-sm-8">
-											<input type="radio" name="arTp" value="01" checked="checked">
-											代销</input> &nbsp<input type="radio" name="arTp" value="02">
-											代采</input> &nbsp<input type="radio" name="arTp" value="03">
-											全流程</input>
-										</div>
+
+								<div class="col-md-6" id="长约编号_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约编号<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="arId" class="form-control" placeholder="长约编号"
+											disabled="disabled" />
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+
+							<div class="col-md-6" id="业务类型_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">供应链公司：</label>
+									<label for="" class="col-sm-4 control-label">业务类型<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="splchainCo" class="form-control">
-											<option value="">请选择</option>
-											<option th:each="model: ${splchainCoModels}"
-												th:value="${model.id}" th:text="${model.name}"></option>
+										<select name="btp" class="form-control" disabled="disabled">
+											<option value="">-请选择-</option>
+											<option value="01" selected="selected">订单融资</option>
+											<option value="02">保证金融资</option>
+											<option value="03">质押融资</option>
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+
+							<div class="col-md-6" id="融资企业_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资企业：</label>
+									<label for="" class="col-sm-4 control-label">融资企业<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="fncEntp" class="form-control">
+										<select name="fncEntp" class="form-control"
+											disabled="disabled">
 											<option value="">请选择</option>
 											<option th:each="model: ${fncEntpModels}"
 												th:value="${model.id}" th:text="${model.name}"></option>
@@ -221,11 +225,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="供应商_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">供应商：</label>
+									<label for="" class="col-sm-4 control-label">供应商<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="ustrmSplr" class="form-control">
+										<select name="ustrmSplr" class="form-control"
+											disabled="disabled">
 											<option value="">请选择</option>
 											<option th:each="model: ${ustrmSplrModels}"
 												th:value="${model.id}" th:text="${model.name}"></option>
@@ -233,35 +239,12 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">银行：</label>
+							<div class="col-md-6" id="仓储公司_div">
+							<div class="form-group">
+									<label for="" class="col-sm-4 control-label">仓储公司<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="bnk" class="form-control">
-											<option value="">请选择</option>
-											<option th:each="model: ${bnkModels}" th:value="${model.id}"
-												th:text="${model.name}"></option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">物流公司：</label>
-									<div class="col-sm-8">
-										<select name="lgstcCo" class="form-control">
-											<option value="">请选择</option>
-											<option th:each="model: ${lgstcCoModels}"
-												th:value="${model.id}" th:text="${model.name}"></option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">仓储公司：</label>
-									<div class="col-sm-8">
-										<select name="stgco" class="form-control">
+										<select name="stgco" class="form-control" disabled="disabled">
 											<option value="">请选择</option>
 											<option th:each="model: ${stgcoModels}"
 												th:value="${model.id}" th:text="${model.name}"></option>
@@ -269,87 +252,36 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="订单起止日期_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">长约起止日期：</label>
+									<label for="" class="col-sm-4 control-label">订单起止日期<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8 pull-right">
 										<div class="col-xs-5" style="padding: 0px;">
-											<input name="arStdt" id="arStdtDTPicker" class="form-control"
-												style="padding-left: 3px;" placeholder="开始日期" />
+											<input name="ordrStdt" id="ordrStdtDTPicker"
+												class="form-control" style="padding-left: 3px;"
+												placeholder="开始日期" value="2018-12-12" />
 										</div>
 										<div class="col-xs-1 ">
 											<label for="" class="control-label">- </label>
 										</div>
 										<div class="col-xs-5" style="padding: 0px;">
-											<input name="arEddt" id="arEddtDTPicker" class="form-control"
-												style="padding-left: 3px;" placeholder="结束日期" />
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">提货周期：</label>
-									<div class="col-sm-8 pull-right">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="pckupgdsCyc" class="form-control"
-												placeholder="提货周期" value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">天</label>
+											<input name="ordrEddt" id="ordrEddtDTPicker"
+												class="form-control" style="padding-left: 3px;"
+												placeholder="结束日期" value="2018-12-12" />
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="col-md-6">
+							<div class="col-md-6" id="采购货款总额_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">业务类型：</label>
-									<div class="col-sm-8">
-										<select name="btp" class="form-control">
-											<option value="">-请选择-</option>
-											<option value="01" checked="checked">订单融资</option>
-											<option value="02">保证金融资</option>
-											<option value="03">质押融资</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资比例：</label>
-									<div class="col-sm-8 pull-right">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="fncPctg" class="form-control" placeholder="融资比例"
-												value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预付金比率：</label>
+									<label for="" class="col-sm-4 control-label">采购货款总额<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
 										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="prpyGldRto" class="form-control"
-												placeholder="预付金比率" value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">额度：</label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="lmt" class="form-control" placeholder="额度"
-												value="2" />
+											<input name="pchPymfrgdsTamt" class="form-control"
+												placeholder="采购货款总额" value="2" />
 										</div>
 										<div class="col-xs-1">
 											<label for="" class="control-label">元</label>
@@ -357,182 +289,102 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="融资金额_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预警线：</label>
+									<label for="" class="col-sm-4 control-label">融资金额<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="wnln" class="form-control" placeholder="预警线"
-												value="2" />
+										<div class="col-xs-4" style="padding-left: 0px;">
+											<input name="fncRto" class="form-control" placeholder="融资比率"
+												value="4" />
 										</div>
-										<div class="col-xs-1">
+										<div class="col-xs-2">
 											<label for="" class="control-label">%</label>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">警戒线：</label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="crdn" class="form-control" placeholder="警戒线"
+										<div class="col-xs-4" style="padding-left: 0px;">
+											<input name="fncAmt" class="form-control" placeholder="融资金额"
 												value="2" />
 										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
+										<div class="col-xs-2">
+											<label for="" class="control-label">元</label>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">平仓线：</label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="clsposLn" class="form-control" placeholder="平仓线"
-												value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
+
 									</div>
 								</div>
 							</div>
 
-							<div class="col-md-6">
+							<div class="col-md-6" id="合同总额_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">服务费收取：</label>
+									<label for="" class="col-sm-4 control-label">合同总额<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="svcfeeCmd" class="form-control">
-											<option value="">-请选择-</option>
-											<option value="01" checked="checked">预收</option>
-											<option value="02">现结</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">溢短结转方式：</label>
-									<div class="col-sm-8">
-										<select name="splovCrrovMod" class="form-control">
-											<option value="">-请选择-</option>
-											<option value="01" checked="checked">多退少补</option>
-											<option value="02">结转下月</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<!-- 保险信息部分，根据需要显示 -->
-							<div class="row" style="margin-left: 0px">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">投保：</label>
-										<div class="col-sm-8">
-											<input type="radio"
-												onClick="return show_or_hide_ins_div(true)" name=isNeedIns
-												value="1" selected=""> 新投保</input> &nbsp<input type="radio"
-												onClick="return show_or_hide_ins_div(true)" name="isNeedIns"
-												value="0" selected=""> 批改</input>
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="ctrTamt" class="form-control" placeholder="合同总额"
+												value="2" disabled="disabled" />
+										</div>
+										<div class="col-xs-1">
+											<label for="" class="control-label">元</label>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6"></div>
+							</div>
+							<div class="col-md-6" id="预付金比率_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">预付金比率<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="prpyGldRto" class="form-control"
+												placeholder="预付金比率" value="2" disabled="disabled" />
+										</div>
+										<div class="col-xs-1">
+											<label for="" class="control-label">元</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="溢短结转方式_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">溢短结转方式<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="splovCrrovMod" class="form-control"
+											placeholder="溢短结转方式" />
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6" id="付款方式_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">付款方式<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<select id="pymtmod" name="pymtmod" class="form-control"
+											onchange="pymtmod_change()">
+											<option value="" selected="selected">-请选择-</option>
+											<option value="01">全额预付</option>
+											<option value="02">见货付款</option>
+											<option value="03">货到付款</option>
+										</select>
+									</div>
+								</div>
 							</div>
 							<!-- 保险信息div -->
-							<div id="ins_div" style="padding: 0px; display: none;">
-								<div class="col-md-6">
+							<div id="ins_order_div" style="padding: 0px; display: none;">
+								<div class="col-md-6" id="货物名称_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险公司：</label>
+										<label for="" class="col-sm-4 control-label">货物名称<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
-											<select name="insCo" class="form-control">
-												<option value="">请选择</option>
-												<option th:each="model: ${insCoModels}"
-													th:value="${model.id}" th:text="${model.name}"></option>
-											</select>
+											<input name="gdsNm" class="form-control" placeholder="货物名称" />
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="保险金额_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">投保人：</label>
-										<div class="col-sm-8">
-											<input name="plchd" class="form-control" placeholder="投保人"
-												value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">投保人地址：</label>
-										<div class="col-sm-8">
-											<input name="plchdAdr" class="form-control"
-												placeholder="投保人地址" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">被保险人：</label>
-										<div class="col-sm-8">
-											<input name="insrd" class="form-control" placeholder="被保险人"
-												value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">被保险人地址：</label>
-										<div class="col-sm-8">
-											<input name="insrdAdr" class="form-control"
-												placeholder="被保险人地址" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">第一受益人：</label>
-										<div class="col-sm-8">
-											<input name="fstBenf" class="form-control"
-												placeholder="第一受益人" value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">第一受益人地址：</label>
-										<div class="col-sm-8">
-											<input name="fstBenfAdr" class="form-control"
-												placeholder="第一受益人地址" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险财产地址：</label>
-										<div class="col-sm-8">
-											<input name="insPtyAdr" class="form-control"
-												placeholder="保险财产地址" value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险标的名称：</label>
-										<div class="col-sm-8">
-											<input name="insObjNm" class="form-control"
-												placeholder="保险标的名称" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险金额：</label>
+										<label for="" class="col-sm-4 control-label">保险金额<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
 											<div class="col-xs-10" style="padding-left: 0px;">
 												<input name="insAmt" class="form-control" placeholder="保险金额"
@@ -544,10 +396,10 @@
 										</div>
 									</div>
 								</div>
-
-								<div class="col-md-6">
+								<div class="col-md-6" id="免赔额_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">免赔额：</label>
+										<label for="" class="col-sm-4 control-label">免赔额<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
 											<div class="col-xs-10" style="padding-left: 0px;">
 												<input name="dctbAmt" class="form-control" placeholder="免赔额"
@@ -559,41 +411,83 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="起运日期_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险起止日期：</label>
+										<label for="" class="col-sm-4 control-label">起运日期<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
-											<div class="col-xs-5" style="padding: 0px;">
-												<input name="insStdt" id="insStdtDTPicker"
-													style="padding-left: 3px;" class="form-control"
-													placeholder="开始日期" />
-											</div>
-											<div class="col-xs-1">
-												<label for="" class="control-label">-</label>
-											</div>
-											<div class="col-xs-5" style="padding: 0px;">
-												<input name="insEddt" id="insEddtDTPicker"
-													style="padding-left: 3px;" class="form-control"
-													placeholder="结束日期" />
-											</div>
+											<input name="tprtDt" id="tprtDtDTPicker" class="form-control"
+												style="padding-left: 3px;" placeholder="起运日期"
+												value="2018-12-12" />
 										</div>
 									</div>
 								</div>
-
-								<div class="row">
+								<div class="col-md-6" id="目的地_div">
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">目的地<span
+											style="color: red">*</span></label>
+										<div class="col-sm-8">
+											<input name="ppsLnd" class="form-control" placeholder="目的地" />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" id="运输方式及工具_div">
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">运输方式及工具<span
+											style="color: red">*</span></label>
+										<div class="col-sm-8">
+											<input name="tprtModAndImt" class="form-control"
+												placeholder="运输方式及工具" />
+										</div>
+									</div>
+								</div>
+								<div class="row" id="特别约定_div">
 									<div class="col-md-12" style="padding-right: 15px;">
 										<div class="form-group" style="padding-left: 15px;">
 											<label for="" class="col-md-2 control-label"
-												style="padding-left: 15px;">特别约定：</label>
+												style="padding-left: 15px;">特别约定<span
+												style="color: red">*</span></label>
 											<div class="col-md-10" style="padding-left: 10px;">
-												<textarea name="epap" rows="4" class="form-control" margin></textarea>
+												<textarea name="epap" rows="4" class="form-control" margin>rerere</textarea>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 
+<div id="t8OrderDetail_div_hide">
+								<div class="col-md-12" style="padding-right: 15px;">
+									<!-- 订单明细部分 -->
+									<h4 class="text-info pull-left">订单明细</h4>
+								</div>
+								<div class="col-md-12"
+									style="padding-right: 15px; padding-top: 10px; display: none;"
+									id="boot_table_div">
+									<table id="boot-table" align="center" data-toggle="table"
+										class="table table-hover" name="area"
+										style="table-layout: fixed">
+										<thead>
+											<tr bgcolor="#337AB7">
+												<th style="border-bottom: none;" data-field="pdNm">品名</th>
+												<th style="border-bottom: none;" data-field="spec">规格</th>
+												<th style="border-bottom: none;" data-field="spec">型号</th>
+												<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+												<th style="border-bottom: none;" data-field="brnd">品牌</th>
+												<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+												<th style="border-bottom: none;" data-field="num">数量</th>
+												<th style="border-bottom: none;" data-field="msunit">计量单位</th>
+												<th style="border-bottom: none;" data-field="pchUnitprc">采购单价</th>
+												<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
+												<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th>
+												<!-- <th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th> -->
+											</tr>
+										</thead>
+										<!-- <tbody class="list">
+									</tbody> -->
+									</table>
+								</div>
+							</div>
+							
 							<div class="row" id="query_ar_atch_div">
 								<div class="col-md-12">
 									<div class="form-group">
@@ -621,16 +515,21 @@
 												<div id="fujianId"></div>
 											</form>
 											<div class="modal-footer">
-												<button id="btn_save2" type="button" class="btn btn-primary"
-													onclick="javascript:addInputItem(1);">新增附件</button>
-												<button id="btn_save1" type="button" class="btn btn-primary"
-													onclick="javascript:submitTransferFile(1);">上传</button>
+												<button id="btn_save2" type="button"
+													class="btn btn-primary-red"
+													onclick="javascript:addInputItem(1);">
+													<i class="glyphicon glyphicon-plus"></i>新增附件
+												</button>
+												<button id="btn_save1" type="button"
+													class="btn btn-primary-red"
+													onclick="javascript:submitTransferFile(1);">
+													<i class="glyphicon glyphicon-upload"></i>上传
+												</button>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 					</fieldset>
 				</form>
 			</div>
@@ -646,7 +545,7 @@
 		</div>
 	</section>
 	<!-- 详细信息 end-->
-
+	
 	<!-- 长约流转信息 start-->
 	<section id="ar_lnk_jrnl_inf_detail" class="content"
 		style="display: none;">
@@ -768,6 +667,17 @@
 		</div>
 	</section>
 	<!-- 提交结论 end-->
+
+<!-- 查看界面的返回按钮 start-->
+<!-- 	<div id="btn_close_div" style="display: none;">
+		<button id="btn_close_detail" type="button"
+			class="btn btn-primary-gray pull-right"
+			onclick='javascript:showOrHideDetail(true, 1);'
+			style="margin-right: 15px;">
+			<i class="glyphicon glyphicon-repeat"></i>返回
+		</button>
+	</div> -->
+	<!-- 查看界面的返回按钮 end-->
 <!-- 查看界面的返回按钮 start-->
 <div id="btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
 	<table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
@@ -935,6 +845,7 @@
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/common.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1020,7 +931,7 @@
 		
 		var pageSetting = {
 			modelName : '长约信息管理',
-			resetPath : '[[@{/arManagement}]]'
+			resetPath : '[[@{/orderManagement}]]'
 		};
 		$(function() {
 			//e7table表格控件初始化
@@ -1097,11 +1008,11 @@
 				$('#btn_close_div').show();
 				// 参数
 				$('#arIdDiv').show();
-				// 按钮	
+				// 按钮	 
 				$('#btn_close').hide();
 				$('#btn_save').hide();
 			} else if(flag == 6){// 长约修改
-				// section
+				// section 
 				$('#main_edit_detail_title').text("长约修改");
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
@@ -1173,7 +1084,7 @@
 				CKEDITOR.instances[instance].updateElement();
 			}
 			var formParams = E7.serialForm('#frm_submit_ar');
-			E7.post(pageSetting.resetPath + '/submitSpg', formParams, function(
+			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
 					data) {
 				showOrHideDetail(true, 1);
 				bootbox.alert({
@@ -1431,7 +1342,8 @@
 			});
 		}
 
-		function queryArDetails(id, aplyPcstpCd, type){// type 1:长约提交  0：长约详情查询
+		function queryArDetails(id, aplyPcstpCd, type){// type 1:订单提交  0：订单详情查询
+
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 
@@ -1446,17 +1358,66 @@
 				for (key in detail) {
 					$('#frm_detail [name="' + key + '"]').val(detail[key]);
 				}
+				// 根据角色不同控制数据展示
+  				var datas = detail["roleParmsList"];
+				if(null != datas){
+					for ( var i = 0; i < datas.length; i++) {
+						alert(datas[i]);
+						$('#' + datas[i] + '_div').hide();
+					}
+				}
 				///
-				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
-				// 长约详情div标题
-				$('#main_edit_detail_title').text("长约信息 [ " + detail["arId"]+" ]");
-				// 投保信息是否显示
-/* 				var isNeedIns = detail["isNeedIns"];
+				///
+				$('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
+				$('#frm_submit_ar [name="pymtmod"]').val(detail["pymtmod"]);
+				// 订单详情div标题
+				$('#main_edit_detail_title').text("订单信息 [ " + detail["ordrId"]+" ]");
+/* 				// 投保信息是否显示
+				var isNeedIns = detail["isNeedIns"];
 				if(isNeedIns == 1){
 					show_or_hide_ins_div(true);
 				} else {
 					show_or_hide_ins_div(false);
 				} */
+				///订单明细信息
+				var t8OrderDetailList = detail["t8OrderDetailList"];
+				$("#boot_table_div").hide();
+				var rows = [];
+				$("#boot-table").bootstrapTable('removeAll');
+				for (var jj = 0; jj < t8OrderDetailList.length; jj++) {
+					rows
+							.push({
+								pdNm : t8OrderDetailList[jj].pdNm,
+								spec : t8OrderDetailList[jj].spec,
+								modl : t8OrderDetailList[jj].modl,
+								qlyStd : t8OrderDetailList[jj].qlyStd,
+								brnd : t8OrderDetailList[jj].brnd,
+								pdFctr : t8OrderDetailList[jj].pdFctr,
+								num : t8OrderDetailList[jj].num,
+								msunit : t8OrderDetailList[jj].msunit,
+								pchUnitprc : t8OrderDetailList[jj].pchUnitprc,
+								txnPrcdif : t8OrderDetailList[jj].txnPrcdif,
+								saleTntvPrc : t8OrderDetailList[jj].saleTntvPrc
+							})
+
+				}
+				$('#boot-table').bootstrapTable('append', rows);
+
+				// 根据角色不同控制数据展示
+				var datas = detail["roleParmsList"];
+				if (null != datas) {
+					for (var i = 0; i < datas.length; i++) {
+						// 控制界面控件是否显示
+						$('#' + datas[i] + '_div').hide();
+						// 控制表格的列是否显示
+						var colEng = transToEng(datas[i]);
+						if ("" != colEng) {
+							$('#boot-table').bootstrapTable(
+									'hideColumn', colEng);
+						}
+					}
+				}
+				$("#boot_table_div").fadeIn(800);
 				///附件列表
 				var td = detail["t2UploadAtch01List"];
 				var insertHtml="";
@@ -1466,7 +1427,7 @@
 				if(td.length > 0){
 					var testdiv = document.getElementById("upload_atch_div");
 					testdiv.innerHTML=insertHtml;
-					$('#query_ar_atch_div').fadeIn(300);
+					$('#query_ar_atch_div').fadeIn(800);
 				} else {
 					$('#query_ar_atch_div').hide();	
 				}				
@@ -1489,24 +1450,25 @@
 				}				
 				insertHtml = insertHtml + "</tbody></table>";
 				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
-				// 长约流转div标题
-				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["arId"]+" ]");
-				// 长约提交div标题
-				$('#submit_ar_detail_title').text("长约提交 [ " + detail["arId"]+" ]");
-				// 长约提交详情查询div标题
-				$('#query_ar_submmit_title').text("长约提交详情 [ " + detail["arId"]+" ]");
+				// 订单流转div标题
+				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["ordrId"]+" ]");
+				// 订单提交div标题				
+				var titleDesc = "订单" + transAplyPcstpCd(aplyPcstpCd);				
+				$('#submit_ar_detail_title').text("您所在位置 : 订单管理 > 已完结订单 > " + titleDesc + " [ " + detail["ordrId"] + " ]");
+				// 订单提交详情查询div标题
+				$('#query_ar_submmit_title').text("订单提交详情 [ " + detail["ordrId"]+" ]");
 				
 				testdiv.innerHTML=insertHtml;
 				
 				// 决定显示哪一个返回按钮
 				if(type == 1){
-					// 返回到长约详情查询
-					$('#btn_close_return4').fadeIn(300);
+					// 返回到订单详情查询
+					$('#btn_close_return4').fadeIn(800);
 					$('#btn_close_return3').hide();	
 				} else {
 
-					// 返回到长约提交
-					$('#btn_close_return3').fadeIn(300);
+					// 返回到订单提交
+					$('#btn_close_return3').fadeIn(800);
 					$('#btn_close_return4').hide();	
 				}
 			});
@@ -1514,7 +1476,7 @@
 		
 			function getArSubmmitDetail(id, arId, aplyPcstpCd){
  			// 带过来的环节编号
-			E7.post(pageSetting.resetPath + '/getSpgSubmmitDetail', {
+			E7.post(pageSetting.resetPath + '/getArSubmmitDetail', {
 				'id' : id,'arId':arId,'aplyPcstpCd':aplyPcstpCd
 			}, function(result) {
 //				fillForm('#frm_detail2', result.data);
@@ -1548,40 +1510,7 @@
 			}); 
 		}                                                                                
 				
-		function transAplyPsrltCd(aplyPsrltCd) {
-			if (aplyPsrltCd == '01') {
-				return "通过";
-			} else if (aplyPsrltCd == '02') {
-				return "退回";
-			} else if (aplyPsrltCd == '03') {
-				return "拒绝";
-			}  else
-				return aplyPsrltCd;
-		}
-		
-		function transAplyPcstpCd(value) {
-			if (value == '01') {
-				return "发起";
-			} else if (value == '02') {
-				return "供应链确认";
-			} else if (value == '03') {
-				return "下游确认";
-			} else if (value == '04') {
-				return "承保";
-			} else if (value == '05') {
-				return "一审";
-			} else if (value == '06') {
-				return "二审";;
-			} else if (value == '07') {
-				return "终止";
-			} else if (value == '99') {
-				return "完结";
-			} else if (value == '') {
-				return "完结";
-			}else
-				return value;
-		}	
-		
+
 		function showViewSubmitAr(id, aplyPcstpCd) {
 			E7.resetForm('#frm_submit_ar');
 			$('#frm_submit_ar').data('bootstrapValidator').updateStatus('aplyPsrltCd', 'NOT_VALIDATED',null).validateField('aplyPsrltCd');  
@@ -1631,7 +1560,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7.post(pageSetting.resetPath + '/deleteSpg', {
+			E7.post(pageSetting.resetPath + '/deleteAr', {
 				'id' : rows[0]['id']
 			}, function(result) {
 				query_ar_list();
@@ -1900,7 +1829,7 @@
 			$('#tbl_query')
 					.e7table(
 							{
-								url : '[[@{/arManagement/queryPage_fnsh}]]',
+								url : '[[@{/orderManagement/queryPage_fnsh}]]',
 								pageSize : 10,
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
@@ -1910,65 +1839,49 @@
 								rownumbers: false,		//如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
-										{
-											title : '长约编号',
-											field : 'arId',
-											sortable : true
-										},
-										{
-											title : '供应链',
-											field : 'splchainCoName',
-											sortable : true
-										},
-										{
-											title : '融资企业',
-											field : 'fncEntpName',
-											sortable : true
-										},
-										{
-											title : '供应商',
-											field : 'ustrmSplrName',
-											sortable : true
-										},
-							/* 			{
-											title : '仓储公司',
-											field : 'stgcoName',
-											sortable : true
-										},
-										{
-											title : '业务类型',
-											field : 'btp',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													return "订单融资";
-												} else if (value == '02') {
-													return "保证金融资";
-												} else if (value == '03') {
-													return "质押融资";
-												} else
-													return value;
-											}
-										}, */
-										{
-											title : '发起时间',
-											field : 'crtTm',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												return transDateTime(value);
-											}
-										},
-										{
-											title : '环节',
-											field : 'aplyPcstpCd',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												return transAplyPcstpCd(value);
-											}
-										}],
+									{
+										title : '订单编号',
+										field : 'ordrId',
+										sortable : true
+									},
+									{
+										title : '长约编号',
+										field : 'arId',
+										sortable : true
+									},
+									{
+										title : '供应链',
+										field : 'splchainCoName',
+										sortable : true
+									},
+									{
+										title : '融资企业',
+										field : 'fncEntpName',
+										sortable : true
+									},
+									{
+										title : '供应商',
+										field : 'ustrmSplrName',
+										sortable : true
+									},
+									{
+										title : '发起时间',
+										field : 'crtTm',
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+											return transDateTime(value);
+										}
+									},
+									{
+										title : '状态',
+										value : '',
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+											return '完成';
+										}
+									}],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
@@ -1976,36 +1889,12 @@
 		}		
 		function show_or_hide_ins_div(flag){
 			if(flag){
-				document.getElementById('ins_div').style.display="";
+				document.getElementById('ins_order_div').style.display="";
 			} else {
-				document.getElementById('ins_div').style.display="none";
+				document.getElementById('ins_order_div').style.display="none";
 			}
 		}
-		// 引入日期时间格式转换
-		Date.prototype.Format = function(fmt)   
-		 { 
-		//author:wangweizhen
-		   var o = {   
-		     "M+" : this.getMonth()+1,                 //月份   
-		     "d+" : this.getDate(),                    //日
-		    "h+" : this.getHours(),                   //小时   
-		     "m+" : this.getMinutes(),                 //分   
-		     "s+" : this.getSeconds(),                 //秒   
-		     "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-		     "S"  : this.getMilliseconds()             //毫秒   
-		   };   
-		   if(/(y+)/.test(fmt))   
-		     fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-		   for(var k in o)   
-		     if(new RegExp("("+ k +")").test(fmt))   
-		   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-		   return fmt;   
-		 }; 
-		 // js 一串数字1403149534转换为日期格式 
-		function transDateTime(timestamp){
-			var date = new Date(timestamp);    //根据时间戳生成的时间对象
-	        return date.format("yyyy-MM-dd hh:mm:ss");
-        }
+	
 	</script>
 </body>
 </html>

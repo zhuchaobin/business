@@ -148,7 +148,7 @@
 								<label for="" class="col-sm-4 control-label">类型：</label>
 								<div class="col-sm-8">
 
-									<select name="arSt" class="form-control">
+									<select name="spgSt" class="form-control">
 										<option value="">全部</option>
 										<option value="01">退回件</option>
 										<option value="10">草稿件</option>
@@ -213,9 +213,8 @@
 							<input type="hidden" id="fileId" name="fileUrl">
 							<input type="hidden" id="fileToDeleteId" name="filesToDelete">
 							<input name="id" type="hidden" value="" />
-							<input id="arId" name="arId" type="hidden" value="" />
+
 							<input id="secSrvCd" name="secSrvCd" type="hidden" value="" />
-							<input id="arSt" name=arSt type="hidden" value="" />
 
 
 							<div class="col-md-6 ">
@@ -254,7 +253,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">发货时间：</label>
@@ -267,7 +265,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">发货人：</label>
@@ -276,13 +273,10 @@
 											<input name="spgPsn" class="form-control" placeholder="发货人"
 												value="2" />
 										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
+
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">发货人联系电话：</label>
@@ -295,7 +289,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">收货人：</label>
@@ -308,8 +301,6 @@
 									</div>
 								</div>
 							</div>
-
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">收货人联系电话：</label>
@@ -322,7 +313,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">目的地：</label>
@@ -335,8 +325,6 @@
 									</div>
 								</div>
 							</div>
-
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">发货状态：</label>
@@ -349,8 +337,6 @@
 									</div>
 								</div>
 							</div>
-
-
 
 							<div class="row" id="query_ar_atch_div">
 								<div class="col-md-12">
@@ -739,7 +725,7 @@
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-发货开始日期 */
-	$('#arStdtDTPicker').datetimepicker({
+	$('#spgStdtDTPicker').datetimepicker({
         language: 'zh-CN',
         minView: "month",//设置只显示到月份
         format : "yyyy-mm-dd",//日期格式
@@ -752,7 +738,7 @@
          oneYearAfter.setDate(oneYearAfter.getDate()-1);
          $('#arEddtDTPicker').datetimepicker('setDate', oneYearAfter);
 
-         $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
+         $('#frm_detail').data('bootstrapValidator').updateStatus('spgStdt', 'NOT_VALIDATED',null).validateField('spgStdt');  
          $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt');   
          // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt();
@@ -765,7 +751,7 @@
         autoclose:true,//选中关闭
         todayBtn: true//今日按钮
      }).on('changeDate',function(ev){   
-         $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
+         $('#frm_detail').data('bootstrapValidator').updateStatus('spgStdt', 'NOT_VALIDATED',null).validateField('spgStdt');  
          $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt'); 
          // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt(); 
@@ -806,7 +792,7 @@
     // 判断保险起止时间与发货起止时间，并提示，但是不禁止提交
 	function checkInsDtAndArDt(){
 	    var msg = "";
-	    if(($('#insStdtDTPicker').val() != "") && ($('#arStdtDTPicker').val() !="") && ($('#insStdtDTPicker').val() > $('#arStdtDTPicker').val())){
+	    if(($('#insStdtDTPicker').val() != "") && ($('#spgStdtDTPicker').val() !="") && ($('#insStdtDTPicker').val() > $('#spgStdtDTPicker').val())){
 	   	 msg += "[保险开始日期] 晚于 [发货开始日期] !";
 	    }
 	    if( ($('#insEddtDTPicker').val() != "") && ($('#arEddtDTPicker').val() !="") && ($('#insEddtDTPicker').val() < $('#arEddtDTPicker').val())){
@@ -912,7 +898,7 @@
 				
 			} else if(flag == 6){// 发货修改
 				// section
-			//	$('#main_edit_detail_title').text("您所在位置 ： 发货管理 > 待发起发货 > 发货修改");
+
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
@@ -1227,7 +1213,7 @@
 							notEmpty : {message : '保险结束日期不能为空'}
 						}
 					},
-			    	"arStdt" : {
+			    	"spgStdt" : {
 			//    		trigger:"change1", //监听change动作
 						validators : {
 							notEmpty : {message : '发货开始日期不能为空'}
@@ -1335,12 +1321,7 @@
 			}, function(result) {
 //				fillForm('#frm_detail2', result.data);
 				var detail = result.data;
-/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
-				$('#frm_detail2 [name="companyName"]').val(detail["name"]);
-				$('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
-				$('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
-				$('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
-				$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
+
 				document.getElementById('companyName').innerText = "公    司    :    " + detail["name"];
 				document.getElementById('submmitUsername').innerText = "提交人    :    " + detail["username"];
 				document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    " + transAplyPcstpCd(detail["aplyPcstpCd"]);
@@ -1402,7 +1383,7 @@
 				return value;
 		}	
 		
-		function transAplyPcstpCdToArSt(value) {
+		function transAplyPcstpCdTospgSt(value) {
 			if (value == '01') {
 				return "退回件";
 			} else if (value == '02') {
@@ -1554,7 +1535,7 @@
 		function showEditDialog(disable) {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			var arId = "";
-			var arSt = "";
+			var spgSt = "";
 			if (rows.length == 0) {
 				bootbox.alert({
 					'title' : '错误消息',
@@ -1571,51 +1552,50 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7
-					.post(
+			E7.post(
 							pageSetting.resetPath + '/getDetail',
 							{
 								'id' : rows[0]['spgId']
 							},
 							function(result) {
 								fillForm('#frm_detail', result.data);
-								arId = result.data["arId"];
-								arSt = result.data["arSt"];
+								spgId = result.data["spgId"];
+								spgSt = result.data["spgSt"];
 								// 实时判断发货是否可以修改	
-								if(result.data["arSt"] != "01" && result.data["arSt"] != "10" && result.data["arSt"] != "11"){
-									bootbox.alert({
-										'title' : '错误消息',
-										'message' : '当前发货状态禁止修改！'
-									});
-									return;
-								}
+								// if(result.data["spgSt"] != "01" && result.data["spgSt"] != "10" && result.data["spgSt"] != "11"){
+								// 	bootbox.alert({
+								// 		'title' : '错误消息',
+								// 		'message' : '当前发货状态禁止修改！'
+								// 	});
+								// 	return;
+								// }
 								// 多次修改，清空上次div追加的内容
 								$("#fujianId").empty(); 
  								if (result.data.t2UploadAtch01List != undefined) {
 									for (i = 0; i < result.data.t2UploadAtch01List.length; i++) {
 										var elem = result.data.t2UploadAtch01List[i];
-/* 										var item = '<div name="inputDiv">'
-												+ elem.oriFileNm
-												+ '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>'; */
-										var atchId = elem.id;
+
 												var item = '<div name="inputDiv"> <a href="' + elem.srFileRte +'" target="_blank">'+elem.oriFileNm  +'&nbsp&nbsp</a>&nbsp&nbsp<a onclick="deleteItem2(this, ' + elem.id +')"> 删除</a> <br/></div>';
 												
 												$("#fujianId").append(item);
 									}
 								} 
- 								var arStDesc = "发货修改";
- 								if("01" == arSt)
- 									arStDesc= "退回件修改";
- 								else if("10" == arSt)
- 									arStDesc= "草稿件修改";
- 								else if("11" == arSt)
- 									arStDesc= "撤销件修改";
- 								$('#main_edit_detail_title').text("您所在位置 : 发货管理 > 待发起发货 > " + arStDesc + " [ " + arId + " ]");
+ 								var spgStDesc = "发货修改";
+ 								if("01" == spgSt)
+ 									spgStDesc= "退回件修改";
+ 								else if("10" == spgSt)
+ 									spgStDesc= "草稿件修改";
+ 								else if("11" == spgSt)
+ 									spgStDesc= "撤销件修改";
+ 								$('#main_edit_detail_title').text("您所在位置 : 发货管理 > 待发起发货 > " + spgStDesc + " [ " + spgId + " ]");
 								showOrHideDetail(true, 6);
-								// 展示保险div
-								show_or_hide_ins_div(true);
+
 							});
 		}
+
+
+
+
 		fillForm = function(frm, data, reset, parent) {
 			if (E7.isEmpty(parent)
 					&& (E7.getType(reset) == 'undefined' || reset))
@@ -1751,36 +1731,23 @@
 				
 				 
 				$("#div_buttons")
-						.append(
-							/* 	'<button class="btn btn-default" onclick="javascript:showEditDialog();" style="margin-right:5px;">修改</button>'); */
-				'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
+						.append('<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
 				$("#div_buttons")
-				.append(
-						/* '<button class="btn btn-default" onclick="javascript:del();">删除</button>'); */
-		 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:confirmDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i>删除</button>');
+				        .append('<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:confirmDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i>删除</button>');
 				$("#div_buttons")
-						.append(
-								/* '<button class="btn btn-default" onclick="javascript:showArDetailDialog();" style="margin-right:5px;">查看</button>'); */
-			'<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showArDetailDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i>查看</button>');
+						.append('<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showArDetailDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i>查看</button>');
 				
 				$("#div_buttons")
-						.append(
-								/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
-				'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
+						.append('<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
 				$("#div_buttons")
-						.append(
-								/* '<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>'); */
-				'<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
+						.append('<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
 			} else {
 				$("#div_buttons")
-						.append(
-								'<button class="btn btn-default" onclick="javascript:showViewDialog1();">查看33</button>');
+						.append('<button class="btn btn-default" onclick="javascript:showViewDialog1();">查看33</button>');
 				$("#div_buttons")
-						.append(
-								'<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
+						.append('<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
 				$("#div_buttons")
-						.append(
-								'<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>');
+						.append('<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>');
 			}
 		}
 		/***
@@ -1844,13 +1811,10 @@
                                         sortable : true
                                    		 },
 										{
-											title : '更新时间',
-											field : 'crtTm',
+											title : '发货时间',
+											field : 'spgTm',
 											sortable : true,
-											formatter : function(value, row,
-													index) {
-												return transDateTime(value);
-											}
+
 										},
 										],
 								onDblclick : function(index, row) {
@@ -1859,7 +1823,7 @@
 							});
 		}		
 		function show_or_hide_ins_div(flag){
-	
+
 		}
 		// 引入日期时间格式转换
 		Date.prototype.Format = function(fmt)   

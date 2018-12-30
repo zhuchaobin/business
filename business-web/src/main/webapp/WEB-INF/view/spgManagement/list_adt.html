@@ -56,6 +56,8 @@
 </style>
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}" />
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -68,15 +70,23 @@
 					<div id="div_criteria" class="flowlayout">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<label for="" class="col-sm-4 control-label">订单编号：</label>
 								<div class="col-sm-8">
 									<input type="hidden" id="queryTypeId" name="queryType">
+									<input id="ordrId" name="ordrId" class="form-control"
+										placeholder="订单编号" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<div class="col-sm-8">
 									<input id="arId" name="arId" class="form-control"
 										placeholder="长约编号" />
 								</div>
 							</div>
 						</div>
-
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">供应链：</label>
@@ -118,7 +128,7 @@
 
 						<div class="col-md-4" style="display: none;">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">长约状态：</label>
+								<label for="" class="col-sm-4 control-label">订单状态：</label>
 								<div class="col-sm-8">
 
 									<select name="arSt" class="form-control">
@@ -165,11 +175,12 @@
 
 	</section>
 	<!-- 列表查询 end-->
+
 	<!-- 详细信息 start-->
 	<section id="main_edit_detail" class="content" style="display: none;">
 		<div id="main_edit_detail_clapse" class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="main_edit_detail_title" class="text-info">长约信息</h4>
+				<h4 id="main_edit_detail_title" class="text-info">订单信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i id="main_edit_detail_li" class="fa fa-minus"></i>
@@ -184,36 +195,40 @@
 								type="hidden" id="fileToDeleteId" name="filesToDelete">
 							<input name="id" type="hidden" value="" /> <input name="arId"
 								type="hidden" value="" />
-							<div class="row" style="margin-left: 0px">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">长约类型：</label>
-										<div class="col-sm-8">
-											<input type="radio" name="arTp" value="01" checked="checked">
-											代销</input> &nbsp<input type="radio" name="arTp" value="02">
-											代采</input> &nbsp<input type="radio" name="arTp" value="03">
-											全流程</input>
-										</div>
+
+							<div class="col-md-6" id="长约编号_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约编号<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="arId" class="form-control" placeholder="长约编号"
+											disabled="disabled" />
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+
+							<div class="col-md-6" id="业务类型_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">供应链公司：</label>
+									<label for="" class="col-sm-4 control-label">业务类型<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="splchainCo" class="form-control">
-											<option value="">请选择</option>
-											<option th:each="model: ${splchainCoModels}"
-												th:value="${model.id}" th:text="${model.name}"></option>
+										<select name="btp" class="form-control" disabled="disabled">
+											<option value="">-请选择-</option>
+											<option value="01" selected="selected">订单融资</option>
+											<option value="02">保证金融资</option>
+											<option value="03">质押融资</option>
 										</select>
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+
+							<div class="col-md-6" id="融资企业_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资企业：</label>
+									<label for="" class="col-sm-4 control-label">融资企业<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="fncEntp" class="form-control">
+										<select name="fncEntp" class="form-control"
+											disabled="disabled">
 											<option value="">请选择</option>
 											<option th:each="model: ${fncEntpModels}"
 												th:value="${model.id}" th:text="${model.name}"></option>
@@ -221,11 +236,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="供应商_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">供应商：</label>
+									<label for="" class="col-sm-4 control-label">供应商<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="ustrmSplr" class="form-control">
+										<select name="ustrmSplr" class="form-control"
+											disabled="disabled">
 											<option value="">请选择</option>
 											<option th:each="model: ${ustrmSplrModels}"
 												th:value="${model.id}" th:text="${model.name}"></option>
@@ -233,35 +250,12 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="仓储公司_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">银行：</label>
+									<label for="" class="col-sm-4 control-label">仓储公司<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="bnk" class="form-control">
-											<option value="">请选择</option>
-											<option th:each="model: ${bnkModels}" th:value="${model.id}"
-												th:text="${model.name}"></option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">物流公司：</label>
-									<div class="col-sm-8">
-										<select name="lgstcCo" class="form-control">
-											<option value="">请选择</option>
-											<option th:each="model: ${lgstcCoModels}"
-												th:value="${model.id}" th:text="${model.name}"></option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">仓储公司：</label>
-									<div class="col-sm-8">
-										<select name="stgco" class="form-control">
+										<select name="stgco" class="form-control" disabled="disabled">
 											<option value="">请选择</option>
 											<option th:each="model: ${stgcoModels}"
 												th:value="${model.id}" th:text="${model.name}"></option>
@@ -269,87 +263,36 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="订单起止日期_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">长约起止日期：</label>
+									<label for="" class="col-sm-4 control-label">订单起止日期<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8 pull-right">
 										<div class="col-xs-5" style="padding: 0px;">
-											<input name="arStdt" id="arStdtDTPicker" class="form-control"
-												style="padding-left: 3px;" placeholder="开始日期" />
+											<input name="ordrStdt" id="ordrStdtDTPicker"
+												class="form-control" style="padding-left: 3px;"
+												placeholder="开始日期" value="2018-12-12" />
 										</div>
 										<div class="col-xs-1 ">
 											<label for="" class="control-label">- </label>
 										</div>
 										<div class="col-xs-5" style="padding: 0px;">
-											<input name="arEddt" id="arEddtDTPicker" class="form-control"
-												style="padding-left: 3px;" placeholder="结束日期" />
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6 ">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">提货周期：</label>
-									<div class="col-sm-8 pull-right">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="pckupgdsCyc" class="form-control"
-												placeholder="提货周期" value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">天</label>
+											<input name="ordrEddt" id="ordrEddtDTPicker"
+												class="form-control" style="padding-left: 3px;"
+												placeholder="结束日期" value="2018-12-12" />
 										</div>
 									</div>
 								</div>
 							</div>
 
-							<div class="col-md-6">
+							<div class="col-md-6" id="采购货款总额_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">业务类型：</label>
-									<div class="col-sm-8">
-										<select name="btp" class="form-control">
-											<option value="">-请选择-</option>
-											<option value="01" checked="checked">订单融资</option>
-											<option value="02">保证金融资</option>
-											<option value="03">质押融资</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资比例：</label>
-									<div class="col-sm-8 pull-right">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="fncPctg" class="form-control" placeholder="融资比例"
-												value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预付金比率：</label>
+									<label for="" class="col-sm-4 control-label">采购货款总额<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
 										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="prpyGldRto" class="form-control"
-												placeholder="预付金比率" value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">额度：</label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="lmt" class="form-control" placeholder="额度"
-												value="2" />
+											<input name="pchPymfrgdsTamt" class="form-control"
+												placeholder="采购货款总额" value="2" />
 										</div>
 										<div class="col-xs-1">
 											<label for="" class="control-label">元</label>
@@ -357,182 +300,102 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="融资金额_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预警线：</label>
+									<label for="" class="col-sm-4 control-label">融资金额<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="wnln" class="form-control" placeholder="预警线"
-												value="2" />
+										<div class="col-xs-4" style="padding-left: 0px;">
+											<input name="fncRto" class="form-control" placeholder="融资比率"
+												value="4" />
 										</div>
-										<div class="col-xs-1">
+										<div class="col-xs-2">
 											<label for="" class="control-label">%</label>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">警戒线：</label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="crdn" class="form-control" placeholder="警戒线"
+										<div class="col-xs-4" style="padding-left: 0px;">
+											<input name="fncAmt" class="form-control" placeholder="融资金额"
 												value="2" />
 										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
+										<div class="col-xs-2">
+											<label for="" class="control-label">元</label>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">平仓线：</label>
-									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="clsposLn" class="form-control" placeholder="平仓线"
-												value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
+
 									</div>
 								</div>
 							</div>
 
-							<div class="col-md-6">
+							<div class="col-md-6" id="合同总额_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">服务费收取：</label>
+									<label for="" class="col-sm-4 control-label">合同总额<span
+										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<select name="svcfeeCmd" class="form-control">
-											<option value="">-请选择-</option>
-											<option value="01" checked="checked">预收</option>
-											<option value="02">现结</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">溢短结转方式：</label>
-									<div class="col-sm-8">
-										<select name="splovCrrovMod" class="form-control">
-											<option value="">-请选择-</option>
-											<option value="01" checked="checked">多退少补</option>
-											<option value="02">结转下月</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<!-- 保险信息部分，根据需要显示 -->
-							<div class="row" style="margin-left: 0px">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">投保：</label>
-										<div class="col-sm-8">
-											<input type="radio"
-												onClick="return show_or_hide_ins_div(true)" name=isNeedIns
-												value="1" selected=""> 新投保</input> &nbsp<input type="radio"
-												onClick="return show_or_hide_ins_div(true)" name="isNeedIns"
-												value="0" selected=""> 批改</input>
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="ctrTamt" class="form-control" placeholder="合同总额"
+												value="2" disabled="disabled" />
+										</div>
+										<div class="col-xs-1">
+											<label for="" class="control-label">元</label>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6"></div>
+							</div>
+							<div class="col-md-6" id="预付金比率_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">预付金比率<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="prpyGldRto" class="form-control"
+												placeholder="预付金比率" value="2" disabled="disabled" />
+										</div>
+										<div class="col-xs-1">
+											<label for="" class="control-label">元</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="溢短结转方式_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">溢短结转方式<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="splovCrrovMod" class="form-control"
+											placeholder="溢短结转方式" />
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6" id="付款方式_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">付款方式<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<select id="pymtmod" name="pymtmod" class="form-control"
+											onchange="pymtmod_change()">
+											<option value="" selected="selected">-请选择-</option>
+											<option value="01">全额预付</option>
+											<option value="02">见货付款</option>
+											<option value="03">货到付款</option>
+										</select>
+									</div>
+								</div>
 							</div>
 							<!-- 保险信息div -->
-							<div id="ins_div" style="padding: 0px; display: none;">
-								<div class="col-md-6">
+							<div id="ins_order_div" style="padding: 0px; display: none;">
+								<div class="col-md-6" id="货物名称_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险公司：</label>
+										<label for="" class="col-sm-4 control-label">货物名称<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
-											<select name="insCo" class="form-control">
-												<option value="">请选择</option>
-												<option th:each="model: ${insCoModels}"
-													th:value="${model.id}" th:text="${model.name}"></option>
-											</select>
+											<input name="gdsNm" class="form-control" placeholder="货物名称" />
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="保险金额_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">投保人：</label>
-										<div class="col-sm-8">
-											<input name="plchd" class="form-control" placeholder="投保人"
-												value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">投保人地址：</label>
-										<div class="col-sm-8">
-											<input name="plchdAdr" class="form-control"
-												placeholder="投保人地址" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">被保险人：</label>
-										<div class="col-sm-8">
-											<input name="insrd" class="form-control" placeholder="被保险人"
-												value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">被保险人地址：</label>
-										<div class="col-sm-8">
-											<input name="insrdAdr" class="form-control"
-												placeholder="被保险人地址" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">第一受益人：</label>
-										<div class="col-sm-8">
-											<input name="fstBenf" class="form-control"
-												placeholder="第一受益人" value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">第一受益人地址：</label>
-										<div class="col-sm-8">
-											<input name="fstBenfAdr" class="form-control"
-												placeholder="第一受益人地址" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险财产地址：</label>
-										<div class="col-sm-8">
-											<input name="insPtyAdr" class="form-control"
-												placeholder="保险财产地址" value="2" />
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险标的名称：</label>
-										<div class="col-sm-8">
-											<input name="insObjNm" class="form-control"
-												placeholder="保险标的名称" value="2" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险金额：</label>
+										<label for="" class="col-sm-4 control-label">保险金额<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
 											<div class="col-xs-10" style="padding-left: 0px;">
 												<input name="insAmt" class="form-control" placeholder="保险金额"
@@ -544,10 +407,10 @@
 										</div>
 									</div>
 								</div>
-
-								<div class="col-md-6">
+								<div class="col-md-6" id="免赔额_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">免赔额：</label>
+										<label for="" class="col-sm-4 control-label">免赔额<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
 											<div class="col-xs-10" style="padding-left: 0px;">
 												<input name="dctbAmt" class="form-control" placeholder="免赔额"
@@ -559,39 +422,81 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" id="起运日期_div">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">保险起止日期：</label>
+										<label for="" class="col-sm-4 control-label">起运日期<span
+											style="color: red">*</span></label>
 										<div class="col-sm-8">
-											<div class="col-xs-5" style="padding: 0px;">
-												<input name="insStdt" id="insStdtDTPicker"
-													style="padding-left: 3px;" class="form-control"
-													placeholder="开始日期" />
-											</div>
-											<div class="col-xs-1">
-												<label for="" class="control-label">-</label>
-											</div>
-											<div class="col-xs-5" style="padding: 0px;">
-												<input name="insEddt" id="insEddtDTPicker"
-													style="padding-left: 3px;" class="form-control"
-													placeholder="结束日期" />
-											</div>
+											<input name="tprtDt" id="tprtDtDTPicker" class="form-control"
+												style="padding-left: 3px;" placeholder="起运日期"
+												value="2018-12-12" />
 										</div>
 									</div>
 								</div>
-
-								<div class="row">
+								<div class="col-md-6" id="目的地_div">
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">目的地<span
+											style="color: red">*</span></label>
+										<div class="col-sm-8">
+											<input name="ppsLnd" class="form-control" placeholder="目的地" />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" id="运输方式及工具_div">
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">运输方式及工具<span
+											style="color: red">*</span></label>
+										<div class="col-sm-8">
+											<input name="tprtModAndImt" class="form-control"
+												placeholder="运输方式及工具" />
+										</div>
+									</div>
+								</div>
+								<div class="row" id="特别约定_div">
 									<div class="col-md-12" style="padding-right: 15px;">
 										<div class="form-group" style="padding-left: 15px;">
 											<label for="" class="col-md-2 control-label"
-												style="padding-left: 15px;">特别约定：</label>
+												style="padding-left: 15px;">特别约定<span
+												style="color: red">*</span></label>
 											<div class="col-md-10" style="padding-left: 10px;">
-												<textarea name="epap" rows="4" class="form-control" margin></textarea>
+												<textarea name="epap" rows="4" class="form-control" margin>rerere</textarea>
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
 
+							<div id="t8OrderDetail_div_hide">
+								<div class="col-md-12" style="padding-right: 15px;">
+									<!-- 订单明细部分 -->
+									<h4 class="text-info pull-left">订单明细</h4>
+								</div>
+								<div class="col-md-12"
+									style="padding-right: 15px; padding-top: 10px; display: none;"
+									id="boot_table_div">
+									<table id="boot-table" align="center" data-toggle="table"
+										class="table table-hover" name="area"
+										style="table-layout: fixed">
+										<thead>
+											<tr bgcolor="#337AB7">
+												<th style="border-bottom: none;" data-field="pdNm">品名</th>
+												<th style="border-bottom: none;" data-field="spec">规格</th>
+												<th style="border-bottom: none;" data-field="spec">型号</th>
+												<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+												<th style="border-bottom: none;" data-field="brnd">品牌</th>
+												<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+												<th style="border-bottom: none;" data-field="num">数量</th>
+												<th style="border-bottom: none;" data-field="msunit">计量单位</th>
+												<th style="border-bottom: none;" data-field="pchUnitprc">采购单价</th>
+												<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
+												<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th>
+												<!-- <th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th> -->
+											</tr>
+										</thead>
+										<!-- <tbody class="list">
+									</tbody> -->
+									</table>
+								</div>
 							</div>
 
 							<div class="row" id="query_ar_atch_div">
@@ -636,7 +541,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
 					</fieldset>
 				</form>
 			</div>
@@ -653,12 +557,12 @@
 	</section>
 	<!-- 详细信息 end-->
 
-	<!-- 长约流转信息 start-->
+	<!-- 订单流转信息 start-->
 	<section id="ar_lnk_jrnl_inf_detail" class="content"
 		style="display: none;">
 		<div id="ar_lnk_jrnl_inf_detail_clapse_box" class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">长约流转信息</h4>
+				<h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">订单流转信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i id="ar_lnk_jrnl_inf_detail_li" class="fa fa-minus"></i>
@@ -687,7 +591,7 @@
 			</div> -->
 		</div>
 	</section>
-	<!-- 长约流转信息 end-->
+	<!-- 订单流转信息 end-->
 
 	<!-- 提交结论 start-->
 	<section id="submit_ar_detail" class="content" style="display: none;">
@@ -702,7 +606,14 @@
 			</div>
 			<div class="box-body">
 				<form id="frm_submit_ar" class="form-horizontal">
-					<input type="hidden" id="fileId2" name="fileUrl2">
+					<input type="hidden" id="fileId2" name="fileUrl2"> <input
+						id="aplyPcstpCd" name="aplyPcstpCd" class="form-control"
+						placeholder="" value="" type="hidden" /> <input id="ordrId"
+						name="ordrId" class="form-control" placeholder="" value=""
+						type="hidden" /> <input name="arId" class="form-control"
+						placeholder="" value="" type="hidden" /> <input id="pymtmod"
+						name="pymtmod" class="form-control" placeholder="" value=""
+						type="hidden" />
 					<div class="row">
 						<div class="col-md-9">
 							<div class="form-group">
@@ -712,10 +623,7 @@
 									<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd"
 										value="01" selected=""> 通过</input> &nbsp&nbsp&nbsp&nbsp<input
 										type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02"
-										selected=""> 退回</input> <input name="arId"
-										class="form-control" placeholder="" value="" type="hidden" />
-									<input id="aplyPcstpCd" name="aplyPcstpCd" class="form-control"
-										placeholder="" value="" type="hidden" />
+										selected=""> 退回</input>
 								</div>
 							</div>
 						</div>
@@ -775,24 +683,36 @@
 		</div>
 	</section>
 	<!-- 提交结论 end-->
-<!-- 查看界面的返回按钮 start-->
-<div id="btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
-	<table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
+	<!-- 查看界面的返回按钮 start-->
+	<!-- 	<div id="btn_close_div" style="display: none;">
+		<button id="btn_close_detail" type="button"
+			class="btn btn-primary-gray pull-right"
+			onclick='javascript:showOrHideDetail(true, 1);'
+			style="margin-right: 15px;">
+			<i class="glyphicon glyphicon-repeat"></i>返回
+		</button>
+	</div> -->
+	<!-- 查看界面的返回按钮 end-->
+	<!-- 查看界面的返回按钮 start-->
+	<div id="btn_close_div"
+		style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity: 0.65">
+		<table width=""
+			100% style="position: absolute; width: 260px; right: 0px; top: 0px;">
 			<button id="btn_close_detail" type="button"
 				class="btn btn-success pull-right btn-lg"
 				onclick='javascript:showOrHideDetail(true, 1);'
 				style="margin-right: 15px;">
 				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
 			</button>
-	</table>
-</div>
-<!-- 查看界面的返回按钮 end-->
+		</table>
+	</div>
+	<!-- 查看界面的返回按钮 end-->
 
-	<!-- 查询长约提交详细信息 start-->
+	<!-- 查询订单提交详细信息 start-->
 	<section id="query_ar_submmit_detail" style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="query_ar_submmit_title" class="text-info">长约提交详情</h4>
+				<h4 id="query_ar_submmit_title" class="text-info">订单提交详情</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -875,7 +795,7 @@
 			</div>
 		</div>
 	</section>
-	<!-- 查询长约提交详细信息 end-->
+	<!-- 查询订单提交详细信息 end-->
 
 	<!-- 发起确认提示框 start-->
 	<div class="modal fade" id="saveSubmitModal" tabindex="-1"
@@ -901,7 +821,7 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- 发起确认提示框 end -->
-	<!-- 长约提交确认提示框 start -->
+	<!-- 订单提交确认提示框 start -->
 	<div class="modal fade" id="submitArModal" tabindex="-1" role="dialog"
 		aria-labelledby="submitModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -929,9 +849,9 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- 长约提交确认提示框 end -->
+	<!-- 订单提交确认提示框 end -->
 
-	<!-- 长约删除确认提示框 start -->
+	<!-- 订单删除确认提示框 start -->
 	<div class="modal fade" id="arUndoModal" tabindex="-1" role="dialog"
 		aria-labelledby="submitModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -943,7 +863,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" align="center">您确定要撤销该长约吗?</div>
+				<div class="modal-body" align="center">您确定要撤销该订单吗?</div>
 				<div class="modal-footer" align="center">
 					<button type="button" onclick="javascript:arUndo()"
 						class="btn btn-primary-red" data-dismiss="modal">
@@ -959,7 +879,7 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- 长约删除确认提示框 end -->
+	<!-- 订单删除确认提示框 end -->
 
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
@@ -977,92 +897,132 @@
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/common.js}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<script type="text/javascript">
-	/* 日期选择控件-长约开始日期 */
-	$('#arStdtDTPicker').datetimepicker({
-        language: 'zh-CN',
-        minView: "month",//设置只显示到月份
-        format : "yyyy-mm-dd",//日期格式
-        autoclose:true,//选中关闭
-        todayBtn: true//今日按钮
-     }).on('changeDate',function(ev){
-         $('#arEddtDTPicker').datetimepicker('setStartDate',ev.date);
-          var oneYearAfter = ev.date; 
-         oneYearAfter.setFullYear(oneYearAfter.getFullYear()+1); 
-         oneYearAfter.setDate(oneYearAfter.getDate()-1);
-         $('#arEddtDTPicker').datetimepicker('setDate', oneYearAfter);
+		/* 日期选择控件-订单开始日期 */
+		$('#arStdtDTPicker').datetimepicker({
+			language : 'zh-CN',
+			minView : "month",//设置只显示到月份
+			format : "yyyy-mm-dd",//日期格式
+			autoclose : true,//选中关闭
+			todayBtn : true
+		//今日按钮
+		}).on(
+				'changeDate',
+				function(ev) {
+					$('#arEddtDTPicker')
+							.datetimepicker('setStartDate', ev.date);
+					var oneYearAfter = ev.date;
+					oneYearAfter.setFullYear(oneYearAfter.getFullYear() + 1);
+					oneYearAfter.setDate(oneYearAfter.getDate() - 1);
+					$('#arEddtDTPicker')
+							.datetimepicker('setDate', oneYearAfter);
 
-         $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
-         $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt');   
-         // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
-         checkInsDtAndArDt();
-     }); 
-	/* 日期选择控件-长约结束日期 */
-	$('#arEddtDTPicker').datetimepicker({
-        language: 'zh-CN',
-        minView: "month",//设置只显示到月份
-        format : "yyyy-mm-dd",//日期格式
-        autoclose:true,//选中关闭
-        todayBtn: true//今日按钮
-     }).on('changeDate',function(ev){   
-         $('#frm_detail').data('bootstrapValidator').updateStatus('arStdt', 'NOT_VALIDATED',null).validateField('arStdt');  
-         $('#frm_detail').data('bootstrapValidator').updateStatus('arEddt', 'NOT_VALIDATED',null).validateField('arEddt'); 
-         // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
-         checkInsDtAndArDt(); 
-     }); 
-	/* 日期选择控件 - 保险开始日期*/
-	$('#insStdtDTPicker').datetimepicker({
-        language: 'zh-CN',
-        minView: "month",//设置只显示到月份
-        format : "yyyy-mm-dd",//日期格式
-        autoclose:true,//选中关闭
-        todayBtn: true//今日按钮
-     }).on('changeDate',function(ev){
-         $('#insEddtDTPicker').datetimepicker('setStartDate',ev.date);
-         var oneYearAfter = ev.date; 
-         oneYearAfter.setFullYear(oneYearAfter.getFullYear()+1); 
-         oneYearAfter.setDate(oneYearAfter.getDate()-1); 
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'arStdt', 'NOT_VALIDATED', null).validateField(
+							'arStdt');
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'arEddt', 'NOT_VALIDATED', null).validateField(
+							'arEddt');
+					// 判断保险起止时间与订单起止时间，并提示，但是不禁止提交
+					checkInsDtAndArDt();
+				});
+		/* 日期选择控件-订单结束日期 */
+		$('#arEddtDTPicker').datetimepicker({
+			language : 'zh-CN',
+			minView : "month",//设置只显示到月份
+			format : "yyyy-mm-dd",//日期格式
+			autoclose : true,//选中关闭
+			todayBtn : true
+		//今日按钮
+		}).on(
+				'changeDate',
+				function(ev) {
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'arStdt', 'NOT_VALIDATED', null).validateField(
+							'arStdt');
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'arEddt', 'NOT_VALIDATED', null).validateField(
+							'arEddt');
+					// 判断保险起止时间与订单起止时间，并提示，但是不禁止提交
+					checkInsDtAndArDt();
+				});
+		/* 日期选择控件 - 保险开始日期*/
+		$('#insStdtDTPicker').datetimepicker({
+			language : 'zh-CN',
+			minView : "month",//设置只显示到月份
+			format : "yyyy-mm-dd",//日期格式
+			autoclose : true,//选中关闭
+			todayBtn : true
+		//今日按钮
+		}).on(
+				'changeDate',
+				function(ev) {
+					$('#insEddtDTPicker').datetimepicker('setStartDate',
+							ev.date);
+					var oneYearAfter = ev.date;
+					oneYearAfter.setFullYear(oneYearAfter.getFullYear() + 1);
+					oneYearAfter.setDate(oneYearAfter.getDate() - 1);
 
-         $('#insEddtDTPicker').datetimepicker('setDate',oneYearAfter);
-         $('#frm_detail').data('bootstrapValidator').updateStatus('insStdt', 'NOT_VALIDATED',null).validateField('insStdt');  
-         $('#frm_detail').data('bootstrapValidator').updateStatus('insEddt', 'NOT_VALIDATED',null).validateField('insEddt');
-         // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
-         checkInsDtAndArDt();
-     }); 
-	/* 日期选择控件 - 保险结束日期*/
-	$('#insEddtDTPicker').datetimepicker({
-        language: 'zh-CN',
-        minView: "month",//设置只显示到月份
-        format : "yyyy-mm-dd",//日期格式
-        autoclose:true,//选中关闭
-        todayBtn: true//今日按钮
-     }).on('changeDate',function(ev){ 
-         $('#frm_detail').data('bootstrapValidator').updateStatus('insStdt', 'NOT_VALIDATED',null).validateField('insStdt');  
-         $('#frm_detail').data('bootstrapValidator').updateStatus('insEddt', 'NOT_VALIDATED',null).validateField('insEddt'); 
-      // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
-         checkInsDtAndArDt();
-     }); 
-	
-    // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
-	function checkInsDtAndArDt(){
-	    var msg = "";
-	    if(($('#insStdtDTPicker').val() != "") && ($('#arStdtDTPicker').val() !="") && ($('#insStdtDTPicker').val() > $('#arStdtDTPicker').val())){
-	   	 msg += "[保险开始日期] 晚于 [长约开始日期] !";
-	    }
-	    if( ($('#insEddtDTPicker').val() != "") && ($('#arEddtDTPicker').val() !="") && ($('#insEddtDTPicker').val() < $('#arEddtDTPicker').val())){
-	   	 msg += "[保险结束日期] 早于 [长约结束日期] !";
-	    }
-	    if(msg != ""){
+					$('#insEddtDTPicker').datetimepicker('setDate',
+							oneYearAfter);
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'insStdt', 'NOT_VALIDATED', null).validateField(
+							'insStdt');
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'insEddt', 'NOT_VALIDATED', null).validateField(
+							'insEddt');
+					// 判断保险起止时间与订单起止时间，并提示，但是不禁止提交
+					checkInsDtAndArDt();
+				});
+		/* 日期选择控件 - 保险结束日期*/
+		$('#insEddtDTPicker').datetimepicker({
+			language : 'zh-CN',
+			minView : "month",//设置只显示到月份
+			format : "yyyy-mm-dd",//日期格式
+			autoclose : true,//选中关闭
+			todayBtn : true
+		//今日按钮
+		}).on(
+				'changeDate',
+				function(ev) {
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'insStdt', 'NOT_VALIDATED', null).validateField(
+							'insStdt');
+					$('#frm_detail').data('bootstrapValidator').updateStatus(
+							'insEddt', 'NOT_VALIDATED', null).validateField(
+							'insEddt');
+					// 判断保险起止时间与订单起止时间，并提示，但是不禁止提交
+					checkInsDtAndArDt();
+				});
+
+		// 判断保险起止时间与订单起止时间，并提示，但是不禁止提交
+		function checkInsDtAndArDt() {
+			var msg = "";
+			if (($('#insStdtDTPicker').val() != "")
+					&& ($('#arStdtDTPicker').val() != "")
+					&& ($('#insStdtDTPicker').val() > $('#arStdtDTPicker')
+							.val())) {
+				msg += "[保险开始日期] 晚于 [订单开始日期] !";
+			}
+			if (($('#insEddtDTPicker').val() != "")
+					&& ($('#arEddtDTPicker').val() != "")
+					&& ($('#insEddtDTPicker').val() < $('#arEddtDTPicker')
+							.val())) {
+				msg += "[保险结束日期] 早于 [订单结束日期] !";
+			}
+			if (msg != "") {
 				bootbox.alert({
 					'title' : '特别提醒',
 					'message' : msg
 				});
-	    }
-	}
-		
+			}
+		}
+
 		var pageSetting = {
-			modelName : '长约信息管理',
-			resetPath : '[[@{/arManagement}]]'
+			modelName : '订单信息管理',
+			resetPath : '[[@{/orderManagement}]]'
 		};
 		$(function() {
 			//e7table表格控件初始化
@@ -1072,7 +1032,7 @@
 			validator_2_Init();
 			buttonInit();
 			// 是否投保默认不选中，用户自己选择
-//			$("input:radio[name="isNeedIns"]").attr("checked",false);
+			//			$("input:radio[name="isNeedIns"]").attr("checked",false);
 			CKEDITOR.replace("editor1")
 
 		});
@@ -1084,7 +1044,7 @@
 			showOrHideDetail(true, 1);
 			$('#tbl_query').e7table('query', '#frm_query');
 
-		}		
+		}
 		function showOrHideDetail(editable, flag) {
 			if (editable) {
 				$('#fld_detail').prop('disabled', false);
@@ -1093,25 +1053,25 @@
 				$('#fld_detail').prop('disabled', true);
 				$('#btn_save').hide();
 			}
-			// 长约列表查询
-			if(flag == 1){
-				$('#main_search_detail').fadeIn(300);
+			// 订单列表查询
+			if (flag == 1) {
+				$('#main_search_detail').fadeIn(800);
 				$('#main_edit_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				// 返回按钮
-				$('#btn_close_div').hide();	
+				$('#btn_close_div').hide();
 				$('#query_ar_submmit_detail').hide();
-			} else if(flag == 2){// 长约发起	
+			} else if (flag == 2) {// 订单发起	
 				// section
-				$('#main_edit_detail_title').text("长约发起");
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail_title').text("订单发起");
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
 				// 返回按钮
-				$('#btn_close_div').hide();	
+				$('#btn_close_div').hide();
 				// 附件
 				$('#upload_ar_div').show();
 				$('#query_ar_atch_div').hide();
@@ -1123,24 +1083,24 @@
 				$('#btn_close').show();
 				$('#btn_save').show();
 				//面板收缩控制
-				var div = document.getElementById('main_edit_detail_clapse'); 
-				div.setAttribute("class", "box box-info"); 
+				var div = document.getElementById('main_edit_detail_clapse');
+				div.setAttribute("class", "box box-info");
 				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li'); 
-				div.setAttribute("class", "fa fa-minus"); 
-			} else if(flag == 3){// 长约详情查看
-				//$('#main_edit_detail_title').text("长约信息");
+				div = document.getElementById('main_edit_detail_li');
+				div.setAttribute("class", "fa fa-minus");
+			} else if (flag == 3) {// 订单详情查看
+				//$('#main_edit_detail_title').text("订单信息");
 				// section
 				// 保险信息输入部门显示隐藏
 				show_or_hide_ins_div(true);
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
+				$('#ar_lnk_jrnl_inf_detail').fadeIn(800);
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
 				// 附件
 				$('#upload_ar_div').hide();
-//				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
+				//				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
 				// 返回按钮
 				$('#btn_close_div').show();
 				// 参数
@@ -1149,23 +1109,24 @@
 				$('#btn_close').hide();
 				$('#btn_save').hide();
 				//面板收缩控制
-				var div = document.getElementById('ar_lnk_jrnl_inf_detail_clapse_box'); 
+				var div = document
+						.getElementById('ar_lnk_jrnl_inf_detail_clapse_box');
 				div.setAttribute("class", "box box-info");
-				div = document.getElementById('main_edit_detail_clapse'); 
-				div.setAttribute("class", "box box-info"); 
+				div = document.getElementById('main_edit_detail_clapse');
+				div.setAttribute("class", "box box-info");
 				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li'); 
-				div.setAttribute("class", "fa fa-minus"); 
-			} else if(flag == 6){// 长约修改
+				div = document.getElementById('main_edit_detail_li');
+				div.setAttribute("class", "fa fa-minus");
+			} else if (flag == 6) {// 订单修改
 				// section
-				$('#main_edit_detail_title').text("长约修改");
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail_title').text("订单修改");
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
 				// 返回按钮
-				$('#btn_close_div').hide();	
+				$('#btn_close_div').hide();
 				// 附件
 				$('#upload_ar_div').show();
 				$('#query_ar_atch_div').hide();
@@ -1177,18 +1138,18 @@
 				$('#btn_close').show();
 				$('#btn_save').show();
 				//面板收缩控制
-				var div = document.getElementById('main_edit_detail_clapse'); 
-				div.setAttribute("class", "box box-info"); 
+				var div = document.getElementById('main_edit_detail_clapse');
+				div.setAttribute("class", "box box-info");
 				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li'); 
-				div.setAttribute("class", "fa fa-minus"); 
-			} else if(flag == 4){// 长约提交
-				//$('#main_edit_detail_title').text("长约信息");
+				div = document.getElementById('main_edit_detail_li');
+				div.setAttribute("class", "fa fa-minus");
+			} else if (flag == 4) {// 订单提交
+				//$('#main_edit_detail_title').text("订单信息");
 				// section
-				$('#main_edit_detail').fadeIn(300);
+				$('#main_edit_detail').fadeIn(800);
 				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
-				$('#submit_ar_detail').fadeIn(300);
+				$('#ar_lnk_jrnl_inf_detail').fadeIn(800);
+				$('#submit_ar_detail').fadeIn(800);
 				$('#query_ar_submmit_detail').hide();
 				// 附件
 				$('#upload_ar_div').hide();
@@ -1201,23 +1162,24 @@
 				$('#btn_close').hide();
 				$('#btn_save').hide();
 				//面板收缩控制
-				var div = document.getElementById('ar_lnk_jrnl_inf_detail_clapse_box'); 
+				var div = document
+						.getElementById('ar_lnk_jrnl_inf_detail_clapse_box');
 				div.setAttribute("class", "box box-info collapsed-box");
-				div = document.getElementById('main_edit_detail_clapse'); 
-				div.setAttribute("class", "box box-info collapsed-box"); 
+				div = document.getElementById('main_edit_detail_clapse');
+				div.setAttribute("class", "box box-info collapsed-box");
 				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li'); 
-				div.setAttribute("class", "fa fa-plus"); 
-				div = document.getElementById('ar_lnk_jrnl_inf_detail_li'); 
-				div.setAttribute("class", "fa fa-plus"); 
-			} else if(flag == 5){//长约提交详情查看
+				div = document.getElementById('main_edit_detail_li');
+				div.setAttribute("class", "fa fa-plus");
+				div = document.getElementById('ar_lnk_jrnl_inf_detail_li');
+				div.setAttribute("class", "fa fa-plus");
+			} else if (flag == 5) {//订单提交详情查看
 				$('#main_search_detail').hide();
 				$('#main_edit_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				// 返回按钮
-				$('#btn_close_div').hide();	
-				$('#query_ar_submmit_detail').fadeIn(300);	
+				$('#btn_close_div').hide();
+				$('#query_ar_submmit_detail').fadeIn(800);
 			}
 		}
 		/***
@@ -1226,71 +1188,219 @@
 		function reset() {
 			E7.resetForm('#frm_query');
 		}
-				
-		function validate_frm_submit_ar(){
+
+		function validate_frm_submit_ar() {
 			$('#frm_submit_ar').bootstrapValidator('validate');
 			if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
 				return;
-			} else {	
+			} else {
 				var nestStepName = "";
 				var aplyPsrltCd = "";
-				var aplyPsrltCdRadio = document.getElementsByName("aplyPsrltCd");
-				 for(var i=0;i<aplyPsrltCdRadio.length;i++)
-				 {
-					 if(aplyPsrltCdRadio[i].checked)
-						 aplyPsrltCd = aplyPsrltCdRadio[i].value;
-				 }	
-					
-				if("01" ==  aplyPsrltCd){
-					nestStepName=getNextStepName($('#aplyPcstpCd').val(),1);
-					if(null == nestStepName || ""==nestStepName)
-						nestStepName="下一环节";
-					$('#saveSubmitModalTips').text("提交后将流转到 [ "+ nestStepName+" ] ，确定提交吗?");
-				} else if("02" ==  aplyPsrltCd){
-					nestStepName=getNextStepName($('#aplyPcstpCd').val(),2);
-					$('#saveSubmitModalTips').text("提交后将退回到 [ "+ nestStepName+" ] ，确定提交吗?");
+				var aplyPsrltCdRadio = document
+						.getElementsByName("aplyPsrltCd");
+				var pymtmod = $('#pymtmod').val();
+				for (var i = 0; i < aplyPsrltCdRadio.length; i++) {
+					if (aplyPsrltCdRadio[i].checked)
+						aplyPsrltCd = aplyPsrltCdRadio[i].value;
+				}
+
+				if ("01" == aplyPsrltCd) {
+					nestStepName = getNextStepNameOfOrder($('#aplyPcstpCd')
+							.val(), 1, $('#pymtmod').val());
+					if (null == nestStepName || "" == nestStepName)
+						nestStepName = "下一环节";
+					$('#saveSubmitModalTips').text(
+							"提交后将流转到 [ " + nestStepName + " ] ，确定提交吗?");
+				} else if ("02" == aplyPsrltCd) {
+					nestStepName = getNextStepNameOfOrder($('#aplyPcstpCd')
+							.val(), 2, $('#pymtmod').val());
+					$('#saveSubmitModalTips').text(
+							"提交后将退回到 [ " + nestStepName + " ] ，确定提交吗?");
 				}
 				$('#submitArModal').modal('show');
 			}
 		}
-		
-		function getNextStepName(currStep, flag){
+
+		function getNextStepNameOfOrder(currStep, flag, pymtmod) {
 			// currStep,当前环节；flag，跳转方向1通过，2退回
 			var nextStepName = "";
-			if("01" == currStep){
-				if(1==flag) nextStepName="长约确认(供应链)";
-				else if(2==flag) nextStepName="";
-			} else if("02" == currStep){
-				if(1==flag) nextStepName="长约确认(下游)";
-				else if(2==flag) nextStepName="长约发起（平台）";
-			}  else if("03" == currStep){
-				if(1==flag) nextStepName="确认承保（保险公司）";
-				else if(2==flag) nextStepName="长约确认(供应链)";
-			} else if("04" == currStep){
-				if(1==flag) nextStepName="长约一审（平台）";
-				else if(2==flag) nextStepName="长约确认(下游)";
-			} else if("05" == currStep){
-				if(1==flag) nextStepName="长约二审（平台）";
-				else if(2==flag) nextStepName="确认承保（保险公司）";
-			} else if("06" == currStep){
-				if(1==flag) nextStepName="长约终止（平台）";
-				else if(2==flag) nextStepName="长约一审（平台）";
-			} else if("07" == currStep){
-				if(1==flag) nextStepName="长约结束";
-				else if(2==flag) nextStepName="长约二审（平台）";
-			}	
+			if ("01" == currStep) {
+				if (1 == flag)
+					nextStepName = "长约确认(供应链)";
+				else if (2 == flag)
+					nextStepName = "";
+			} else if ("02" == currStep) {
+				if (1 == flag)
+					nextStepName = "长约确认(下游)";
+				else if (2 == flag)
+					nextStepName = "长约发起（平台）";
+			} else if ("03" == currStep) {
+				if (1 == flag)
+					nextStepName = "确认承保（保险公司）";
+				else if (2 == flag)
+					nextStepName = "长约确认(供应链)";
+			} else if ("04" == currStep) {
+				if (1 == flag)
+					nextStepName = "长约一审（平台）";
+				else if (2 == flag)
+					nextStepName = "长约确认(下游)";
+			} else if ("05" == currStep) {
+				if (1 == flag)
+					nextStepName = "长约二审（平台）";
+				else if (2 == flag)
+					nextStepName = "确认承保（保险公司）";
+			} else if ("06" == currStep) {
+				if (1 == flag)
+					nextStepName = "长约终止（平台）";
+				else if (2 == flag)
+					nextStepName = "长约一审（平台）";
+			} else if ("07" == currStep) {
+				if (1 == flag)
+					nextStepName = "长约结束";
+				else if (2 == flag)
+					nextStepName = "长约二审（平台）";
+			} else if ("31" == currStep) {
+				if (1 == flag)
+					nextStepName = "订单审核(平台)";
+				else if (2 == flag)
+					nextStepName = "";
+			} else if ("32" == currStep) {
+				if (1 == flag)
+					nextStepName = "保证金支付(下游)";
+				else if (2 == flag)
+					nextStepName = "订单发起(供应链)";
+			} else if ("33" == currStep) {
+				if (1 == flag)
+					nextStepName = "融资发放(银行)";
+				else if (2 == flag)
+					nextStepName = "订单审核(平台)";
+			} else if ("34" == currStep) {
+				if (1 == flag)
+					nextStepName = "货款支付(下游)";
+				else if (2 == flag)
+					nextStepName = "保证金支付(下游)";
+			} else if ("35" == currStep) {
+				if (1 == flag) {
+					if ("01" == pymtmod)
+						nextStepName = "货款支付(供应链)";
+					else if (("02" == pymtmod) || ("03" == pymtmod))
+						nextStepName = "确认收款(供应链)";
+				} else if (2 == flag)
+					nextStepName = "融资发放(银行)";
+			} else if ("36" == currStep) {
+				if (1 == flag)
+					nextStepName = "确认承保(保险公司)";
+				else if (2 == flag)
+					nextStepName = "货款支付(下游)";
+			} else if ("37" == currStep) {
+				if (1 == flag) {
+					if ("02" == pymtmod)
+						nextStepName = "确认承保(保险公司)";
+					else if ("03" == pymtmod)
+						nextStepName = "订单终止(供应链)";
+				} else if (2 == flag)
+					nextStepName = "货款支付(供应链)";
+			} else if ("38" == currStep) {
+				if (1 == flag)
+					nextStepName = "订单终止(供应链)";
+				else if (2 == flag) {
+					if ("01" == pymtmod)
+						nextStepName = "货款支付(供应链)";
+					else if ("02" == pymtmod)
+						nextStepName = "确认收款(供应链)";
+				}
+			} else if ("39" == currStep) {
+				if (1 == flag)
+					nextStepName = "订单完结";
+				else if (2 == flag) {
+					if ("01" == pymtmod || "02" == pymtmod)
+						nextStepName = "确认承保(保险公司)";
+					else if ("03" == pymtmod)
+						nextStepName = "确认收款(供应链)";
+				}
+			} else if ("61" == currStep) {
+				if (1 == flag)
+					nextStepName = "接货承运(物流)";
+				else if (2 == flag)
+					nextStepName = "订单终止(供应链)";
+			} else if ("62" == currStep) {
+				if (1 == flag)
+					nextStepName = "选择赎货方式(供应链)";
+				else if (2 == flag)
+					nextStepName = "发货发起(上游)";
+			} else if ("63" == currStep) {
+				if (1 == flag)
+					nextStepName = "回款赎货(下游)";
+				else if (2 == flag)
+					nextStepName = "接货承运(物流)";
+			} else if ("64" == currStep) {
+				if (1 == flag)
+					nextStepName = "质押置换(供应链)";
+				else if (2 == flag)
+					nextStepName = "选择赎货方式(供应链)";
+			} else if ("65" == currStep) {
+				if (1 == flag)
+					nextStepName = "出质(银行)";
+				else if (2 == flag)
+					nextStepName = "回款赎货(下游)";
+			} else if ("66" == currStep) {
+				if (1 == flag)
+					nextStepName = "通知转货权(银行)";
+				else if (2 == flag)
+					nextStepName = "质押置换(供应链)";
+			} else if ("67" == currStep) {
+				if (1 == flag)
+					nextStepName = "通知转货权(供应链)";
+				else if (2 == flag)
+					nextStepName = "出质(银行)";
+			} else if ("68" == currStep) {
+				if (1 == flag)
+					nextStepName = "转货权1(仓储)";
+				else if (2 == flag)
+					nextStepName = "通知转货权(银行)";
+			} else if ("69" == currStep) {
+				if (1 == flag)
+					nextStepName = "确定质押(仓储)";
+				else if (2 == flag)
+					nextStepName = "通知转货权(供应链)";
+			} else if ("70" == currStep) {
+				if (1 == flag)
+					nextStepName = "存入自有货物(下游)";
+				else if (2 == flag)
+					nextStepName = "转货权1(仓储)";
+			} else if ("71" == currStep) {
+				if (1 == flag)
+					nextStepName = "通知解押(银行)";
+				else if (2 == flag)
+					nextStepName = "确定质押(仓储)";
+			} else if ("72" == currStep) {
+				if (1 == flag)
+					nextStepName = "转货权2(仓储)";
+				else if (2 == flag)
+					nextStepName = "存入自有货物(下游)";
+			} else if ("73" == currStep) {
+				if (1 == flag)
+					nextStepName = "提取货物(下游)";
+				else if (2 == flag)
+					nextStepName = "通知解押(银行)";
+			} else if ("74" == currStep) {
+				if (1 == flag)
+					nextStepName = "发货终止(供应链)";
+				else if (2 == flag)
+					nextStepName = "转货权2(仓储)";
+			}
 			return nextStepName;
 		}
-		
+
 		/***
-		 * 长约提交
+		 * 订单提交
 		 */
-		function submitAr() {			
+		function submitAr() {
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
 			}
 			var formParams = E7.serialForm('#frm_submit_ar');
-			E7.post(pageSetting.resetPath + '/submitSpg', formParams, function(
+			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
 					data) {
 				showOrHideDetail(true, 1);
 				bootbox.alert({
@@ -1319,11 +1429,11 @@
 			$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			showOrHideDetail(true, 2);
 		}
-		
+
 		/***
-		 * 表单校验控件初始化2(长约各环节提交)
+		 * 表单校验控件初始化2(订单各环节提交)
 		 */
-		function validator_2_Init() {			
+		function validator_2_Init() {
 			$('#frm_submit_ar').bootstrapValidator({
 				feedbackIcons : {
 					valid : 'glyphicon glyphicon-ok',
@@ -1331,9 +1441,11 @@
 					validating : 'glyphicon glyphicon-refresh'
 				},
 				fields : {
-			    	"aplyPsrltCd" : {
+					"aplyPsrltCd" : {
 						validators : {
-							notEmpty : {message : '处理结果不能为空'}
+							notEmpty : {
+								message : '处理结果不能为空'
+							}
 						}
 					}
 				}
@@ -1344,9 +1456,9 @@
 			});
 		}
 		/***
-		 * 表单校验控件初始化1（长约发起提交）
+		 * 表单校验控件初始化1（订单发起提交）
 		 */
-		function validator_1_Init() {						
+		function validator_1_Init() {
 			$('#frm_detail').bootstrapValidator({
 				feedbackIcons : {
 					valid : 'glyphicon glyphicon-ok',
@@ -1354,190 +1466,296 @@
 					validating : 'glyphicon glyphicon-refresh'
 				},
 				fields : {
-			    	"arTp" : {
+					"arTp" : {
 						validators : {
-							notEmpty : {message : '长约类型不能为空'}
+							notEmpty : {
+								message : '订单类型不能为空'
+							}
 						}
 					},
-			    	"fncEntp" : {
+					"fncEntp" : {
 						validators : {
-							notEmpty : {message : '融资企业不能为空'}
+							notEmpty : {
+								message : '融资企业不能为空'
+							}
 						}
 					},
-			    	"ustrmSplr" : {
+					"ustrmSplr" : {
 						validators : {
-							notEmpty : {message : '上游供应商不能为空'}
+							notEmpty : {
+								message : '上游供应商不能为空'
+							}
 						}
 					},
-			    	"stgco" : {
+					"stgco" : {
 						validators : {
-							notEmpty : {message : '仓储公司不能为空'}
+							notEmpty : {
+								message : '仓储公司不能为空'
+							}
 						}
 					},
-			    	"bnk" : {
+					"bnk" : {
 						validators : {
-							notEmpty : {message : '银行不能为空'}
+							notEmpty : {
+								message : '银行不能为空'
+							}
 						}
 					},
-			    	"lgstcCo" : {
+					"lgstcCo" : {
 						validators : {
-							notEmpty : {message : '物流公司不能为空'}
+							notEmpty : {
+								message : '物流公司不能为空'
+							}
 						}
 					},
-			    	"insCo" : {
+					"insCo" : {
 						validators : {
-							notEmpty : {message : '保险公司不能为空'}
+							notEmpty : {
+								message : '保险公司不能为空'
+							}
 						}
 					},
-			    	"splchainCo" : {
+					"splchainCo" : {
 						validators : {
-							notEmpty : {message : '供应链公司不能为空'}
+							notEmpty : {
+								message : '供应链公司不能为空'
+							}
 						}
 					},
-			    	"pckupgdsCyc" : {
+					"pckupgdsCyc" : {
 						validators : {
-							notEmpty : {message : '提货周期不能为空'},
-							digits: {message: '提货周期只能输入数字'}
+							notEmpty : {
+								message : '提货周期不能为空'
+							},
+							digits : {
+								message : '提货周期只能输入数字'
+							}
 						}
 					},
-			    	"btp" : {
+					"btp" : {
 						validators : {
-							notEmpty : {message : '业务类型不能为空'}
+							notEmpty : {
+								message : '业务类型不能为空'
+							}
 						}
 					},
-			    	"fncPctg" : {
+					"fncPctg" : {
 						validators : {
-							notEmpty : {message : '融资比例不能为空'},
-							digits: {message: '输入只能为0~100的数字'},
-							greaterThan: {value: 0, message:'输入不能小于0'},
-							lessThan: {value: 101, message:'输入不能超过100'}
+							notEmpty : {
+								message : '融资比例不能为空'
+							},
+							digits : {
+								message : '输入只能为0~100的数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
 						}
 					},
-			    	"prpyGldRto" : {
+					"prpyGldRto" : {
 						validators : {
-							notEmpty : {message : '预付金比率不能为空'},
-							digits: {message: '输入只能为数字'},
-							greaterThan: {value: 0, message:'输入不能小于0'},
-							lessThan: {value: 101, message:'输入不能超过100'}
+							notEmpty : {
+								message : '预付金比率不能为空'
+							},
+							digits : {
+								message : '输入只能为数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
 						}
 					},
-			    	"lmt" : {
+					"lmt" : {
 						validators : {
-							notEmpty : {message : '额度不能为空'},
-							digits: {message: '输入只能为数字'}
+							notEmpty : {
+								message : '额度不能为空'
+							},
+							digits : {
+								message : '输入只能为数字'
+							}
 						}
 					},
-			    	"crdn" : {
+					"crdn" : {
 						validators : {
-							notEmpty : {message : '警戒线不能为空'},
-							digits: {message: '输入只能为数字'},
-							greaterThan: {value: 0, message:'输入不能小于0'},
-							lessThan: {value: 101, message:'输入不能超过100'}
+							notEmpty : {
+								message : '警戒线不能为空'
+							},
+							digits : {
+								message : '输入只能为数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
 						}
 					},
-			    	"clsposLn" : {
+					"clsposLn" : {
 						validators : {
-							notEmpty : {message : '平仓线不能为空'},
-							digits: {message: '输入只能为数字'},
-							greaterThan: {value: 0, message:'输入不能小于0'},
-							lessThan: {value: 101, message:'输入不能超过100'}
+							notEmpty : {
+								message : '平仓线不能为空'
+							},
+							digits : {
+								message : '输入只能为数字'
+							},
+							greaterThan : {
+								value : 0,
+								message : '输入不能小于0'
+							},
+							lessThan : {
+								value : 101,
+								message : '输入不能超过100'
+							}
 						}
 					},
-			    	"svcfeeCmd" : {
+					"svcfeeCmd" : {
 						validators : {
-							notEmpty : {message : '服务费收取方式不能为空'}
+							notEmpty : {
+								message : '服务费收取方式不能为空'
+							}
 						}
 					},
-			    	"splovCrrovMod" : {
+					"splovCrrovMod" : {
 						validators : {
-							notEmpty : {message : '溢短结转方式不能为空'}
+							notEmpty : {
+								message : '溢短结转方式不能为空'
+							}
 						}
 					},
 
-			    	"plchd" : {
+					"plchd" : {
 						validators : {
-							notEmpty : {message : '投保人不能为空'}
+							notEmpty : {
+								message : '投保人不能为空'
+							}
 						}
 					},
-			    	"plchdAdr" : {
+					"plchdAdr" : {
 						validators : {
-							notEmpty : {message : '投保人地址不能为空'}
+							notEmpty : {
+								message : '投保人地址不能为空'
+							}
 						}
 					},
-			    	"insrd" : {
+					"insrd" : {
 						validators : {
-							notEmpty : {message : '被保险人不能为空'}
+							notEmpty : {
+								message : '被保险人不能为空'
+							}
 						}
 					},
-			    	"insrdAdr" : {
+					"insrdAdr" : {
 						validators : {
-							notEmpty : {message : '被保险人地址不能为空'}
+							notEmpty : {
+								message : '被保险人地址不能为空'
+							}
 						}
 					},
-			    	"fstBenf" : {
+					"fstBenf" : {
 						validators : {
-							notEmpty : {message : '第一受益人不能为空'}
+							notEmpty : {
+								message : '第一受益人不能为空'
+							}
 						}
 					},
-			    	"fstBenfAdr" : {
+					"fstBenfAdr" : {
 						validators : {
-							notEmpty : {message : '第一受益人地址不能为空'}
+							notEmpty : {
+								message : '第一受益人地址不能为空'
+							}
 						}
 					},
-			    	"insPtyAdr" : {
+					"insPtyAdr" : {
 						validators : {
-							notEmpty : {message : '保险财产地址不能为空'}
+							notEmpty : {
+								message : '保险财产地址不能为空'
+							}
 						}
 					},
-			    	"insObjNm" : {
+					"insObjNm" : {
 						validators : {
-							notEmpty : {message : '保险标的名称不能为空'}
+							notEmpty : {
+								message : '保险标的名称不能为空'
+							}
 						}
 					},
-			    	"insAmt" : {
+					"insAmt" : {
 						validators : {
-							notEmpty : {message : '保险金额不能为空'},
-							digits: {message: '输入只能为数字'}
+							notEmpty : {
+								message : '保险金额不能为空'
+							},
+							digits : {
+								message : '输入只能为数字'
+							}
 						}
 					},
-			    	"dctbAmt" : {
+					"dctbAmt" : {
 						validators : {
-							notEmpty : {message : '免赔额不能为空'},
-							digits: {message: '输入只能为数字'}
+							notEmpty : {
+								message : '免赔额不能为空'
+							},
+							digits : {
+								message : '输入只能为数字'
+							}
 						}
 					},
-			    	"epap" : {
+					"epap" : {
 						validators : {
-							notEmpty : {message : '特别约定不能为空'}
+							notEmpty : {
+								message : '特别约定不能为空'
+							}
 						}
 					},
-			    	"insStdt" : {
-			    		trigger:"change3", //监听change动作
+					"insStdt" : {
+						trigger : "change3", //监听change动作
 						validators : {
-							notEmpty : {message : '保险开始日期不能为空'}
+							notEmpty : {
+								message : '保险开始日期不能为空'
+							}
 						}
 					},
-			    	"insEddt" : {
-			    		trigger:"change4", //监听change动作
+					"insEddt" : {
+						trigger : "change4", //监听change动作
 						validators : {
-							notEmpty : {message : '保险结束日期不能为空'}
+							notEmpty : {
+								message : '保险结束日期不能为空'
+							}
 						}
 					},
-			    	"arStdt" : {
-			//    		trigger:"change1", //监听change动作
+					"arStdt" : {
+						//    		trigger:"change1", //监听change动作
 						validators : {
-							notEmpty : {message : '长约开始日期不能为空'}
+							notEmpty : {
+								message : '订单开始日期不能为空'
+							}
 						}
 					},
-			    	"arEddt" : {
-			  //  		trigger:"change2", //监听change动作
+					"arEddt" : {
+						//  		trigger:"change2", //监听change动作
 						validators : {
-							notEmpty : {message : '长约结束日期不能为空'}
+							notEmpty : {
+								message : '订单结束日期不能为空'
+							}
 						}
 					},
-			    	"isNeedIns" : {
+					"isNeedIns" : {
 						validators : {
-							notEmpty : {message : '投保类型不能为空'}
+							notEmpty : {
+								message : '投保类型不能为空'
+							}
 						}
 					}
 				}
@@ -1547,166 +1765,242 @@
 				$('#frm_detail').bootstrapValidator('validate');
 			});
 		}
- 
-		function queryArDetails(id, aplyPcstpCd, type){// type 1:长约提交  0：长约详情查询
+
+		function queryArDetails(id, aplyPcstpCd, type) {// type 1:订单提交  0：订单详情查询
+			//	alert([[${userType}]]);
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7.post(pageSetting.resetPath + '/getDetail', {
-				'id' : id
-			}, function(result) {
-				fillForm('#frm_detail', result.data);
-				var detail = result.data;
-				for (key in detail) {
-					$('#frm_detail [name="' + key + '"]').val(detail[key]);
-				}
-				///
-				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
-				// 长约详情div标题
-				$('#main_edit_detail_title').text("长约信息 [ " + detail["arId"]+" ]");
-/* 				// 投保信息是否显示
-				var isNeedIns = detail["isNeedIns"];
-				if(isNeedIns == 1){
-					show_or_hide_ins_div(true);
-				} else {
-					show_or_hide_ins_div(false);
-				} */
-				///附件列表
-				var td = detail["t2UploadAtch01List"];
-				var insertHtml="";
-				for ( var kk = 0; kk < td.length; kk++) {
-					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm)+'</div></a></div>';
-				}
-				if(td.length > 0){
-					var testdiv = document.getElementById("upload_atch_div");
-					testdiv.innerHTML=insertHtml;
-					$('#query_ar_atch_div').fadeIn(300);
-				} else {
-					$('#query_ar_atch_div').hide();	
-				}				
-//				bespeakStatus = detail['bespeakStatus'];				
-				///环节流转列表table生成
- 				var lnk_jrnl_inf = detail["list"];
-				insertHtml="";
-				insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">环节</th><th style="border-bottom: none;">结果</th><th style="border-bottom: none;">提交人</th><th style="border-bottom: none;">公司</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">详情</th></tr> </thead><tbody>';
-				for ( var jj = 0; jj < lnk_jrnl_inf.length; jj++) {
-					var rmrkDesc = lnk_jrnl_inf[jj].rmrk;
-					if((null != rmrkDesc) && (rmrkDesc.length > 5)){
-						rmrkDesc = '<a onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '")>' + rmrkDesc.substring(0,5) + "..." + '</a>';
-					}
-					if((null == rmrkDesc) || (""==rmrkDesc)){
-						rmrkDesc = "无";
-					}
-					insertHtml = insertHtml + '<tr><td>'+transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)+'</td><td>'+transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)+'</td><td>'+lnk_jrnl_inf[jj].username+'</td><td>'+lnk_jrnl_inf[jj].companyName+
-					'</td><td>'+rmrkDesc+'</td><td>'+transDateTime(lnk_jrnl_inf[jj].lnkEdtm)+
-					'</td><td><input type="button" class="btn btn_small" onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '") value="查看"> </td></tr>';
-				}				
-				insertHtml = insertHtml + "</tbody></table>";
-				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
-				// 长约流转div标题
-				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["arId"]+" ]");
-				// 长约提交div标题				
-				var titleDesc = "长约" + transAplyPcstpCd(aplyPcstpCd);				
-				$('#submit_ar_detail_title').text("您所在位置 : 长约管理 > 待审批长约 > " + titleDesc + " [ " + detail["arId"] + " ]");
-				// 长约提交详情查询div标题
-				$('#query_ar_submmit_title').text("长约提交详情 [ " + detail["arId"]+" ]");
-				
-				testdiv.innerHTML=insertHtml;
-				
-				// 决定显示哪一个返回按钮
-				if(type == 1){
-					// 返回到长约详情查询
-					$('#btn_close_return4').fadeIn(300);
-					$('#btn_close_return3').hide();	
-				} else {
+			E7
+					.post(
+							pageSetting.resetPath + '/getDetail',
+							{
+								'id' : id
+							},
+							function(result) {
+								fillForm('#frm_detail', result.data);
+								var detail = result.data;
+								for (key in detail) {
+									$('#frm_detail [name="' + key + '"]').val(
+											detail[key]);
+								}
 
-					// 返回到长约提交
-					$('#btn_close_return3').fadeIn(300);
-					$('#btn_close_return4').hide();	
-				}
-			});
+								$('#frm_submit_ar [name="ordrId"]').val(
+										detail["ordrId"]);
+								$('#frm_submit_ar [name="pymtmod"]').val(
+										detail["pymtmod"]);
+								// 订单详情div标题
+								$('#main_edit_detail_title').text(
+										"订单信息 [ " + detail["ordrId"] + " ]");
+								/* 				// 投保信息是否显示
+								 var isNeedIns = detail["isNeedIns"];
+								 if(isNeedIns == 1){
+								 show_or_hide_ins_div(true);
+								 } else {
+								 show_or_hide_ins_div(false);
+								 } */
+
+								///订单明细信息
+								var t8OrderDetailList = detail["t8OrderDetailList"];
+								$("#boot_table_div").hide();
+								var rows = [];
+								$("#boot-table").bootstrapTable('removeAll');
+								for (var jj = 0; jj < t8OrderDetailList.length; jj++) {
+									rows
+											.push({
+												pdNm : t8OrderDetailList[jj].pdNm,
+												spec : t8OrderDetailList[jj].spec,
+												modl : t8OrderDetailList[jj].modl,
+												qlyStd : t8OrderDetailList[jj].qlyStd,
+												brnd : t8OrderDetailList[jj].brnd,
+												pdFctr : t8OrderDetailList[jj].pdFctr,
+												num : t8OrderDetailList[jj].num,
+												msunit : t8OrderDetailList[jj].msunit,
+												pchUnitprc : t8OrderDetailList[jj].pchUnitprc,
+												txnPrcdif : t8OrderDetailList[jj].txnPrcdif,
+												saleTntvPrc : t8OrderDetailList[jj].saleTntvPrc
+											})
+
+								}
+								$('#boot-table').bootstrapTable('append', rows);
+
+								// 根据角色不同控制数据展示
+								var datas = detail["roleParmsList"];
+								if (null != datas) {
+									for (var i = 0; i < datas.length; i++) {
+										// 控制界面控件是否显示
+										$('#' + datas[i] + '_div').hide();
+										// 控制表格的列是否显示
+										var colEng = transToEng(datas[i]);
+										if ("" != colEng) {
+											$('#boot-table').bootstrapTable(
+													'hideColumn', colEng);
+										}
+									}
+								}
+								$("#boot_table_div").fadeIn(800);
+
+								///附件列表
+								var td = detail["t2UploadAtch01List"];
+								insertHtml = "";
+								for (var kk = 0; kk < td.length; kk++) {
+									insertHtml = insertHtml
+											+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
+											+ td[kk].oriFileNm + '<p>'
+											+ getFileType(td[kk].oriFileNm)
+											+ '</div></a></div>';
+								}
+								if (td.length > 0) {
+									var testdiv = document
+											.getElementById("upload_atch_div");
+									testdiv.innerHTML = insertHtml;
+									$('#query_ar_atch_div').fadeIn(800);
+								} else {
+									$('#query_ar_atch_div').hide();
+								}
+								//				bespeakStatus = detail['bespeakStatus'];				
+								///环节流转列表table生成
+								var lnk_jrnl_inf = detail["list"];
+								insertHtml = "";
+								insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">环节</th><th style="border-bottom: none;">结果</th><th style="border-bottom: none;">提交人</th><th style="border-bottom: none;">公司</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">详情</th></tr> </thead><tbody>';
+								for (var jj = 0; jj < lnk_jrnl_inf.length; jj++) {
+									var rmrkDesc = lnk_jrnl_inf[jj].rmrk;
+									if ((null != rmrkDesc)
+											&& (rmrkDesc.length > 5)) {
+										rmrkDesc = '<a onclick=getArSubmmitDetail("'
+												+ lnk_jrnl_inf[jj].id
+												+ '","'
+												+ lnk_jrnl_inf[jj].rltvId
+												+ '","'
+												+ lnk_jrnl_inf[jj].aplyPcstpCd
+												+ '")>'
+												+ rmrkDesc.substring(0, 5)
+												+ "..." + '</a>';
+									}
+									if ((null == rmrkDesc) || ("" == rmrkDesc)) {
+										rmrkDesc = "无";
+									}
+									insertHtml = insertHtml
+											+ '<tr><td>'
+											+ transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)
+											+ '</td><td>'
+											+ transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)
+											+ '</td><td>'
+											+ lnk_jrnl_inf[jj].username
+											+ '</td><td>'
+											+ lnk_jrnl_inf[jj].companyName
+											+ '</td><td>'
+											+ rmrkDesc
+											+ '</td><td>'
+											+ transDateTime(lnk_jrnl_inf[jj].lnkEdtm)
+											+ '</td><td><input type="button" class="btn btn_small" onclick=getArSubmmitDetail("'
+											+ lnk_jrnl_inf[jj].id + '","'
+											+ lnk_jrnl_inf[jj].rltvId + '","'
+											+ lnk_jrnl_inf[jj].aplyPcstpCd
+											+ '") value="查看"> </td></tr>';
+								}
+								insertHtml = insertHtml + "</tbody></table>";
+								testdiv = document
+										.getElementById("lnk_jrnl_inf_tbl_div");
+								// 订单流转div标题
+								$('#ar_lnk_jrnl_inf_detail_title').text(
+										"流转信息 [ " + detail["ordrId"] + " ]");
+								// 订单提交div标题				
+								var titleDesc = "订单"
+										+ transAplyPcstpCd(aplyPcstpCd);
+								$('#submit_ar_detail_title').text(
+										"您所在位置 : 订单管理 > 待审批订单 > " + titleDesc
+												+ " [ " + detail["ordrId"]
+												+ " ]");
+								// 订单提交详情查询div标题
+								$('#query_ar_submmit_title').text(
+										"订单提交详情 [ " + detail["ordrId"] + " ]");
+
+								testdiv.innerHTML = insertHtml;
+
+								// 决定显示哪一个返回按钮
+								if (type == 1) {
+									// 返回到订单详情查询
+									$('#btn_close_return4').fadeIn(800);
+									$('#btn_close_return3').hide();
+								} else {
+
+									// 返回到订单提交
+									$('#btn_close_return3').fadeIn(800);
+									$('#btn_close_return4').hide();
+								}
+							});
 		}
-		
-			function getArSubmmitDetail(id, arId, aplyPcstpCd){
- 			// 带过来的环节编号
-			E7.post(pageSetting.resetPath + '/getSpgSubmmitDetail', {
-				'id' : id,'arId':arId,'aplyPcstpCd':aplyPcstpCd
-			}, function(result) {
-//				fillForm('#frm_detail2', result.data);
-				var detail = result.data;
-/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
-				$('#frm_detail2 [name="companyName"]').val(detail["name"]);
-				$('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
-				$('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
-				$('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
-				$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
-				document.getElementById('companyName').innerText = "公    司    :    " + detail["name"];
-				document.getElementById('submmitUsername').innerText = "提交人    :    " + detail["username"];
-				document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    " + transAplyPcstpCd(detail["aplyPcstpCd"]);
-				document.getElementById('lnkEdtm').innerText = "时    间    :    " + transDateTime(detail["lnkEdtm"]);
-				document.getElementById('aplyPsrltCdDesc').innerText = "结    果    :    " + transAplyPsrltCd(detail["aplyPsrltCd"]);
-				document.getElementById('rmrkDesc').innerText = "备    注    :    " + detail["rmrk"];
-				///附件列表
-				var td = detail["t2UploadAtch01List"];
-				var insertHtml="";
-				for ( var kk = 0; kk < td.length; kk++) {
-					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm) + transDateTime(suffix) +'</div></a></div>';
-				}								
-				if(td.length > 0){
-					var testdiv = document.getElementById("upload_atch_div2");
-					testdiv.innerHTML=insertHtml;
-					$('#query_ar_atch_div2').fadeIn(300);
-				} else {
-					$('#query_ar_atch_div2').hide();	
-				}				
-				showOrHideDetail(false,5);
-			}); 
-		}                                                                                
-				
-		function transAplyPsrltCd(aplyPsrltCd) {
-			if (aplyPsrltCd == '01') {
-				return "通过";
-			} else if (aplyPsrltCd == '02') {
-				return "退回";
-			} else if (aplyPsrltCd == '03') {
-				return "拒绝";
-			}  else
-				return aplyPsrltCd;
+
+		function getArSubmmitDetail(id, arId, aplyPcstpCd) {
+			// 带过来的环节编号
+			E7
+					.post(
+							pageSetting.resetPath + '/getArSubmmitDetail',
+							{
+								'id' : id,
+								'arId' : arId,
+								'aplyPcstpCd' : aplyPcstpCd
+							},
+							function(result) {
+								//				fillForm('#frm_detail2', result.data);
+								var detail = result.data;
+								/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
+								 $('#frm_detail2 [name="companyName"]').val(detail["name"]);
+								 $('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
+								 $('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
+								 $('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
+								 $('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
+								document.getElementById('companyName').innerText = "公    司    :    "
+										+ detail["name"];
+								document.getElementById('submmitUsername').innerText = "提交人    :    "
+										+ detail["username"];
+								document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    "
+										+ transAplyPcstpCd(detail["aplyPcstpCd"]);
+								document.getElementById('lnkEdtm').innerText = "时    间    :    "
+										+ transDateTime(detail["lnkEdtm"]);
+								document.getElementById('aplyPsrltCdDesc').innerText = "结    果    :    "
+										+ transAplyPsrltCd(detail["aplyPsrltCd"]);
+								document.getElementById('rmrkDesc').innerText = "备    注    :    "
+										+ detail["rmrk"];
+								///附件列表
+								var td = detail["t2UploadAtch01List"];
+								var insertHtml = "";
+								for (var kk = 0; kk < td.length; kk++) {
+									insertHtml = insertHtml
+											+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
+											+ td[kk].oriFileNm + '<p>'
+											+ getFileType(td[kk].oriFileNm)
+											+ transDateTime(suffix)
+											+ '</div></a></div>';
+								}
+								if (td.length > 0) {
+									var testdiv = document
+											.getElementById("upload_atch_div2");
+									testdiv.innerHTML = insertHtml;
+									$('#query_ar_atch_div2').fadeIn(800);
+								} else {
+									$('#query_ar_atch_div2').hide();
+								}
+								showOrHideDetail(false, 5);
+							});
 		}
-		
-		function transAplyPcstpCd(value) {
-			if (value == '01') {
-				return "发起";
-			} else if (value == '02') {
-				return "供应链确认";
-			} else if (value == '03') {
-				return "下游确认";
-			} else if (value == '04') {
-				return "承保";
-			} else if (value == '05') {
-				return "一审";
-			} else if (value == '06') {
-				return "二审";;
-			} else if (value == '07') {
-				return "终止";
-			} else if (value == '') {
-				return "完成";
-			} else
-				return value;
-		}	
-		
-		function showViewSubmitAr(id, aplyPcstpCd) {
+
+		function showViewSubmitOrder(id, aplyPcstpCd) {
 			E7.resetForm('#frm_submit_ar');
-			$('#frm_submit_ar').data('bootstrapValidator').updateStatus('aplyPsrltCd', 'NOT_VALIDATED',null).validateField('aplyPsrltCd');  
+			$('#frm_submit_ar').data('bootstrapValidator').updateStatus(
+					'aplyPsrltCd', 'NOT_VALIDATED', null).validateField(
+					'aplyPsrltCd');
 			// 初始化上传附件控件
 			initInputItem(2);
-			queryArDetails(id, aplyPcstpCd, 1);// flag 1:长约提交  0：长约详情查询
+			queryArDetails(id, aplyPcstpCd, 1);// flag 1:订单提交  0：订单详情查询
 			showOrHideDetail(false, 4);
-		}	
+		}
 		function showArDetailDialog() {
+
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
 				bootbox.alert({
@@ -1724,14 +2018,14 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			queryArDetails(rows[0]['id'], "", 0);// flag 1:长约提交  0：长约详情查询
+			queryArDetails(rows[0]['id'], "", 0);// flag 1:订单提交  0：订单详情查询
 			showOrHideDetail(false, 3);
 		}
-		
-		function confirmArUndo(){
+
+		function confirmArUndo() {
 			$('#arUndoModal').modal('show');
 		}
-		
+
 		function arUndo() {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
@@ -1743,24 +2037,24 @@
 			} else if (rows.length > 1) {
 				bootbox.alert({
 					'title' : '错误消息',
-					'message' : '一次只能撤销一条长约！'
+					'message' : '一次只能撤销一条订单！'
 				});
 				return;
 			}
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7.post(pageSetting.resetPath + '/unDoSpg', {
+			E7.post(pageSetting.resetPath + '/unDoAr', {
 				'id' : rows[0]['id']
 			}, function(result) {
 				query_ar_list();
 				bootbox.alert({
 					'title' : "消息",
-					'message' : '长约撤销成功!'
+					'message' : '订单撤销成功!'
 				});
 			});
 		}
-		
+
 		function del() {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
@@ -1779,7 +2073,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			E7.post(pageSetting.resetPath + '/deleteSpg', {
+			E7.post(pageSetting.resetPath + '/deleteAr', {
 				'id' : rows[0]['id']
 			}, function(result) {
 				query_ar_list();
@@ -1790,7 +2084,7 @@
 			});
 		}
 
-		function validate_frm_detail(){
+		function validate_frm_detail() {
 			$('#frm_detail').bootstrapValidator('validate');
 			if (!$('#frm_detail').data('bootstrapValidator').isValid()) {
 				return;
@@ -1798,10 +2092,8 @@
 				$('#saveSubmitModal').modal('show');
 			}
 		}
-		
 
-		
-		function save() {			
+		function save() {
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
 			}
@@ -1813,7 +2105,7 @@
 						//showOrHideDetail(true, 1);
 						bootbox.alert({
 							'title' : "消息",
-							'message' : '长约发起成功！'
+							'message' : '订单发起成功！'
 						});
 						$('#tbl_query').e7table(
 								'reload',
@@ -1851,28 +2143,33 @@
 							},
 							function(result) {
 								fillForm('#frm_detail', result.data);
-								// 实时判断长约是否可以修改	
-								if(result.data["aplyPcstpCd"] != "01"){
-									bootbox.alert({
-										'title' : '错误消息',
-										'message' : '当前长约不在发起环节禁止修改！请退回到发起环节再修改。'
-									});
+								// 实时判断订单是否可以修改	
+								if (result.data["aplyPcstpCd"] != "01") {
+									bootbox
+											.alert({
+												'title' : '错误消息',
+												'message' : '当前订单不在发起环节禁止修改！请退回到发起环节再修改。'
+											});
 									return;
 								}
 								// 多次修改，清空上次div追加的内容
-								$("#fujianId").empty(); 
- 								if (result.data.t2UploadAtch01List != undefined) {
+								$("#fujianId").empty();
+								if (result.data.t2UploadAtch01List != undefined) {
 									for (i = 0; i < result.data.t2UploadAtch01List.length; i++) {
 										var elem = result.data.t2UploadAtch01List[i];
-/* 										var item = '<div name="inputDiv">'
-												+ elem.oriFileNm
-												+ '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>'; */
+										/* 										var item = '<div name="inputDiv">'
+										 + elem.oriFileNm
+										 + '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>'; */
 										var atchId = elem.id;
-												var item = '<div name="inputDiv"> <a href="' + elem.srFileRte +'" target="_blank">'+elem.oriFileNm  +'&nbsp&nbsp</a>&nbsp&nbsp<a onclick="deleteItem2(this, ' + elem.id +')"> 删除</a> <br/></div>';
-												
-												$("#fujianId").append(item);
+										var item = '<div name="inputDiv"> <a href="' + elem.srFileRte +'" target="_blank">'
+												+ elem.oriFileNm
+												+ '&nbsp&nbsp</a>&nbsp&nbsp<a onclick="deleteItem2(this, '
+												+ elem.id
+												+ ')"> 删除</a> <br/></div>';
+
+										$("#fujianId").append(item);
 									}
-								} 
+								}
 								showOrHideDetail(true, 6);
 								// 展示保险div
 								show_or_hide_ins_div(true);
@@ -1933,25 +2230,25 @@
 		}
 
 		function submitTransferFile(flag) {
-			if(flag == 1){			
-			var file = document.getElementsByName("fileName")
-			//var file = $('.select-file').files//document.getElementById("file_transfer").files;
-			//TODO:valid
-			var formData = new FormData();
-			for (i = 0; i < file.length; i++) {
-				formData.append('file', file[i].files[0]);
-			}
-			E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
-					function(result) {
-						var fileUrl = result.data;
-						$("#fileId").val(fileUrl);
-						bootbox.alert({
-							'title' : '消息',
-							'message' : '上传成功, 文件：<code>' + result.data
-									+ '</code>！'
+			if (flag == 1) {
+				var file = document.getElementsByName("fileName")
+				//var file = $('.select-file').files//document.getElementById("file_transfer").files;
+				//TODO:valid
+				var formData = new FormData();
+				for (i = 0; i < file.length; i++) {
+					formData.append('file', file[i].files[0]);
+				}
+				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+						function(result) {
+							var fileUrl = result.data;
+							$("#fileId").val(fileUrl);
+							bootbox.alert({
+								'title' : '消息',
+								'message' : '上传成功, 文件：<code>' + result.data
+										+ '</code>！'
+							});
 						});
-					});
-			} else if(flag == 2){
+			} else if (flag == 2) {
 				var file = document.getElementsByName("fileName2")
 				//var file = $('.select-file').files//document.getElementById("file_transfer").files;
 				//TODO:valid
@@ -1959,7 +2256,7 @@
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl2 = result.data;
 							$("#fileId2").val(fileUrl2);
@@ -1974,24 +2271,24 @@
 
 		function addInputItem(flag) {
 
-			if(flag == 1){
+			if (flag == 1) {
 				var item = '<div name="inputDiv"><input name="fileName" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
 				$("#fujianId").append(item);
-			} else if (flag == 2){
+			} else if (flag == 2) {
 				var item = '<div name="inputDiv"><input name="fileName2" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
 				$("#fujianId2").append(item);
 			}
 		}
 		function initInputItem(flag) {
-			
-			if(flag ==1 ){
+
+			if (flag == 1) {
 				var item = '<div name="inputDiv"><input name="fileName" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
 				var testdiv = document.getElementById("fujianId");
-				testdiv.innerHTML=item;
-			} else if(flag == 2){
+				testdiv.innerHTML = item;
+			} else if (flag == 2) {
 				var item = '<div name="inputDiv"><input name="fileName2" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
 				var testdiv = document.getElementById("fujianId2");
-				testdiv.innerHTML=item;
+				testdiv.innerHTML = item;
 			}
 		}
 		function deleteItem(input) {
@@ -1999,43 +2296,41 @@
 		}
 		function deleteItem2(input, id) {
 			var preValue = $("#fileToDeleteId").val();
-			if(preValue == null || preValue == "")
+			if (preValue == null || preValue == "")
 				$("#fileToDeleteId").val(id);
-			else				
+			else
 				$("#fileToDeleteId").val(preValue + "||" + id);
 
 			$(input).parent().remove();
 		}
-		
-		
+
 		function buttonInit() {
 			if ('[[${userType}]]' == 'Group') {
 				/* 	$("#div_buttons")
 				.append(
 					 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
 				);				 
-		$("#div_buttons")
+				$("#div_buttons")
 				.append(
 					'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
-		$("#div_buttons")
+				$("#div_buttons")
 				.append(
 					'<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showArDetailDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i>查看</button>');
-		$("#div_buttons")
+				$("#div_buttons")
 				.append(
 					 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:del();"><i class="glyphicon glyphicon-trash"></i>删除</button>');
- */		
- $("#div_buttons")
-	.append(
-		 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:confirmArUndo();" style="margin-left:20px;"><i class="glyphicon glyphicon-minus-sign"></i>撤销</button>'		
-	);
- $("#div_buttons")
-	.append(
-			/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
-		'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
-		$("#div_buttons")
-			.append(
-					/* '<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>'); */
-		'<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
+				 */
+				$("#div_buttons")
+						.append(
+								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:confirmArUndo();" style="margin-left:20px;"><i class="glyphicon glyphicon-minus-sign"></i>撤销</button>');
+				$("#div_buttons")
+						.append(
+								/* '<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>'); */
+								'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i>重置</button>');
+				$("#div_buttons")
+						.append(
+								/* '<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>'); */
+								'<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>');
 			} else {
 				$("#div_buttons")
 						.append(
@@ -2055,16 +2350,21 @@
 			$('#tbl_query')
 					.e7table(
 							{
-								url : '[[@{/arManagement/queryPage_adt}]]',
+								url : '[[@{/orderManagement/queryPage_adt}]]',
 								pageSize : 10,
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
 								sortName : 'crtTm', //排序列名,创建时间
-								striped: true, //奇偶行不同背景
-								pagination: true,
-								rownumbers: false,		//如果为true，则显示一个行号列
+								striped : true, //奇偶行不同背景
+								pagination : true,
+								rownumbers : false, //如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
+										{
+											title : '订单编号',
+											field : 'ordrId',
+											sortable : true
+										},
 										{
 											title : '长约编号',
 											field : 'arId',
@@ -2085,27 +2385,6 @@
 											field : 'ustrmSplrName',
 											sortable : true
 										},
-							/* 			{
-											title : '仓储公司',
-											field : 'stgcoName',
-											sortable : true
-										},
-										{
-											title : '业务类型',
-											field : 'btp',
-											sortable : true,
-											formatter : function(value, row,
-													index) {
-												if (value == '01') {
-													return "订单融资";
-												} else if (value == '02') {
-													return "保证金融资";
-												} else if (value == '03') {
-													return "质押融资";
-												} else
-													return value;
-											}
-										}, */
 										{
 											title : '发起时间',
 											field : 'crtTm',
@@ -2132,70 +2411,111 @@
 											field : 'aplyPcstpCd',
 											formatter : function(value, row,
 													index) {
-												if (value == '01') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>发起</button>&nbsp;';
+												if (value == '31') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>订单发起</button>&nbsp;';
 													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+												} else if (value == '32') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>订单审核</button>&nbsp;';
 													return s;
-												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+												} else if (value == '33') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>保证金支付</button>&nbsp;';
 													return s;
-												} else if (value == '03') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+												} else if (value == '34') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>融资发放</button>&nbsp;';
 													return s;
-												} else if (value == '04') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>承保</button>&nbsp;';
+												} else if (value == '35') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>货款支付</button>&nbsp;';
 													return s;
-												} else if (value == '05') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>一审</button>&nbsp;';
+												} else if (value == '36') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>货款支付</button>&nbsp;';
 													return s;
-												} else if (value == '06') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>二审</button>&nbsp;';
+												} else if (value == '37') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>确认收款</button>&nbsp;';
 													return s;
-												} else if (value == '07') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
-													return s; 
-												} 
+												} else if (value == '38') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>确认承保</button>&nbsp;';
+													return s;
+												} else if (value == '39') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>终止</button>&nbsp;';
+													return s;
+												}
 											}
 										} ],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
 							});
-		}		
-		function show_or_hide_ins_div(flag){
-			if(flag){
-				document.getElementById('ins_div').style.display="";
+		}
+		function show_or_hide_ins_div(flag) {
+			if (flag) {
+				document.getElementById('ins_order_div').style.display = "";
 			} else {
-				document.getElementById('ins_div').style.display="none";
+				document.getElementById('ins_order_div').style.display = "none";
 			}
 		}
-		// 引入日期时间格式转换
-		Date.prototype.Format = function(fmt)   
-		 { 
-		//author:wangweizhen
-		   var o = {   
-		     "M+" : this.getMonth()+1,                 //月份   
-		     "d+" : this.getDate(),                    //日
-		    "h+" : this.getHours(),                   //小时   
-		     "m+" : this.getMinutes(),                 //分   
-		     "s+" : this.getSeconds(),                 //秒   
-		     "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-		     "S"  : this.getMilliseconds()             //毫秒   
-		   };   
-		   if(/(y+)/.test(fmt))   
-		     fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-		   for(var k in o)   
-		     if(new RegExp("("+ k +")").test(fmt))   
-		   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-		   return fmt;   
-		 }; 
-		 // js 一串数字1403149534转换为日期格式 
-		function transDateTime(timestamp){
-			var date = new Date(timestamp);    //根据时间戳生成的时间对象
-	        return date.format("yyyy-MM-dd hh:mm:ss");
-        }
+
+		function transToEng(cng) {
+			if (cng == "品名")
+				return "pdNm";
+			else if (cng == "规格")
+				return "spec";
+			else if (cng == "型号")
+				return "modl";
+			else if (cng == "质量标准")
+				return "qlyStd";
+			else if (cng == "品牌")
+				return "brnd";
+			else if (cng == "生产厂家")
+				return "pdFctr";
+			else if (cng == "数量")
+				return "num";
+			else if (cng == "计量单位")
+				return "msunit";
+			else if (cng == "采购单价")
+				return "pchUnitprc";
+			else if (cng == "交易差价")
+				return "txnPrcdif";
+			else if (cng == "销售暂定价")
+				return "saleTntvPrc";
+			else
+				return "";
+		}
 	</script>
 </body>
 </html>
