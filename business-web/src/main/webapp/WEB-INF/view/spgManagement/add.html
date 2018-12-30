@@ -69,11 +69,11 @@
 					<div id="div_criteria" class="flowlayout">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">发货编号：</label>
+								<label for="" class="col-sm-4 control-label">长约编号：</label>
 								<div class="col-sm-8">
 									<input type="hidden" id="queryTypeId" name="queryType"
 										value="4"> <input id="arId" name="arId"
-										class="form-control" placeholder="发货编号" />
+										class="form-control" placeholder="长约编号" />
 								</div>
 							</div>
 						</div>
@@ -96,8 +96,8 @@
 								<label for="" class="col-sm-4 control-label">发货编号：</label>
 								<div class="col-sm-8">
 									<input type="hidden" id="queryTypeId" name="queryType"
-										value="4"> <input id="orderId" name="orderId"
-										class="form-control" placeholder="订单编号" />
+										value="4"> <input id="spgId" name="spgId"
+										class="form-control" placeholder="发货编号" />
 								</div>
 							</div>
 						</div>
@@ -1732,7 +1732,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			queryArDetails(rows[0]['id'], "", 0);// flag 1:发货提交  0：发货详情查询
+			queryArDetails(rows[0]['spgId'], "", 0);// flag 1:发货提交  0：发货详情查询
 			showOrHideDetail(false, 3);
 		}
 		
@@ -1854,7 +1854,7 @@
 					.post(
 							pageSetting.resetPath + '/getDetail',
 							{
-								'id' : rows[0]['id']
+								'id' : rows[0]['spgId']
 							},
 							function(result) {
 								fillForm('#frm_detail', result.data);
