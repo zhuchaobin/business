@@ -474,14 +474,12 @@
 			</div>
 			<div class="box-body">
 				<form id="frm_submit_ar" class="form-horizontal">
-					<input type="hidden" id="fileId2" name="fileUrl2"> <input
-						id="aplyPcstpCd" name="aplyPcstpCd" class="form-control"
-						placeholder="" value="" type="hidden" /> <input id="ordrId"
-						name="ordrId" class="form-control" placeholder="" value=""
-						type="hidden" /> <input name="arId" class="form-control"
-						placeholder="" value="" type="hidden" /> <input id="pymtmod"
-						name="pymtmod" class="form-control" placeholder="" value=""
-						type="hidden" />
+					<input type="hidden" id="fileId2" name="fileUrl2">
+					<input id="aplyPcstpCd" name="aplyPcstpCd" class="form-control" placeholder="" value="" type="hidden" />
+					<input id="ordrId" name="ordrId" class="form-control" placeholder="" value="" type="hidden" />
+					<input name="arId" class="form-control" placeholder="" value="" type="hidden" />
+					<input id="pymtmod" name="pymtmod" class="form-control" placeholder="" value="" type="hidden" />
+					<input name="spgId" class="form-control" placeholder="" value="" type="hidden" />
 					<div class="row">
 						<div class="col-md-9">
 							<div class="form-group">
@@ -703,7 +701,7 @@
 				</div>
 				<div class="modal-body" align="center" id="saveSubmitModalTips">提交后将自动流转到下一环节，若需修改需要下一环节退回，确定提交吗?</div>
 				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:submitAr()"
+					<button type="button" onclick="javascript:submitSpg()"
 						class="btn btn-primary-red" data-dismiss="modal">
 						<i class="glyphicon glyphicon-ok-sign"></i>确定
 					</button>
@@ -1263,12 +1261,12 @@
 		/***
 		 * 订单提交
 		 */
-		function submitAr() {
+		function submitSpg() {
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
 			}
 			var formParams = E7.serialForm('#frm_submit_ar');
-			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
+			E7.post(pageSetting.resetPath + '/submitSpg', formParams, function(
 					data) {
 				showOrHideDetail(true, 1);
 				bootbox.alert({
@@ -1655,6 +1653,9 @@
 									$('#frm_detail [name="' + key + '"]').val(
 											detail[key]);
 								}
+
+                                $('#frm_submit_ar [name="spgId"]').val(
+                                    detail["spgId"]);
 
 								$('#frm_submit_ar [name="ordrId"]').val(
 										detail["ordrId"]);
