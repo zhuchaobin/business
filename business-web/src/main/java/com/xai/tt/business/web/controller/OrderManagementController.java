@@ -352,7 +352,7 @@ public class OrderManagementController extends BaseController {
     
     @RequestMapping(value = { "list_ing" })
     public ModelAndView list_ing() {
-    	logger.info("查询执行中的长约开始");
+    	logger.info("查询执行中的订单开始");
     	ModelAndView mav = lists(1);
     	return mav;
     }

@@ -57,7 +57,9 @@
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
 <!-- bootstrap表格 -->
-<link rel="stylesheet" th:href="@{/resources/bootstrap-table/bootstrap-table.css}" />
+<!-- <link rel="stylesheet" th:href="@{/resources/bootstrap-table/bootstrap-table.css}" /> -->
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}" />
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -1005,7 +1007,7 @@
 							<div class="col-md-12" style="padding-right: 15px;">
 								<!-- 订单明细部分 -->
 								<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"   data-target="#spgDetailModal" style="margin-right:15px;">
-									<i class="glyphicon glyphicon-th"></i>订单明细
+									<i class="glyphicon glyphicon-th"></i>发货明细
 								</button>
 							</div>
 
@@ -1173,7 +1175,8 @@
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/js_zcb/common.js}"></script>
-	<script th:src="@{/resources/bootstrap-table/bootstrap-table.js}"></script>
+<!-- 	<script th:src="@{/resources/bootstrap-table/bootstrap-table.js}"></script> -->
+	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<!-- 	<script th:src="@{/resources/js_zcb/ar.js}"></script> -->
 	<script type="text/javascript">
 		var pageSetting = {
