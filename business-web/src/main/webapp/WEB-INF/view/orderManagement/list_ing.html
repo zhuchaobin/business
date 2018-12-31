@@ -867,6 +867,7 @@
 							<input name="id" type="hidden" value="" />
 							<input id="secSrvCd" name="secSrvCd" type="hidden" value="" />
 							<input id="spgSt" name=spgSt type="hidden" value="" />
+							<input id="payMethod" name=payMethod type="hidden" value="" />
 
 							<div class="col-md-6 ">
 								<div class="form-group">
@@ -1523,6 +1524,8 @@
 			}
 
 			var formParams = E7.serialForm('#frm_detail');
+
+
 			E7.post(pageSetting.resetPath + '/save', formParams,
 					function(data) {
 						query_ar_list();
@@ -1549,12 +1552,14 @@
 
 			var formParams = E7.serialForm('#frm_detail_spg');
 
+            formParams.pymtmod = $('#payMethod').val();
+
 			E7.post('/spgManagement/save', formParams, function(data) {
 				query_ar_list();
 				showOrHideDetail(true, 1);
 				bootbox.alert({
 					'title' : "消息",
-					'message' : '订单发起成功！'
+					'message' : '发货发起成功！'
 				});
 				$('#tbl_query').e7table(
 						'reload',
@@ -1912,6 +1917,34 @@
 			todayBtn : true
 		//今日按钮
 		});
+
+
+        function transToEng(cng) {
+            if (cng == "品名")
+                return "pdNm";
+            else if (cng == "规格")
+                return "spec";
+            else if (cng == "型号")
+                return "modl";
+            else if (cng == "质量标准")
+                return "qlyStd";
+            else if (cng == "品牌")
+                return "brnd";
+            else if (cng == "生产厂家")
+                return "pdFctr";
+            else if (cng == "数量")
+                return "num";
+            else if (cng == "计量单位")
+                return "msunit";
+            else if (cng == "采购单价")
+                return "pchUnitprc";
+            else if (cng == "交易差价")
+                return "txnPrcdif";
+            else if (cng == "销售暂定价")
+                return "saleTntvPrc";
+            else
+                return "";
+        }
 
 		// 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
 		function checkInsDtAndArDt() {
@@ -2814,6 +2847,10 @@
 				fillForm('#frm_detail_spg', result.data);
 				arId = result.data["arId"];
 				arSt = result.data["arSt"];
+
+                $('#payMethod').val(result.data.pymtmod);
+
+
 				// 实时判断长约是否可以修改
 				// if (result.data["arSt"] != "06") {
 				// 	bootbox.alert({
