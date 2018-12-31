@@ -1634,7 +1634,7 @@
 			});
 		}
 
-		function queryArDetails(id, aplyPcstpCd, type) {// type 1:订单提交  0：订单详情查询
+		function querySpgDetails(id, aplyPcstpCd, type) {// type 1:订单提交  0：订单详情查询
 			//	alert([[${userType}]]);
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
@@ -1855,7 +1855,7 @@
 					'aplyPsrltCd');
 			// 初始化上传附件控件
 			initInputItem(2);
-			queryArDetails(id, aplyPcstpCd, 1);// flag 1:订单提交  0：订单详情查询
+			querySpgDetails(id, aplyPcstpCd, 1);// flag 1:订单提交  0：订单详情查询
 			showOrHideDetail(false, 4);
 		}
 		function showArDetailDialog() {
@@ -1877,7 +1877,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			queryArDetails(rows[0]['id'], "", 0);// flag 1:订单提交  0：订单详情查询
+			querySpgDetails(rows[0]['id'], "", 0);// flag 1:订单提交  0：订单详情查询
 			showOrHideDetail(false, 3);
 		}
 
@@ -2255,78 +2255,145 @@
 												return transAplyPcstpCd(value);
 											}
 										},
-										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
-										 return new Date(value).format();
-										 }}, */
+
+
+
+
+
 										{
 											title : '操作',
 											field : 'aplyPcstpCd',
 											formatter : function(value, row,
 													index) {
-												if (value == '31') {
+												if (value == '61') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
-															+ '")>订单发起</button>&nbsp;';
+															+ '")>发货发起</button>&nbsp;';
 													return s;
-												} else if (value == '32') {
+												} else if (value == '62') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
-															+ '")>订单审核</button>&nbsp;';
+															+ '")>接货承运</button>&nbsp;';
 													return s;
-												} else if (value == '33') {
+												} else if (value == '63') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
-															+ '")>保证金支付</button>&nbsp;';
+															+ '")>接货入库</button>&nbsp;';
 													return s;
-												} else if (value == '34') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
-															+ row.id
-															+ ',"'
-															+ value
-															+ '")>融资发放</button>&nbsp;';
-													return s;
-												} else if (value == '35') {
+												} else if (value == '64') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
 															+ '")>货款支付</button>&nbsp;';
 													return s;
-												} else if (value == '36') {
+												} else if (value == '65') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
-															+ '")>货款支付</button>&nbsp;';
+															+ '")>选择赎货方式</button>&nbsp;';
 													return s;
-												} else if (value == '37') {
+												} else if (value == '66') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
-															+ '")>确认收款</button>&nbsp;';
+															+ '")>选择赎货方式并支付</button>&nbsp;';
 													return s;
-												} else if (value == '38') {
+												} else if (value == '67') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
-															+ '")>确认承保</button>&nbsp;';
+															+ '")>回款赎货</button>&nbsp;';
 													return s;
-												} else if (value == '39') {
+												} else if (value == '68') {
 													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
 															+ row.id
 															+ ',"'
 															+ value
-															+ '")>终止</button>&nbsp;';
+															+ '")>质押置换</button>&nbsp;';
 													return s;
-												}
+												} else if (value == '69') {
+													var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+															+ row.id
+															+ ',"'
+															+ value
+															+ '")>出质</button>&nbsp;';
+													return s;
+												}else if (value == '70') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>通知转货权</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '71') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>通知转货权</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '72') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>转货权</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '73') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>确定质押</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '74') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>存入自有货物</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '75') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>通知解押</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '76') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>转货权</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '77') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>提取货物</button>&nbsp;';
+                                                    return s;
+                                                }else if (value == '79') {
+                                                    var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                        + row.id
+                                                        + ',"'
+                                                        + value
+                                                        + '")>终止</button>&nbsp;';
+                                                    return s;
+                                                }
+
+
 											}
 										} ],
 								onDblclick : function(index, row) {

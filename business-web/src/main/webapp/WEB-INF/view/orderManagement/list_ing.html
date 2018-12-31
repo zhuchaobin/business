@@ -444,7 +444,7 @@
 									</div>
 								</div>
 							</div>
-<div id="t8OrderDetail_div_hide">
+							<div id="t8OrderDetail_div_hide">
 								<div class="col-md-12" style="padding-right: 15px;">
 									<!-- 订单明细部分 -->
 									<h4 class="text-info pull-left">订单明细</h4>
@@ -894,18 +894,7 @@
 								</div>
 							</div>
 
-							<!--<div class="col-md-6">-->
-								<!--<div class="form-group">-->
-									<!--<label for="" class="col-sm-4 control-label">发货时间：</label>-->
-									<!--<div class="col-sm-8">-->
-										<!--<div class="col-xs-10" style="padding-left: 0px;">-->
-											<!--<input name="spgTm" class="form-control" placeholder="发货时间"-->
-												   <!--value="2" />-->
-										<!--</div>-->
 
-									<!--</div>-->
-								<!--</div>-->
-							<!--</div>-->
 
 							<div class="col-md-6" >
 								<div class="form-group">
@@ -983,9 +972,7 @@
 									</div>
 								</div>
 							</div>
-
-
-
+							
 							<input type="hidden" id="fileId3" name="fileUrl3">
 							<div class="row" id="upload_order_div">
 								<div class="col-md-12">
@@ -1013,6 +1000,33 @@
 									</div>
 								</div>
 							</div>
+
+
+							<div class="col-md-12" style="padding-right: 15px;">
+								<!-- 订单明细部分 -->
+								<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"   data-target="#spgDetailModal" style="margin-right:15px;">
+									<i class="glyphicon glyphicon-th"></i>订单明细
+								</button>
+							</div>
+
+							<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;" id="boot_table_div_spg">
+								<table id="boot-table-spgDetail"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
+									<thead>
+									<tr bgcolor="#337AB7">
+										<th style="border-bottom: none;" data-field="pdNm">品名</th>
+										<th style="border-bottom: none;" data-field="spec">规格</th>
+										<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+										<th style="border-bottom: none;" data-field="brnd">品牌</th>
+										<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+										<th style="border-bottom: none;" data-field="num">数量</th>
+
+									</tr>
+									</thead>
+									<!-- <tbody class="list">
+                                </tbody> -->
+								</table>
+							</div>
+							
 						</div>
 
 			</fieldset>
@@ -1042,6 +1056,105 @@
 		</div>
 	</section>
 	<!-- 详细信息 end-->
+
+
+	<!-- 发货明细信息 -->
+	<div class="modal fade" id="spgDetailModal" tabindex="-1" role="dialog" aria-labelledby="systemModalLabel"
+		 aria-hidden="true">
+		<div class="modal-dialog" role="document" style="width: 800px;height:900px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">发货物明细</h5>
+					<button class="close" type="button"  data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">×</span></button>
+				</div>
+				<div class="modal-body">
+					<div id="custom_data">
+
+						<form id="frm_submit_ar222" class="form-horizontal">
+							<input type="hidden" id=ordrId name="ordrId">
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">品名<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="pdNm" id="pdNm" class="form-control" placeholder="品名" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">规格<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="spec" id="spec" class="form-control" placeholder="规格" value="223" />
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">质量标准<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="qlyStd" id="qlyStd" class="form-control" placeholder="质量标准" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">品牌</label>
+									<div class="col-sm-8">
+										<input name="brnd" id="brnd" class="form-control" placeholder="品牌" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">生产厂家</label>
+									<div class="col-sm-8">
+										<input name="pdFctr" id="pdFctr" class="form-control" placeholder="生产厂家" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="wght_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">数量<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<div class="col-xs-5" style="padding-left: 0px;">
+											<input name="num" id="num" class="form-control" placeholder="数量"
+												   value="4" />
+										</div>
+
+										<div class="col-xs-2">
+											<label for="" class="control-label"></label>
+										</div>
+
+										<div class="col-xs-5">
+											<select name="msunit" id="msunit" class="form-control" >
+												<option value="">-计量单位-</option>
+												<option value="01" selected="selected">吨</option>
+												<option value="02">件</option>
+												<option value="03">公斤</option>
+												<option value="04">方</option>
+												<option value="05">个</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+				<div class="modal-footer" style="text-align:center;">
+					<a class="btn btn-primary-red"  type="button"  id="add" onclick=addSpgDetail()><i class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
@@ -1373,6 +1486,31 @@
 			});
 		}
 
+
+        /***
+         * 添加订单明细到页面表格
+         */
+        function addSpgDetail() {
+
+
+            var rows=[];
+            rows.push({
+                pdNm:$('#pdNm').val(),
+                spec:$('#spec').val(),
+                qlyStd:$('#qlyStd').val(),
+                brnd:$('#brnd').val(),
+                pdFctr:$('#pdFctr').val(),
+                num:$('#num').val(),
+
+
+            })
+            $('#boot-table-spgDetail').bootstrapTable('append', rows);
+//        $('#boot-table').bootstrapTable('hideColumn', 'pdNm');
+            $("#boot_table_div_spg").fadeIn(800);
+            $("#spgDetailModal").modal("hide");
+        }
+
+
 		function getArSubmmitDetail(id, arId, aplyPcstpCd) {
 			// 带过来的环节编号
 			E7
@@ -1550,11 +1688,20 @@
 				CKEDITOR.instances[instance].updateElement();
 			}
 
+            // 取订单明细表格的数据
+            var all = $('#boot-table-spgDetail').bootstrapTable('getData');
+			
+
 			var formParams = E7.serialForm('#frm_detail_spg');
 
             formParams.pymtmod = $('#payMethod').val();
 
-			E7.post('/spgManagement/save', formParams, function(data) {
+            var fileUrl3 = document.getElementById("fileId3").value;
+
+            E7.post('/spgManagement/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl3}, function(data) {
+
+
+
 				query_ar_list();
 				showOrHideDetail(true, 1);
 				bootbox.alert({

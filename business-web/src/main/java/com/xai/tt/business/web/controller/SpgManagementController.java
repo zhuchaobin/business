@@ -14,6 +14,8 @@ import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
+import com.xai.tt.dc.client.model.T7SpgDetail;
+import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 
@@ -38,10 +40,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /*
  * 
@@ -66,20 +65,26 @@ public class SpgManagementController extends BaseController {
 
     @RequestMapping(value = { "save" })
     @ResponseBody
-    public Result<?>  save(SpgManagementInVo inVo, String fileUrl) {
+	public Result<?>  save(String inVo, String detail, String fileUrl) {
     	logger.info("保存发货信息请求报文：ArManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
-        if (StringUtils.isNotEmpty(fileUrl)) {
-        	inVo.setFileNames(fileUrl);
-        }
-//    	logger.info("发货附件信息长度：{}", inVo.getList().size());
-       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-       	inVo.setUserType(user.getUserType().ordinal());
-       	inVo.setUsername(user.getUsername());
-       	inVo.setCompanyId(user.getCompanyId());
-       	inVo.setNickname(user.getNickname());
-       	inVo.setChineseName(user.getChineseName());
+
+		List<T7SpgDetail> t7SpgDetailList = JSON.parseArray(detail, T7SpgDetail.class);
+		SpgManagementInVo spgManagementInVo = JSON.parseObject(inVo,SpgManagementInVo.class);
+		if (StringUtils.isNotEmpty(fileUrl)) {
+			spgManagementInVo.setFileNames(fileUrl);
+		}
+		// 	logger.info("长约附件信息长度：{}", spgManagementInVo.getList().size());
+		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+		spgManagementInVo.setUserType(user.getUserType().ordinal());
+		spgManagementInVo.setUsername(user.getUsername());
+		spgManagementInVo.setCompanyId(user.getCompanyId());
+		spgManagementInVo.setNickname(user.getNickname());
+		spgManagementInVo.setChineseName(user.getChineseName());
+
+
+		spgManagementInVo.setT7SpgDetailList(t7SpgDetailList);
        	// 
-    	Result<Boolean> result = spgManagementDcService.save(inVo);
+    	Result<Boolean> result = spgManagementDcService.save(spgManagementInVo);
     	logger.info("保存发货信息返回结果：{}", JSON.toJSONString(result));
         return result;
     }   

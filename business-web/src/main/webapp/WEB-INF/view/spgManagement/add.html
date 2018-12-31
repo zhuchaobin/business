@@ -1434,7 +1434,7 @@
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
-			queryArDetails(rows[0]['spgId'], "", 0);// flag 1:发货提交  0：发货详情查询
+			queryArDetails(rows[0]['id'], "", 0);// flag 1:发货提交  0：发货详情查询
 			showOrHideDetail(false, 3);
 		}
 		
@@ -1555,7 +1555,7 @@
 			E7.post(
 							pageSetting.resetPath + '/getDetail',
 							{
-								'id' : rows[0]['spgId']
+								'id' : rows[0]['id']
 							},
 							function(result) {
 								fillForm('#frm_detail', result.data);
@@ -1814,6 +1814,10 @@
 											title : '发货时间',
 											field : 'spgTm',
 											sortable : true,
+                                            formatter : function(value, row,
+                                                                 index) {
+                                                return transDateTime(value);
+                                            }
 
 										},
 
