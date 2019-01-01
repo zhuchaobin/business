@@ -66,15 +66,26 @@ public class SpgManagementController extends BaseController {
     @RequestMapping(value = { "save" })
     @ResponseBody
 	public Result<?>  save(String inVo, String detail, String fileUrl) {
-    	logger.info("保存发货信息请求报文：ArManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
+    	logger.info("保存发货信息请求报文：inVo={}, detail={},fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(detail), JSON.toJSONString(fileUrl));
 
 		List<T7SpgDetail> t7SpgDetailList = JSON.parseArray(detail, T7SpgDetail.class);
 		SpgManagementInVo spgManagementInVo = JSON.parseObject(inVo,SpgManagementInVo.class);
+
+		logger.info("t7SpgDetailList{}", JSON.toJSON(t7SpgDetailList));
+
+		logger.info("spgManagementInVo{}", JSON.toJSON(spgManagementInVo));
+
 		if (StringUtils.isNotEmpty(fileUrl)) {
 			spgManagementInVo.setFileNames(fileUrl);
 		}
-		// 	logger.info("长约附件信息长度：{}", spgManagementInVo.getList().size());
+
 		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+
+
+
+
+		// 	logger.info("长约附件信息长度：{}", spgManagementInVo.getList().size());
+
 		spgManagementInVo.setUserType(user.getUserType().ordinal());
 		spgManagementInVo.setUsername(user.getUsername());
 		spgManagementInVo.setCompanyId(user.getCompanyId());

@@ -1959,7 +1959,7 @@
 			}
 
 			var formParams = E7.serialForm('#frm_detail');
-			E7.post(pageSetting.resetPath + '/save', formParams,
+            E7.post(pageSetting.resetPath + '/save', {inVo:JSON.stringify(formParams), detail:"", fileUrl:""},
 					function(data) {
 						query_ar_list();
 						//showOrHideDetail(true, 1);
