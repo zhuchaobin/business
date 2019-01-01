@@ -196,7 +196,7 @@
 	<section id="main_edit_detail" class="content" style="display: none;">
 		<div id="main_edit_detail_clapse" class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="main_edit_detail_title" class="text-info">订单信息</h4>
+				<h4 id="main_edit_detail_title" class="text-info">发货信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i id="main_edit_detail_li" class="fa fa-minus"></i>
@@ -430,7 +430,7 @@
 		style="display: none;">
 		<div id="ar_lnk_jrnl_inf_detail_clapse_box" class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">订单流转信息</h4>
+				<h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">发货流转信息</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i id="ar_lnk_jrnl_inf_detail_li" class="fa fa-minus"></i>
@@ -578,7 +578,7 @@
 	<section id="query_ar_submmit_detail" style="display: none;">
 		<div class="box box-info">
 			<div class="box-header with-border">
-				<h4 id="query_ar_submmit_title" class="text-info">订单提交详情</h4>
+				<h4 id="query_ar_submmit_title" class="text-info">发货提交详情</h4>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse">
 						<i class="fa fa-minus"></i>
@@ -729,7 +729,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" align="center">您确定要撤销该订单吗?</div>
+				<div class="modal-body" align="center">您确定要撤销该发货吗?</div>
 				<div class="modal-footer" align="center">
 					<button type="button" onclick="javascript:arUndo()"
 						class="btn btn-primary-red" data-dismiss="modal">
@@ -1663,7 +1663,7 @@
 										detail["pymtmod"]);
 								// 订单详情div标题
 								$('#main_edit_detail_title').text(
-										"订单信息 [ " + detail["ordrId"] + " ]");
+										"发货信息 [ " + detail["ordrId"] + " ]");
 
 
 								///订单明细信息
@@ -1769,15 +1769,15 @@
 								$('#ar_lnk_jrnl_inf_detail_title').text(
 										"流转信息 [ " + detail["ordrId"] + " ]");
 								// 订单提交div标题				
-								var titleDesc = "订单"
+								var titleDesc = "发货"
 										+ transAplyPcstpCd(aplyPcstpCd);
 								$('#submit_ar_detail_title').text(
-										"您所在位置 : 订单管理 > 待审批订单 > " + titleDesc
+										"您所在位置 : 发货管理 > 待审批发货 > " + titleDesc
 												+ " [ " + detail["ordrId"]
 												+ " ]");
 								// 订单提交详情查询div标题
 								$('#query_ar_submmit_title').text(
-										"订单提交详情 [ " + detail["ordrId"] + " ]");
+										"发货提交详情 [ " + detail["ordrId"] + " ]");
 
 								testdiv.innerHTML = insertHtml;
 

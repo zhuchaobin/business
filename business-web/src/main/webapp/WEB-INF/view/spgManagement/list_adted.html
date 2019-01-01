@@ -976,8 +976,8 @@
 	}
 		
 		var pageSetting = {
-			modelName : '订单信息管理',
-			resetPath : '[[@{/orderManagement}]]'
+			modelName : '发货信息管理',
+			resetPath : '[[@{/spgManagement}]]'
 		};
 		$(function() {
 			//e7table表格控件初始化
@@ -1019,7 +1019,7 @@
 				$('#query_ar_submmit_detail').hide();
 			} else if(flag == 2){// 订单发起	
 				// section
-				$('#main_edit_detail_title').text("订单发起");
+				$('#main_edit_detail_title').text("发货发起");
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
@@ -1073,7 +1073,7 @@
 				div.setAttribute("class", "fa fa-minus"); 
 			} else if(flag == 6){// 订单修改
 				// section
-				$('#main_edit_detail_title').text("订单修改");
+				$('#main_edit_detail_title').text("发货修改");
 				$('#main_edit_detail').fadeIn(300);
 				$('#main_search_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
@@ -1467,7 +1467,7 @@
 				var ordrid = detail["ordrId"];
 				$('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
 				// 订单详情div标题
-				$('#main_edit_detail_title').text("订单信息 [ " + detail["ordrId"]+" ]");
+				$('#main_edit_detail_title').text("发货信息 [ " + detail["ordrId"]+" ]");
 /* 				// 投保信息是否显示
 				var isNeedIns = detail["isNeedIns"];
 				if(isNeedIns == 1){
@@ -1550,9 +1550,9 @@
 				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["ordrId"]+" ]");
 				// 订单提交div标题				
 				var titleDesc = "订单" + transAplyPcstpCd(aplyPcstpCd);				
-				$('#submit_ar_detail_title').text("您所在位置 : 订单管理 > 待审批订单 > " + titleDesc + " [ " + detail["ordrId"] + " ]");
+				$('#submit_ar_detail_title').text("您所在位置 : 发货管理 > 待审批发货 > " + titleDesc + " [ " + detail["ordrId"] + " ]");
 				// 订单提交详情查询div标题
-				$('#query_ar_submmit_title').text("订单提交详情 [ " + detail["ordrId"]+" ]");
+				$('#query_ar_submmit_title').text("发货提交详情 [ " + detail["ordrId"]+" ]");
 				
 				testdiv.innerHTML=insertHtml;
 				
@@ -1653,7 +1653,7 @@
 			} else if (rows.length > 1) {
 				bootbox.alert({
 					'title' : '错误消息',
-					'message' : '一次只能撤销一条订单！'
+					'message' : '一次只能撤销一条发货单！'
 				});
 				return;
 			}
@@ -1666,7 +1666,7 @@
 				query_ar_list();
 				bootbox.alert({
 					'title' : "消息",
-					'message' : '订单撤销成功!'
+					'message' : '发货撤销成功!'
 				});
 			});
 		}
@@ -1723,7 +1723,7 @@
 						//showOrHideDetail(true, 1);
 						bootbox.alert({
 							'title' : "消息",
-							'message' : '订单发起成功！'
+							'message' : '发货发起成功！'
 						});
 						$('#tbl_query').e7table(
 								'reload',
@@ -1765,7 +1765,7 @@
 								if(result.data["aplyPcstpCd"] != "01"){
 									bootbox.alert({
 										'title' : '错误消息',
-										'message' : '当前订单不在发起环节禁止修改！请退回到发起环节再修改。'
+										'message' : '当前发货不在发起环节禁止修改！请退回到发起环节再修改。'
 									});
 									return;
 								}
