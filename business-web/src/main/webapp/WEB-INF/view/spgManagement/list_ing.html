@@ -1184,44 +1184,142 @@
 											return transAplyPcstpCd(value);
 										}
 									},
-									/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
-									 return new Date(value).format();
-									 }}, */
-									{
-										title : '操作',
-										field : 'aplyPcstpCd',
-										formatter : function(value, row,
-												index) {												
-											if (value == '31') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>订单发起</button>&nbsp;';
-												return s;
-											}  else if (value == '32') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>订单审核</button>&nbsp;';
-												return s;
-											}  else if (value == '33') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>保证金支付</button>&nbsp;';
-												return s;
-											}  else if (value == '34') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>融资发放</button>&nbsp;';
-												return s;
-											}  else if (value == '35') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>货款支付</button>&nbsp;';
-												return s;
-											}  else if (value == '36') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>货款支付</button>&nbsp;';
-												return s;
-											}  else if (value == '37') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>确认收款</button>&nbsp;';
-												return s;
-											}  else if (value == '38') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>确认承保</button>&nbsp;';
-												return s;
-											}  else if (value == '39') {
-												var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
-												return s;
-											} 
-										}
-										} ],
+                                    {
+                                        title : '操作',
+                                        field : 'aplyPcstpCd',
+                                        formatter : function(value, row,
+                                                             index) {
+                                            if (value == '61') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>发货发起_上游</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '62') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>接货承运_物流</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '63') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>接货入库_仓储</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '64') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>货款支付_供应链</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '65') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>选择赎货方式_供应链</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '66') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>选择赎货方式并支付_供应链</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '67') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>回款赎货_下游</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '68') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>质押置换_供应链</button>&nbsp;';
+                                                return s;
+                                            } else if (value == '69') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>出质通知转货权_银行</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '70') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>通知转货权_银行</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '71') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>通知转货权_供应链</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '72') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>转货权1_仓储</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '73') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>转货权1确定质押_仓储</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '74') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>存入自有货物回款赎货_下游</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '75') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>通知解押_银行</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '76') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>转货权2_仓储</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '77') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>提取货物_下游</button>&nbsp;';
+                                                return s;
+                                            }else if (value == '79') {
+                                                var s = '<button class="btn btn_small" onclick=showViewSubmitOrder('
+                                                    + row.id
+                                                    + ',"'
+                                                    + value
+                                                    + '")>发货终止_供应链</button>&nbsp;';
+                                                return s;
+                                            }
+
+
+                                        }
+                                    } ],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
@@ -1967,6 +2065,49 @@
 				});
 			}
 		}
+
+
+
+        function transAplyPcstpCd(value) {
+            if (value == '61') {
+                return "发货发起_上游";
+            } else if (value == '62') {
+                return "接货承运_物流";
+            } else if (value == '63') {
+                return "接货入库_仓储";
+            } else if (value == '64') {
+                return "货款支付_供应链";
+            } else if (value == '65') {
+                return "选择赎货方式_供应链";
+            } else if (value == '66') {
+                return "选择赎货方式并支付_供应链";;
+            } else if (value == '67') {
+                return "回款赎货_下游";
+            } else if (value == '68') {
+                return "质押置换_供应链";
+            } else if (value == '69') {
+                return "出质通知转货权_银行";
+            } else if (value == '70') {
+                return "通知转货权_银行";
+            } else if (value == '71') {
+                return "通知转货权_供应链";
+            } else if (value == '72') {
+                return "转货权1_仓储";
+            } else if (value == '73') {
+                return "转货权1确定质押_仓储";
+            } else if (value == '74') {
+                return "存入自有货物回款赎货_下游";
+            } else if (value == '75') {
+                return "通知解押_银行";
+            } else if (value == '76') {
+                return "转货权2_仓储";
+            } else if (value == '77') {
+                return "提取货物_下游";
+            } else if (value == '79') {
+                return "发货终止_供应链";
+            } else
+                return value;
+        }
 
 		/***
 		 * 查询
