@@ -1664,14 +1664,13 @@
                     $('#main_edit_detail_title').text("发货信息 [ " + detail["spgId"] + " ]");
 
 
-                    ///订单明细信息
+                   ///订单明细信息
                     var t7SpgDetailList = detail["t7SpgDetailList"];
                     $("#boot_table_div").hide();
                     var rows = [];
                     $("#boot-table").bootstrapTable('removeAll');
                     for (var jj = 0; jj < t7SpgDetailList.length; jj++) {
-                        rows
-                            .push({
+                        rows.push({
                                 pdNm: t7SpgDetailList[jj].pdNm,
                                 spec: t7SpgDetailList[jj].spec,
                                 modl: t7SpgDetailList[jj].modl,
