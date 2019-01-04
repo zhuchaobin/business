@@ -2035,6 +2035,10 @@
                                         title: '发起时间',
                                         field: 'crtTm',
                                         sortable: true,
+            							formatter : function(value, row,
+            									index) {
+            								return transDateTime(value);
+            							}
 
                                     },
                                     {
