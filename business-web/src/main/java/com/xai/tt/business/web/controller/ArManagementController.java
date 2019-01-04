@@ -22,7 +22,9 @@ import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
 import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
+import com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
 
 import java.io.File;
@@ -371,7 +373,15 @@ public class ArManagementController extends BaseController {
     @ResponseBody
     public Result<?>   getDetail(String id) {
     	logger.info("查询长约详情，请求参数id=：{}", id);
-    	Result<T1ARInfDetailVo> rlt = arManagementDcService.queryArDetail(id);
+    	ArManagementInVo inVo = new ArManagementInVo();
+    	inVo.setId(Long.parseLong(id));
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	inVo.setUserType(user.getUserType().ordinal());
+    	inVo.setUsername(user.getUsername());
+    	inVo.setCompanyId(user.getCompanyId());
+    	inVo.setNickname(user.getNickname());
+    	inVo.setChineseName(user.getChineseName());
+    	Result<T1ARInfDetailVo> rlt = arManagementDcService.queryArDetail(inVo);
     	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }

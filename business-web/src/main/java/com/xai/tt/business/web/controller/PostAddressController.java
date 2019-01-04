@@ -149,10 +149,10 @@ public class PostAddressController extends BaseController {
     	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());*/
         
-        ModelAndView mv = new ModelAndView("postAddress/detail");
+/*        ModelAndView mv = new ModelAndView("postAddress/detail");
         Result<T1ARInfDetailVo> result = ArManagementDcService2.queryArDetail(id);
         T1ARInfDetailVo info = result.getData();
-        logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(result));
+        logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(result));*/
 /*        if (StringUtils.isNotEmpty(key)) {
             info.setContent(info.getContent().replaceAll(key, "<font color='red'>" + key + "</font>"));
         }*/
@@ -170,18 +170,20 @@ public class PostAddressController extends BaseController {
 			e.printStackTrace();
 		}*/
 		
-        mv.addObject("item", info);
-        return mv;        
+/*        mv.addObject("item", info);
+        return mv; */ 
+    	return null;
     }
     
     
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
     public Result<?>   getDetail(String id) {
-    	logger.info("查询长约详情，请求参数id=：{}", id);
+/*    	logger.info("查询长约详情，请求参数id=：{}", id);
     	Result<T1ARInfDetailVo> rlt = ArManagementDcService2.queryArDetail(id);
     	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
-        return Result.createSuccessResult(rlt.getData());        
+        return Result.createSuccessResult(rlt.getData());   */    
+    	return null;
     }
     
     @RequestMapping(value = { "list" })
