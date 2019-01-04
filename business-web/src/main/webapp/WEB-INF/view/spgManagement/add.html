@@ -31,6 +31,9 @@
 	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
 <link rel="stylesheet"
 	th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}" />
+
+	<link rel="stylesheet"
+		  th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}"/>
 <style type="text/css">
 .btn_small {
 	display: inline-block;
@@ -338,6 +341,37 @@
 								</div>
 							</div>
 
+
+							<div id="t7SpgDetail_div_hide">
+								<div class="col-md-12" style="padding-right: 15px;">
+									<!-- 订单明细部分 -->
+									<h4 class="text-info pull-left">发货明细</h4>
+								</div>
+								<div class="col-md-12"
+									 style="padding-right: 15px; padding-top: 10px; display: none;"
+									 id="boot_table_div">
+									<table id="boot-table" align="center" data-toggle="table"
+										   class="table table-hover" name="area"
+										   style="table-layout: fixed">
+										<thead>
+										<tr bgcolor="#337AB7">
+											<th style="border-bottom: none;" data-field="pdNm">品名</th>
+											<th style="border-bottom: none;" data-field="spec">规格</th>
+											<th style="border-bottom: none;" data-field="spec">型号</th>
+											<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+											<th style="border-bottom: none;" data-field="brnd">品牌</th>
+											<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+											<th style="border-bottom: none;" data-field="num">数量</th>
+
+										</tr>
+										</thead>
+										<!-- <tbody class="list">
+                                    </tbody> -->
+									</table>
+								</div>
+							</div>
+
+
 							<div class="row" id="query_ar_atch_div">
 								<div class="col-md-12">
 									<div class="form-group">
@@ -355,6 +389,8 @@
 									</div>
 								</div>
 							</div>
+
+
 							<div class="row" id="upload_ar_div">
 								<div class="col-md-12">
 									<div class="form-group">
@@ -723,6 +759,7 @@
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-发货开始日期 */
 	$('#spgStdtDTPicker').datetimepicker({
@@ -1255,6 +1292,37 @@
 					$('#frm_detail [name="' + key + '"]').val(detail[key]);
 				}
 
+
+
+
+                $('#frm_submit_ar [name="spgId"]').val(detail["spgId"]);
+
+                $('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
+                $('#frm_submit_ar [name="pymtMod"]').val(detail["pymtMod"]);
+                // 订单详情div标题
+                $('#main_edit_detail_title').text("发货信息 [ " + detail["spgId"] + " ]");
+
+
+                ///订单明细信息
+                var t7SpgDetailList = detail["t7SpgDetailList"];
+                $("#boot_table_div").hide();
+                var rows = [];
+                $("#boot-table").bootstrapTable('removeAll');
+                for (var jj = 0; jj < t7SpgDetailList.length; jj++) {
+                    rows.push({
+                        pdNm: t7SpgDetailList[jj].pdNm,
+                        spec: t7SpgDetailList[jj].spec,
+                        modl: t7SpgDetailList[jj].modl,
+                        qlyStd: t7SpgDetailList[jj].qlyStd,
+                        brnd: t7SpgDetailList[jj].brnd,
+                        pdFctr: t7SpgDetailList[jj].pdFctr,
+                        num: t7SpgDetailList[jj].num,
+
+                    })
+
+                }
+                $('#boot-table').bootstrapTable('append', rows);
+
                 var datas = detail["roleParmsList"];
                 if(null != datas){
                     for ( var i = 0; i < datas.length; i++) {
@@ -1390,7 +1458,36 @@
 				return "撤销件";
 			} else
 				return value;
-		}	
+		}
+
+
+
+    function transToEng(cng) {
+        if (cng == "品名")
+            return "pdNm";
+        else if (cng == "规格")
+            return "spec";
+        else if (cng == "型号")
+            return "modl";
+        else if (cng == "质量标准")
+            return "qlyStd";
+        else if (cng == "品牌")
+            return "brnd";
+        else if (cng == "生产厂家")
+            return "pdFctr";
+        else if (cng == "数量")
+            return "num";
+        else if (cng == "计量单位")
+            return "msunit";
+        else if (cng == "采购单价")
+            return "pchUnitprc";
+        else if (cng == "交易差价")
+            return "txnPrcdif";
+        else if (cng == "销售暂定价")
+            return "saleTntvPrc";
+        else
+            return "";
+    }
 		
 		function showViewSubmitAr(id, aplyPcstpCd) {
 			E7.resetForm('#frm_submit_ar');
@@ -1545,6 +1642,45 @@
 								fillForm('#frm_detail', result.data);
 								spgId = result.data["spgId"];
 								spgSt = result.data["spgSt"];
+
+
+                                var detail = result.data;
+
+                                ///订单明细信息
+                                var t7SpgDetailList = detail["t7SpgDetailList"];
+                                $("#boot_table_div").hide();
+                                var rows = [];
+                                $("#boot-table").bootstrapTable('removeAll');
+                                for (var jj = 0; jj < t7SpgDetailList.length; jj++) {
+                                    rows.push({
+                                        pdNm: t7SpgDetailList[jj].pdNm,
+                                        spec: t7SpgDetailList[jj].spec,
+                                        modl: t7SpgDetailList[jj].modl,
+                                        qlyStd: t7SpgDetailList[jj].qlyStd,
+                                        brnd: t7SpgDetailList[jj].brnd,
+                                        pdFctr: t7SpgDetailList[jj].pdFctr,
+                                        num: t7SpgDetailList[jj].num,
+
+                                    })
+
+                                }
+                                $('#boot-table').bootstrapTable('append', rows);
+
+                                // 根据角色不同控制数据展示
+                                var datas = detail["roleParmsList"];
+                                if (null != datas) {
+                                    for (var i = 0; i < datas.length; i++) {
+                                        // 控制界面控件是否显示
+                                        $('#' + datas[i] + '_div').hide();
+                                        // 控制表格的列是否显示
+                                        var colEng = transToEng(datas[i]);
+                                        if ("" != colEng) {
+                                            $('#boot-table').bootstrapTable(
+                                                'hideColumn', colEng);
+                                        }
+                                    }
+                                }
+                                $("#boot_table_div").fadeIn(800);
 								// 实时判断发货是否可以修改	
 								// if(result.data["spgSt"] != "01" && result.data["spgSt"] != "10" && result.data["spgSt"] != "11"){
 								// 	bootbox.alert({
