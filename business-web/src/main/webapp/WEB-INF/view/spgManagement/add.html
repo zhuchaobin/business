@@ -63,6 +63,10 @@
 <body>
 	<!-- 列表查询 start-->
 	<section id="main_search_detail" class="content">
+
+
+
+
 		<!-- 条件查询 -->
 		<div class="box box-info">
 			<!-- 条件区域 -->
@@ -350,24 +354,14 @@
 								<div class="col-md-12"
 									 style="padding-right: 15px; padding-top: 10px; display: none;"
 									 id="boot_table_div">
-									<table id="boot-table" align="center" data-toggle="table"
-										   class="table table-hover" name="area"
-										   style="table-layout: fixed">
-										<thead>
-										<tr bgcolor="#337AB7">
-											<th style="border-bottom: none;" data-field="pdNm">品名</th>
-											<th style="border-bottom: none;" data-field="spec">规格</th>
-											<th style="border-bottom: none;" data-field="spec">型号</th>
-											<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
-											<th style="border-bottom: none;" data-field="brnd">品牌</th>
-											<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
-											<th style="border-bottom: none;" data-field="num">数量</th>
 
-										</tr>
-										</thead>
-										<!-- <tbody class="list">
-                                    </tbody> -->
-									</table>
+									<div id="toolbar">
+										<button id="insert-new" class="btn btn-default">新增</button>
+										<button id="delete-row" class="btn btn-default">删除</button>
+									</div>
+
+									<table id="boot-table"></table>
+
 								</div>
 							</div>
 
@@ -761,6 +755,132 @@
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<script type="text/javascript">
+
+
+        $(function() {
+
+
+
+            boottableInit();
+
+            //e7table表格控件初始化
+            //		showAddDialog();
+            e7tableInit();
+            //表单校验控件初始化
+            validator_1_Init();
+            validator_2_Init();
+            buttonInit();
+            // 是否投保默认不选中，用户自己选择
+//			$("input:radio[name="isNeedIns"]").attr("checked",false);
+            CKEDITOR.replace("editor1")
+
+        });
+
+        function boottableInit() {
+
+            $('#boot-table').bootstrapTable({
+
+                toolbar: '#toolbar',
+                clickEdit: true,
+                showToggle: true,
+                pagination: true,       //显示分页条
+                showColumns: true,
+                showPaginationSwitch: true,     //显示切换分页按钮
+                showRefresh: true,      //显示刷新按钮
+                //clickToSelect: true,  //点击row选中radio或CheckBox
+                columns: [{
+                    checkbox: true
+                }, 	{
+                    field: 'id',
+                    title: '序号'
+                }, {
+                    field: 'pdNm',
+                    title: '品名'
+                }, {
+                    field: 'spec',
+                    title: '规格'
+                }, {
+                    field: 'qlyStd',
+                    title: '质量标准'
+                }, {
+                    field: 'brnd',
+                    title: '品牌'
+                }, {
+                    field: 'pdFctr',
+                    title: '生产厂家'
+                },{
+                    field: 'num',
+                    title: '数量'
+                }
+                ],
+                /**
+                 * @param {点击列的 field 名称} field
+                 * @param {点击列的 value 值} value
+                 * @param {点击列的整行数据} row
+                 * @param {td 元素} $element
+                 */
+                onClickCell: function(field, value, row, $element) {
+                    $element.attr('contenteditable', true);
+                    $element.blur(function() {
+                        let index = $element.parent().data('index');
+                        let tdValue = $element.html();
+
+                        saveBootTableData(index, field, tdValue);
+                    })
+                }
+            });
+
+
+
+            $('#insert-new').click(function() {
+
+                var row = {
+                    "id" : '',
+                    "pdNm" : '',
+                    "spec" : '',
+                    "qlyStd" : '',
+                    "brnd" : '',
+                    "pdFctr" : '',
+                    "num" : '',
+
+                  }
+
+                $('#boot-table').bootstrapTable('prepend', row);
+
+
+            });
+
+
+            $('#delete-row').click(function() {
+
+
+                var row= $('#boot-table').bootstrapTable('getSelections');
+
+
+                var ids = [];//定义一个数组
+                for (let i = 0; i < row.length; i++) {
+                    ids.push(row[i].id);//将要删除的id存入数组
+                }
+
+
+                $('#boot-table').bootstrapTable('remove', { field: 'id', values: ids});
+
+            });
+
+            function saveBootTableData(index, field, value) {
+                $('#boot-table').bootstrapTable('updateCell', {
+                    index: index,       //行索引
+                    field: field,       //列名
+                    value: value        //cell值
+                })
+            };
+
+
+        }
+
+
+
+
 	/* 日期选择控件-发货开始日期 */
 	$('#spgStdtDTPicker').datetimepicker({
         language: 'zh-CN',
@@ -847,19 +967,7 @@
 			modelName : '发货信息管理',
 			resetPath : '[[@{/spgManagement}]]'
 		};
-		$(function() {
-			//e7table表格控件初始化
-	//		showAddDialog();
-			e7tableInit();
-			//表单校验控件初始化
-			validator_1_Init();
-			validator_2_Init();
-			buttonInit();
-			// 是否投保默认不选中，用户自己选择
-//			$("input:radio[name="isNeedIns"]").attr("checked",false);
-			CKEDITOR.replace("editor1")
 
-		});
 
 		/***
 		 * 查询
@@ -1310,9 +1418,9 @@
                 $("#boot-table").bootstrapTable('removeAll');
                 for (var jj = 0; jj < t7SpgDetailList.length; jj++) {
                     rows.push({
+                        id: t7SpgDetailList[jj].id,
                         pdNm: t7SpgDetailList[jj].pdNm,
                         spec: t7SpgDetailList[jj].spec,
-                        modl: t7SpgDetailList[jj].modl,
                         qlyStd: t7SpgDetailList[jj].qlyStd,
                         brnd: t7SpgDetailList[jj].brnd,
                         pdFctr: t7SpgDetailList[jj].pdFctr,
@@ -1653,6 +1761,7 @@
                                 $("#boot-table").bootstrapTable('removeAll');
                                 for (var jj = 0; jj < t7SpgDetailList.length; jj++) {
                                     rows.push({
+                                        id: t7SpgDetailList[jj].id,
                                         pdNm: t7SpgDetailList[jj].pdNm,
                                         spec: t7SpgDetailList[jj].spec,
                                         modl: t7SpgDetailList[jj].modl,
