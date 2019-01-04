@@ -177,8 +177,10 @@
 						<div class="w-z-info">
 							<input type="hidden" id="fileId" name="fileUrl"> <input
 								type="hidden" id="fileToDeleteId" name="filesToDelete">
-							<input name="id" type="hidden" value="" /> <input name="arId"
-								type="hidden" value="" />
+							<input name="id" type="hidden" value="" /> <input id="arId"
+								name="arId" type="hidden" value="" /> <input id="secSrvCd"
+								name="secSrvCd" type="hidden" value="" /> <input id="arSt"
+								name=arSt type="hidden" value="" />
 							<div class="row" style="margin-left: 0px" id="长约类型_div">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -436,7 +438,7 @@
 								<div class="col-md-6"></div>
 							</div>
 							<!-- 保险信息div -->
-							<div id="ins_div" style="padding: 0px; display: none;" id="供应信息_div">
+							<div id="ins_div" style="padding: 0px; display: none;" >
 								<div class="col-md-6" id="保险公司_div">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">保险公司：</label>
@@ -589,7 +591,7 @@
 
 							</div>
 
-							<div class="row" id="query_ar_atch_div" id="附件_div">
+							<div class="row" id="query_ar_atch_div" >
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="" class="col-sm-2 control-label"></label>
@@ -606,7 +608,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row" id="upload_ar_div" id="上传附件_div">
+							<div class="row" id="upload_ar_div">
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="" class="col-sm-2 control-label">附件:</label>
@@ -1513,13 +1515,13 @@
 				} */
 				
 				// 根据角色不同控制数据展示
-				var datas = detail["roleParmsList"];
+ 				var datas = detail["roleParmsList"];
 				if (null != datas) {
 					for (var i = 0; i < datas.length; i++) {
 						// 控制界面控件是否显示
 						$('#' + datas[i] + '_div').hide();
 					}
-				}
+				} 
 				
 				///附件列表
 				var td = detail["t2UploadAtch01List"];
