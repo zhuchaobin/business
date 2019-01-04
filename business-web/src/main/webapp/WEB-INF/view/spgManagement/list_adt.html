@@ -730,7 +730,7 @@
             </div>
             <div class="modal-body" align="center">您确定要撤销该发货吗?</div>
             <div class="modal-footer" align="center">
-                <button type="button" onclick="javascript:arUndo()"
+                <button type="button" onclick="javascript:spgUndo()"
                         class="btn btn-primary-red" data-dismiss="modal">
                     <i class="glyphicon glyphicon-ok-sign"></i>确定
                 </button>
@@ -1884,7 +1884,7 @@
         $('#arUndoModal').modal('show');
     }
 
-    function arUndo() {
+    function spgUndo() {
         var rows = $('#tbl_query').e7table('getSelectedRows');
         if (rows.length == 0) {
             bootbox.alert({
@@ -1895,20 +1895,20 @@
         } else if (rows.length > 1) {
             bootbox.alert({
                 'title': '错误消息',
-                'message': '一次只能撤销一条订单！'
+                'message': '一次只能撤销一条发货单！'
             });
             return;
         }
         if ($('#frm_detail').data('bootstrapValidator')) {
             $('#frm_detail').data('bootstrapValidator').resetForm(true);
         }
-        E7.post(pageSetting.resetPath + '/unDoAr', {
+        E7.post(pageSetting.resetPath + '/unDoSpg', {
             'id': rows[0]['id']
         }, function (result) {
             query_ar_list();
             bootbox.alert({
                 'title': "消息",
-                'message': '订单撤销成功!'
+                'message': '发货单撤销成功!'
             });
         });
     }

@@ -1354,42 +1354,17 @@
 			}); 
 		}                                                                                
 				
-		function transAplyPsrltCd(aplyPsrltCd) {
-			if (aplyPsrltCd == '01') {
-				return "通过";
-			} else if (aplyPsrltCd == '02') {
-				return "退回";
-			} else if (aplyPsrltCd == '03') {
-				return "拒绝";
-			} else if (aplyPsrltCd == '04') {
-				return "撤销";
-			} else
-				return aplyPsrltCd;
-		}
+
 		
-		function transAplyPcstpCd(value) {
-			if (value == '01') {
-				return "发起";
-			} else if (value == '02') {
-				return "供应链确认";
-			} else if (value == '03') {
-				return "下游确认";
-			} else if (value == '04') {
-				return "承保";
-			} else if (value == '05') {
-				return "一审";
-			} else if (value == '06') {
-				return "二审";;
-			} else if (value == '07') {
-				return "终止";
-			} else if (value == '') {
-				return "";
-			} else if (value == '10') {
-				return "保存草稿";
-			} else if (value == '11') {
-				return "撤销";
-			} else
-				return value;
+		function transAplyPcstpCd2SpgSt(value) {
+            if (value == '61') {
+                return "退回件";
+            } else if (value == '10') {
+                return "草稿件";
+            } else if (value == '11') {
+                return "撤销件";
+            } else
+                return value;
 		}	
 		
 		function transAplyPcstpCdTospgSt(value) {
@@ -1776,66 +1751,56 @@
 								rownumbers: false,		//如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
-										{
-											title : '长约编号',
-											field : 'arId',
-											sortable : true
-										},
-										{
-											title : '订单编号',
-											field : 'ordrId',
-											sortable : true
-										},
-										{
-											title : '发货编号',
-											field : 'spgId',
-											sortable : true
-										},
-										{
-											title : '发货人',
-											field : 'spgPsn',
-											sortable : true
-										},
+                                    {
+                                        title: '长约编号',
+                                        field: 'arId',
+                                        sortable: true
+                                    },
+                                    {
+                                        title: '订单编号',
+                                        field: 'ordrId',
+                                        sortable: true
+                                    },
+                                    {
+                                        title: '发货编号',
+                                        field: 'spgId',
+                                        sortable: true
+                                    },
+                                    {
+                                        title: '发货人',
+                                        field: 'spgPsn',
+                                        sortable: true
+                                    },
 
-                                    	{
-                                        title : '发货人联系电话',
-                                        field : 'spgPsnCtcTel',
-                                        sortable : true
-                                   		 },
 
-										{
-                                        title : '收货人',
-                                        field : 'cnsgn',
-                                        sortable : true
-                                    	},
+                                    {
+                                        title: '收货人',
+                                        field: 'cnsgn',
+                                        sortable: true
+                                    },
 
-                                    	{
-                                        title : '收货人联系电话',
-                                        field : 'cnsgnCtcTel',
-                                        sortable : true
-                                    	},
-                                    	{
-                                        title : '目的地',
-                                        field : 'ppsLnd',
-                                        sortable : true
-                                   		 },
-										{
-											title : '发货时间',
-											field : 'spgTm',
-											sortable : true,
-                                            formatter : function(value, row,
-                                                                 index) {
-                                                return transDateTime(value);
-                                            }
 
-										},
+                                    {
+                                        title: '目的地',
+                                        field: 'ppsLnd',
+                                        sortable: true
+                                    },
 
-                                    	{
-                                        title : '发货状态',
-                                        field : 'spgSt',
-                                        sortable : true,
+                                    {
+                                        title: '发起时间',
+                                        field: 'crtTm',
+                                        sortable: true,
 
-                                    	},
+                                    },
+                                    {
+                                        title: '环节',
+                                        field: 'spgSt',
+                                        sortable: true,
+                                        formatter: function (value, row,
+                                                             index) {
+                                            return transAplyPcstpCd2SpgSt(value);
+                                        }
+                                    }
 										],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
