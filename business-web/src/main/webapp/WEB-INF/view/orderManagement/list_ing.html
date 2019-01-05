@@ -1222,7 +1222,7 @@
                 columns: [{
                     checkbox: true
                 }, 	{
-                    field: 'id',
+                    field: 'rid',
                     title: '序号'
                 }, {
                     field: 'pdNm',
@@ -1266,7 +1266,7 @@
             $('#insert-new-spgDetail').click(function() {
 
                 var row = {
-                    "id" : '',
+                    "rid" : '',
                     "pdNm" : '',
                     "spec" : '',
                     "qlyStd" : '',
@@ -1285,16 +1285,16 @@
             $('#delete-row-spgDetail').click(function() {
 
 
-                var row= $('#boot-table').bootstrapTable('getSelections');
+                var row= $('#boot-table-spgDetail').bootstrapTable('getSelections');
 
 
                 var ids = [];//定义一个数组
                 for (let i = 0; i < row.length; i++) {
-                    ids.push(row[i].id);//将要删除的id存入数组
+                    ids.push(row[i].rid);//将要删除的id存入数组
                 }
 
 
-                $('#boot-table').bootstrapTable('remove', { field: 'id', values: ids});
+                $('#boot-table-spgDetail').bootstrapTable('remove', { field: 'rid', values: ids});
 
             });
 

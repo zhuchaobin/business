@@ -352,19 +352,20 @@
 									<!-- 订单明细部分 -->
 									<h4 class="text-info pull-left">发货明细</h4>
 								</div>
-								<div class="col-md-12"
-									 style="padding-right: 15px; padding-top: 10px; "
-									 id="boot_table_div">
+								<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; " id="boot_table_spgDetail_div">
 
 									<div id="toolbar">
-										<button id="insert-new" class="btn btn-default">新增</button>
-										<button id="delete-row" class="btn btn-default">删除</button>
+										<button id="insert-new-spgDetail" class="btn btn-default">新增</button>
+										<button id="delete-row-spgDetail" class="btn btn-default">删除</button>
 									</div>
 
-									<table id="boot-table"></table>
+									<table id="boot-table-spgDetail"></table>
 
 								</div>
 							</div>
+
+
+						</div>
 
 
 							<div class="row" id="query_ar_atch_div">
@@ -763,7 +764,8 @@
 
 
 
-            boottableInit();
+            //可编辑表格
+            bootTableSpgDetailInit();
 
             //e7table表格控件初始化
             //		showAddDialog();
@@ -778,9 +780,12 @@
 
         });
 
-        function boottableInit() {
+        /***
+         * 可编辑表格控件初始化
+         */
+        function bootTableSpgDetailInit() {
 
-            $('#boot-table').bootstrapTable({
+            $('#boot-table-spgDetail').bootstrapTable({
 
                 toolbar: '#toolbar',
                 clickEdit: true,
@@ -793,7 +798,7 @@
                 columns: [{
                     checkbox: true
                 }, 	{
-                    field: 'id',
+                    field: 'rid',
                     title: '序号'
                 }, {
                     field: 'pdNm',
@@ -834,10 +839,10 @@
 
 
 
-            $('#insert-new').click(function() {
+            $('#insert-new-spgDetail').click(function() {
 
                 var row = {
-                    "id" : '',
+                    "rid" : '',
                     "pdNm" : '',
                     "spec" : '',
                     "qlyStd" : '',
@@ -845,32 +850,32 @@
                     "pdFctr" : '',
                     "num" : '',
 
-                  }
+                }
 
-                $('#boot-table').bootstrapTable('prepend', row);
+                $('#boot-table-spgDetail').bootstrapTable('prepend', row);
 
 
             });
 
 
-            $('#delete-row').click(function() {
+            $('#delete-row-spgDetail').click(function() {
 
 
-                var row= $('#boot-table').bootstrapTable('getSelections');
+                var row= $('#boot-table-spgDetail').bootstrapTable('getSelections');
 
 
                 var ids = [];//定义一个数组
                 for (let i = 0; i < row.length; i++) {
-                    ids.push(row[i].id);//将要删除的id存入数组
+                    ids.push(row[i].rid);//将要删除的id存入数组
                 }
 
 
-                $('#boot-table').bootstrapTable('remove', { field: 'id', values: ids});
+                $('#boot-table-spgDetail').bootstrapTable('remove', { field: 'rid', values: ids});
 
             });
 
             function saveBootTableData(index, field, value) {
-                $('#boot-table').bootstrapTable('updateCell', {
+                $('#boot-table-spgDetail').bootstrapTable('updateCell', {
                     index: index,       //行索引
                     field: field,       //列名
                     value: value        //cell值
@@ -1697,8 +1702,15 @@
 				CKEDITOR.instances[instance].updateElement();
 			}
 
+
+
+
+            // 取订单明细表格的数据
+            var all = $('#boot-table-spgDetail').bootstrapTable('getData');
+
+
 			var formParams = E7.serialForm('#frm_detail');
-			E7.post(pageSetting.resetPath + '/save', {inVo:JSON.stringify(formParams), detail:"", fileUrl:""},
+			E7.post(pageSetting.resetPath + '/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all).replace(/<br>/g,""), fileUrl:""},
 					function(data) {
 						query_ar_list();
 						//showOrHideDetail(true, 1);
