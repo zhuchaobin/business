@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
 <link rel="stylesheet"
-	th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}" />
+	th:href="@{/resources/adminlte/dist/css/AdminLTE.css}" />
 <link rel="stylesheet"
 	th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet"
@@ -31,6 +31,9 @@
 	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
 <link rel="stylesheet"
 	th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}" />
+
+	<link rel="stylesheet"
+		  th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}"/>
 <style type="text/css">
 .btn_small {
 	display: inline-block;
@@ -905,9 +908,6 @@
 									</div>
 								</div>
 							</div>
-
-
-
 							<div class="col-md-6" >
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">发货时间<span
@@ -922,8 +922,6 @@
 									</div>
 								</div>
 							</div>
-
-
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">发货人：</label>
@@ -984,7 +982,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<input type="hidden" id="fileId3" name="fileUrl3">
 							<div class="row" id="upload_order_div">
 								<div class="col-md-12">
@@ -1014,31 +1012,25 @@
 							</div>
 
 
-							<div class="col-md-12" style="padding-right: 15px;">
-								<!-- 订单明细部分 -->
-								<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"   data-target="#spgDetailModal" style="margin-right:15px;">
-									<i class="glyphicon glyphicon-th"></i>发货明细
-								</button>
+							<!-- 可编辑表格-->
+							<div id="t7SpgDetail_div_hide">
+								<div class="col-md-12" style="padding-right: 15px;">
+									<!-- 订单明细部分 -->
+									<h4 class="text-info pull-left">发货明细</h4>
+								</div>
+								<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; " id="boot_table_spgDetail_div">
+
+									<div id="toolbar">
+										<button id="insert-new-spgDetail" class="btn btn-default">新增</button>
+										<button id="delete-row-spgDetail" class="btn btn-default">删除</button>
+									</div>
+
+									<table id="boot-table-spgDetail"></table>
+
+								</div>
 							</div>
 
-							<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;" id="boot_table_div_spg">
-								<table id="boot-table-spgDetail"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
-									<thead>
-									<tr bgcolor="#337AB7">
-										<th style="border-bottom: none;" data-field="pdNm">品名</th>
-										<th style="border-bottom: none;" data-field="spec">规格</th>
-										<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
-										<th style="border-bottom: none;" data-field="brnd">品牌</th>
-										<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
-										<th style="border-bottom: none;" data-field="num">数量</th>
 
-									</tr>
-									</thead>
-									<!-- <tbody class="list">
-                                </tbody> -->
-								</table>
-							</div>
-							
 						</div>
 
 			</fieldset>
@@ -1194,6 +1186,10 @@
 			resetPath : '[[@{/orderManagement}]]'
 		};
 		$(function() {
+
+			//可编辑表格
+            bootTableSpgDetailInit();
+
 			//e7table表格控件初始化
 			e7tableInit();
 			//表单校验控件初始化
@@ -1206,6 +1202,112 @@
 			CKEDITOR.replace("editor1")
 
 		});
+
+
+        /***
+         * 可编辑表格控件初始化
+         */
+        function bootTableSpgDetailInit() {
+
+            $('#boot-table-spgDetail').bootstrapTable({
+
+                toolbar: '#toolbar',
+                clickEdit: true,
+                showToggle: true,
+                pagination: true,       //显示分页条
+                showColumns: true,
+                showPaginationSwitch: true,     //显示切换分页按钮
+                showRefresh: true,      //显示刷新按钮
+                //clickToSelect: true,  //点击row选中radio或CheckBox
+                columns: [{
+                    checkbox: true
+                }, 	{
+                    field: 'id',
+                    title: '序号'
+                }, {
+                    field: 'pdNm',
+                    title: '品名'
+                }, {
+                    field: 'spec',
+                    title: '规格'
+                }, {
+                    field: 'qlyStd',
+                    title: '质量标准'
+                }, {
+                    field: 'brnd',
+                    title: '品牌'
+                }, {
+                    field: 'pdFctr',
+                    title: '生产厂家'
+                },{
+                    field: 'num',
+                    title: '数量'
+                }
+                ],
+                /**
+                 * @param {点击列的 field 名称} field
+                 * @param {点击列的 value 值} value
+                 * @param {点击列的整行数据} row
+                 * @param {td 元素} $element
+                 */
+                onClickCell: function(field, value, row, $element) {
+                    $element.attr('contenteditable', true);
+                    $element.blur(function() {
+                        let index = $element.parent().data('index');
+                        let tdValue = $element.html();
+
+                        saveBootTableData(index, field, tdValue);
+                    })
+                }
+            });
+
+
+
+            $('#insert-new-spgDetail').click(function() {
+
+                var row = {
+                    "id" : '',
+                    "pdNm" : '',
+                    "spec" : '',
+                    "qlyStd" : '',
+                    "brnd" : '',
+                    "pdFctr" : '',
+                    "num" : '',
+
+                }
+
+                $('#boot-table-spgDetail').bootstrapTable('prepend', row);
+
+
+            });
+
+
+            $('#delete-row-spgDetail').click(function() {
+
+
+                var row= $('#boot-table').bootstrapTable('getSelections');
+
+
+                var ids = [];//定义一个数组
+                for (let i = 0; i < row.length; i++) {
+                    ids.push(row[i].id);//将要删除的id存入数组
+                }
+
+
+                $('#boot-table').bootstrapTable('remove', { field: 'id', values: ids});
+
+            });
+
+            function saveBootTableData(index, field, value) {
+                $('#boot-table-spgDetail').bootstrapTable('updateCell', {
+                    index: index,       //行索引
+                    field: field,       //列名
+                    value: value        //cell值
+                })
+            };
+
+
+        }
 
 		/***
 		 * e7table表格控件初始化
@@ -1701,9 +1803,11 @@
 				CKEDITOR.instances[instance].updateElement();
 			}
 
+
+
             // 取订单明细表格的数据
             var all = $('#boot-table-spgDetail').bootstrapTable('getData');
-			
+
 
 			var formParams = E7.serialForm('#frm_detail_spg');
 
@@ -1711,7 +1815,7 @@
 
             var fileUrl3 = document.getElementById("fileId3").value;
 
-            E7.post('/spgManagement/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl3}, function(data) {
+            E7.post('/spgManagement/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all).replace(/<br>/g,""), fileUrl:fileUrl3}, function(data) {
 
 
 
@@ -3010,15 +3114,6 @@
 
                 $('#payMethod').val(result.data.pymtmod);
 
-
-				// 实时判断长约是否可以修改
-				// if (result.data["arSt"] != "06") {
-				// 	bootbox.alert({
-				// 		'title' : '错误消息',
-				// 		'message' : '该长约非执行中长约禁止发起订单！'
-				// 	});
-				// 	return;
-				// }
 
 				$('#main_spg_edit_detail_title').text(
 						"您所在位置 : 订单管理 > 执行中订单 [ " + arId + " ] > 发起发货");
