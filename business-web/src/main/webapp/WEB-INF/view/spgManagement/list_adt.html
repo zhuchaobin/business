@@ -1,774 +1,771 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-            name="viewport"/>
-    <title>无模版</title>
-    <link rel="stylesheet"
-          th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/dist/css/skins/_all-skins.css}"/>
-    <link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/dist/css/font-awesome.min.css}"/>
-    <link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}"/>
-    <link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/e7/e7table/e7table-0.2.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/adminlte/plugins/iCheck/all.css}"/>
-    <link rel="stylesheet" th:href="@{/resources/style.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/dist/kl-iconfont/iconfont.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}"/>
-    <style type="text/css">
-        .btn_small {
-            display: inline-block;
-            padding: 1px 10px;
-            margin-bottom: 0;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.42857143;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            -ms-touch-action: manipulation;
-            touch-action: manipulation;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-image: none;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-    </style>
-    <!-- 自定义按钮样式 -->
-    <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}"/>
-    <link rel="stylesheet"
-          th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}"/>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<title>无模版</title>
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/skins/_all-skins.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/plugins/iCheck/all.css}" />
+<link rel="stylesheet" th:href="@{/resources/style.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}" />
+<style type="text/css">
+.btn_small {
+	display: inline-block;
+	padding: 1px 10px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+</style>
+<!-- 自定义按钮样式 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}" />
 </head>
 <body>
-<!-- 列表查询 start-->
-<section id="main_search_detail" class="content">
-    <!-- 条件查询 -->
-    <div class="box box-info">
-        <!-- 条件区域 -->
-        <div class="box-body" style="padding-bottom: 0px;">
-            <form id="frm_query" class="form-horizontal">
-                <div id="div_criteria" class="flowlayout">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">长约编号：</label>
-                            <div class="col-sm-8">
-                                <input type="hidden" id="queryTypeId" name="queryType"
-                                       value="4"> <input id="arId" name="arId"
-                                                         class="form-control" placeholder="长约编号"/>
-                            </div>
-                        </div>
-                    </div>
+	<!-- 列表查询 start-->
+	<section id="main_search_detail" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom: 0px;">
+				<form id="frm_query" class="form-horizontal">
+					<div id="div_criteria" class="flowlayout">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										value="4"> <input id="arId" name="arId"
+										class="form-control" placeholder="长约编号" />
+								</div>
+							</div>
+						</div>
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">订单编号：</label>
-                            <div class="col-sm-8">
-                                <input type="hidden" id="queryTypeId" name="queryType"
-                                       value="4"> <input id="orderId" name="orderId"
-                                                         class="form-control" placeholder="订单编号"/>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">发货编号：</label>
-                            <div class="col-sm-8">
-                                <input type="hidden" id="queryTypeId" name="queryType"
-                                       value="4"> <input id="spgId" name="spgId"
-                                                         class="form-control" placeholder="发货编号"/>
-                            </div>
-                        </div>
-                    </div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">订单编号：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										value="4"> <input id="orderId" name="orderId"
+										class="form-control" placeholder="订单编号" />
+								</div>
+							</div>
+						</div>
 
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">供应链：</label>
-                            <div class="col-sm-8">
-                                <select name="splchainCo" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${splchainCoModels}"
-                                            th:value="${model.id}" th:text="${model.name}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">融资企业：</label>
-                            <div class="col-sm-8">
-                                <select name="fncEntp" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${fncEntpModels}"
-                                            th:value="${model.id}" th:text="${model.name}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">供应商：</label>
-                            <div class="col-sm-8">
-                                <select name="ustrmSplr" class="form-control">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${ustrmSplrModels}"
-                                            th:value="${model.id}" th:text="${model.name}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">类型：</label>
-                            <div class="col-sm-8">
-
-                                <select name="spgSt" class="form-control">
-                                    <option value="">全部</option>
-                                    <option value="01">退回件</option>
-                                    <option value="10">草稿件</option>
-                                    <option value="11">撤销件</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">关键字：</label>
-                            <div class="col-sm-8">
-                                <input id="keyWorlds" name="keyWorlds" class="form-control"
-                                       placeholder="搜索关键字"/>
-                            </div>
-                        </div>
-                    </div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">发货编号：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										value="4"> <input id="spgId" name="spgId"
+										class="form-control" placeholder="发货编号" />
+								</div>
+							</div>
+						</div>
 
 
-                </div>
-            </form>
-        </div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">供应链：</label>
+								<div class="col-sm-8">
+									<select name="splchainCo" class="form-control">
+										<option value="">请选择</option>
+										<option th:each="model: ${splchainCoModels}"
+											th:value="${model.id}" th:text="${model.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
 
-        <!-- 按钮区域 -->
-        <div id="div_buttons" class="box-footer"></div>
-    </div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">融资企业：</label>
+								<div class="col-sm-8">
+									<select name="fncEntp" class="form-control">
+										<option value="">请选择</option>
+										<option th:each="model: ${fncEntpModels}"
+											th:value="${model.id}" th:text="${model.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
 
-    <!-- 信息列表 -->
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-body table-responsive no-padding">
-                    <table id="tbl_query" class="table table-hover"></table>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">供应商：</label>
+								<div class="col-sm-8">
+									<select name="ustrmSplr" class="form-control">
+										<option value="">请选择</option>
+										<option th:each="model: ${ustrmSplrModels}"
+											th:value="${model.id}" th:text="${model.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
 
-</section>
-<!-- 列表查询 end-->
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">类型：</label>
+								<div class="col-sm-8">
 
-<!-- 详细信息 start-->
-<section id="main_edit_detail" class="content" style="display: none;">
-    <div id="main_edit_detail_clapse" class="box box-info">
-        <div class="box-header with-border">
-            <h4 id="main_edit_detail_title" class="text-info">发货信息</h4>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse">
-                    <i id="main_edit_detail_li" class="fa fa-minus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body">
-            <form id="frm_detail" class="form-horizontal">
-                <fieldset id='fld_detail'>
-                    <div class="w-z-info">
-                        <input type="hidden" id="fileId" name="fileUrl"> <input
-                            type="hidden" id="fileToDeleteId" name="filesToDelete">
-                        <input name="id" type="hidden" value=""/> <input name="arId"
-                                                                         type="hidden" value=""/>
-
-                        <div class="col-md-6 ">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">长约编号：</label>
-                                <div class="col-sm-8 pull-right">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="arId" class="form-control"
-                                               placeholder="长约编号" value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">订单编号：</label>
-                                <div class="col-sm-8 pull-right">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="ordrId" class="form-control" placeholder="订单编号"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">发货编号：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="spgId" class="form-control"
-                                               placeholder="发货编号" value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">发货时间：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="spgTm" class="form-control" placeholder="发货时间"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">发货人：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="spgPsn" class="form-control" placeholder="发货人"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">发货人联系电话：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="spgPsnCtcTel" class="form-control" placeholder="发货人联系电话"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">收货人：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="cnsgn" class="form-control" placeholder="收货人"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">收货人联系电话：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="cnsgnCtcTel" class="form-control" placeholder="收货人联系电话"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">目的地：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="ppsLnd" class="form-control" placeholder="目的地"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">发货状态：</label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-10" style="padding-left: 0px;">
-                                        <input name="spgSt" class="form-control" placeholder="发货状态"
-                                               value="2"/>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+									<select name="spgSt" class="form-control">
+										<option value="">全部</option>
+										<option value="01">退回件</option>
+										<option value="10">草稿件</option>
+										<option value="11">撤销件</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">关键字：</label>
+								<div class="col-sm-8">
+									<input id="keyWorlds" name="keyWorlds" class="form-control"
+										placeholder="搜索关键字" />
+								</div>
+							</div>
+						</div>
 
 
-                        <div id="t7SpgDetail_div_hide">
-                            <div class="col-md-12" style="padding-right: 15px;">
-                                <!-- 订单明细部分 -->
-                                <h4 class="text-info pull-left">发货明细</h4>
-                            </div>
-                            <div class="col-md-12"
-                                 style="padding-right: 15px; padding-top: 10px; display: none;"
-                                 id="boot_table_div">
-                                <table id="boot-table" align="center" data-toggle="table"
-                                       class="table table-hover" name="area"
-                                       style="table-layout: fixed">
-                                    <thead>
-                                    <tr bgcolor="#337AB7">
-                                        <th style="border-bottom: none;" data-field="pdNm">品名</th>
-                                        <th style="border-bottom: none;" data-field="spec">规格</th>
-                                        <th style="border-bottom: none;" data-field="spec">型号</th>
-                                        <th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
-                                        <th style="border-bottom: none;" data-field="brnd">品牌</th>
-                                        <th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
-                                        <th style="border-bottom: none;" data-field="num">数量</th>
+					</div>
+				</form>
+			</div>
 
-                                    </tr>
-                                    </thead>
-                                    <!-- <tbody class="list">
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer"></div>
+		</div>
+
+		<!-- 信息列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-info">
+					<div class="box-body table-responsive no-padding">
+						<table id="tbl_query" class="table table-hover"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!-- 列表查询 end-->
+
+	<!-- 详细信息 start-->
+	<section id="main_edit_detail" class="content" style="display: none;">
+		<div id="main_edit_detail_clapse" class="box box-info">
+			<div class="box-header with-border">
+				<h4 id="main_edit_detail_title" class="text-info">发货信息</h4>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i id="main_edit_detail_li" class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail" class="form-horizontal">
+					<fieldset id='fld_detail'>
+						<div class="w-z-info">
+							<input type="hidden" id="fileId" name="fileUrl"> <input
+								type="hidden" id="fileToDeleteId" name="filesToDelete">
+							<input name="id" type="hidden" value="" /> <input name="arId"
+								type="hidden" value="" />
+
+							<div class="col-md-6 ">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约编号：</label>
+									<div class="col-sm-8 pull-right">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="arId" class="form-control" placeholder="长约编号"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">订单编号：</label>
+									<div class="col-sm-8 pull-right">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="ordrId" class="form-control" placeholder="订单编号"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">发货编号：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="spgId" class="form-control" placeholder="发货编号"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">发货时间：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="spgTm" class="form-control" placeholder="发货时间"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">发货人：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="spgPsn" class="form-control" placeholder="发货人"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">发货人联系电话：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="spgPsnCtcTel" class="form-control"
+												placeholder="发货人联系电话" value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">收货人：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="cnsgn" class="form-control" placeholder="收货人"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">收货人联系电话：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="cnsgnCtcTel" class="form-control"
+												placeholder="收货人联系电话" value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">目的地：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="ppsLnd" class="form-control" placeholder="目的地"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">发货状态：</label>
+									<div class="col-sm-8">
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="spgSt" class="form-control" placeholder="发货状态"
+												value="2" />
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
+							<div id="t7SpgDetail_div_hide">
+								<div class="col-md-12" style="padding-right: 15px;">
+									<!-- 订单明细部分 -->
+									<h4 class="text-info pull-left">发货明细</h4>
+								</div>
+								<div class="col-md-12"
+									style="padding-right: 15px; padding-top: 10px; display: none;"
+									id="boot_table_div">
+									<table id="boot-table" align="center" data-toggle="table"
+										class="table table-hover" name="area"
+										style="table-layout: fixed">
+										<thead>
+											<tr bgcolor="#337AB7">
+												<th style="border-bottom: none;" data-field="pdNm">品名</th>
+												<th style="border-bottom: none;" data-field="spec">规格</th>
+												<th style="border-bottom: none;" data-field="spec">型号</th>
+												<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+												<th style="border-bottom: none;" data-field="brnd">品牌</th>
+												<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+												<th style="border-bottom: none;" data-field="num">数量</th>
+
+											</tr>
+										</thead>
+										<!-- <tbody class="list">
                                 </tbody> -->
-                                </table>
-                            </div>
-                        </div>
+									</table>
+								</div>
+							</div>
 
-                        <div class="row" id="query_ar_atch_div">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="" class="col-sm-2 control-label"></label>
-                                    <div class="col-sm-10">
-                                        <div class="w-z-docx">
-                                            <div class="w-z-d-title">附件</div>
-                                            <div class="w-z-d-list">
-                                                <div class="row" align="center">
-                                                    <div id="upload_atch_div"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="row" id="upload_ar_div">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="" class="col-sm-2 control-label">附件:</label>
-                                    <div class="col-sm-10">
-                                        <form id="frm_transfer" class="form-horizontal"
-                                              enctype="multipart/form-data" method="post">
-                                            <div id="fujianId"></div>
-                                        </form>
-                                        <div class="modal-footer">
-                                            <button id="btn_save2" type="button"
-                                                    class="btn btn-primary-red"
-                                                    onclick="javascript:addInputItem(1);">
-                                                <i class="glyphicon glyphicon-plus"></i>新增附件
-                                            </button>
-                                            <button id="btn_save1" type="button"
-                                                    class="btn btn-primary-red"
-                                                    onclick="javascript:submitTransferFile(1);">
-                                                <i class="glyphicon glyphicon-upload"></i>上传
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+							<div class="row" id="query_ar_atch_div">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="" class="col-sm-2 control-label"></label>
+										<div class="col-sm-10">
+											<div class="w-z-docx">
+												<div class="w-z-d-title">附件</div>
+												<div class="w-z-d-list">
+													<div class="row" align="center">
+														<div id="upload_atch_div"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-        <div class="box-footer">
-            <button id="btn_save" type="button"
-                    class="btn btn-primary pull-right"
-                    onclick='javascript:validate_frm_detail();'>确定
-            </button>
-            <button id="btn_close" type="button"
-                    class="btn btn-default pull-right"
-                    onclick='javascript:showOrHideDetail(true, 1);'
-                    style="margin-right: 15px;">取消
-            </button>
-        </div>
-    </div>
-</section>
-<!-- 详细信息 end-->
 
-<!-- 订单流转信息 start-->
-<section id="ar_lnk_jrnl_inf_detail" class="content"
-         style="display: none;">
-    <div id="ar_lnk_jrnl_inf_detail_clapse_box" class="box box-info">
-        <div class="box-header with-border">
-            <h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">发货流转信息</h4>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse">
-                    <i id="ar_lnk_jrnl_inf_detail_li" class="fa fa-minus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body">
-            <form id="frm_detail3" class="form-horizontal">
-                <fieldset id='fld_detail3'>
-                    <div class="w-z-info">
-                        <!-- 环节流水信息列表 -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="box box-info">
-                                    <div class="box-body table-responsive no-padding">
-                                        <div id="lnk_jrnl_inf_tbl_div"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-        <!-- 			<div class="box-footer">
+							<div class="row" id="upload_ar_div">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="" class="col-sm-2 control-label">附件:</label>
+										<div class="col-sm-10">
+											<form id="frm_transfer" class="form-horizontal"
+												enctype="multipart/form-data" method="post">
+												<div id="fujianId"></div>
+											</form>
+											<div class="modal-footer">
+												<button id="btn_save2" type="button"
+													class="btn btn-primary-red"
+													onclick="javascript:addInputItem(1);">
+													<i class="glyphicon glyphicon-plus"></i>新增附件
+												</button>
+												<button id="btn_save1" type="button"
+													class="btn btn-primary-red"
+													onclick="javascript:submitTransferFile(1);">
+													<i class="glyphicon glyphicon-upload"></i>上传
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="box-footer">
+				<button id="btn_save" type="button"
+					class="btn btn-primary pull-right"
+					onclick='javascript:validate_frm_detail();'>确定</button>
+				<button id="btn_close" type="button"
+					class="btn btn-default pull-right"
+					onclick='javascript:showOrHideDetail(true, 1);'
+					style="margin-right: 15px;">取消</button>
+			</div>
+		</div>
+	</section>
+	<!-- 详细信息 end-->
+
+	<!-- 订单流转信息 start-->
+	<section id="ar_lnk_jrnl_inf_detail" class="content"
+		style="display: none;">
+		<div id="ar_lnk_jrnl_inf_detail_clapse_box" class="box box-info">
+			<div class="box-header with-border">
+				<h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">发货流转信息</h4>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i id="ar_lnk_jrnl_inf_detail_li" class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail3" class="form-horizontal">
+					<fieldset id='fld_detail3'>
+						<div class="w-z-info">
+							<!-- 环节流水信息列表 -->
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="box box-info">
+										<div class="box-body table-responsive no-padding">
+											<div id="lnk_jrnl_inf_tbl_div"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<!-- 			<div class="box-footer">
         </div> -->
-    </div>
-</section>
-<!-- 订单流转信息 end-->
+		</div>
+	</section>
+	<!-- 订单流转信息 end-->
 
 
-<section id="submit_special" class="content" >
-<div id="special_div" class="box box-info">
+	<section id="submit_special" class="content">
+		<div id="special_div" class="box box-info"></div>
+
+	</section>
+	<!-- 提交结论 start-->
+	<section id="submit_ar_detail" class="content" style="display: none;">
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h4 id="submit_ar_detail_title" class="text-info">提交结论</h4>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_submit_ar" class="form-horizontal">
+					<input type="hidden" id="fileId2" name="fileUrl2"> <input
+						id="aplyPcstpCd" name="aplyPcstpCd" class="form-control"
+						placeholder="" value="" type="hidden" /> <input id="ordrId"
+						name="ordrId" class="form-control" placeholder="" value=""
+						type="hidden" /> <input name="arId" class="form-control"
+						placeholder="" value="" type="hidden" /> <input id="pymtMod"
+						name="pymtMod" class="form-control" placeholder="" value=""
+						type="hidden" /> <input name="spgId" class="form-control"
+						placeholder="" value="" type="hidden" />
+					<div class="row">
+						<div class="col-md-9">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">结论<span
+									style="color: red">*</span></label>
+								<div class="col-sm-8">
+									<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd"
+										value="01" selected=""> 通过</input> &nbsp&nbsp&nbsp&nbsp<input
+										type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02"
+										selected=""> 退回</input>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-9">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">备注</label>
+								<div class="col-sm-8">
+									<!-- <input name="maintenanceContent" class="form-control"/> -->
+									<textarea name="rmrk" rows="4" class="form-control"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" id="submmit_ar_upload_ar_div">
+						<div class="col-md-9">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">附件</label>
+								<div class="col-sm-8">
+									<form id="frm_transfer" class="form-horizontal"
+										enctype="multipart/form-data" method="post">
+										<div id="fujianId2"></div>
+									</form>
+									<div class="modal-footer">
+										<button id="btn_save2" type="button"
+											class="btn btn-primary-red"
+											onclick="javascript:addInputItem(2);">
+											<i class="glyphicon glyphicon-plus"></i>新增附件
+										</button>
+										<button id="btn_save1" type="button"
+											class="btn btn-primary-red"
+											onclick="javascript:submitTransferFile(2);">
+											<i class="glyphicon glyphicon-upload"></i>上传
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<button id="btn_close" type="button"
+							class="btn btn-primary-gray  pull-right"
+							onclick='javascript:showOrHideDetail(true, 1);'
+							style="margin-right: 15px;">
+							<i class="glyphicon glyphicon-remove-sign"></i>取消
+						</button>
+						<button id="btn_submit_ar" type="button"
+							class="btn btn-primary-red  pull-right"
+							onclick='javascript:validate_frm_submit_ar()'
+							style="margin-right: 10px;">
+							<i class="glyphicon glyphicon-ok-sign"></i>确定
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- 提交结论 end-->
 
 
-</div>
+	<!-- 查看界面的返回按钮 end-->
+	<!-- 查看界面的返回按钮 start-->
+	<div id="btn_close_div"
+		style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity: 0.65">
+		<table width=""
+			100% style="position: absolute; width: 260px; right: 0px; top: 0px;">
+			<button id="btn_close_detail" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 1);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+		</table>
+	</div>
+	<!-- 查看界面的返回按钮 end-->
 
-</section>
-<!-- 提交结论 start-->
-<section id="submit_ar_detail" class="content" style="display: none;">
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h4 id="submit_ar_detail_title" class="text-info">提交结论</h4>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body">
-            <form id="frm_submit_ar" class="form-horizontal">
-                <input type="hidden" id="fileId2" name="fileUrl2">
-                <input id="aplyPcstpCd" name="aplyPcstpCd" class="form-control" placeholder="" value="" type="hidden"/>
-                <input id="ordrId" name="ordrId" class="form-control" placeholder="" value="" type="hidden"/>
-                <input name="arId" class="form-control" placeholder="" value="" type="hidden"/>
-                <input id="pymtMod" name="pymtMod" class="form-control" placeholder="" value="" type="hidden"/>
-                <input name="spgId" class="form-control" placeholder="" value="" type="hidden"/>
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">结论<span
-                                    style="color: red">*</span></label>
-                            <div class="col-sm-8">
-                                <input type="radio" name="aplyPsrltCd" id="aplyPsrltCd"
-                                       value="01" selected=""> 通过</input> &nbsp&nbsp&nbsp&nbsp<input
-                                    type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02"
-                                    selected=""> 退回</input>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">备注</label>
-                            <div class="col-sm-8">
-                                <!-- <input name="maintenanceContent" class="form-control"/> -->
-                                <textarea name="rmrk" rows="4" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" id="submmit_ar_upload_ar_div">
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <label for="" class="col-sm-4 control-label">附件</label>
-                            <div class="col-sm-8">
-                                <form id="frm_transfer" class="form-horizontal"
-                                      enctype="multipart/form-data" method="post">
-                                    <div id="fujianId2"></div>
-                                </form>
-                                <div class="modal-footer">
-                                    <button id="btn_save2" type="button"
-                                            class="btn btn-primary-red"
-                                            onclick="javascript:addInputItem(2);">
-                                        <i class="glyphicon glyphicon-plus"></i>新增附件
-                                    </button>
-                                    <button id="btn_save1" type="button"
-                                            class="btn btn-primary-red"
-                                            onclick="javascript:submitTransferFile(2);">
-                                        <i class="glyphicon glyphicon-upload"></i>上传
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    <button id="btn_close" type="button"
-                            class="btn btn-primary-gray  pull-right"
-                            onclick='javascript:showOrHideDetail(true, 1);'
-                            style="margin-right: 15px;">
-                        <i class="glyphicon glyphicon-remove-sign"></i>取消
-                    </button>
-                    <button id="btn_submit_ar" type="button"
-                            class="btn btn-primary-red  pull-right"
-                            onclick='javascript:validate_frm_submit_ar()'
-                            style="margin-right: 10px;">
-                        <i class="glyphicon glyphicon-ok-sign"></i>确定
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-<!-- 提交结论 end-->
+	<!-- 查询订单提交详细信息 start-->
+	<section id="query_ar_submmit_detail" style="display: none;">
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h4 id="query_ar_submmit_title" class="text-info">发货提交详情</h4>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail2" class="form-horizontal">
+					<fieldset id='fld_detail'>
+						<div class="w-z-info">
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h5 id="submmitUsername"></h5>
+									</div>
+									<div class="col-sm-6">
+										<h5 id="companyName"></h5>
+									</div>
+								</div>
+							</div>
 
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h5 id="aplyPcstpCdDesc"></h5>
+									</div>
+									<div class="col-sm-6">
+										<h5 id="aplyPsrltCdDesc"></h5>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h5 id="lnkEdtm"></h5>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 col-md-offset-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<h5 id="rmrkDesc"></h5>
+									</div>
+								</div>
+							</div>
+							<div class="row" id="query_ar_atch_div2">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="" class="col-sm-2 control-label"></label>
+										<div class="col-sm-8">
+											<div class="w-z-docx">
+												<div class="w-z-d-title">附件</div>
+												<div class="w-z-d-list">
+													<div class="row" align="center">
+														<div id="upload_atch_div2"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="box-footer">
+				<button id="btn_close_return3" type="button"
+					class="btn btn-primary-gray pull-right"
+					onclick='javascript:showOrHideDetail(false, 3);'
+					style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-repeat"></i>返回
+				</button>
+				<button id="btn_close_return4" type="button"
+					class="btn btn-primary-gray pull-right"
+					onclick='javascript:showOrHideDetail(false, 4);'
+					style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-repeat"></i>返回
+				</button>
+			</div>
+		</div>
+	</section>
+	<!-- 查询订单提交详细信息 end-->
 
-<!-- 查看界面的返回按钮 end-->
-<!-- 查看界面的返回按钮 start-->
-<div id="btn_close_div"
-     style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity: 0.65">
-    <table width=""
-           100% style="position: absolute; width: 260px; right: 0px; top: 0px;">
-        <button id="btn_close_detail" type="button"
-                class="btn btn-success pull-right btn-lg"
-                onclick='javascript:showOrHideDetail(true, 1);'
-                style="margin-right: 15px;">
-            <i class="glyphicon glyphicon-arrow-left"></i> 返 回
-        </button>
-    </table>
-</div>
-<!-- 查看界面的返回按钮 end-->
+	<!-- 发起确认提示框 start-->
+	<div class="modal fade" id="saveSubmitModal" tabindex="-1"
+		role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">友情提示</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center">提交后将自动流转到[供应链确认]，若需修改需要下一环节退回，确定提交吗?</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:save()" class="btn"
+						data-dismiss="modal">确定</button>
+					<button type="button" class="btn" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 发起确认提示框 end -->
+	<!-- 订单提交确认提示框 start -->
+	<div class="modal fade" id="submitArModal" tabindex="-1" role="dialog"
+		aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">友情提示</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center" id="saveSubmitModalTips">提交后将自动流转到下一环节，若需修改需要下一环节退回，确定提交吗?</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:submitSpg()"
+						class="btn btn-primary-red" data-dismiss="modal">
+						<i class="glyphicon glyphicon-ok-sign"></i>确定
+					</button>
+					<button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 订单提交确认提示框 end -->
 
-<!-- 查询订单提交详细信息 start-->
-<section id="query_ar_submmit_detail" style="display: none;">
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h4 id="query_ar_submmit_title" class="text-info">发货提交详情</h4>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body">
-            <form id="frm_detail2" class="form-horizontal">
-                <fieldset id='fld_detail'>
-                    <div class="w-z-info">
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="submmitUsername"></h5>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5 id="companyName"></h5>
-                                </div>
-                            </div>
-                        </div>
+	<!-- 订单删除确认提示框 start -->
+	<div class="modal fade" id="arUndoModal" tabindex="-1" role="dialog"
+		aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">友情提示</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center">您确定要撤销该发货吗?</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:spgUndo()"
+						class="btn btn-primary-red" data-dismiss="modal">
+						<i class="glyphicon glyphicon-ok-sign"></i>确定
+					</button>
+					<button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 订单删除确认提示框 end -->
 
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="aplyPcstpCdDesc"></h5>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5 id="aplyPsrltCdDesc"></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="lnkEdtm"></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="rmrkDesc"></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="query_ar_atch_div2">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="" class="col-sm-2 control-label"></label>
-                                    <div class="col-sm-8">
-                                        <div class="w-z-docx">
-                                            <div class="w-z-d-title">附件</div>
-                                            <div class="w-z-d-list">
-                                                <div class="row" align="center">
-                                                    <div id="upload_atch_div2"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
-        <div class="box-footer">
-            <button id="btn_close_return3" type="button"
-                    class="btn btn-primary-gray pull-right"
-                    onclick='javascript:showOrHideDetail(false, 3);'
-                    style="margin-right: 15px;">
-                <i class="glyphicon glyphicon-repeat"></i>返回
-            </button>
-            <button id="btn_close_return4" type="button"
-                    class="btn btn-primary-gray pull-right"
-                    onclick='javascript:showOrHideDetail(false, 4);'
-                    style="margin-right: 15px;">
-                <i class="glyphicon glyphicon-repeat"></i>返回
-            </button>
-        </div>
-    </div>
-</section>
-<!-- 查询订单提交详细信息 end-->
-
-<!-- 发起确认提示框 start-->
-<div class="modal fade" id="saveSubmitModal" tabindex="-1"
-     role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" align="center">
-                <h4 class="modal-title">友情提示</h4>
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" align="center">提交后将自动流转到[供应链确认]，若需修改需要下一环节退回，确定提交吗?</div>
-            <div class="modal-footer" align="center">
-                <button type="button" onclick="javascript:save()" class="btn"
-                        data-dismiss="modal">确定
-                </button>
-                <button type="button" class="btn" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- 发起确认提示框 end -->
-<!-- 订单提交确认提示框 start -->
-<div class="modal fade" id="submitArModal" tabindex="-1" role="dialog"
-     aria-labelledby="submitModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" align="center">
-                <h4 class="modal-title">友情提示</h4>
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" align="center" id="saveSubmitModalTips">提交后将自动流转到下一环节，若需修改需要下一环节退回，确定提交吗?</div>
-            <div class="modal-footer" align="center">
-                <button type="button" onclick="javascript:submitSpg()"
-                        class="btn btn-primary-red" data-dismiss="modal">
-                    <i class="glyphicon glyphicon-ok-sign"></i>确定
-                </button>
-                <button type="button" class="btn btn-primary-gray"
-                        data-dismiss="modal">
-                    <i class="glyphicon glyphicon-remove-sign"></i>取消
-                </button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- 订单提交确认提示框 end -->
-
-<!-- 订单删除确认提示框 start -->
-<div class="modal fade" id="arUndoModal" tabindex="-1" role="dialog"
-     aria-labelledby="submitModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header" align="center">
-                <h4 class="modal-title">友情提示</h4>
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" align="center">您确定要撤销该发货吗?</div>
-            <div class="modal-footer" align="center">
-                <button type="button" onclick="javascript:spgUndo()"
-                        class="btn btn-primary-red" data-dismiss="modal">
-                    <i class="glyphicon glyphicon-ok-sign"></i>确定
-                </button>
-                <button type="button" class="btn btn-primary-gray"
-                        data-dismiss="modal">
-                    <i class="glyphicon glyphicon-remove-sign"></i>取消
-                </button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- 订单删除确认提示框 end -->
-
-<!-- /.content -->
-<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
-<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
-<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
-<script
-        th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
-<script th:src="@{/resources/dist/js/app.min.js}"></script>
-<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
-<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
-<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
-<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script>
-<script
-        th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
-<script
-        th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
-<script th:src="@{/resources/js_zcb/tools.js}"></script>
-<script th:src="@{/resources/js_zcb/common.js}"></script>
-<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
-<script type="text/javascript">
+	<!-- /.content -->
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+	<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script>
+	<script
+		th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/common.js}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
+	<script type="text/javascript">
     /* 日期选择控件-订单开始日期 */
     $('#arStdtDTPicker').datetimepicker({
         language: 'zh-CN',
