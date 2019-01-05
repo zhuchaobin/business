@@ -1,4 +1,18 @@
-	function transAplyPsrltCd(aplyPsrltCd) {
+	function getSubmmitDiv() {
+			var divInnerHtml = '	<div class="row"> 		<div class="col-md-9"> 			<div class="form-group"> 				<label for="" class="col-sm-4 control-label">XXXXXX</label> 				<div class="col-sm-8"> 					<!-- <input name="maintenanceContent" class="form-control"/> --> 					<textarea name="DDDDD" rows="4" class="form-control"></textarea> 				</div> 			</div> 		</div> 	</div>'; 
+/*			if (userType == '1') {
+				return "通过";
+			} else if (userType == '02') {
+				return "退回";
+			} else if (userType == '03') {
+				return "拒绝";
+			}  else if (userType == '04') {
+				return "撤销";
+			}  else*/
+				return divInnerHtml;
+		}	
+
+function transAplyPsrltCd(aplyPsrltCd) {
 			if (aplyPsrltCd == '01') {
 				return "通过";
 			} else if (aplyPsrltCd == '02') {
