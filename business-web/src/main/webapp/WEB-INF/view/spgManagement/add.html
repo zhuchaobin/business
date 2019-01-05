@@ -220,7 +220,7 @@
 							<input type="hidden" id="fileId" name="fileUrl">
 							<input type="hidden" id="fileToDeleteId" name="filesToDelete">
 							<input name="id" type="hidden" value="" />
-
+							<input name="pymtmod" type="hidden" value="" />
 							<input id="secSrvCd" name="secSrvCd" type="hidden" value="" />
 
 
@@ -1762,11 +1762,17 @@
 							},
 							function(result) {
 								fillForm('#frm_detail', result.data);
-								spgId = result.data["spgId"];
-								spgSt = result.data["spgSt"];
+
+
 
 
                                 var detail = result.data;
+
+                                spgId = detail["spgId"];
+                                spgSt = detail["spgSt"];
+
+                                $('#frm_detail [name="pymtmod"]').val(detail["pymtMod"]);
+
 
                                 ///订单明细信息
                                 var t7SpgDetailList = detail["t7SpgDetailList"];
