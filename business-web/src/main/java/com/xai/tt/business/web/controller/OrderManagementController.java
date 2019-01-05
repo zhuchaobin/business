@@ -308,10 +308,12 @@ public class OrderManagementController extends BaseController {
         
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
-    public Result<?>   getDetail(String id) {
+    public Result<?>   getDetail(String id, String aplyPcstpCd, String type) {
     	logger.info("查询长约详情，请求参数id=：{}", id);
     	OrderManagementInVo inVo = new OrderManagementInVo();
     	inVo.setId(Long.parseLong(id));
+    	inVo.setAplyPcstpCd(aplyPcstpCd);
+    	inVo.setFlag(type);
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	inVo.setUserType(user.getUserType().ordinal());
     	inVo.setUsername(user.getUsername());
