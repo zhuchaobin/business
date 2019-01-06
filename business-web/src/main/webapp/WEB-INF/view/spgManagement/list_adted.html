@@ -755,6 +755,106 @@
 	<script th:src="@{/resources/js_zcb/common.js}"></script>
     <script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<script type="text/javascript">
+
+
+
+        $(function() {
+            //e7table表格控件初始化
+            e7tableInit();
+            //表单校验控件初始化
+            validator_1_Init();
+            validator_2_Init();
+            buttonInit();
+
+            CKEDITOR.replace("editor1")
+
+        });
+
+
+
+        /***
+         * e7table表格控件初始化
+         */
+        function e7tableInit() {
+            $('#tbl_query')
+                .e7table(
+                    {
+                        url : '[[@{/spgManagement/queryPage_adted}]]',
+                        pageSize : 10,
+                        autoLoading : true, //控件初始化后，自动远程请求数据
+                        selectType : 'single',
+                        sortName : 'crtTm', //排序列名,创建时间
+                        striped: true, //奇偶行不同背景
+                        pagination: true,
+                        rownumbers: false,		//如果为true，则显示一个行号列
+                        sortOrder : 'desc', //排序方向
+                        columns : [
+                            {
+                                title : '长约编号',
+                                field : 'arId',
+                                sortable : true
+                            },
+                            {
+                                title : '订单编号',
+                                field : 'ordrId',
+                                sortable : true
+                            },
+                            {
+                                title : '发货编号',
+                                field : 'spgId',
+                                sortable : true
+                            },
+                            {
+                                title : '发货人',
+                                field : 'spgPsn',
+                                sortable : true
+                            },
+
+
+
+                            {
+                                title : '收货人',
+                                field : 'cnsgn',
+                                sortable : true
+                            },
+
+
+                            {
+                                title : '目的地',
+                                field : 'ppsLnd',
+                                sortable : true
+                            },
+
+                            {
+                                title : '发起时间',
+                                field : 'crtTm',
+                                sortable : true,
+                                formatter : function(value, row,
+                                                     index) {
+                                    return transDateTime(value);
+                                }
+
+                            },
+                            {
+                                title : '环节',
+                                field : 'aplyPcstpCd',
+                                sortable : true,
+                                formatter : function(value, row,
+                                                     index) {
+                                    return transAplyPcstpCd(value);
+                                }
+                            }
+
+
+                        ],
+                        onDblclick : function(index, row) {
+                            showArDetailDialog();
+                        }
+                    });
+        }
+
+
+
 	/* 日期选择控件-订单开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
         language: 'zh-CN',
@@ -841,17 +941,7 @@
 			modelName : '发货信息管理',
 			resetPath : '[[@{/spgManagement}]]'
 		};
-		$(function() {
-			//e7table表格控件初始化
-			e7tableInit();
-			//表单校验控件初始化
-			validator_1_Init();
-			validator_2_Init();
-			buttonInit();
 
-			CKEDITOR.replace("editor1")
-
-		});
 
 		/***
 		 * 查询
@@ -1813,89 +1903,53 @@
 				$("#div_buttons").append('<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>');
 			}
 		}
-		/***
-		 * e7table表格控件初始化
-		 */
-		function e7tableInit() {
-			$('#tbl_query')
-					.e7table(
-							{
-								url : '[[@{/spgManagement/queryPage_adted}]]',
-								pageSize : 10,
-								autoLoading : true, //控件初始化后，自动远程请求数据
-								selectType : 'single',
-								sortName : 'crtTm', //排序列名,创建时间
-								striped: true, //奇偶行不同背景
-								pagination: true,
-								rownumbers: false,		//如果为true，则显示一个行号列
-								sortOrder : 'desc', //排序方向
-								columns : [
-                                    {
-                                        title : '长约编号',
-                                        field : 'arId',
-                                        sortable : true
-                                    },
-                                    {
-                                        title : '订单编号',
-                                        field : 'ordrId',
-                                        sortable : true
-                                    },
-                                    {
-                                        title : '发货编号',
-                                        field : 'spgId',
-                                        sortable : true
-                                    },
-                                    {
-                                        title : '发货人',
-                                        field : 'spgPsn',
-                                        sortable : true
-                                    },
 
-
-
-                                    {
-                                        title : '收货人',
-                                        field : 'cnsgn',
-                                        sortable : true
-                                    },
-
-
-                                    {
-                                        title : '目的地',
-                                        field : 'ppsLnd',
-                                        sortable : true
-                                    },
-
-                                    {
-                                        title : '发起时间',
-                                        field : 'crtTm',
-                                        sortable : true,
-            							formatter : function(value, row,
-            									index) {
-            								return transDateTime(value);
-            							}
-
-                                    },
-                                    {
-                                        title : '环节',
-                                        field : 'aplyPcstpCd',
-                                        sortable : true,
-                                        formatter : function(value, row,
-                                                             index) {
-                                            return transAplyPcstpCd(value);
-                                        }
-                                    }
-
-
-                                  ],
-								onDblclick : function(index, row) {
-									showArDetailDialog();
-								}
-							});
-		}
 		function show_or_hide_ins_div(flag){
 
 		}
+
+
+    function transAplyPcstpCd(value) {
+        if (value == '61') {
+            return "发货发起_上游";
+        } else if (value == '62') {
+            return "接货承运_物流";
+        } else if (value == '63') {
+            return "接货入库_仓储";
+        } else if (value == '64') {
+            return "货款支付_供应链";
+        } else if (value == '65') {
+            return "选择赎货方式_供应链";
+        } else if (value == '66') {
+            return "选择赎货方式并支付_供应链";
+            ;
+        } else if (value == '67') {
+            return "回款赎货_下游";
+        } else if (value == '68') {
+            return "质押置换_供应链";
+        } else if (value == '69') {
+            return "出质通知转货权_银行";
+        } else if (value == '70') {
+            return "通知转货权_银行";
+        } else if (value == '71') {
+            return "通知转货权_供应链";
+        } else if (value == '72') {
+            return "转货权1_仓储";
+        } else if (value == '73') {
+            return "转货权1确定质押_仓储";
+        } else if (value == '74') {
+            return "存入自有货物回款赎货_下游";
+        } else if (value == '75') {
+            return "通知解押_银行";
+        } else if (value == '76') {
+            return "转货权2_仓储";
+        } else if (value == '77') {
+            return "提取货物_下游";
+        } else if (value == '79') {
+            return "发货终止_供应链";
+        } else
+            return value;
+    }
 
 	</script>
 </body>

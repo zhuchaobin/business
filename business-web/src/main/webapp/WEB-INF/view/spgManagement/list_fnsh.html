@@ -726,6 +726,23 @@
 	<script th:src="@{/resources/js_zcb/common.js}"></script>
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<script type="text/javascript">
+
+
+        $(function() {
+            //e7table表格控件初始化
+            e7tableInit();
+            //表单校验控件初始化
+            validator_1_Init();
+            validator_2_Init();
+            buttonInit();
+            // 是否投保默认不选中，用户自己选择
+//			$("input:radio[name="isNeedIns"]").attr("checked",false);
+            CKEDITOR.replace("editor1")
+
+        });
+
+
+
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
         language: 'zh-CN',
@@ -812,18 +829,7 @@
 			modelName : '长约信息管理',
 			resetPath : '[[@{/spgManagement}]]'
 		};
-		$(function() {
-			//e7table表格控件初始化
-			e7tableInit();
-			//表单校验控件初始化
-			validator_1_Init();
-			validator_2_Init();
-			buttonInit();
-			// 是否投保默认不选中，用户自己选择
-//			$("input:radio[name="isNeedIns"]").attr("checked",false);
-			CKEDITOR.replace("editor1")
 
-		});
 
 		/***
 		 * 查询
@@ -1797,6 +1803,51 @@
 		function show_or_hide_ins_div(flag){
 
 		}
+
+
+        function transAplyPcstpCd(value) {
+            if (value == '61') {
+                return "发货发起_上游";
+            } else if (value == '62') {
+                return "接货承运_物流";
+            } else if (value == '63') {
+                return "接货入库_仓储";
+            } else if (value == '64') {
+                return "货款支付_供应链";
+            } else if (value == '65') {
+                return "选择赎货方式_供应链";
+            } else if (value == '66') {
+                return "选择赎货方式并支付_供应链";
+                ;
+            } else if (value == '67') {
+                return "回款赎货_下游";
+            } else if (value == '68') {
+                return "质押置换_供应链";
+            } else if (value == '69') {
+                return "出质通知转货权_银行";
+            } else if (value == '70') {
+                return "通知转货权_银行";
+            } else if (value == '71') {
+                return "通知转货权_供应链";
+            } else if (value == '72') {
+                return "转货权1_仓储";
+            } else if (value == '73') {
+                return "转货权1确定质押_仓储";
+            } else if (value == '74') {
+                return "存入自有货物回款赎货_下游";
+            } else if (value == '75') {
+                return "通知解押_银行";
+            } else if (value == '76') {
+                return "转货权2_仓储";
+            } else if (value == '77') {
+                return "提取货物_下游";
+            } else if (value == '79') {
+                return "发货终止_供应链";
+            } else
+                return value;
+        }
+
+
 	
 	</script>
 </body>
