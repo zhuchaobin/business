@@ -1612,7 +1612,7 @@
 					}
 					insertHtml = insertHtml + '<tr><td>'+transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)+'</td><td>'+transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)+'</td><td>'+lnk_jrnl_inf[jj].username+'</td><td>'+lnk_jrnl_inf[jj].companyName+
 					'</td><td>'+rmrkDesc+'</td><td>'+transDateTime(lnk_jrnl_inf[jj].lnkEdtm)+
-					'</td><td><input type="button" class="btn btn_small" onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '") value="查看"> </td></tr>';
+					'</td><td><input type="button" class="btn-success btn_small" onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '") value="查看"> </td></tr>';
 				}				
 				insertHtml = insertHtml + "</tbody></table>";
 				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
@@ -2147,28 +2147,28 @@ $("#div_buttons")
 											formatter : function(value, row,
 													index) {
 												if (value == '01') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>发起</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>发起</button>&nbsp;';
 													return s;
 												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
 													return s;
 												}  else if (value == '02') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
 													return s;
 												} else if (value == '03') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
 													return s;
 												} else if (value == '04') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>承保</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>承保</button>&nbsp;';
 													return s;
 												} else if (value == '05') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>一审</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>一审</button>&nbsp;';
 													return s;
 												} else if (value == '06') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>二审</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>二审</button>&nbsp;';
 													return s;
 												} else if (value == '07') {
-													var s = '<button class="btn btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
 													return s; 
 												} 
 											}
