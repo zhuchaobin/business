@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
 <link rel="stylesheet"
-	th:href="@{/resources/adminlte/dist/css/AdminLTE.css}" />
+	th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}" />
 <link rel="stylesheet"
 	th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet"
@@ -1657,7 +1657,7 @@
   				var datas = detail["roleParmsList"];
 				if(null != datas){
 					for ( var i = 0; i < datas.length; i++) {
-				//		alert(datas[i]);
+						alert(datas[i]);
 						$('#' + datas[i] + '_div').hide();
 					}
 				}
@@ -2291,7 +2291,7 @@
 			}
 
 			var formParams = E7.serialForm('#frm_detail');
-//			alert(pageSetting.resetPath);
+			alert(pageSetting.resetPath);
 			E7.post('/orderManagement/save', formParams, function(data) {
 				query_ar_list();
 				showOrHideDetail(true, 1);
