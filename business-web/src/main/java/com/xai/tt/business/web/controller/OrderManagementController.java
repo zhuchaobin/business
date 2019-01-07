@@ -310,6 +310,8 @@ public class OrderManagementController extends BaseController {
     @ResponseBody
     public Result<?>   getDetail(String id, String aplyPcstpCd, String type) {
     	logger.info("查询长约详情，请求参数id=：{}", id);
+    	logger.info("查询长约详情，请求参数aplyPcstpCd=：{}", aplyPcstpCd);
+    	logger.info("查询长约详情，请求参数type=：{}", type);
     	OrderManagementInVo inVo = new OrderManagementInVo();
     	inVo.setId(Long.parseLong(id));
     	inVo.setAplyPcstpCd(aplyPcstpCd);
