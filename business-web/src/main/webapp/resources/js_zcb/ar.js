@@ -1,6 +1,6 @@
 		 // 长约相关js
 	function queryArDetails(id, aplyPcstpCd, type){// type 1:长约提交  0：长约详情查询
-		alert(aplyPcstpCd);
+//		alert(aplyPcstpCd);
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
  
@@ -62,7 +62,7 @@
 				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["arId"]+" ]");
 				// 长约提交div标题				
 				var titleDesc = "长约" + transAplyPcstpCd(aplyPcstpCd);	
-				alert(aplyPcstpCd);
+//				alert(aplyPcstpCd);
 				$('#submit_ar_detail_title').text("您所在位置 : 长约管理 > 待审批长约 > " + titleDesc + " [ " + detail["arId"] + " ]");
 				// 长约提交详情查询div标题
 				$('#query_ar_submmit_title').text("长约提交详情 [ " + detail["arId"]+" ]");
@@ -157,7 +157,7 @@
 	}	
 	
 	function showViewSubmitAr(id, aplyPcstpCd) {
-		alert("2222");
+//		alert("2222");
 		E7.resetForm('#frm_submit_ar');
 		$('#frm_submit_ar').data('bootstrapValidator').updateStatus('aplyPsrltCd', 'NOT_VALIDATED',null).validateField('aplyPsrltCd');  
 		// 初始化上传附件控件
@@ -188,7 +188,7 @@
 	}
 	
 	function del() {
-		alert($('#queryTypeId').val());
+//		alert($('#queryTypeId').val());
 		var rows = $('#tbl_query').e7table('getSelectedRows');
 		if (rows.length == 0) {
 			bootbox.alert({

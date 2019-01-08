@@ -90,6 +90,8 @@ function transAplyPsrltCd(aplyPsrltCd) {
 				return "提取货物";
 			} else if (value == '79') {
 				return "终止";
+			} else if (value == '99') {
+				return "完结";
 			} else
 				return value;
 		}	

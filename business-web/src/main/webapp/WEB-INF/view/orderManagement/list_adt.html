@@ -510,7 +510,7 @@
 								</div>
 							</div>
 
-							<div class="row" id="query_ar_atch_div">
+							<div class="row" id="query_ar_atch_div" style="display: none;">
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="" class="col-sm-2 control-label"></label>
@@ -639,9 +639,9 @@
 										<label for="" class="col-sm-4 control-label">结论<span
 											style="color: red">*</span></label>
 										<div class="col-sm-8">
-											<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd"
+											<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd01"
 											value="01" selected=""> 通过</input> &nbsp&nbsp&nbsp&nbsp<input
-											type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02"
+											type="radio" name="aplyPsrltCd" id="aplyPsrltCd02" value="02"
 											selected=""> 退回</input>
 										</div>
 									</div>
@@ -770,13 +770,12 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							
+							</div>							
 					</fieldset>
 					</div>
 				</form>
 			</div>
-			<div class="box-footer">
+<!-- 			<div class="box-footer">
 				<button id="btn_close_return3" type="button"
 					class="btn btn-primary-gray pull-right"
 					onclick='javascript:showOrHideDetail(false, 3);'
@@ -789,7 +788,7 @@
 					style="margin-right: 15px;">
 					<i class="glyphicon glyphicon-repeat"></i>返回
 				</button>
-			</div>
+			</div> -->
 		</div>
 	</section>
 	<!-- 查询订单提交详细信息 end-->
@@ -877,6 +876,27 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- 订单删除确认提示框 end -->
+	
+
+	<!-- 审核提交界面的返回按钮 start-->
+<div id="submmit_btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
+	<table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
+			<button id="btn_close_return3" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 3);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+						<button id="btn_close_return4" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 4);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+	</table>
+</div>
+
+<!-- 审核提交界面的返回按钮 end-->
 
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
@@ -896,6 +916,7 @@
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/js_zcb/common.js}"></script>
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
+	<script th:src="@{/resources/js_zcb/order.js}"></script>
 	<script type="text/javascript">
 		/* 日期选择控件-订单开始日期 */
 		$('#arStdtDTPicker').datetimepicker({
@@ -1042,143 +1063,7 @@
 			$('#tbl_query').e7table('query', '#frm_query');
 
 		}
-		function showOrHideDetail(editable, flag) {
-			if (editable) {
-				$('#fld_detail').prop('disabled', false);
-				$('#btn_save').show();
-			} else {
-				$('#fld_detail').prop('disabled', true);
-				$('#btn_save').hide();
-			}
-			// 订单列表查询
-			if (flag == 1) {
-				$('#main_search_detail').fadeIn(800);
-				$('#main_edit_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				$('#query_ar_submmit_detail').hide();
-			} else if (flag == 2) {// 订单发起	
-				// section
-				$('#main_edit_detail_title').text("订单发起");
-				$('#main_edit_detail').fadeIn(800);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				$('#query_ar_submmit_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				// 附件
-				$('#upload_ar_div').show();
-				$('#query_ar_atch_div').hide();
-				// 保险信息输入部门默认隐藏
-				show_or_hide_ins_div(false);
-				// 参数
-				$('#arIdDiv').hide();
-				// 按钮				
-				$('#btn_close').show();
-				$('#btn_save').show();
-				//面板收缩控制
-				var div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-minus");
-			} else if (flag == 3) {// 订单详情查看
-				//$('#main_edit_detail_title').text("订单信息");
-				// section
-				// 保险信息输入部门显示隐藏
-				show_or_hide_ins_div(true);
-				$('#main_edit_detail').fadeIn(800);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(800);
-				$('#submit_ar_detail').hide();
-				$('#query_ar_submmit_detail').hide();
-				// 附件
-				$('#upload_ar_div').hide();
-				//				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
-				// 返回按钮
-				$('#btn_close_div').show();
-				// 参数
-				$('#arIdDiv').show();
-				// 按钮	
-				$('#btn_close').hide();
-				$('#btn_save').hide();
-				//面板收缩控制
-				var div = document
-						.getElementById('ar_lnk_jrnl_inf_detail_clapse_box');
-				div.setAttribute("class", "box box-info");
-				div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-minus");
-			} else if (flag == 6) {// 订单修改
-				// section
-				$('#main_edit_detail_title').text("订单修改");
-				$('#main_edit_detail').fadeIn(800);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				$('#query_ar_submmit_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				// 附件
-				$('#upload_ar_div').show();
-				$('#query_ar_atch_div').hide();
-				// 保险信息输入部门默认隐藏
-				show_or_hide_ins_div(true);
-				// 参数
-				$('#arIdDiv').hide();
-				// 按钮				
-				$('#btn_close').show();
-				$('#btn_save').show();
-				//面板收缩控制
-				var div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-minus");
-			} else if (flag == 4) {// 订单提交
-				//$('#main_edit_detail_title').text("订单信息");
-				// section
-				$('#main_edit_detail').fadeIn(800);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(800);
-				$('#submit_ar_detail').fadeIn(800);
-				$('#query_ar_submmit_detail').hide();
-				// 附件
-				$('#upload_ar_div').hide();
-				$('#query_ar_atch_div').show();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				// 参数
-				$('#arIdDiv').show();
-				// 按钮
-				$('#btn_close').hide();
-				$('#btn_save').hide();
-				//面板收缩控制
-				var div = document
-						.getElementById('ar_lnk_jrnl_inf_detail_clapse_box');
-				div.setAttribute("class", "box box-info collapsed-box");
-				div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info collapsed-box");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-plus");
-				div = document.getElementById('ar_lnk_jrnl_inf_detail_li');
-				div.setAttribute("class", "fa fa-plus");
-			} else if (flag == 5) {//订单提交详情查看
-				$('#main_search_detail').hide();
-				$('#main_edit_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				$('#query_ar_submmit_detail').fadeIn(800);
-			}
-		}
+
 		/***
 		 * 重置
 		 */
@@ -1197,9 +1082,18 @@
 						.getElementsByName("aplyPsrltCd");
 				var pymtmod = $('#pymtmod').val();
 				for (var i = 0; i < aplyPsrltCdRadio.length; i++) {
-					if (aplyPsrltCdRadio[i].checked)
-						aplyPsrltCd = aplyPsrltCdRadio[i].value;
+					if (aplyPsrltCdRadio[i].checked){						
+						aplyPsrltCd = aplyPsrltCdRadio[i].value; 
+					}
 				}
+				// 设置单选钮的选中状态，为了查询时展示正确状态
+				  if("01" == aplyPsrltCd){
+					  $('#aplyPsrltCd02').attr("checked",false); 
+					  $('#aplyPsrltCd01').attr("checked",true);
+				    } else if("02" == aplyPsrltCd){
+						  $('#aplyPsrltCd02').attr("checked",true); 
+						  $('#aplyPsrltCd01').attr("checked",false);
+			    	}
 
 				if ("01" == aplyPsrltCd) {
 					nestStepName = getNextStepNameOfOrder($('#aplyPcstpCd')
@@ -1215,7 +1109,7 @@
 							"提交后将退回到 [ " + nestStepName + " ] ，确定提交吗?");
 				}
 				// 个性化审批界面html内容
-				//清楚校验格式
+				//清除校验格式
 				$('#frm_submit_ar').data('bootstrapValidator').resetForm();
 				$('#aplyPsrlt').val(document.getElementById('aplyPsrltInnerDiv').innerHTML);
 
@@ -1789,6 +1683,10 @@
 									$('#frm_detail [name="' + key + '"]').val(
 											detail[key]);
 								}
+								if("1" == type){
+									$('#aplyPsrltCd01').attr("checked","");
+									$('#aplyPsrltCd02').attr("checked","");
+								}
 
 								$('#frm_submit_ar [name="ordrId"]').val(
 										detail["ordrId"]);
@@ -1847,6 +1745,7 @@
 
 								///附件列表
 								var td = detail["t2UploadAtch01List"];
+								$('#query_ar_atch_div').hide();
 								insertHtml = "";
 								for (var kk = 0; kk < td.length; kk++) {
 									insertHtml = insertHtml
@@ -1933,12 +1832,11 @@
 								// 决定显示哪一个返回按钮
 								if (type == 1) {
 									// 返回到订单详情查询
-									$('#btn_close_return4').fadeIn(800);
+									$('#btn_close_return4').show();
 									$('#btn_close_return3').hide();
 								} else {
-
 									// 返回到订单提交
-									$('#btn_close_return3').fadeIn(800);
+									$('#btn_close_return3').show();
 									$('#btn_close_return4').hide();
 								}
 							});
@@ -1957,14 +1855,6 @@
 							function(result) {
 								//				fillForm('#frm_detail2', result.data);
 								var detail = result.data;
-								/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
-								 $('#frm_detail2 [name="companyName"]').val(detail["name"]);
-								 $('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
-								 $('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
-								 $('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
-								 $('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
-								 
-					//			 $("#frm_detail2").data('bootstrapValidator').resetForm();//清除当前验证的关键之处
 
 								 // 个人化审批参数查询展示
 								 var testdiv22 = document
@@ -2363,7 +2253,7 @@
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
 								sortName : 'crtTm', //排序列名,创建时间
-								striped : true, //奇偶行不同背景
+						//		striped : true, //奇偶行不同背景
 								pagination : true,
 								rownumbers : false, //如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
@@ -2497,33 +2387,7 @@
 				document.getElementById('ins_order_div').style.display = "none";
 			}
 		}
-
-		function transToEng(cng) {
-			if (cng == "品名")
-				return "pdNm";
-			else if (cng == "规格")
-				return "spec";
-			else if (cng == "型号")
-				return "modl";
-			else if (cng == "质量标准")
-				return "qlyStd";
-			else if (cng == "品牌")
-				return "brnd";
-			else if (cng == "生产厂家")
-				return "pdFctr";
-			else if (cng == "数量")
-				return "num";
-			else if (cng == "计量单位")
-				return "msunit";
-			else if (cng == "采购单价")
-				return "pchUnitprc";
-			else if (cng == "交易差价")
-				return "txnPrcdif";
-			else if (cng == "销售暂定价")
-				return "saleTntvPrc";
-			else
-				return "";
-		}
+	
 	</script>
 </body>
 </html>

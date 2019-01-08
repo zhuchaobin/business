@@ -596,38 +596,48 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<form id="frm_submit_ar" class="form-horizontal">
-					<input type="hidden" id="fileId2" name="fileUrl2">
-					<div class="row">
-						<div class="col-md-9">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">结论<span
-									style="color: red">*</span></label>
-								<div class="col-sm-8">
-									<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd"
-										value="01" selected=""> 通过</input> &nbsp&nbsp&nbsp&nbsp<input
-										type="radio" name="aplyPsrltCd" id="aplyPsrltCd" value="02"
-										selected=""> 退回</input> <input name="arId"
-										class="form-control" placeholder="" value="" type="hidden" />
-										<input name="ordrId"
-										class="form-control" placeholder="" value="" type="hidden" />
-									<input name="aplyPcstpCd" id="aplyPcstpCd" class="form-control"
-										placeholder="" value="" type="hidden" />
+				<form id="frm_submit_ar" class="form-horizontal">				
+					<input type="hidden" id="fileId2" name="fileUrl2"> <input
+						id="aplyPcstpCd" name="aplyPcstpCd" class="form-control"
+						placeholder="" value="" type="hidden" /> <input id="ordrId"
+						name="ordrId" class="form-control" placeholder="" value=""
+						type="hidden" /> <input name="arId" class="form-control"
+						placeholder="" value="" type="hidden" /> <input id="pymtmod"
+						name="pymtmod" class="form-control" placeholder="" value=""
+						type="hidden" />
+					<input id="aplyPsrlt"
+						name="aplyPsrlt" class="form-control" placeholder="" value=""
+						type="hidden" />
+				<div id="aplyPsrltInnerDiv">
+						<div class="row">
+						<div class="col-md-6">
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">结论<span
+											style="color: red">*</span></label>
+										<div class="col-sm-8">
+											<input type="radio" name="aplyPsrltCd" id="aplyPsrltCd01"
+											value="01" selected=""> 通过</input> &nbsp&nbsp&nbsp&nbsp<input
+											type="radio" name="aplyPsrltCd" id="aplyPsrltCd02" value="02"
+											selected=""> 退回</input>
+										</div>
+									</div>
 								</div>
+							</div>	
+								
+							<div id="aplyPsrltDiv"></div>
+																	
+							<div class="row">
+										<div class="col-md-12" style="padding-right: 15px;">
+											<div class="form-group" style="padding-left: 15px;">
+											
+													<label for="" class="col-sm-2 control-label">备注</label>
+												<div class="col-md-10" style="padding-left: 10px;">
+													<textarea name="rmrk" rows="4" class="form-control" margin>提交备注信息</textarea>
+												</div>
+											</div>
+										</div>
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-9">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">备注</label>
-								<div class="col-sm-8">
-									<!-- <input name="maintenanceContent" class="form-control"/> -->
-									<textarea name="rmrk" rows="4" class="form-control"></textarea>
-								</div>
-							</div>
-						</div>
-					</div>
+						</div>	
 					<div class="row" id="submmit_ar_upload_ar_div">
 						<div class="col-md-9">
 							<div class="form-group">
@@ -708,48 +718,15 @@
 			</div>
 			<div class="box-body">
 				<form id="frm_detail2" class="form-horizontal">
-					<fieldset id='fld_detail'>
-						<div class="w-z-info">
-							<div class="col-md-12 col-md-offset-2">
-								<div class="row">
-									<div class="col-sm-6">
-										<h5 id="submmitUsername"></h5>
-									</div>
-									<div class="col-sm-6">
-										<h5 id="companyName"></h5>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-md-12 col-md-offset-2">
-								<div class="row">
-									<div class="col-sm-6">
-										<h5 id="aplyPcstpCdDesc"></h5>
-									</div>
-									<div class="col-sm-6">
-										<h5 id="aplyPsrltCdDesc"></h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-12 col-md-offset-2">
-								<div class="row">
-									<div class="col-sm-6">
-										<h5 id="lnkEdtm"></h5>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-12 col-md-offset-2">
-								<div class="row">
-									<div class="col-sm-6">
-										<h5 id="rmrkDesc"></h5>
-									</div>
-								</div>
-							</div>
+					<div class="w-z-info">
+					<fieldset id='fld_detail_query_order_submmit'>
+					<div id="query_order_submmit_div"></div>
+							
 							<div class="row" id="query_ar_atch_div2">
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="" class="col-sm-2 control-label"></label>
-										<div class="col-sm-8">
+										<div class="col-sm-10">
 											<div class="w-z-docx">
 												<div class="w-z-d-title">附件</div>
 												<div class="w-z-d-list">
@@ -762,11 +739,12 @@
 									</div>
 								</div>
 							</div>
-						</div>
+							
 					</fieldset>
+					</div>
 				</form>
 			</div>
-			<div class="box-footer">
+<!-- 			<div class="box-footer">
 				<button id="btn_close_return3" type="button"
 					class="btn btn-primary-gray pull-right"
 					onclick='javascript:showOrHideDetail(false, 3);'
@@ -779,7 +757,7 @@
 					style="margin-right: 15px;">
 					<i class="glyphicon glyphicon-repeat"></i>返回
 				</button>
-			</div>
+			</div> -->
 		</div>
 	</section>
 	<!-- 查询长约提交详细信息 end-->
@@ -1168,6 +1146,27 @@
 		</div>
 	</div>
 
+
+	<!-- 审核提交界面的返回按钮 start-->
+<div id="submmit_btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
+	<table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
+			<button id="btn_close_return3" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 3);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+						<button id="btn_close_return4" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 4);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+	</table>
+</div>
+
+<!-- 审核提交界面的返回按钮 end-->
+
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -1188,6 +1187,7 @@
 <!-- 	<script th:src="@{/resources/bootstrap-table/bootstrap-table.js}"></script> -->
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<!-- 	<script th:src="@{/resources/js_zcb/ar.js}"></script> -->
+	<script th:src="@{/resources/js_zcb/order.js}"></script>
 	<script type="text/javascript">
 		var pageSetting = {
 			modelName : '长约信息管理',
@@ -1387,7 +1387,7 @@
   				var datas = detail["roleParmsList"];
 				if(null != datas){
 					for ( var i = 0; i < datas.length; i++) {
-						alert(datas[i]);
+					//	alert(datas[i]);
 						$('#' + datas[i] + '_div').hide();
 					}
 				}
@@ -1537,48 +1537,32 @@
 							function(result) {
 								//				fillForm('#frm_detail2', result.data);
 								var detail = result.data;
-								/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
-											$('#frm_detail2 [name="companyName"]').val(detail["name"]);
-											$('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
-											$('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
-											$('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
-											$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
-								document.getElementById('companyName').innerText = "公    司    :    "
-										+ detail["name"];
-								document.getElementById('submmitUsername').innerText = "提交人    :    "
-										+ detail["username"];
-								document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    "
-										+ transAplyPcstpCd(detail["aplyPcstpCd"]);
-								document.getElementById('lnkEdtm').innerText = "时    间    :    "
-										+ transDateTime(detail["lnkEdtm"]);
-								document.getElementById('aplyPsrltCdDesc').innerText = "结    果    :    "
-										+ transAplyPsrltCd(detail["aplyPsrltCd"]);
-								document.getElementById('rmrkDesc').innerText = "备    注    :    "
-										+ detail["rmrk"];
+								 // 个人化审批参数查询展示
+								 var testdiv22 = document
+									.getElementById("query_order_submmit_div");
+								testdiv22.innerHTML = detail["aplyPsrlt"];
+								$('#fld_detail_query_order_submmit').prop('disabled', true);		
 								///附件列表
 								var td = detail["t2UploadAtch01List"];
 								var insertHtml = "";
-								for (var kk = 0; kk < td.length; kk++) {
-									var oriFileNm = td[kk].oriFileNm;
-									var index1 = oriFileNm.lastIndexOf(".");
-									var index2 = oriFileNm.length;
-									var suffix = oriFileNm.substring(
-											index1 + 1, index2);//后缀名
-
-									insertHtml = insertHtml
-											+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
-											+ td[kk].oriFileNm + '<p>'
-											+ getFileType(td[kk].oriFileNm)
-											+ transDateTime(suffix)
-											+ '</div></a></div>';
-								}
-								if (td.length > 0) {
-									var testdiv = document
-											.getElementById("upload_atch_div2");
-									testdiv.innerHTML = insertHtml;
-									$('#query_ar_atch_div2').fadeIn(300);
-								} else {
-									$('#query_ar_atch_div2').hide();
+								$('#query_ar_atch_div2').hide();
+								if(null != td && undifined != td){
+									for (var kk = 0; kk < td.length; kk++) {
+										insertHtml = insertHtml
+												+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
+												+ td[kk].oriFileNm + '<p>'
+												+ getFileType(td[kk].oriFileNm)
+												+ transDateTime(suffix)
+												+ '</div></a></div>';
+									}
+									if (td.length > 0) {
+										var testdiv = document
+												.getElementById("upload_atch_div2");
+										testdiv.innerHTML = insertHtml;
+										$('#query_ar_atch_div2').fadeIn(800);
+									} else {
+										$('#query_ar_atch_div2').hide();
+									}
 								}
 								showOrHideDetail(false, 5);
 							});
@@ -2079,32 +2063,7 @@
 		});
 
 
-        function transToEng(cng) {
-            if (cng == "品名")
-                return "pdNm";
-            else if (cng == "规格")
-                return "spec";
-            else if (cng == "型号")
-                return "modl";
-            else if (cng == "质量标准")
-                return "qlyStd";
-            else if (cng == "品牌")
-                return "brnd";
-            else if (cng == "生产厂家")
-                return "pdFctr";
-            else if (cng == "数量")
-                return "num";
-            else if (cng == "计量单位")
-                return "msunit";
-            else if (cng == "采购单价")
-                return "pchUnitprc";
-            else if (cng == "交易差价")
-                return "txnPrcdif";
-            else if (cng == "销售暂定价")
-                return "saleTntvPrc";
-            else
-                return "";
-        }
+
 
 		// 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
 		function checkInsDtAndArDt() {
@@ -2137,165 +2096,7 @@
 			$('#tbl_query').e7table('query', '#frm_query');
 
 		}
-		function showOrHideDetail(editable, flag) {
-			if (editable) {
-				$('#fld_detail').prop('disabled', false);
-				$('#btn_save').show();
-			} else {
-				$('#fld_detail').prop('disabled', true);
-				$('#btn_save').hide();
-			}
-			// 长约列表查询
-			if (flag == 1) {
-				$('#main_search_detail').fadeIn(300);
-				$('#main_edit_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				//新发起订单
-				$('#main_spg_edit_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				$('#query_ar_submmit_detail').hide();
-			} else if (flag == 2) {// 长约发起
-				// section
-				$('#main_edit_detail_title').text("长约发起");
-				$('#main_edit_detail').fadeIn(300);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				$('#query_ar_submmit_detail').hide();
-				//新发起订单
-				$('#main_spg_edit_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				// 附件
-				$('#upload_ar_div').show();
-				$('#query_ar_atch_div').hide();
-				// 保险信息输入部门默认隐藏
-				show_or_hide_ins_div(false);
-				// 参数
-				$('#arIdDiv').hide();
-				// 按钮
-				$('#btn_close').show();
-				$('#btn_save').show();
-				//面板收缩控制
-				var div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-minus");
-			} else if (flag == 3) {// 长约详情查看
-				//$('#main_edit_detail_title').text("长约信息");
-				// section
-				$('#main_edit_detail').fadeIn(300);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
-				$('#submit_ar_detail').hide();
-				$('#query_ar_submmit_detail').hide();
-				//新发起订单
-				$('#main_spg_edit_detail').hide();
-				// 附件
-				$('#upload_ar_div').hide();
-				//				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
-				// 返回按钮
-				$('#btn_close_div').show();
-				// 参数
-				$('#arIdDiv').show();
-				// 按钮
-				$('#btn_close').hide();
-				$('#btn_save').hide();
-				//面板收缩控制
-				var div = document
-						.getElementById('ar_lnk_jrnl_inf_detail_clapse_box');
-				div.setAttribute("class", "box box-info");
-				div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-minus");
-			} else if (flag == 6) {// 长约修改
-				// section
-				$('#main_edit_detail_title').text("长约修改");
-				$('#main_edit_detail').fadeIn(300);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				$('#query_ar_submmit_detail').hide();
-				//新发起订单
-				$('#main_spg_edit_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				// 附件
-				$('#upload_ar_div').show();
-				$('#query_ar_atch_div').hide();
-				// 保险信息输入部门默认隐藏
-				show_or_hide_ins_div(false);
-				// 参数
-				$('#arIdDiv').hide();
-				// 按钮
-				$('#btn_close').show();
-				$('#btn_save').show();
-				//面板收缩控制
-				var div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-minus");
-			} else if (flag == 4) {// 长约提交
-				//$('#main_edit_detail_title').text("长约信息");
-				// section
-				$('#main_edit_detail').fadeIn(300);
-				$('#main_search_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
-				$('#submit_ar_detail').fadeIn(300);
-				$('#query_ar_submmit_detail').hide();
-				//新发起订单
-				$('#main_spg_edit_detail').hide();
-				// 附件
-				$('#upload_ar_div').hide();
-				$('#query_ar_atch_div').show();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				// 参数
-				$('#arIdDiv').show();
-				// 按钮
-				$('#btn_close').hide();
-				$('#btn_save').hide();
-				//面板收缩控制
-				var div = document
-						.getElementById('ar_lnk_jrnl_inf_detail_clapse_box');
-				div.setAttribute("class", "box box-info collapsed-box");
-				div = document.getElementById('main_edit_detail_clapse');
-				div.setAttribute("class", "box box-info collapsed-box");
-				//面板收缩+-号
-				div = document.getElementById('main_edit_detail_li');
-				div.setAttribute("class", "fa fa-plus");
-				div = document.getElementById('ar_lnk_jrnl_inf_detail_li');
-				div.setAttribute("class", "fa fa-plus");
-			} else if (flag == 5) {//长约提交详情查看
-				$('#main_search_detail').hide();
-				$('#main_edit_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				//新发起订单
-				$('#main_spg_edit_detail').fadeIn(800);
-				// 返回按钮
-				$('#btn_close_div').hide();
-				//新发起订单
-				$('#query_ar_submmit_detail').hide();
-			} else if (flag == 7) {//新发起订单
-				$('#main_search_detail').hide();
-				$('#main_edit_detail').hide();
-				$('#ar_lnk_jrnl_inf_detail').hide();
-				$('#submit_ar_detail').hide();
-				// 返回按钮
-				$('#btn_close_div').hide();
-				//长约审批提交
-				$('#query_ar_submmit_detail').hide();
-				//新发起订单
-				$('#main_spg_edit_detail').fadeIn(800);
-			}
-		}
+	
 		/***
 		 * 重置
 		 */
@@ -2316,6 +2117,15 @@
 					if (aplyPsrltCdRadio[i].checked)
 						aplyPsrltCd = aplyPsrltCdRadio[i].value;
 				}
+				
+				// 设置单选钮的选中状态，为了查询时展示正确状态
+				  if("01" == aplyPsrltCd){
+					  $('#aplyPsrltCd02').attr("checked",false); 
+					  $('#aplyPsrltCd01').attr("checked",true);
+				    } else if("02" == aplyPsrltCd){
+						  $('#aplyPsrltCd02').attr("checked",true); 
+						  $('#aplyPsrltCd01').attr("checked",false);
+			    	}
 
 				if ("01" == aplyPsrltCd) {
 					nestStepName = getNextStepName($('#aplyPcstpCd').val(), 1);
@@ -2328,6 +2138,10 @@
 					$('#saveSubmitModalTips').text(
 							"提交后将退回到 [ " + nestStepName + " ] ，确定提交吗?");
 				}
+				// 个性化审批界面html内容
+				//清除校验格式
+				$('#frm_submit_ar').data('bootstrapValidator').resetForm();
+				$('#aplyPsrlt').val(document.getElementById('aplyPsrltInnerDiv').innerHTML);
 				$('#submitArModal').modal('show');
 			}
 		}
