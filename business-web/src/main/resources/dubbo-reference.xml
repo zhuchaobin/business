@@ -14,7 +14,7 @@
     <dubbo:reference id="factoryService" interface="com.xai.tt.dc.client.service.FactoryService" version="1.0"/>
    <dubbo:reference interface="com.xai.tt.dc.client.inter.UserInfoService" id="userInfoService" version="1.0"/>
    <dubbo:reference id="userProtocolService" interface="com.xai.tt.dc.client.inter.UserProtocolService" version="1.0"/>
-	<!--车主收货地址管理，zhuchaobin, 20180721-->
+
 	<dubbo:reference id="postAddressDcService" interface="com.xai.tt.dc.client.inter.PostAddressDcService" version="1.0"/>
 	<!--长约管理, 20181121-->
 	<dubbo:reference id="arManagementDcService" interface="com.xai.tt.dc.client.service.ArManagementDcService" version="1.0"/>
@@ -28,5 +28,8 @@
     
     <!--发货管理, 20181227-->
     <dubbo:reference id="userManagementDcService" interface="com.xai.tt.dc.client.service.UserManagementDcService" version="1.0"/>
+    
+    <!--发票信息管理, 20190110-->
+    <dubbo:reference id="invInfDcService" interface="com.xai.tt.dc.client.service.InvInfDcService" version="1.0"/>
 
 </beans>
