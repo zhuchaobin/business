@@ -381,7 +381,7 @@
 					</fieldset>
 				</form>
 			</div>
-			<div class="box-footer">
+<!-- 			<div class="box-footer">
 				<button id="btn_save" type="button"
 					class="btn btn-primary pull-right"
 					onclick='javascript:validate_frm_detail();'>确定</button>
@@ -389,7 +389,7 @@
 					class="btn btn-default pull-right"
 					onclick='javascript:showOrHideDetail(true, 1);'
 					style="margin-right: 15px;">取消</button>
-			</div>
+			</div> -->
 		</div>
 	</section>
 	<!-- 详细信息 end-->
@@ -940,15 +940,15 @@
 //				$('#submit_ar_detail').fadeIn(300);
 				$('#query_ar_submmit_detail').hide();
 				// 附件
-				$('#upload_ar_div').show();
+				$('#upload_ar_div').hide();
 				$('#query_ar_atch_div').show();
 				// 返回按钮
-				$('#btn_close_div').hide();
+				$('#btn_close_div').show();
 				// 参数
 				$('#arIdDiv').show();
 				// 按钮
-				$('#btn_close').show();
-				$('#btn_save').show();
+				$('#btn_close').hide();
+				$('#btn_save').hide();
 				//面板收缩控制
 /* 				var div = document.getElementById('ar_lnk_jrnl_inf_detail_clapse_box'); 
 				div.setAttribute("class", "box box-info collapsed-box");
@@ -1890,7 +1890,7 @@
 											}
 										}  */],
 								onDblclick : function(index, row) {
-									showArDetailDialog();
+									showViewSubmitAr(row.id);
 								}
 							});
 		}		
