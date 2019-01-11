@@ -37,6 +37,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,10 +62,10 @@ public class InvInfController extends BaseController {
 	@Autowired
 	private CompanyDcService companyDcService;    
  
-    @RequestMapping(value = { "save" })
+    @RequestMapping(value = { "save_dk" })
     @ResponseBody
-    public Result<?>  save(QueryPageInvInfVo inVo, String fileUrl) {
-    	logger.info("保存发票信息请求报文：ArManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
+    public Result<?>  save_dk(QueryPageInvInfVo inVo) {
+    	logger.info("保存发票信息请求报文：QueryPageInvInfVo={}", JSON.toJSONString(inVo));
 
 //    	logger.info("长约附件信息长度：{}", inVo.getList().size());
        	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
@@ -72,6 +74,7 @@ public class InvInfController extends BaseController {
        	inVo.setCompanyId(user.getCompanyId());
        	inVo.setNickname(user.getNickname());
        	inVo.setChineseName(user.getChineseName());
+       	inVo.setSecSrvCd("01");
 /*       	inVo.setUsrTp(user.getUsrTp());
        	inVo.setSplchainCo(user.getSplchainCo());
        	inVo.setCtfnTp(user.getCtfnTp());
@@ -82,82 +85,130 @@ public class InvInfController extends BaseController {
         return result;
     }  
     
-	   @RequestMapping(value = { "list" })
-	    public ModelAndView list() {
-	    	ModelAndView mav = new ModelAndView("invInfManagement/list");
+    @RequestMapping(value = { "save_ds" })
+    @ResponseBody
+    public Result<?>  save_ds(QueryPageInvInfVo inVo) {
+    	logger.info("保存发票信息请求报文：QueryPageInvInfVo={}", JSON.toJSONString(inVo));
+
+//    	logger.info("长约附件信息长度：{}", inVo.getList().size());
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	inVo.setUserType(user.getUserType().ordinal());
+       	inVo.setUsername(user.getUsername());
+       	inVo.setCompanyId(user.getCompanyId());
+       	inVo.setNickname(user.getNickname());
+       	inVo.setChineseName(user.getChineseName());
+       	inVo.setSecSrvCd("02");
+/*       	inVo.setUsrTp(user.getUsrTp());
+       	inVo.setSplchainCo(user.getSplchainCo());
+       	inVo.setCtfnTp(user.getCtfnTp());
+       	inVo.setAdtInd(user.getAdtInd());*/
+       	// 
+    	Result<Boolean> result = invInfDcService.save(inVo);
+    	logger.info("保存发票信息返回结果：{}", JSON.toJSONString(result));
+        return result;
+    } 
+    
+	   @RequestMapping(value = { "list_dk" })
+	    public ModelAndView list_dk() {
+	    	ModelAndView mav = new ModelAndView("invInfManagement/list_dk");
+	    	QueryPageInvInfVo inVo = new QueryPageInvInfVo();
+	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+	    	inVo.setUserType(user.getUserType().ordinal());
+	    	inVo.setUsername(user.getUsername());
+	    	inVo.setCompanyId(user.getCompanyId());
+	    	inVo.setNickname(user.getNickname());
+	    	inVo.setChineseName(user.getChineseName());
+	    	inVo.setSecSrvCd("01");
+	    	
 	    	CompanyQuery query = new CompanyQuery();        
 	    	// 查询平台下拉菜单
 	        query.setUsrTp("01");
-	        Result<PageInfo<Company>> result = companyDcService.queryPage(query);
-	    	logger.info("查询[平台]公司信息返回结果：{}", JSON.toJSONString(result));
+	        Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);
+	    	logger.info("查询付款方列表返回结果：{}", JSON.toJSONString(result));
 	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[平台]公司信息异常");
-//	            throw new RuntimeException("查询[平台]公司信息异常");
+	        	logger.error("查询付款方列表返回结果异常");
 	        }
-	        mav.addObject("pltfrmModels", result.getData().getList());
-	    	// 查询上游供应商下拉菜单
-	        query.setUsrTp("02");
-	    	result = companyDcService.queryPage(query);
-	    	logger.info("查询[上游供应商]公司信息返回结果：{}", JSON.toJSONString(result));
+	        mav.addObject("skFkFModels", result.getData().getList());
+	 
+	    	mav.addObject("userType", "Group");
+	        return mav;
+	    }
+	   
+	   @RequestMapping(value = { "list_yk" })
+	    public ModelAndView list_yk(HttpSession session) {
+	    	ModelAndView mav = new ModelAndView("invInfManagement/list_yk");
+	    	QueryPageInvInfVo inVo = new QueryPageInvInfVo();
+	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+	    	inVo.setUserType(user.getUserType().ordinal());
+	    	inVo.setUsername(user.getUsername());
+	    	inVo.setCompanyId(user.getCompanyId());
+	    	inVo.setNickname(user.getNickname());
+	    	inVo.setChineseName(user.getChineseName());
+	    	inVo.setSecSrvCd("02");
+	    	
+	    	CompanyQuery query = new CompanyQuery();        
+	    	// 查询平台下拉菜单
+	        query.setUsrTp("01");
+	        Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);
+
+	    	logger.info("查询付款方列表返回结果：{}", JSON.toJSONString(result));
 	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[上游供应商]公司信息异常");
-//	            throw new RuntimeException("查询[上游供应商]公司信息异常");
+	        	logger.error("查询付款方列表返回结果异常");
 	        }
-	        mav.addObject("ustrmSplrModels", result.getData().getList());
-	    	// 查询供应链公司下拉菜单
-	        query.setUsrTp("03");
-	    	result = companyDcService.queryPage(query);
-	    	logger.info("查询[供应链公司]公司信息返回结果：{}", JSON.toJSONString(result));
+	        mav.addObject("skFkFModels", result.getData().getList());
+	 
+	    	mav.addObject("userType", "Group");
+	        return mav;
+	    }
+	   
+	   @RequestMapping(value = { "list_ds" })
+	    public ModelAndView list_ds(HttpSession session) {
+	    	ModelAndView mav = new ModelAndView("invInfManagement/list_ds");
+	    	QueryPageInvInfVo inVo = new QueryPageInvInfVo();
+	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+	    	inVo.setUserType(user.getUserType().ordinal());
+	    	inVo.setUsername(user.getUsername());
+	    	inVo.setCompanyId(user.getCompanyId());
+	    	inVo.setNickname(user.getNickname());
+	    	inVo.setChineseName(user.getChineseName());
+	    	inVo.setSecSrvCd("03");
+	    	
+	    	CompanyQuery query = new CompanyQuery();        
+	    	// 查询平台下拉菜单
+	        query.setUsrTp("01");
+	        Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);
+	    	logger.info("查询收款方列表返回结果：{}", JSON.toJSONString(result));
 	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[供应链公司]公司信息异常");
-//	            throw new RuntimeException("查询[供应链公司]公司信息异常");
+	        	logger.error("查询收款方列表返回结果异常");
 	        }
-	        mav.addObject("splchainCoModels", result.getData().getList());
-	    	// 查询融资企业下拉菜单
-	        query.setUsrTp("04");
-	    	result = companyDcService.queryPage(query);
-	    	logger.info("查询[融资企业]公司信息返回结果：{}", JSON.toJSONString(result));
+	        mav.addObject("skFkFModels", result.getData().getList());
+	 
+	    	mav.addObject("userType", "Group");
+	        return mav;
+	    }
+	   
+	   @RequestMapping(value = { "list_ys" })
+	    public ModelAndView list_ys(HttpSession session) {
+	    	ModelAndView mav = new ModelAndView("invInfManagement/list_ys");
+	    	QueryPageInvInfVo inVo = new QueryPageInvInfVo();
+	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+	    	inVo.setUserType(user.getUserType().ordinal());
+	    	inVo.setUsername(user.getUsername());
+	    	inVo.setCompanyId(user.getCompanyId());
+	    	inVo.setNickname(user.getNickname());
+	    	inVo.setChineseName(user.getChineseName());
+	    	inVo.setSecSrvCd("04");
+	    	
+	    	CompanyQuery query = new CompanyQuery();        
+	    	// 查询平台下拉菜单
+	        query.setUsrTp("01");
+	        Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);
+	    	logger.info("查询收款方列表返回结果：{}", JSON.toJSONString(result));
 	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[融资企业]公司信息异常");
-//	            throw new RuntimeException("查询[融资企业]公司信息异常");
+	        	logger.error("查询收款方列表返回结果异常");
 	        }
-	        mav.addObject("fncEntpModels", result.getData().getList());
-	    	// 查询保险公司下拉菜单
-	        query.setUsrTp("05");
-	    	result = companyDcService.queryPage(query);
-	    	logger.info("查询[保险公司]公司信息返回结果：{}", JSON.toJSONString(result));
-	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[保险公司]公司信息异常");
-//	            throw new RuntimeException("查询[保险公司]公司信息异常");
-	        }
-	        mav.addObject("insCoModels", result.getData().getList());
-	    	// 查询银行下拉菜单
-	        query.setUsrTp("06");
-	    	result = companyDcService.queryPage(query);
-	    	logger.info("查询[银行]公司信息返回结果：{}", JSON.toJSONString(result));
-	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[银行]公司信息异常");
-//	            throw new RuntimeException("查询[银行]公司信息异常");
-	        }
-	        mav.addObject("bnkModels", result.getData().getList());
-	    	// 查询物流公司下拉菜单
-	        query.setUsrTp("07");
-	    	result = companyDcService.queryPage(query);
-	    	logger.info("查询[物流公司]公司信息返回结果：{}", JSON.toJSONString(result));
-	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[物流公司]公司信息异常");
-//	            throw new RuntimeException("查询[物流公司]公司信息异常");
-	        }
-	        mav.addObject("lgstcCoModels", result.getData().getList());
-	    	// 查询仓储公司下拉菜单
-	        query.setUsrTp("08");
-	    	result = companyDcService.queryPage(query);
-	    	logger.info("查询[仓储公司]公司信息返回结果：{}", JSON.toJSONString(result));
-	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询[仓储公司]公司信息异常");
-//	            throw new RuntimeException("查询[仓储公司]公司信息异常");
-	        }
-	        mav.addObject("stgcoModels", result.getData().getList());    
+	        mav.addObject("skFkFModels", result.getData().getList());
+	 
 	    	mav.addObject("userType", "Group");
 	        return mav;
 	    }
@@ -221,15 +272,106 @@ public class InvInfController extends BaseController {
     
  
     
-    @RequestMapping(value = { "queryPage" })
+    @RequestMapping(value = { "queryPage_dk" })
     @ResponseBody
-    public Result<?>  queryPage(QueryPageInvInfVo queryPageInvInfVo, PageParam pageParam) {
+    public Result<?>  queryPage_dk(QueryPageInvInfVo queryPageInvInfVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	queryPageInvInfVo.setUserType(user.getUserType().ordinal());
     	queryPageInvInfVo.setUsername(user.getUsername());
     	queryPageInvInfVo.setCompanyId(user.getCompanyId());
     	queryPageInvInfVo.setNickname(user.getNickname());
-    	queryPageInvInfVo.setChineseName(user.getChineseName());    	
+    	queryPageInvInfVo.setChineseName(user.getChineseName());    
+    	queryPageInvInfVo.setSecSrvCd("01");
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = queryPageInvInfVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		queryPageInvInfVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("发票信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(queryPageInvInfVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageInvInfVo>> result = invInfDcService.queryPage(queryPageInvInfVo, pageParam);
+        logger.info("发票信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
+    @RequestMapping(value = { "queryPage_yk" })
+    @ResponseBody
+    public Result<?>  queryPage_yk(QueryPageInvInfVo queryPageInvInfVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	queryPageInvInfVo.setUserType(user.getUserType().ordinal());
+    	queryPageInvInfVo.setUsername(user.getUsername());
+    	queryPageInvInfVo.setCompanyId(user.getCompanyId());
+    	queryPageInvInfVo.setNickname(user.getNickname());
+    	queryPageInvInfVo.setChineseName(user.getChineseName());    
+    	queryPageInvInfVo.setSecSrvCd("02");
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = queryPageInvInfVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		queryPageInvInfVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("发票信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(queryPageInvInfVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageInvInfVo>> result = invInfDcService.queryPage(queryPageInvInfVo, pageParam);
+        logger.info("发票信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
+    @RequestMapping(value = { "queryPage_ds" })
+    @ResponseBody
+    public Result<?>  queryPage_ds(QueryPageInvInfVo queryPageInvInfVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	queryPageInvInfVo.setUserType(user.getUserType().ordinal());
+    	queryPageInvInfVo.setUsername(user.getUsername());
+    	queryPageInvInfVo.setCompanyId(user.getCompanyId());
+    	queryPageInvInfVo.setNickname(user.getNickname());
+    	queryPageInvInfVo.setChineseName(user.getChineseName());    
+    	queryPageInvInfVo.setSecSrvCd("03");
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = queryPageInvInfVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		queryPageInvInfVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("发票信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(queryPageInvInfVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryPageInvInfVo>> result = invInfDcService.queryPage(queryPageInvInfVo, pageParam);
+        logger.info("发票信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
+    @RequestMapping(value = { "queryPage_ys" })
+    @ResponseBody
+    public Result<?>  queryPage_ys(QueryPageInvInfVo queryPageInvInfVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	queryPageInvInfVo.setUserType(user.getUserType().ordinal());
+    	queryPageInvInfVo.setUsername(user.getUsername());
+    	queryPageInvInfVo.setCompanyId(user.getCompanyId());
+    	queryPageInvInfVo.setNickname(user.getNickname());
+    	queryPageInvInfVo.setChineseName(user.getChineseName());    
+    	queryPageInvInfVo.setSecSrvCd("04");
     	// 因前后端名字不一样，转义排序参数
     	String sortName = queryPageInvInfVo.getSortName();
     	if(StringUtils.isNotBlank(sortName)) {
