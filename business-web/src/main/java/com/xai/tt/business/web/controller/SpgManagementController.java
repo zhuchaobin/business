@@ -322,11 +322,17 @@ public class SpgManagementController extends BaseController {
         
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
-    public Result<?>   getDetail(String id) {
-
+	public Result<?>   getDetail(String id, String aplyPcstpCd, String type) {
 
 		logger.info("查询长约详情，请求参数id=：{}", id);
+		logger.info("查询长约详情，请求参数aplyPcstpCd=：{}", aplyPcstpCd);
+		logger.info("查询长约详情，请求参数type=：{}", type);
 		SpgManagementInVo inVo = new SpgManagementInVo();
+		inVo.setId(Long.parseLong(id));
+		inVo.setAplyPcstpCd(aplyPcstpCd);
+		inVo.setFlag(type);
+
+
 		inVo.setId(Long.parseLong(id));
 		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
 		inVo.setUserType(user.getUserType().ordinal());
