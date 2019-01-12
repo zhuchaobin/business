@@ -57,7 +57,8 @@
     <!-- 自定义按钮样式 -->
     <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}"/>
     <!-- bootstrap表格 -->
-    <link rel="stylesheet" th:href="@{/resources/bootstrap-table/bootstrap-table.css}"/>
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}" />
 </head>
 <body>
 <!-- 列表查询 start-->
@@ -992,7 +993,7 @@
         th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 <script th:src="@{/resources/js_zcb/tools.js}"></script>
 <script th:src="@{/resources/js_zcb/common.js}"></script>
-<script th:src="@{/resources/bootstrap-table/bootstrap-table.js}"></script>
+<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 <!-- 	<script th:src="@{/resources/js_zcb/ar.js}"></script> -->
 <script type="text/javascript">
     var pageSetting = {
@@ -1868,11 +1869,12 @@
             var item = '<div name="inputDiv"><input name="fileName2" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
             var testdiv = document.getElementById("fujianId2");
             testdiv.innerHTML = item;
-        } else if (flag == 3) {
+        } 
+        /* else if (flag == 3) {
             var item = '<div name="inputDiv"><input name="fileName3" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
             var testdiv = document.getElementById("fujianId3");
             testdiv.innerHTML = item;
-        }
+        } */
     }
 
     function deleteItem(input) {

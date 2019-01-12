@@ -624,7 +624,7 @@
 						id="aplyPcstpCd" name="aplyPcstpCd" class="form-control"
 						placeholder="" value="" type="hidden" /> <input id="ordrId"
 						name="ordrId" class="form-control" placeholder="" value=""
-						type="hidden" /> <input name="arId" class="form-control"
+						type="hidden" /> <input id="arIdForSubmmit" name="arId" class="form-control"
 						placeholder="" value="" type="hidden" /> <input id="pymtmod"
 						name="pymtmod" class="form-control" placeholder="" value=""
 						type="hidden" />
@@ -1684,6 +1684,9 @@
 								if("1" == type){
 									$('#aplyPsrltCd01').attr("checked","");
 									$('#aplyPsrltCd02').attr("checked","");
+									// 传递arId到后端去
+									$('#arIdForSubmmit').val(detail["arId"]);
+									
 								}
 
 								$('#frm_submit_ar [name="ordrId"]').val(
@@ -1814,6 +1817,7 @@
 								// 订单流转div标题
 								$('#ar_lnk_jrnl_inf_detail_title').text(
 										"流转信息 [ " + detail["ordrId"] + " ]");
+								
 								// 订单提交div标题				
 								var titleDesc = "订单"
 										+ transAplyPcstpCd(aplyPcstpCd);
