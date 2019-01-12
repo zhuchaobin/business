@@ -147,7 +147,18 @@
 				$('#btn_close_div').hide();
 				// 提交详情页面的返回
 				$('#submmit_btn_close_div').show();
-			}
+			}else if (flag == 7) {//新发起发货
+            $('#main_search_detail').hide();
+            $('#main_edit_detail').hide();
+            $('#ar_lnk_jrnl_inf_detail').hide();
+            $('#submit_ar_detail').hide();
+            // 返回按钮
+            $('#btn_close_div').hide();
+            //长约审批提交
+            $('#query_ar_submmit_detail').hide();
+            //新发起订单
+            $('#main_spg_edit_detail').fadeIn(800);
+        }
 		}
 		
 		

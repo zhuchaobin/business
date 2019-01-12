@@ -599,7 +599,7 @@
 <section id="query_ar_submmit_detail" style="display: none;">
     <div class="box box-info">
         <div class="box-header with-border">
-            <h4 class="text-info" id="query_ar_submmit_title">发货提交详情</h4>
+            <h4 id="query_ar_submmit_title" class="text-info">订单提交详情</h4>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse">
                     <i class="fa fa-minus"></i>
@@ -607,53 +607,20 @@
             </div>
         </div>
         <div class="box-body">
-            <form class="form-horizontal" id="frm_detail2">
-                <fieldset id='fld_detail'>
-                    <div class="w-z-info">
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="submmitUsername"></h5>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5 id="companyName"></h5>
-                                </div>
-                            </div>
-                        </div>
+            <form id="frm_detail2" class="form-horizontal">
+                <div class="w-z-info">
+                    <fieldset id='fld_detail_query_order_submmit'>
+                        <div id="query_order_submmit_div"></div>
 
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="aplyPcstpCdDesc"></h5>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5 id="aplyPsrltCdDesc"></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="lnkEdtm"></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-md-offset-2">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 id="rmrkDesc"></h5>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row" id="query_ar_atch_div2">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label" for=""></label>
-                                    <div class="col-sm-8">
+                                    <label for="" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
                                         <div class="w-z-docx">
                                             <div class="w-z-d-title">附件</div>
                                             <div class="w-z-d-list">
-                                                <div align="center" class="row">
+                                                <div class="row" align="center">
                                                     <div id="upload_atch_div2"></div>
                                                 </div>
                                             </div>
@@ -662,24 +629,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </fieldset>
+                    </fieldset>
+                </div>
             </form>
         </div>
-        <div class="box-footer">
-            <button class="btn btn-primary-gray pull-right" id="btn_close_return3"
-                    onclick='javascript:showOrHideDetail(false, 3);'
-                    style="margin-right: 15px;"
-                    type="button">
-                <i class="glyphicon glyphicon-repeat"></i>返回
-            </button>
-            <button class="btn btn-primary-gray pull-right" id="btn_close_return4"
-                    onclick='javascript:showOrHideDetail(false, 4);'
-                    style="margin-right: 15px;"
-                    type="button">
-                <i class="glyphicon glyphicon-repeat"></i>返回
-            </button>
-        </div>
+        <!-- 			<div class="box-footer">
+                        <button id="btn_close_return3" type="button"
+                            class="btn btn-primary-gray pull-right"
+                            onclick='javascript:showOrHideDetail(false, 3);'
+                            style="margin-right: 15px;">
+                            <i class="glyphicon glyphicon-repeat"></i>返回
+                        </button>
+                        <button id="btn_close_return4" type="button"
+                            class="btn btn-primary-gray pull-right"
+                            onclick='javascript:showOrHideDetail(false, 4);'
+                            style="margin-right: 15px;">
+                            <i class="glyphicon glyphicon-repeat"></i>返回
+                        </button>
+                    </div> -->
     </div>
 </section>
 <!-- 查询订单提交详细信息 end-->
@@ -768,6 +735,29 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- 订单删除确认提示框 end -->
+
+
+<!-- 审核提交界面的返回按钮 start-->
+<div id="submmit_btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
+    <table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
+        <button id="btn_close_return3" type="button"
+                class="btn btn-success pull-right btn-lg"
+                onclick='javascript:showOrHideDetail(true, 3);'
+                style="margin-right: 15px;">
+            <i class="glyphicon glyphicon-arrow-left"></i> 返 回
+        </button>
+        <button id="btn_close_return4" type="button"
+                class="btn btn-success pull-right btn-lg"
+                onclick='javascript:showOrHideDetail(true, 4);'
+                style="margin-right: 15px;">
+            <i class="glyphicon glyphicon-arrow-left"></i> 返 回
+        </button>
+    </table>
+</div>
+
+<!-- 审核提交界面的返回按钮 end-->
+
+
 
 <!-- /.content -->
 <script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
@@ -1798,17 +1788,17 @@
                         .getElementById("lnk_jrnl_inf_tbl_div");
                     // 订单流转div标题
                     $('#ar_lnk_jrnl_inf_detail_title').text(
-                        "流转信息 [ " + detail["ordrId"] + " ]");
+                        "流转信息 [ " + detail["spgId"] + " ]");
                     // 订单提交div标题
                     var titleDesc = "发货"
                         + transAplyPcstpCd(aplyPcstpCd);
                     $('#submit_ar_detail_title').text(
                         "您所在位置 : 发货管理 > 待审批发货 > " + titleDesc
-                        + " [ " + detail["ordrId"]
+                        + " [ " + detail["spgId"]
                         + " ]");
                     // 订单提交详情查询div标题
                     $('#query_ar_submmit_title').text(
-                        "发货提交详情 [ " + detail["ordrId"] + " ]");
+                        "发货提交详情 [ " + detail["spgId"] + " ]");
 
                     testdiv.innerHTML = insertHtml;
 
@@ -1838,51 +1828,50 @@
         // 带过来的环节编号
         E7
             .post(
-                pageSetting.resetPath + '/getArSubmmitDetail',
+                pageSetting.resetPath + '/getSpgSubmmitDetail',
                 {
-                    'id': id,
-                    'arId': arId,
-                    'aplyPcstpCd': aplyPcstpCd
+                    'id' : id,
+                    'arId' : arId,
+                    'aplyPcstpCd' : aplyPcstpCd
                 },
-                function (result) {
+                function(result) {
                     //				fillForm('#frm_detail2', result.data);
                     var detail = result.data;
-                    /* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
-                     $('#frm_detail2 [name="companyName"]').val(detail["name"]);
-                     $('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
-                     $('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
-                     $('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
-                     $('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
-                    document.getElementById('companyName').innerText = "公    司    :    "
-                        + detail["name"];
-                    document.getElementById('submmitUsername').innerText = "提交人    :    "
-                        + detail["username"];
-                    document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    "
-                        + transAplyPcstpCd(detail["aplyPcstpCd"]);
-                    document.getElementById('lnkEdtm').innerText = "时    间    :    "
-                        + transDateTime(detail["lnkEdtm"]);
-                    document.getElementById('aplyPsrltCdDesc').innerText = "结    果    :    "
-                        + transAplyPsrltCd(detail["aplyPsrltCd"]);
-                    document.getElementById('rmrkDesc').innerText = "备    注    :    "
-                        + detail["rmrk"];
+
+                    // 个人化审批参数查询展示
+                    var testdiv22 = document
+                        .getElementById("query_order_submmit_div");
+
+                    var aplyPsrlt=detail["aplyPsrlt"];
+
+                    if(null != aplyPsrlt && undefined != aplyPsrlt){
+
+                        testdiv22.innerHTML = detail["aplyPsrlt"];
+                    }
+
+
+                    $('#fld_detail_query_order_submmit').prop('disabled', true);
                     ///附件列表
                     var td = detail["t2UploadAtch01List"];
                     var insertHtml = "";
-                    for (var kk = 0; kk < td.length; kk++) {
-                        insertHtml = insertHtml
-                            + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="' + td[kk].srFileRte + '" target="_blank"><div>'
-                            + td[kk].oriFileNm + '<p>'
-                            + getFileType(td[kk].oriFileNm)
-                            + transDateTime(suffix)
-                            + '</div></a></div>';
-                    }
-                    if (td.length > 0) {
-                        var testdiv = document
-                            .getElementById("upload_atch_div2");
-                        testdiv.innerHTML = insertHtml;
-                        $('#query_ar_atch_div2').fadeIn(800);
-                    } else {
-                        $('#query_ar_atch_div2').hide();
+                    $('#query_ar_atch_div2').hide();
+                    if(null != td && undefined != td){
+                        for (var kk = 0; kk < td.length; kk++) {
+                            insertHtml = insertHtml
+                                + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
+                                + td[kk].oriFileNm + '<p>'
+                                + getFileType(td[kk].oriFileNm)
+                                + transDateTime(suffix)
+                                + '</div></a></div>';
+                        }
+                        if (td.length > 0) {
+                            var testdiv = document
+                                .getElementById("upload_atch_div2");
+                            testdiv.innerHTML = insertHtml;
+                            $('#query_ar_atch_div2').fadeIn(800);
+                        } else {
+                            $('#query_ar_atch_div2').hide();
+                        }
                     }
                     showOrHideDetail(false, 5);
                 });
