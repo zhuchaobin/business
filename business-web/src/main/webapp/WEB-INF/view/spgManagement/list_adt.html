@@ -1256,7 +1256,7 @@
         }
     }
 
-    function getNextStepNameOfOrder(currStep, flag, pymtmod) {
+    function getNextStepNameOfOrder(currStep, flag, pymtmod,selRdmgdsMod) {
         // currStep,当前环节；flag，跳转方向1通过，2退回
         var nextStepName = "";
         if ("01" == currStep) {
@@ -1354,25 +1354,101 @@
                     nextStepName = "确认收款(供应链)";
             }
         } else if ("61" == currStep) {
-            if (1 == flag)
-                nextStepName = "接货承运(物流)";
-            else if (2 == flag)
+            if (1 == flag){
+
+                if ("01" == pymtmod|| "02" == pymtmod) {
+
+
+                    nextStepName = "62-接货承运(物流)";
+                } else    if ("03" == pymtmod ) {
+                    nextStepName = "63-接货入库(仓储)";
+
+                }
+
+
+            } else if (2 == flag){
+
                 nextStepName = "订单终止(供应链)";
-        } else if ("62" == currStep) {
-            if (1 == flag)
-                nextStepName = "选择赎货方式(供应链)";
-            else if (2 == flag)
-                nextStepName = "发货发起(上游)";
-        } else if ("63" == currStep) {
-            if (1 == flag)
-                nextStepName = "回款赎货(下游)";
-            else if (2 == flag)
-                nextStepName = "接货承运(物流)";
+            }
+
+        } else if ("62" == currStep) {//接货承运(物流)
+            if (1 == flag){
+
+                if ("01" == pymtmod ){
+
+                    nextStepName = "63-接货入库(仓储)";
+
+                }else       if ( "02" == pymtmod){
+
+                    nextStepName = "64-货款支付(供应链)";
+                }
+
+
+            } else if (2 == flag) {
+
+                if ("01" == pymtmod || "02" == pymtmod) {
+
+                    nextStepName = "发货发起(上游)";
+
+                }
+            }
+
+
+        } else if ("63" == currStep) {//63-接货入库(仓储)
+            if (1 == flag){
+
+
+                if ("01" == pymtmod ){
+
+                    nextStepName = "65-选择赎货方式(供应链)";
+
+                }else       if ( "02" == pymtmod){
+
+                    nextStepName = "65-选择赎货方式(供应链)";
+                }else       if ( "03" == pymtmod){
+
+                    nextStepName = "66-选择赎货方式并支付(供应链)";
+                }
+
+
+            } else if (2 == flag) {
+
+
+                if ("01" == pymtmod ){
+
+                    nextStepName = "62-接货承运(物流)";
+
+                }else       if ( "02" == pymtmod){
+
+                    nextStepName = "65-选择赎货方式(供应链)";
+                }    if ("03" == pymtmod ){
+
+                    nextStepName = "61-发货发起(上游)";
+
+                }
+
+
+            }
+
         } else if ("64" == currStep) {
-            if (1 == flag)
-                nextStepName = "质押置换(供应链)";
-            else if (2 == flag)
-                nextStepName = "选择赎货方式(供应链)";
+            //64-货款支付(供应链)
+            if (1 == flag){
+
+                if ( "02" == pymtmod){
+
+                    nextStepName = "63-接货入库(仓储)";
+                }
+
+            } else if (2 == flag){
+
+
+                 if ( "02" == pymtmod){
+
+                     nextStepName = "62-接货承运(物流)";
+                }
+
+            }
+
         } else if ("65" == currStep) {
             if (1 == flag)
                 nextStepName = "出质(银行)";
@@ -1426,6 +1502,10 @@
         }
         return nextStepName;
     }
+
+
+
+
 
     /***
      * 订单提交

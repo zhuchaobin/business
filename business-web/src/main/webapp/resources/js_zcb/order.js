@@ -17,6 +17,8 @@
 				// 提交详情页面的返回
 				$('#submmit_btn_close_div').hide();
 				$('#query_ar_submmit_detail').hide();
+                $('#main_spg_edit_detail').hide();
+
 			} else if (flag == 2) {// 订单发起	
 				// section
 				$('#main_edit_detail_title').text("订单发起");
