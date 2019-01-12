@@ -252,7 +252,7 @@
 									<div class="col-md-12" style="padding-right: 15px;">
 										<div class="form-group" style="padding-left: 15px;">
 											<label for="" class="col-md-2 control-label"
-												style="padding-left: 15px;">审批备注</label>
+												style="padding-left: 15px;">审批备注：</label>
 											<div class="col-md-10" style="padding-left: 10px;">
 												<textarea name="rmrk" rows="4" class="form-control-transparent" style="border: 0px; background: rgba(0, 0, 0, 0);" margin>rerere</textarea>
 											</div>
@@ -264,9 +264,9 @@
 									<div class="col-md-12" style="padding-right: 15px;">
 										<div class="form-group" style="padding-left: 15px;">
 											<label for="" class="col-md-2 control-label"
-												style="padding-left: 15px;">发票抬头</label>
+												style="padding-left: 15px;">发票抬头：</label>
 											<div class="col-md-10" style="padding-left: 10px;">
-												<textarea name="prpslInvHd" rows="4" class="form-control" margin disabled="disabled">rerere</textarea>
+												<textarea name="prpslInvHd" rows="8" class="form-control" margin disabled="disabled">rerere</textarea>
 											</div>
 										</div>
 									</div>
@@ -1821,11 +1821,11 @@
 								rownumbers: false,		//如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
-										{
+/* 										{
 											title : '付款方',
 											field : 'pyrName',
 											sortable : true
-										},
+										}, */
 										{
 											title : '收款方',
 											field : 'rcvprtName',
@@ -1855,7 +1855,7 @@
 											field : 'pyRsn',
 											sortable : true
 										},
-										{
+ 										{
 											title : '审批人',
 											field : 'amt',
 											sortable : true

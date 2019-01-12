@@ -102,6 +102,7 @@ public class OrderManagementController extends BaseController {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	query.setUsername(user.getUsername());
     	query.setCompanyId(user.getCompanyId());
+    	query.setMobile(user.getMobile());
     	Result<Boolean> result = orderManagementDcService.submitOrder(query);
     	logger.info("提交长约返回结果：{}", JSON.toJSONString(result));
         return result;
