@@ -542,7 +542,7 @@
          style="display: none;">
     <div id="ar_lnk_jrnl_inf_detail_clapse_box" class="box box-info">
         <div class="box-header with-border">
-            <h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">长约流转信息</h4>
+            <h4 id="ar_lnk_jrnl_inf_detail_title" class="text-info">发货流转信息</h4>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse">
                     <i id="ar_lnk_jrnl_inf_detail_li" class="fa fa-minus"></i>
@@ -1111,7 +1111,7 @@
 <script type="text/javascript">
     var pageSetting = {
         modelName: '长约信息管理',
-        resetPath: '[[@{/orderManagement}]]'
+        resetPath: '[[@{/spgManagement}]]'
     };
     $(function () {
         //e7table表格控件初始化
@@ -1405,7 +1405,7 @@
             var datas = detail["roleParmsList"];
             if (null != datas) {
                 for (var i = 0; i < datas.length; i++) {
-                    alert(datas[i]);
+
                     $('#' + datas[i] + '_div').hide();
                 }
             }
@@ -1487,12 +1487,12 @@
             insertHtml = insertHtml + "</tbody></table>";
             testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
             // 订单流转div标题
-            $('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["ordrId"] + " ]");
+            $('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["spgId"] + " ]");
             // 订单提交div标题
             var titleDesc = "订单" + transAplyPcstpCd(aplyPcstpCd);
-            $('#submit_ar_detail_title').text("您所在位置 : 发货管理 > 待审批发货 > " + titleDesc + " [ " + detail["ordrId"] + " ]");
+            $('#submit_ar_detail_title').text("您所在位置 : 发货管理 > 待审批发货 > " + titleDesc + " [ " + detail["spgId"] + " ]");
             // 订单提交详情查询div标题
-            $('#query_ar_submmit_title').text("发货提交详情 [ " + detail["ordrId"] + " ]");
+            $('#query_ar_submmit_title').text("发货提交详情 [ " + detail["spgId"] + " ]");
 
             testdiv.innerHTML = insertHtml;
 
@@ -1514,7 +1514,7 @@
         // 带过来的环节编号
         E7
             .post(
-                pageSetting.resetPath + '/getArSubmmitDetail',
+                pageSetting.resetPath + '/getSpgSubmmitDetail',
                 {
                     'id': id,
                     'arId': arId,
@@ -1620,7 +1620,7 @@
         if ($('#frm_detail').data('bootstrapValidator')) {
             $('#frm_detail').data('bootstrapValidator').resetForm(true);
         }
-        E7.post(pageSetting.resetPath + '/deleteAr', {
+        E7.post(pageSetting.resetPath + '/deleteSpg', {
             'id': rows[0]['id']
         }, function (result) {
             query_ar_list();
@@ -1817,6 +1817,34 @@
                 els.val(elValue + '');
             }
         }
+    }
+
+
+    function transToEng(cng) {
+        if (cng == "品名")
+            return "pdNm";
+        else if (cng == "规格")
+            return "spec";
+        else if (cng == "型号")
+            return "modl";
+        else if (cng == "质量标准")
+            return "qlyStd";
+        else if (cng == "品牌")
+            return "brnd";
+        else if (cng == "生产厂家")
+            return "pdFctr";
+        else if (cng == "数量")
+            return "num";
+        else if (cng == "计量单位")
+            return "msunit";
+        else if (cng == "采购单价")
+            return "pchUnitprc";
+        else if (cng == "交易差价")
+            return "txnPrcdif";
+        else if (cng == "销售暂定价")
+            return "saleTntvPrc";
+        else
+            return "";
     }
 
     function submitTransferFile(flag) {
@@ -2251,7 +2279,7 @@
             div.setAttribute("class", "box box-info collapsed-box");
             //面板收缩+-号
             div = document.getElementById('main_edit_detail_li');
-            div.setAttribute("class", "fa fa-plus");
+            // div.setAttribute("class", "fa fa-plus");
             div = document.getElementById('ar_lnk_jrnl_inf_detail_li');
             div.setAttribute("class", "fa fa-plus");
         } else if (flag == 5) {//长约提交详情查看
