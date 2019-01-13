@@ -1310,7 +1310,7 @@
 				var detail = result.data;
 				for (key in detail) {
 					// 日期时间格式的转换
-					if(key == "pyTm" || key == "issubillTm" || key == "invTm")
+					if(key == "pyTm" || key == "issubillTm" || key == "invTm" || key == "aprvTm")
 						$('#frm_detail [name="' + key + '"]').val(transDateTime(detail[key]));
 					else
 						$('#frm_detail [name="' + key + '"]').val(detail[key]);
