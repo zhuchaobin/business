@@ -2040,14 +2040,27 @@
 
 		function validate_order_edit_detail(flag) {
 			$('#frm_detail_order').bootstrapValidator('validate');
+			
 			if (!$('#frm_detail_order').data('bootstrapValidator')
 					.isValid()) {
 				return;				
 			} else {
-				if (1 == flag) {
+				if (1 == flag) {			
+					// 取订单明细表格的数据
+					var all = $('#boot-table').bootstrapTable('getData');
+					//发起的时候订单明细不能为空
+						if(all == null || all == undefined || all == ""){
+							bootbox.alert({
+								'title' : "提示信息",
+								'message' : '订单明细不能为空！'
+							});
+							return;
+						}
+										
 					$('#secSrvCd').val("02");//提交
 					$('#saveOrderSubmitModal').modal('show');
 				} else if (2 == flag) {
+					
 					$("#secSrvCd").val("01");//保存
 					saveOrder(1);
 				}
@@ -2087,7 +2100,7 @@
 			var all = $('#boot-table').bootstrapTable('getData');
 			var formParams = E7.serialForm('#frm_detail_order');
 			var fileUrl3 = document.getElementById("fileId3").value;
-
+			
 			E7.post('/orderManagement/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl3}, function(data) {
 				query_ar_list();
 				showOrHideDetail(true, 1);

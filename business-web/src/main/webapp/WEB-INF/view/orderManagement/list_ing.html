@@ -1644,6 +1644,16 @@
 				return;
 			} else {
 				if (1 == flag) {
+		            // 取发货明细表格的数据
+		            var all = $('#boot-table-spgDetail').bootstrapTable('getData');
+					//发起的时候发货明细不能为空
+						if(all == null || all == undefined || all == ""){
+							bootbox.alert({
+								'title' : "提示信息",
+								'message' : '订单明细不能为空！'
+							});
+							return;
+						}
 					$('#secSrvCd').val("02");//提交
 					$('#saveSpgSubmitModal').modal('show');
 				} else if (2 == flag) {
@@ -1687,7 +1697,6 @@
 
             // 取订单明细表格的数据
             var all = $('#boot-table-spgDetail').bootstrapTable('getData');
-			
 
 			var formParams = E7.serialForm('#frm_detail_spg');
 
