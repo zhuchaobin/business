@@ -487,7 +487,7 @@
                         <input id="pymtMod" name="pymtMod" class="form-control" placeholder="" value="" type="hidden"/>
                         <input name="spgId" class="form-control" placeholder="" value="" type="hidden"/>
 
-                        <!--<input name="selRdmgdsMod" class="form-control" placeholder="" value="" type="hidden"/>-->
+                        <input id="selRdmgdsMod1" name="selRdmgdsMod1" class="form-control" placeholder="" value="" type="hidden"/>
 
 
                         <input class="form-control" id="aplyPsrlt" name="aplyPsrlt" placeholder="" type="hidden"
@@ -1231,16 +1231,18 @@
                     aplyPsrltCd = aplyPsrltCdRadio[i].value;
             }
 
+
+
             if ("01" == aplyPsrltCd) {
                 nestStepName = getNextStepNameOfOrder($('#aplyPcstpCd')
-                    .val(), 1, $('#pymtmod').val());
+                    .val(), 1, $('#pymtmod').val(),$('#selRdmgdsMod1').val());
                 if (null == nestStepName || "" == nestStepName)
                     nestStepName = "下一环节";
                 $('#saveSubmitModalTips').text(
                     "提交后将流转到 [ " + nestStepName + " ] ，确定提交吗?");
             } else if ("02" == aplyPsrltCd) {
                 nestStepName = getNextStepNameOfOrder($('#aplyPcstpCd')
-                    .val(), 2, $('#pymtmod').val());
+                    .val(), 2, $('#pymtmod').val(),$('#selRdmgdsMod1').val());
                 $('#saveSubmitModalTips').text(
                     "提交后将退回到 [ " + nestStepName + " ] ，确定提交吗?");
             }
@@ -1256,6 +1258,27 @@
     }
 
     function getNextStepNameOfOrder(currStep, flag, pymtmod, selRdmgdsMod) {
+
+
+
+
+            var a = "";
+            var selRdmgdsModRadio = document
+                .getElementsByName("selRdmgdsMod");
+            var pymtmod = $('#pymtmod').val();
+            for (var i = 0; i < selRdmgdsModRadio.length; i++) {
+                if (selRdmgdsModRadio[i].checked)
+                    a = selRdmgdsModRadio[i].value;
+            }
+
+
+
+        if(""!=a) {
+            selRdmgdsMod=a;
+
+        }
+
+
         // currStep,当前环节；flag，跳转方向1通过，2退回
         var nextStepName = "";
         if ("01" == currStep) {
@@ -1602,6 +1625,19 @@
             } else if (2 == flag)
                 nextStepName = "76-转货权2(仓储)";
         }
+
+
+        if (""==nextStepName) {
+            if (1 == flag) {
+                nextStepName="下一步";
+
+            }else if (2 == flag){
+                nextStepName="上一步";
+            }
+        }
+
+
+
         return nextStepName;
     }
 
@@ -2008,6 +2044,8 @@
 
                     $('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
                     $('#frm_submit_ar [name="pymtMod"]').val(detail["pymtMod"]);
+
+                    $('#frm_submit_ar [name="selRdmgdsMod1"]').val(detail["selRdmgdsMod"]);
                     // 订单详情div标题
                     $('#main_edit_detail_title').text("发货信息 [ " + detail["spgId"] + " ]");
 
