@@ -461,7 +461,6 @@
 <!-- 订单流转信息 end-->
 
 
-
 </section>
 <!-- 提交结论 start-->
 <section id="submit_ar_detail" class="content" style="display: none;">
@@ -481,7 +480,8 @@
 
 
                         <input type="hidden" id="fileId2" name="fileUrl2">
-                        <input id="aplyPcstpCd" name="aplyPcstpCd" class="form-control" placeholder="" value="" type="hidden"/>
+                        <input id="aplyPcstpCd" name="aplyPcstpCd" class="form-control" placeholder="" value=""
+                               type="hidden"/>
                         <input id="ordrId" name="ordrId" class="form-control" placeholder="" value="" type="hidden"/>
                         <input name="arId" class="form-control" placeholder="" value="" type="hidden"/>
                         <input id="pymtMod" name="pymtMod" class="form-control" placeholder="" value="" type="hidden"/>
@@ -490,7 +490,8 @@
                         <!--<input name="selRdmgdsMod" class="form-control" placeholder="" value="" type="hidden"/>-->
 
 
-                        <input class="form-control" id="aplyPsrlt" name="aplyPsrlt" placeholder="" type="hidden" value=""/>
+                        <input class="form-control" id="aplyPsrlt" name="aplyPsrlt" placeholder="" type="hidden"
+                               value=""/>
 
                         <div id="aplyPsrltInnerDiv">
                             <div class="row">
@@ -513,8 +514,10 @@
 
                             <!--  存入采购货物，表格明细，默认隐藏-->
 
-                            <div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;" id="boot_table_div_spg">
-                                <table id="boot-table-spgDetail"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
+                            <div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;"
+                                 id="boot_table_div_spg">
+                                <table id="boot-table-spgDetail" align="center" data-toggle="table"
+                                       class="table table-hover" name="area" style="table-layout:fixed">
                                     <thead>
                                     <tr bgcolor="#337AB7">
                                         <th style="border-bottom: none;" data-field="pdNm">品名</th>
@@ -572,11 +575,6 @@
                         </div>
 
 
-
-
-
-
-
                         <div class="box-footer">
                             <button id="btn_close" type="button"
                                     class="btn btn-primary-gray  pull-right"
@@ -596,12 +594,10 @@
             </form>
 
 
-
         </div>
     </div>
 </section>
 <!-- 提交结论 end-->
-
 
 
 <!-- 发货明细信息 -->
@@ -611,7 +607,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">发货物明细</h5>
-                <button class="close" type="button"  data-dismiss="modal" aria-label="Close"><span
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
@@ -619,47 +615,49 @@
 
                     <form id="frm_submit_ar222" class="form-horizontal">
                         <input type="hidden" id=ordrId name="ordrId">
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="" class="col-sm-4 control-label">品名<span
                                         style="color: red">*</span></label>
                                 <div class="col-sm-8">
-                                    <input name="pdNm" id="pdNm" class="form-control" placeholder="品名" value="223" />
+                                    <input name="pdNm" id="pdNm" class="form-control" placeholder="品名" value="223"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="" class="col-sm-4 control-label">规格<span
                                         style="color: red">*</span></label>
                                 <div class="col-sm-8">
-                                    <input name="spec" id="spec" class="form-control" placeholder="规格" value="223" />
+                                    <input name="spec" id="spec" class="form-control" placeholder="规格" value="223"/>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="" class="col-sm-4 control-label">质量标准<span
                                         style="color: red">*</span></label>
                                 <div class="col-sm-8">
-                                    <input name="qlyStd" id="qlyStd" class="form-control" placeholder="质量标准" value="223" />
+                                    <input name="qlyStd" id="qlyStd" class="form-control" placeholder="质量标准"
+                                           value="223"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="" class="col-sm-4 control-label">品牌</label>
                                 <div class="col-sm-8">
-                                    <input name="brnd" id="brnd" class="form-control" placeholder="品牌" value="223" />
+                                    <input name="brnd" id="brnd" class="form-control" placeholder="品牌" value="223"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="" class="col-sm-4 control-label">生产厂家</label>
                                 <div class="col-sm-8">
-                                    <input name="pdFctr" id="pdFctr" class="form-control" placeholder="生产厂家" value="223" />
+                                    <input name="pdFctr" id="pdFctr" class="form-control" placeholder="生产厂家"
+                                           value="223"/>
                                 </div>
                             </div>
                         </div>
@@ -670,7 +668,7 @@
                                 <div class="col-sm-8">
                                     <div class="col-xs-5" style="padding-left: 0px;">
                                         <input name="num" id="num" class="form-control" placeholder="数量"
-                                               value="4" />
+                                               value="4"/>
                                     </div>
 
                                     <div class="col-xs-2">
@@ -678,7 +676,7 @@
                                     </div>
 
                                     <div class="col-xs-5">
-                                        <select name="msunit" id="msunit" class="form-control" >
+                                        <select name="msunit" id="msunit" class="form-control">
                                             <option value="">-计量单位-</option>
                                             <option value="01" selected="selected">吨</option>
                                             <option value="02">件</option>
@@ -696,7 +694,8 @@
                 </div>
             </div>
             <div class="modal-footer" style="text-align:center;">
-                <a class="btn btn-primary-red"  type="button"  id="add" onclick=addSpgDetail()><i class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>
+                <a class="btn btn-primary-red" type="button" id="add" onclick=addSpgDetail()><i
+                        class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>
             </div>
         </div>
     </div>
@@ -862,8 +861,9 @@
 
 
 <!-- 审核提交界面的返回按钮 start-->
-<div id="submmit_btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
-    <table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
+<div id="submmit_btn_close_div"
+     style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
+    <table width="" 100% style="position: absolute; width:260px; right: 0px; top: 0px;">
         <button id="btn_close_return3" type="button"
                 class="btn btn-success pull-right btn-lg"
                 onclick='javascript:showOrHideDetail(true, 3);'
@@ -880,7 +880,6 @@
 </div>
 
 <!-- 审核提交界面的返回按钮 end-->
-
 
 
 <!-- /.content -->
@@ -1046,14 +1045,14 @@
     function addSpgDetail() {
 
 
-        var rows=[];
+        var rows = [];
         rows.push({
-            pdNm:$('#pdNm').val(),
-            spec:$('#spec').val(),
-            qlyStd:$('#qlyStd').val(),
-            brnd:$('#brnd').val(),
-            pdFctr:$('#pdFctr').val(),
-            num:$('#num').val(),
+            pdNm: $('#pdNm').val(),
+            spec: $('#spec').val(),
+            qlyStd: $('#qlyStd').val(),
+            brnd: $('#brnd').val(),
+            pdFctr: $('#pdFctr').val(),
+            num: $('#num').val(),
 
 
         })
@@ -1256,7 +1255,7 @@
         }
     }
 
-    function getNextStepNameOfOrder(currStep, flag, pymtmod,selRdmgdsMod) {
+    function getNextStepNameOfOrder(currStep, flag, pymtmod, selRdmgdsMod) {
         // currStep,当前环节；flag，跳转方向1通过，2退回
         var nextStepName = "";
         if ("01" == currStep) {
@@ -1353,32 +1352,32 @@
                 else if ("03" == pymtmod)
                     nextStepName = "确认收款(供应链)";
             }
-        } else if ("61" == currStep) {
-            if (1 == flag){
+        } else if ("61" == currStep) {//61-发货发起(上游)
+            if (1 == flag) {
 
-                if ("01" == pymtmod|| "02" == pymtmod) {
+                if ("01" == pymtmod || "02" == pymtmod) {
 
 
                     nextStepName = "62-接货承运(物流)";
-                } else    if ("03" == pymtmod ) {
+                } else if ("03" == pymtmod) {
                     nextStepName = "63-接货入库(仓储)";
 
                 }
 
 
-            } else if (2 == flag){
+            } else if (2 == flag) {
 
                 nextStepName = "订单终止(供应链)";
             }
 
-        } else if ("62" == currStep) {//接货承运(物流)
-            if (1 == flag){
+        } else if ("62" == currStep) {//62-接货承运(物流)
+            if (1 == flag) {
 
-                if ("01" == pymtmod ){
+                if ("01" == pymtmod) {
 
                     nextStepName = "63-接货入库(仓储)";
 
-                }else       if ( "02" == pymtmod){
+                } else if ("02" == pymtmod) {
 
                     nextStepName = "64-货款支付(供应链)";
                 }
@@ -1395,17 +1394,17 @@
 
 
         } else if ("63" == currStep) {//63-接货入库(仓储)
-            if (1 == flag){
+            if (1 == flag) {
 
 
-                if ("01" == pymtmod ){
-
-                    nextStepName = "65-选择赎货方式(供应链)";
-
-                }else       if ( "02" == pymtmod){
+                if ("01" == pymtmod) {
 
                     nextStepName = "65-选择赎货方式(供应链)";
-                }else       if ( "03" == pymtmod){
+
+                } else if ("02" == pymtmod) {
+
+                    nextStepName = "65-选择赎货方式(供应链)";
+                } else if ("03" == pymtmod) {
 
                     nextStepName = "66-选择赎货方式并支付(供应链)";
                 }
@@ -1414,14 +1413,15 @@
             } else if (2 == flag) {
 
 
-                if ("01" == pymtmod ){
+                if ("01" == pymtmod) {
 
                     nextStepName = "62-接货承运(物流)";
 
-                }else       if ( "02" == pymtmod){
+                } else if ("02" == pymtmod) {
 
                     nextStepName = "65-选择赎货方式(供应链)";
-                }    if ("03" == pymtmod ){
+                }
+                if ("03" == pymtmod) {
 
                     nextStepName = "61-发货发起(上游)";
 
@@ -1430,81 +1430,180 @@
 
             }
 
-        } else if ("64" == currStep) {
-            //64-货款支付(供应链)
-            if (1 == flag){
+        } else if ("64" == currStep) {    //64-货款支付(供应链)
 
-                if ( "02" == pymtmod){
+            if (1 == flag) {
+
+                if ("02" == pymtmod) {
 
                     nextStepName = "63-接货入库(仓储)";
                 }
 
-            } else if (2 == flag){
+            } else if (2 == flag) {
 
 
-                 if ( "02" == pymtmod){
+                if ("02" == pymtmod) {
 
-                     nextStepName = "62-接货承运(物流)";
+                    nextStepName = "62-接货承运(物流)";
                 }
 
             }
 
-        } else if ("65" == currStep) {
-            if (1 == flag)
-                nextStepName = "出质(银行)";
-            else if (2 == flag)
-                nextStepName = "回款赎货(下游)";
-        } else if ("66" == currStep) {
-            if (1 == flag)
-                nextStepName = "通知转货权(银行)";
-            else if (2 == flag)
-                nextStepName = "质押置换(供应链)";
-        } else if ("67" == currStep) {
-            if (1 == flag)
-                nextStepName = "通知转货权(供应链)";
-            else if (2 == flag)
-                nextStepName = "出质(银行)";
-        } else if ("68" == currStep) {
-            if (1 == flag)
-                nextStepName = "转货权1(仓储)";
-            else if (2 == flag)
-                nextStepName = "通知转货权(银行)";
-        } else if ("69" == currStep) {
-            if (1 == flag)
-                nextStepName = "确定质押(仓储)";
-            else if (2 == flag)
-                nextStepName = "通知转货权(供应链)";
-        } else if ("70" == currStep) {
-            if (1 == flag)
-                nextStepName = "存入自有货物(下游)";
-            else if (2 == flag)
-                nextStepName = "转货权1(仓储)";
-        } else if ("71" == currStep) {
-            if (1 == flag)
-                nextStepName = "通知解押(银行)";
-            else if (2 == flag)
-                nextStepName = "确定质押(仓储)";
-        } else if ("72" == currStep) {
-            if (1 == flag)
-                nextStepName = "转货权2(仓储)";
-            else if (2 == flag)
-                nextStepName = "存入自有货物(下游)";
-        } else if ("73" == currStep) {
-            if (1 == flag)
-                nextStepName = "提取货物(下游)";
-            else if (2 == flag)
-                nextStepName = "通知解押(银行)";
-        } else if ("74" == currStep) {
-            if (1 == flag)
-                nextStepName = "发货终止(供应链)";
-            else if (2 == flag)
-                nextStepName = "转货权2(仓储)";
+        } else if ("65" == currStep) {//65-选择赎货方式(供应链)
+            if (1 == flag) {
+
+
+                if ("01" == selRdmgdsMod) {
+
+                    nextStepName = "67-回款赎货(下游)";
+                } else if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "68-质押置换(供应链)";
+                }
+            } else if (2 == flag)
+                nextStepName = "63-接货入库(仓储)";
+        } else if ("66" == currStep) {//66-选择赎货方式并支付(供应链)
+            if (1 == flag) {
+                if ("01" == selRdmgdsMod) {
+
+                    nextStepName = "67-回款赎货(下游)";
+                } else if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "68-质押置换(供应链)";
+                }
+            } else if (2 == flag)
+                nextStepName = "63-接货入库(仓储)";
+        } else if ("67" == currStep) {//67-回款赎货(下游)
+            if (1 == flag) {
+                if ("01" == selRdmgdsMod) {
+
+                    nextStepName = "70-通知转货权(银行)";
+                }
+            } else if (2 == flag){
+
+                if ("01" == pymtmod||"02" == pymtmod) {
+
+                    nextStepName = "65-选择赎货方式(供应链)";
+                } else if ("03" == pymtmod) {
+
+                    nextStepName = "66-选择赎货方式并支付(供应链)";
+
+                }
+            }
+
+        } else if ("68" == currStep) {//68-质押置换(供应链)
+            if (1 == flag) {
+
+                if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "69-出质通知转货权(银行)";
+                }
+
+            } else if (2 == flag){
+
+                 if ("01" == pymtmod||"02" == pymtmod) {
+
+                     nextStepName = "65-选择赎货方式(供应链)";
+
+
+                }  else  if ("03" == pymtmod) {
+
+                     nextStepName = "66-选择赎货方式并支付(供应链)";
+
+                }
+            }
+
+        } else if ("69" == currStep) {//69-出质通知转货权(银行)
+            if (1 == flag) {
+
+                if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "71-通知转货权(供应链)";
+                }
+            } else if (2 == flag)
+                nextStepName = "68-质押置换(供应链)";
+        } else if ("70" == currStep) {//70-通知转货权(银行)
+            if (1 == flag) {
+                if ("01" == selRdmgdsMod) {
+
+                    nextStepName = "71-通知转货权(供应链)";
+                }
+            } else if (2 == flag)
+                nextStepName = "67-回款赎货(下游)";
+        } else if ("71" == currStep) {//71-通知转货权(供应链)
+            if (1 == flag) {
+
+                if ("01" == selRdmgdsMod) {
+
+                    nextStepName = "72-转货权1(仓储)";
+                } else if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "73-转货权1确定质押(仓储)";
+                }
+
+            } else if (2 == flag){
+
+                if ("01" == selRdmgdsMod) {
+
+                    nextStepName = "70-通知转货权(银行)";
+
+                }  else  if ("02" == selRdmgdsMod) {
+                    nextStepName = "69-出质通知转货权(银行)";
+                }
+            }
+
+        } else if ("72" == currStep) {//72-转货权1(仓储)
+            if (1 == flag) {
+                if ("01" == selRdmgdsMod) {
+
+                    nextStepName = "77-提取货物(下游)";
+                }
+            } else if (2 == flag)
+                nextStepName = "71-通知转货权(供应链)";
+        } else if ("73" == currStep) {//73-转货权1确定质押(仓储)
+            if (1 == flag) {
+
+                if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "74-存入自有货物回款赎货(下游)";
+                }
+
+            } else if (2 == flag)
+                nextStepName = "71-通知转货权(供应链)";
+        } else if ("74" == currStep) {//74-存入自有货物回款赎货(下游)
+            if (1 == flag) {
+                if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "75-通知解押(银行)";
+                }
+            } else if (2 == flag)
+                nextStepName = "73-转货权1确定质押(仓储)";
+        } else if ("75" == currStep) {//75-通知解押(银行)
+            if (1 == flag) {
+                if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "76-转货权2(仓储)";
+                }
+            } else if (2 == flag)
+                nextStepName = "74-存入自有货物回款赎货(下游)";
+        } else if ("76" == currStep) {//76-转货权2(仓储)
+            if (1 == flag) {
+                if ("02" == selRdmgdsMod) {
+
+                    nextStepName = "77-提取货物(下游)";
+                }
+            } else if (2 == flag)
+                nextStepName = "75-通知解押(银行)";
+        }else if ("77" == currStep) {
+            if (1 == flag) {
+
+                nextStepName = "79-发货终止(供应链)";
+
+            } else if (2 == flag)
+                nextStepName = "76-转货权2(仓储)";
         }
         return nextStepName;
     }
-
-
-
 
 
     /***
@@ -1895,7 +1994,7 @@
             .post(
                 pageSetting.resetPath + '/getDetail',
                 {
-                    'id' : id,'aplyPcstpCd':aplyPcstpCd,'type':type
+                    'id': id, 'aplyPcstpCd': aplyPcstpCd, 'type': type
                 },
                 function (result) {
                     fillForm('#frm_detail', result.data);
@@ -2035,7 +2134,7 @@
                     // 审批提交个性化参数
                     $('#aplyPsrltDiv').empty();
                     var aplyPsrlt = detail["aplyPsrlt"];
-                    if(aplyPsrlt !== null || aplyPsrlt !== undefined || aplyPsrlt !== '')
+                    if (aplyPsrlt !== null || aplyPsrlt !== undefined || aplyPsrlt !== '')
                         $("#aplyPsrltDiv").append(aplyPsrlt);
 
 
@@ -2059,11 +2158,11 @@
             .post(
                 pageSetting.resetPath + '/getSpgSubmmitDetail',
                 {
-                    'id' : id,
-                    'arId' : arId,
-                    'aplyPcstpCd' : aplyPcstpCd
+                    'id': id,
+                    'arId': arId,
+                    'aplyPcstpCd': aplyPcstpCd
                 },
-                function(result) {
+                function (result) {
                     //				fillForm('#frm_detail2', result.data);
                     var detail = result.data;
 
@@ -2071,9 +2170,9 @@
                     var testdiv22 = document
                         .getElementById("query_order_submmit_div");
 
-                    var aplyPsrlt=detail["aplyPsrlt"];
+                    var aplyPsrlt = detail["aplyPsrlt"];
 
-                    if(null != aplyPsrlt && undefined != aplyPsrlt){
+                    if (null != aplyPsrlt && undefined != aplyPsrlt) {
 
                         testdiv22.innerHTML = detail["aplyPsrlt"];
                     }
@@ -2084,10 +2183,10 @@
                     var td = detail["t2UploadAtch01List"];
                     var insertHtml = "";
                     $('#query_ar_atch_div2').hide();
-                    if(null != td && undefined != td){
+                    if (null != td && undefined != td) {
                         for (var kk = 0; kk < td.length; kk++) {
                             insertHtml = insertHtml
-                                + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
+                                + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="' + td[kk].srFileRte + '" target="_blank"><div>'
                                 + td[kk].oriFileNm + '<p>'
                                 + getFileType(td[kk].oriFileNm)
                                 + transDateTime(suffix)
