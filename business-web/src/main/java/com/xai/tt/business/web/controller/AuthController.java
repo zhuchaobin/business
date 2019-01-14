@@ -81,7 +81,7 @@ public class AuthController {
 			return Result.createFailResult("用户名或密码错误！");
 		}
 		if(user.getLocked()) {
-			return Result.createFailResult("帐号已被锁定！");
+			return Result.createFailResult("对不起，您的帐号处于锁定状态，等管理员审核后才能登陆！");
 		}
 		
 		//获取用户角色和菜单

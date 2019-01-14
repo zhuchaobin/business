@@ -134,7 +134,7 @@ public class UserManager extends BaseManager<User, Integer> {
 		
 		//用户身份
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	if(UserType.Group != user.getUserType() && !user.hasRole("ROLE_ADMIN") && !dbUser.getCompanyId().equals(user.getCompanyId())) {
+    	if((UserType.Group != user.getUserType() && !user.hasRole("ROLE_ADMIN") && !dbUser.getCompanyId().equals(user.getCompanyId())) && (UserType.pltfrm != user.getUserType())) {
 			throw new TspException( "没有权限！");
     	}
     	getRepository().updateLocked(id, locked);
