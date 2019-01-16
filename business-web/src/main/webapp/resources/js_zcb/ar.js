@@ -1,4 +1,212 @@
-		 // 长约相关js
+		function showOrHideDetail(editable, flag) {
+			if (editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+			}
+			// 长约列表查询
+			if(flag == 1){
+				$('#main_search_detail').fadeIn(300);
+				$('#main_edit_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').hide();
+				$('#submit_ar_detail').hide();
+				// 返回按钮
+				$('#btn_close_div').hide();	
+				$('#query_ar_submmit_detail').hide();
+			} else if(flag == 2){// 长约发起	
+				// section
+				$('#main_edit_detail_title').text("长约发起");
+				$('#main_edit_detail').fadeIn(300);
+				$('#main_search_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').hide();
+				$('#submit_ar_detail').hide();
+				$('#query_ar_submmit_detail').hide();
+				// 返回按钮
+				$('#btn_close_div').hide();	
+				// 提交详情页面的返回
+				$('#submmit_btn_close_div').hide();
+				// 附件
+				$('#upload_ar_div').show();
+				$('#query_ar_atch_div').hide();
+				// 保险信息输入部门默认隐藏
+				show_or_hide_ins_div(false);
+				// 参数
+				$('#arIdDiv').hide();
+				// 按钮				
+				$('#btn_close').show();
+				$('#btn_save').show();
+				//面板收缩控制
+				var div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-minus"); 
+			} else if(flag == 3){// 长约详情查看
+				//$('#main_edit_detail_title').text("长约信息");
+				// section
+				// 保险信息输入部门显示隐藏
+				show_or_hide_ins_div(true);
+				$('#main_edit_detail').fadeIn(300);
+				$('#main_search_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
+				$('#submit_ar_detail').hide();
+				$('#query_ar_submmit_detail').hide();
+				// 附件
+				$('#upload_ar_div').hide();
+//				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
+				// 返回按钮
+				$('#btn_close_div').show();
+				// 提交详情页面的返回
+				$('#submmit_btn_close_div').hide();
+				// 参数
+				$('#arIdDiv').show();
+				// 按钮	
+				$('#btn_close').hide();
+				$('#btn_save').hide();
+				$('#btn_save_submmit').hide();
+				
+				//面板收缩控制
+				var div = document.getElementById('ar_lnk_jrnl_inf_detail_clapse_box'); 
+				div.setAttribute("class", "box box-info");
+				div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-minus"); 
+			} else if(flag == 6){// 长约修改
+				// section
+				$('#main_edit_detail_title').text("长约修改");
+				$('#main_edit_detail').fadeIn(300);
+				$('#main_search_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').hide();
+				$('#submit_ar_detail').hide();
+				$('#query_ar_submmit_detail').hide();
+				// 返回按钮
+				$('#btn_close_div').hide();	
+				// 提交详情页面的返回
+				$('#submmit_btn_close_div').hide();
+				// 附件
+				$('#upload_ar_div').show();
+				$('#query_ar_atch_div').hide();
+				// 保险信息输入部门默认隐藏
+				show_or_hide_ins_div(true);
+				// 参数
+				$('#arIdDiv').hide();
+				// 按钮				
+				$('#btn_close').show();
+				$('#btn_save').show();
+				//面板收缩控制
+				var div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-minus"); 
+			} else if(flag == 4){// 长约提交
+				//$('#main_edit_detail_title').text("长约信息");
+				// section
+				$('#main_edit_detail').fadeIn(300);
+				$('#main_search_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
+				$('#submit_ar_detail').fadeIn(300);
+				$('#query_ar_submmit_detail').hide();
+				// 附件
+				$('#upload_ar_div').hide();
+				$('#query_ar_atch_div').show();
+				// 返回按钮
+				$('#btn_close_div').hide();
+				// 提交详情页面的返回
+				$('#submmit_btn_close_div').hide();
+				// 参数
+				$('#arIdDiv').show();
+				// 按钮
+				$('#btn_close').hide();
+				$('#btn_save').hide();
+				//面板收缩控制
+				var div = document.getElementById('ar_lnk_jrnl_inf_detail_clapse_box'); 
+				div.setAttribute("class", "box box-info collapsed-box");
+				div = document.getElementById('main_edit_detail_clapse'); 
+				div.setAttribute("class", "box box-info collapsed-box"); 
+				//面板收缩+-号
+				div = document.getElementById('main_edit_detail_li'); 
+				div.setAttribute("class", "fa fa-plus"); 
+				div = document.getElementById('ar_lnk_jrnl_inf_detail_li'); 
+				div.setAttribute("class", "fa fa-plus"); 
+			} else if(flag == 5){//长约提交详情查看
+				$('#main_search_detail').hide();
+				$('#main_edit_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').hide();
+				$('#submit_ar_detail').hide();
+				// 返回按钮
+				$('#btn_close_div').hide();	
+				$('#query_ar_submmit_detail').fadeIn(300);	
+				// 提交详情页面的返回
+				$('#submmit_btn_close_div').show();
+			}
+		}
+
+		function transAplyPcstpCd(value) {
+			if (value == '01') {
+				return "发起";
+			} else if (value == '02') {
+				return "供应链确认";
+			} else if (value == '03') {
+				return "下游确认";
+			} else if (value == '04') {
+				return "承保";
+			} else if (value == '05') {
+				return "一审";
+			} else if (value == '06') {
+				return "二审";;
+			} else if (value == '07') {
+				return "审批通过";
+			} else if (value == '') {
+				return "完结";
+			} else
+				return value;
+		}
+		
+		function getArSubmmitDetail(id, arId, aplyPcstpCd){
+ 			// 带过来的环节编号
+			E7.post(pageSetting.resetPath + '/getArSubmmitDetail', {
+				'id' : id,'arId':arId,'aplyPcstpCd':aplyPcstpCd
+			}, function(result) {
+//				fillForm('#frm_detail2', result.data);
+				var detail = result.data;
+/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
+				$('#frm_detail2 [name="companyName"]').val(detail["name"]);
+				$('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
+				$('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
+				$('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
+				$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
+				document.getElementById('companyName').innerText = "公    司    :    " + detail["name"];
+				document.getElementById('submmitUsername').innerText = "提交人    :    " + detail["username"];
+				document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    " + transAplyPcstpCd(detail["aplyPcstpCd"]);
+				document.getElementById('lnkEdtm').innerText = "时    间    :    " + transDateTime(detail["lnkEdtm"]);
+				document.getElementById('aplyPsrltCdDesc').innerText = "结    果    :    " + transAplyPsrltCd(detail["aplyPsrltCd"]);
+				document.getElementById('rmrkDesc').innerText = "备    注    :    " + detail["rmrk"];
+				///附件列表
+				var td = detail["t2UploadAtch01List"];
+				var insertHtml="";
+				$('#query_ar_atch_div2').hide();	
+				if(null != td && undifined != td){
+					for ( var kk = 0; kk < td.length; kk++) {
+						insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm) + transDateTime(suffix) +'</div></a></div>';
+					}								
+					if(td.length > 0){
+						var testdiv = document.getElementById("upload_atch_div2");
+						testdiv.innerHTML=insertHtml;
+						$('#query_ar_atch_div2').fadeIn(300);
+					} else {
+						$('#query_ar_atch_div2').hide();	
+					}
+				}
+				showOrHideDetail(false,5);
+			}); 
+		} 
+
+/*		 // 长约相关js
 	function queryArDetails(id, aplyPcstpCd, type){// type 1:长约提交  0：长约详情查询
 //		alert(aplyPcstpCd);
 			// 带过来的环节编号
@@ -90,12 +298,12 @@
 		}, function(result) {
 //			fillForm('#frm_detail2', result.data);
 			var detail = result.data;
-/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
+ 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
 			$('#frm_detail2 [name="companyName"]').val(detail["name"]);
 			$('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
 			$('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
 			$('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
-			$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
+			$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); 
 			document.getElementById('companyName').innerText = "公    司    :    " + detail["name"];
 			document.getElementById('submmitUsername').innerText = "提交人    :    " + detail["username"];
 			document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    " + transAplyPcstpCd(detail["aplyPcstpCd"]);
@@ -289,9 +497,9 @@
 								if (result.data.t2UploadAtch01List != undefined) {
 								for (i = 0; i < result.data.t2UploadAtch01List.length; i++) {
 									var elem = result.data.t2UploadAtch01List[i];
-/* 										var item = '<div name="inputDiv">'
+ 										var item = '<div name="inputDiv">'
 											+ elem.oriFileNm
-											+ '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>'; */
+											+ '<input name="fileName" type="file" src="'+elem.oriFileNm+'"  class="form-control" value="'+elem.oriFileNm+'"/><a onclick="deleteItem(this)">删除</a> <br/></div>'; 
 									var atchId = elem.id;
 											var item = '<div name="inputDiv"> <a href="' + elem.srFileRte +'" target="_blank">'+elem.oriFileNm  +'&nbsp&nbsp</a>&nbsp&nbsp<a onclick="deleteItem2(this, ' + elem.id +')"> 删除</a> <br/></div>';
 											
@@ -432,7 +640,7 @@
 		$(input).parent().remove();
 	}
 		
-	/* 日期选择控件-长约开始日期 */
+	 日期选择控件-长约开始日期 
 	$('#arStdtDTPicker').datetimepicker({
         language: 'zh-CN',
         minView: "month",//设置只显示到月份
@@ -451,7 +659,7 @@
          // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt();
      }); 
-	/* 日期选择控件-长约结束日期 */
+	 日期选择控件-长约结束日期 
 	$('#arEddtDTPicker').datetimepicker({
         language: 'zh-CN',
         minView: "month",//设置只显示到月份
@@ -464,7 +672,7 @@
          // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt(); 
      }); 
-	/* 日期选择控件 - 保险开始日期*/
+	 日期选择控件 - 保险开始日期
 	$('#insStdtDTPicker').datetimepicker({
         language: 'zh-CN',
         minView: "month",//设置只显示到月份
@@ -483,7 +691,7 @@
          // 判断保险起止时间与长约起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt();
      }); 
-	/* 日期选择控件 - 保险结束日期*/
+	 日期选择控件 - 保险结束日期
 	$('#insEddtDTPicker').datetimepicker({
         language: 'zh-CN',
         minView: "month",//设置只显示到月份
@@ -514,9 +722,9 @@
 	    }
 	}
 	
-	/***
+	*//***
 	 * 查询
-	 */
+	 *//*
 	function query_ar_list() {
 		showOrHideDetail(true, 1);
 		$('#tbl_query').e7table('query', '#frm_query');
@@ -655,9 +863,9 @@
 			$('#query_ar_submmit_detail').fadeIn(300);	
 		}
 	}
-	/***
+	*//***
 	 * 重置
-	 */
+	 *//*
 	function reset() {
 		E7.resetForm('#frm_query');
 	}
@@ -672,9 +880,9 @@
 		}
 	}
 	
-	/***
+	*//***
 	 * 长约提交
-	 */
+	 *//*
 	function submitAr() {			
 		for (instance in CKEDITOR.instances) {
 			CKEDITOR.instances[instance].updateElement();
@@ -698,9 +906,9 @@
 		});
 	}
 
-	/***
+	*//***
 	 * 显示发起对话框
-	 */
+	 *//*
 	function showAddDialog() {
 		// 初始化上传附件控件
 		initInputItem(1);
@@ -710,9 +918,9 @@
 		showOrHideDetail(true, 2);
 	}
 	
-	/***
+	*//***
 	 * 表单校验控件初始化2(长约各环节提交)
-	 */
+	 *//*
 	function validator_2_Init() {			
 		$('#frm_submit_ar').bootstrapValidator({
 			feedbackIcons : {
@@ -733,9 +941,9 @@
 			$('#frm_submit_ar').bootstrapValidator('validate');
 		});
 	}
-	/***
+	*//***
 	 * 表单校验控件初始化1（长约发起提交）
-	 */
+	 *//*
 	function validator_1_Init() {						
 		$('#frm_detail').bootstrapValidator({
 			feedbackIcons : {
@@ -944,4 +1152,4 @@
 		} else {
 			document.getElementById('ins_div').style.display="none";
 		}
-	}
+	}*/

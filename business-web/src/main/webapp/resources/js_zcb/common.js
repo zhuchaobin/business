@@ -39,7 +39,7 @@ function transAplyPsrltCd(aplyPsrltCd) {
 			} else if (value == '06') {
 				return "二审";;
 			} else if (value == '07') {
-				return "终止";
+				return "完结";
 			} else if (value == '') {
 				return "完成";
 			} else if (value == '31') {
@@ -59,7 +59,7 @@ function transAplyPsrltCd(aplyPsrltCd) {
 			} else if (value == '38') {
 				return "确认承保";
 			} else if (value == '39') {
-				return "终止";
+				return "完结";
 			} else if (value == '61') {
 				return "发货发起";
 			} else if (value == '62') {
@@ -89,7 +89,7 @@ function transAplyPsrltCd(aplyPsrltCd) {
 			} else if (value == '74') {
 				return "提取货物";
 			} else if (value == '79') {
-				return "终止";
+				return "完结";
 			} else if (value == '99') {
 				return "完结";
 			} else
@@ -146,14 +146,14 @@ function transAplyPsrltCd(aplyPsrltCd) {
 				if(1==flag) nextStepName="确认承保(保险公司)";
 				else if(2==flag) nextStepName="货款支付(供应链)";
 			} else if("38" == currStep){
-				if(1==flag) nextStepName="订单终止(供应链)";
+				if(1==flag) nextStepName="订单完结(供应链)";
 				else if(2==flag) nextStepName="确认收款(供应链)";
 			} else if("39" == currStep){
 				if(1==flag) nextStepName="订单完结";
 				else if(2==flag) nextStepName="确认承保(保险公司)";
 			} else if("61" == currStep){
 				if(1==flag) nextStepName="接货承运(物流)";
-				else if(2==flag) nextStepName="订单终止(供应链)";
+				else if(2==flag) nextStepName="订单完结(供应链)";
 			} else if("62" == currStep){
 				if(1==flag) nextStepName="选择赎货方式(供应链)";
 				else if(2==flag) nextStepName="发货发起(上游)";

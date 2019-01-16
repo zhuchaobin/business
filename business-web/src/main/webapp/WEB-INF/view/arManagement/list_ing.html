@@ -468,8 +468,8 @@
 									</div>
 								</div>
 
-								<div class="col-md-6" >
-									<div class="form-group">id="投保人地址_div"
+								<div class="col-md-6" id="投保人地址_div">
+									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">投保人地址：</label>
 										<div class="col-sm-8">
 											<input name="plchdAdr" class="form-control"
@@ -1080,7 +1080,7 @@
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
 										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="pchPymfrgdsTamt" class="form-control"
+											<input name="pchPymfrgdsTamt" id="pchPymfrgdsTamt" onchange="fncRto_change()" class="form-control"
 												placeholder="采购货款总额" value="2" />
 										</div>
 										<div class="col-xs-1">
@@ -1095,14 +1095,14 @@
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
 										<div class="col-xs-4" style="padding-left: 0px;">
-											<input name="fncRto" class="form-control" placeholder="融资比率"
-												value="4" />
+											<input name="fncRto" id="fncRto" class="form-control" placeholder="融资比率"
+												value="4" onchange="fncRto_change()"/>
 										</div>
 										<div class="col-xs-2">
 											<label for="" class="control-label">%</label>
 										</div>
 										<div class="col-xs-4" style="padding-left: 0px;">
-											<input name="fncAmt" class="form-control" placeholder="融资金额"
+											<input name="fncAmt" id="fncAmt" class="form-control" placeholder="融资金额"
 												value="2" />
 										</div>
 										<div class="col-xs-2">
@@ -1136,7 +1136,7 @@
 
 										<div class="col-xs-10" style="padding-left: 0px;">
 											<input name="prpyGldRto" class="form-control"
-												placeholder="预付金比率" value="2" disabled="disabled" />
+												placeholder="预付金比率" value="2" />
 										</div>
 										<div class="col-xs-1">
 											<label for="" class="control-label">元</label>
@@ -1606,8 +1606,8 @@
 													index) {
 												return transAplyPcstpCd(value);
 											}
-										}
-										/* {
+										},
+										 {
 											title : '操作',
 											field : 'aplyPcstpCd',
 											formatter : function(value, row,
@@ -1670,7 +1670,7 @@
 													return s;
 												}
 											}
-										}  */],
+										}  ],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
@@ -1759,7 +1759,7 @@
 								$('#frm_submit_ar [name="arId"]').val(
 										detail["arId"]);
 								$('#frm_submit_ar [name="aplyPcstpCd"]').val(
-										detail["aplyPcstpCd"]);
+										detail["aplyPcstpCd"]);								
 
 								// 长约详情div标题
 								$('#main_edit_detail_title').text(
@@ -1960,7 +1960,7 @@
 				return "二审";
 				;
 			} else if (value == '07') {
-				return "终止";
+				return "审批通过";
 			} else if (value == '') {
 				return "完成";
 			} else
@@ -3552,6 +3552,12 @@
 		
 		function operateFormatter(value, row, index) {
 			return "xxxx";
+		}
+		// 动态计算融资金额
+		function fncRto_change(){
+			var pchPymfrgdsTamt = $('#pchPymfrgdsTamt').val();
+			var fncRto = $('#fncRto').val();
+			$('#fncAmt').val(pchPymfrgdsTamt * fncRto / 100.0)
 		}
 	</script>
 </body>

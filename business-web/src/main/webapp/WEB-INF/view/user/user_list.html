@@ -75,7 +75,7 @@
 						<select name="locked_eq" class="form-control">
 							<option value="">-请选择-</option>
 							<option value="0">启用</option>
-							<option value="1">锁定</option>
+							<option value="1">冻结</option>
 						</select>
 					</div>
 				</div>
@@ -208,7 +208,7 @@
 				buttons : [
 					{'text':'添加', 'class':'btn-default', 'click':'showAddPreDialog'},
 					{'text':'打开', 'class':'btn-default', 'click':'showEditDialog'},
-					{'text':'锁定/解锁', 'class':'btn-default', 'click':'updateLocked'},
+					{'text':'冻结/激活', 'class':'btn-default', 'click':'updateLocked'},
 					{'text':'重置密码', 'class':'btn-default', 'click':'resetPassword'},
 					{'text':'刷新', 'class':'btn-default', 'click':'refresh'}
 				]
@@ -291,7 +291,7 @@
 						}},
 						{title: '账号状态', field: 'locked', formatter: function(value, row, index) {
 							if(value) {
-								return '<code>锁定</code>';
+								return '<code>冻结</code>';
 							} else {
 								return '<code class="text-success bg-success">正常</code>';
 							}
@@ -327,8 +327,8 @@
 						},
 						chineseName : {
 							validators : {
-								notEmpty : {message : '真实姓名不能为空'},
-								stringLength : {min : 2, max : 20, message : '真实姓名必须在2-20之间！' }
+								notEmpty : {message : '联系人姓名不能为空'},
+								stringLength : {min : 2, max : 20, message : '联系人姓名必须在2-20之间！' }
 							}
 						},
 						mobile : {
@@ -360,7 +360,7 @@
 					return;
 				}
 				
-				var operateType = rows[0].locked ? '解锁' : '锁定';
+				var operateType = rows[0].locked ? '激活' : '冻结';
 				
 				bootbox.confirm({
 					buttons : {

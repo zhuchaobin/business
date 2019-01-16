@@ -1330,23 +1330,52 @@
 				}				
 //				bespeakStatus = detail['bespeakStatus'];				
 				///环节流转列表table生成
- 				var lnk_jrnl_inf = detail["list"];
-				insertHtml="";
-				insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">环节</th><th style="border-bottom: none;">结果</th><th style="border-bottom: none;">提交人</th><th style="border-bottom: none;">公司</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">详情</th></tr> </thead><tbody>';
-				for ( var jj = 0; jj < lnk_jrnl_inf.length; jj++) {
-					var rmrkDesc = lnk_jrnl_inf[jj].rmrk;
-					if((null != rmrkDesc) && (rmrkDesc.length > 5)){
-						rmrkDesc = '<a onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '")>' + rmrkDesc.substring(0,5) + "..." + '</a>';
+				// 保险公司无权看环节流水
+				if('[[${userType}]]' != "insCo"){
+					var lnk_jrnl_inf = detail["list"];
+					insertHtml = "";
+					insertHtml = '<table id="tbl_Lnk_Jrnl_Inf2" align="center"class="table table-hover"> <thead> <tr> <th style="border-bottom: none;">环节</th><th style="border-bottom: none;">结果</th><th style="border-bottom: none;">提交人</th><th style="border-bottom: none;">公司</th><th style="border-bottom: none;">备注</th><th style="border-bottom: none;">处理时间</th><th style="border-bottom: none;">详情</th></tr> </thead><tbody>';
+					for (var jj = 0; jj < lnk_jrnl_inf.length; jj++) {
+						var rmrkDesc = lnk_jrnl_inf[jj].rmrk;
+						if ((null != rmrkDesc)
+								&& (rmrkDesc.length > 5)) {
+							rmrkDesc = '<a onclick=getArSubmmitDetail("'
+									+ lnk_jrnl_inf[jj].id
+									+ '","'
+									+ lnk_jrnl_inf[jj].rltvId
+									+ '","'
+									+ lnk_jrnl_inf[jj].aplyPcstpCd
+									+ '")>'
+									+ rmrkDesc.substring(0, 5)
+									+ "..." + '</a>';
+						}
+						if ((null == rmrkDesc) || ("" == rmrkDesc)) {
+							rmrkDesc = "无";
+						}
+						insertHtml = insertHtml
+								+ '<tr><td>'
+								+ transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)
+								+ '</td><td>'
+								+ transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)
+								+ '</td><td>'
+								+ lnk_jrnl_inf[jj].username
+								+ '</td><td>'
+								+ lnk_jrnl_inf[jj].companyName
+								+ '</td><td>'
+								+ rmrkDesc
+								+ '</td><td>'
+								+ transDateTime(lnk_jrnl_inf[jj].lnkEdtm)
+								+ '</td><td><input type="button" class="btn-success btn_small" onclick=getArSubmmitDetail("'
+								+ lnk_jrnl_inf[jj].id + '","'
+								+ lnk_jrnl_inf[jj].rltvId + '","'
+								+ lnk_jrnl_inf[jj].aplyPcstpCd
+								+ '") value="查看"> </td></tr>';
 					}
-					if((null == rmrkDesc) || (""==rmrkDesc)){
-						rmrkDesc = "无";
-					}
-					insertHtml = insertHtml + '<tr><td>'+transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)+'</td><td>'+transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)+'</td><td>'+lnk_jrnl_inf[jj].username+'</td><td>'+lnk_jrnl_inf[jj].companyName+
-					'</td><td>'+rmrkDesc+'</td><td>'+transDateTime(lnk_jrnl_inf[jj].lnkEdtm)+
-					'</td><td><input type="button" class="btn-success btn_small" onclick=getArSubmmitDetail("'+ lnk_jrnl_inf[jj].id +'","'+ lnk_jrnl_inf[jj].rltvId +'","'+ lnk_jrnl_inf[jj].aplyPcstpCd + '") value="查看"> </td></tr>';
-				}				
-				insertHtml = insertHtml + "</tbody></table>";
-				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
+					insertHtml = insertHtml + "</tbody></table>";
+					testdiv = document
+							.getElementById("lnk_jrnl_inf_tbl_div");
+				} else 
+					$('#ar_lnk_jrnl_inf_detail').hide();
 				// 订单流转div标题
 				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["ordrId"]+" ]");
 				// 订单提交div标题				
@@ -1687,7 +1716,8 @@
 		
 		
 		function buttonInit() {
-			if ('[[${userType}]]' == 'Group') {
+			/* if ('[[${userType}]]' == 'Group') { */
+			if(1==1){
 			/* 	$("#div_buttons")
 						.append(
 							 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		

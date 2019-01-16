@@ -116,7 +116,7 @@
 							<label class="col-sm-2 control-label">电子邮箱</label>
 							<div class="col-sm-8">
 								<input type="text" value="888" class="form-control"
-									name="用来接收通知" placeholder="用来接收通知">
+									name="email" placeholder="用来接收通知">
 							</div>
 						</div>
 
@@ -280,13 +280,13 @@
 					invalid : 'glyphicon glyphicon-remove',
 					validating : 'glyphicon glyphicon-refresh'
 				},
-				fields : {
-			    	"username" : {
+				fields : {					
+					"username" : {
 						validators : {
-							notEmpty : {message : '用户名不能为空'}
+							notEmpty : {message : '用户名不能为空！'},
+							regexp : {regexp : /^[a-z A-Z _]{1}.{2,19}$/, message : '用户名必须以字母或_开头，长度为3-20个字符！' }
 						}
-					},
-
+					},				
 			    	"password" : {
 						validators : {
 							notEmpty : {message : '密码不能为空'}
@@ -297,23 +297,27 @@
 							notEmpty : {message : '密码确认不能为空'}
 						}
 					},
-			    	"chineseName" : {
+					"chineseName" : {
 						validators : {
-							notEmpty : {message : '联系人姓名不能为空'}
+							notEmpty : {message : '联系人姓名不能为空'},
+							stringLength : {min : 2, max : 20, message : '联系人姓名必须在2-20之间！' }
 						}
 					},
-					//验证手机
-		            'mobile' : {          //input中的name 值
-		                validators:{
-		                    regexp: {
-		                        regexp: /^1\d{10}$/ ,
-		                        message: '请输入正确的11位手机号'
-		                    }		                    
-		                }
-		            },
+					
+					"mobile" : {
+						validators : {
+							notEmpty : {message : '手机号码不能为空！'},
+							regexp : {regexp : /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/, message : '手机号码格式不正确！' },
+						}
+					},
 			    	"companyName" : {
 						validators : {
 							notEmpty : {message : '公司全称不能为空'}
+						}
+					},
+					"email" : {
+						validators : {
+							emailAddress : {message : '邮箱地址格式不正确！'}
 						}
 					}
 				}

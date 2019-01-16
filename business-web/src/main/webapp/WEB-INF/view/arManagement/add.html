@@ -855,7 +855,7 @@
 					</fieldset>
 				</form>
 			</div>
-			<div class="box-footer">
+<!-- 			<div class="box-footer">
 				<button id="btn_close_return3" type="button"
 					class="btn btn-primary-gray pull-right"
 					onclick='javascript:showOrHideDetail(false, 3);'
@@ -868,7 +868,7 @@
 					style="margin-right: 15px;">
 					<i class="glyphicon glyphicon-repeat"></i>返回
 				</button>
-			</div>
+			</div> -->
 		</div>
 	</section>
 	<!-- 查询长约提交详细信息 end-->
@@ -957,6 +957,24 @@
 	</div>
 	<!-- 长约删除确认提示框 end -->
 
+	<!-- 审核提交界面的返回按钮 start-->
+<div id="submmit_btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
+	<table width=""100% style="position: absolute; width:260px; right: 0px; top: 0px;">
+			<button id="btn_close_return3" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 3);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+						<button id="btn_close_return4" type="button"
+				class="btn btn-success pull-right btn-lg"
+				onclick='javascript:showOrHideDetail(true, 4);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+			</button>
+	</table>
+</div>
+
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -973,6 +991,7 @@
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/ar.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1082,7 +1101,7 @@
 			$('#tbl_query').e7table('query', '#frm_query');
 
 		}		
-		function showOrHideDetail(editable, flag) {
+/* 		function showOrHideDetail(editable, flag) {
 			if (editable) {
 				$('#fld_detail').prop('disabled', false);
 				$('#btn_save').show();
@@ -1194,7 +1213,7 @@
 				$('#btn_close_div').hide();	
 				$('#query_ar_submmit_detail').fadeIn(300);	
 			}
-		}
+		} */
 		/***
 		 * 重置
 		 */
@@ -1567,52 +1586,18 @@
 				// 决定显示哪一个返回按钮
 				if(type == 1){
 					// 返回到长约详情查询
-					$('#btn_close_return4').fadeIn(300);
+					$('#btn_close_return4').show();
 					$('#btn_close_return3').hide();	
 				} else {
 
 					// 返回到长约提交
-					$('#btn_close_return3').fadeIn(300);
+					$('#btn_close_return3').show();
 					$('#btn_close_return4').hide();	
 				}
 			});				
 		}
 		
-			function getArSubmmitDetail(id, arId, aplyPcstpCd){
- 			// 带过来的环节编号
-			E7.post(pageSetting.resetPath + '/getArSubmmitDetail', {
-				'id' : id,'arId':arId,'aplyPcstpCd':aplyPcstpCd
-			}, function(result) {
-//				fillForm('#frm_detail2', result.data);
-				var detail = result.data;
-/* 				$('#frm_detail2 [name="submmitUsername"]').val(detail["username"]);
-				$('#frm_detail2 [name="companyName"]').val(detail["name"]);
-				$('#frm_detail2 [name="aplyPcstpCdDesc"]').val(transAplyPcstpCd(detail["aplyPcstpCd"]));
-				$('#frm_detail2 [name="lnkEdtm"]').val(transDateTime(detail["lnkEdtm"]));
-				$('#frm_detail2 [name="aplyPsrltCdDesc"]').val(transAplyPsrltCd(detail["aplyPsrltCd"]));
-				$('#frm_detail2 [name="rmrkDesc"]').val(detail["rmrk"]); */
-				document.getElementById('companyName').innerText = "公    司    :    " + detail["name"];
-				document.getElementById('submmitUsername').innerText = "提交人    :    " + detail["username"];
-				document.getElementById('aplyPcstpCdDesc').innerText = "环    节    :    " + transAplyPcstpCd(detail["aplyPcstpCd"]);
-				document.getElementById('lnkEdtm').innerText = "时    间    :    " + transDateTime(detail["lnkEdtm"]);
-				document.getElementById('aplyPsrltCdDesc').innerText = "结    果    :    " + transAplyPsrltCd(detail["aplyPsrltCd"]);
-				document.getElementById('rmrkDesc').innerText = "备    注    :    " + detail["rmrk"];
-				///附件列表
-				var td = detail["t2UploadAtch01List"];
-				var insertHtml="";
-				for ( var kk = 0; kk < td.length; kk++) {
-					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm) + transDateTime(suffix) +'</div></a></div>';
-				}								
-				if(td.length > 0){
-					var testdiv = document.getElementById("upload_atch_div2");
-					testdiv.innerHTML=insertHtml;
-					$('#query_ar_atch_div2').fadeIn(300);
-				} else {
-					$('#query_ar_atch_div2').hide();	
-				}				
-				showOrHideDetail(false,5);
-			}); 
-		}                                                                                
+                                                                            
 				
 		function transAplyPsrltCd(aplyPsrltCd) {
 			if (aplyPsrltCd == '01') {
@@ -1756,7 +1741,8 @@
 
 		function validate_frm_detail(flag){
 			$('#frm_detail').bootstrapValidator('validate');
-			if (!$('#frm_detail').data('bootstrapValidator').isValid()) {
+			// 仅提交的时候校验界面参数若不合法禁止操作，保存不限定
+			if (!$('#frm_detail').data('bootstrapValidator').isValid() && (1 == flag)) {
 				return;
 			} else {
 				if(1 == flag){

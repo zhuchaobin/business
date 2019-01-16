@@ -654,6 +654,10 @@ public class OrderManagementController extends BaseController {
     	else if(5 == flag)
     		mav = new ModelAndView("orderManagement/list_adted");
     	
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	logger.info("user.getUserType() =" + user.getUserType());
+    	mav.addObject("userType", user.getUserType());
+    	
     	logger.info("flag=" + flag);
     	CompanyQuery query = new CompanyQuery(); 
     	// 查询平台下拉菜单
@@ -728,7 +732,7 @@ public class OrderManagementController extends BaseController {
 //            throw new RuntimeException("查询[仓储公司]公司信息异常");
         }
         mav.addObject("stgcoModels", result.getData().getList());    
-    	mav.addObject("userType", "Group");
+//    	mav.addObject("userType", "Group");
         return mav;
     } 
        

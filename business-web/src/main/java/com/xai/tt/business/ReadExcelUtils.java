@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -155,6 +156,15 @@ public class ReadExcelUtils {
 
 	public static void main(String[] args) {
 		try {
+			String test2="hello";
+			String test = null != test2?test2:"0";
+			System.out.println("test========" + test);
+			BigDecimal test3 = new BigDecimal(0);
+			Map<Object, Object> test4= new HashMap<Object, Object>();
+			test4.put("aply", new BigDecimal("345"));
+			BigDecimal test5 = (BigDecimal) test4.get("aply");
+			System.out.println("test========" + test5);
+			
 			String filepath = "D:\\TT\\数据库设计201801216_V1.2.xlsx";
 			ReadExcelUtils excelReader = new ReadExcelUtils(filepath);
 			// 对读取Excel表格标题测试
