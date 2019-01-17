@@ -77,11 +77,11 @@ h1,h2,h3,h4{font-family: "微软雅黑"}
 }
 
 .box.box-info{
-	border-top-color:#F7FBFE;
-	background:#F7FBFE;
+/* 	border-top-color:#F7FBFE; */
+/* 	background:#F7FBFE; */
 }
 .box-footer{
-	background:#F7FBFE;
+/* 	background:#F7FBFE; */
 }
 
 .detail .box{

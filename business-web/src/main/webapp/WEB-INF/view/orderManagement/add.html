@@ -54,6 +54,17 @@
 	border-radius: 4px;
 }
 </style>
+<!-- 页面背景图片 -->
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+	background: url(/resources/dist/img/page_bg.png) no-repeat;
+	width: 100%;
+	background-size: cover;
+}
+</style>
+<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
 </head>
@@ -1680,7 +1691,7 @@
 			} else if (value == '02') {
 				return "供应链确认";
 			} else if (value == '03') {
-				return "下游确认";
+				return "融资企业确认";
 			} else if (value == '04') {
 				return "承保";
 			} else if (value == '05') {

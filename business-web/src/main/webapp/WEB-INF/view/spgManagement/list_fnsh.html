@@ -56,6 +56,17 @@
 	border-radius: 4px;
 }
 </style>
+<!-- 页面背景图片 -->
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+	background: url(/resources/dist/img/page_bg.png) no-repeat;
+	width: 100%;
+	background-size: cover;
+}
+</style>
+<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
 </head>
@@ -1820,7 +1831,7 @@
                 return "选择赎货方式并支付_供应链";
                 ;
             } else if (value == '67') {
-                return "回款赎货_下游";
+                return "回款赎货_融资企业";
             } else if (value == '68') {
                 return "质押置换_供应链";
             } else if (value == '69') {
@@ -1834,13 +1845,13 @@
             } else if (value == '73') {
                 return "转货权1确定质押_仓储";
             } else if (value == '74') {
-                return "存入自有货物回款赎货_下游";
+                return "存入自有货物回款赎货_融资企业";
             } else if (value == '75') {
                 return "通知解押_银行";
             } else if (value == '76') {
                 return "转货权2_仓储";
             } else if (value == '77') {
-                return "提取货物_下游";
+                return "提取货物_融资企业";
             } else if (value == '79') {
                 return "发货终止_供应链";
             } else

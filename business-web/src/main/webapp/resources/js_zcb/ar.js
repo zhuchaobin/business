@@ -152,7 +152,7 @@
 			} else if (value == '02') {
 				return "供应链确认";
 			} else if (value == '03') {
-				return "下游确认";
+				return "融资企业确认";
 			} else if (value == '04') {
 				return "承保";
 			} else if (value == '05') {
@@ -349,7 +349,7 @@
 		} else if (value == '02') {
 			return "供应链确认";
 		} else if (value == '03') {
-			return "下游确认";
+			return "融资企业确认";
 		} else if (value == '04') {
 			return "承保";
 		} else if (value == '05') {

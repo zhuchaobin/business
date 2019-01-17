@@ -6,7 +6,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport" />
-<title>无模版</title>
+<title>待审批长约</title>
 <link rel="stylesheet"
 	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet"
@@ -54,10 +54,21 @@
 	border-radius: 4px;
 }
 </style>
+<!-- 页面背景图片 -->
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+	background: url(/resources/dist/img/page_bg.png) no-repeat;
+	width: 100%;
+	background-size: cover;
+}
+</style>
+<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
 </head>
-<body>
+<body class="body-bg">
 	<!-- 列表查询 start-->
 	<section id="main_search_detail" class="content">
 		<!-- 条件查询 -->
@@ -937,13 +948,18 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
-					<h4 class="modal-title">友情提示</h4>
+					<h4 class="text-info">提示：请填写撤销原因并提交 或 取消</h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" align="center">您确定要撤销该长约吗?</div>
+				<div class="modal-body" align="center"></div>				
+				<div class="container-fluid text-center">
+					<div class="form-group" >
+						<textarea name="epap" rows="3" class="form-control" placeholder="请填写撤销原因"></textarea>
+					</div>
+				</div>								
 				<div class="modal-footer" align="center">
 					<button type="button" onclick="javascript:arUndo()"
 						class="btn btn-primary-red" data-dismiss="modal">
@@ -1592,10 +1608,6 @@
 		}
 		
 		function confirmArUndo(){
-			$('#arUndoModal').modal('show');
-		}
-		
-		function arUndo() {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if (rows.length == 0) {
 				bootbox.alert({
@@ -1610,6 +1622,11 @@
 				});
 				return;
 			}
+			$('#arUndoModal').modal('show');
+		}
+		
+		function arUndo() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
@@ -1923,7 +1940,7 @@
 								autoLoading : true, //控件初始化后，自动远程请求数据
 								selectType : 'single',
 								sortName : 'crtTm', //排序列名,创建时间
-								striped: true, //奇偶行不同背景
+						/* 		striped: true, //奇偶行不同背景 */
 								pagination: true,
 								rownumbers: false,		//如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向

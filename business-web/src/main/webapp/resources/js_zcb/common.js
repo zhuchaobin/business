@@ -31,7 +31,7 @@ function transAplyPsrltCd(aplyPsrltCd) {
 			} else if (value == '02') {
 				return "供应链确认";
 			} else if (value == '03') {
-				return "下游确认";
+				return "融资企业确认";
 			} else if (value == '04') {
 				return "承保";
 			} else if (value == '05') {
@@ -107,14 +107,14 @@ function transAplyPsrltCd(aplyPsrltCd) {
 				if(1==flag) nextStepName="长约确认(供应链)";
 				else if(2==flag) nextStepName="";
 			} else if("02" == currStep){
-				if(1==flag) nextStepName="长约确认(下游)";
+				if(1==flag) nextStepName="长约确认(融资企业)";
 				else if(2==flag) nextStepName="长约发起（平台）";
 			}  else if("03" == currStep){
 				if(1==flag) nextStepName="确认承保（保险公司）";
 				else if(2==flag) nextStepName="长约确认(供应链)";
 			} else if("04" == currStep){
 				if(1==flag) nextStepName="长约一审（平台）";
-				else if(2==flag) nextStepName="长约确认(下游)";
+				else if(2==flag) nextStepName="长约确认(融资企业)";
 			} else if("05" == currStep){
 				if(1==flag) nextStepName="长约二审（平台）";
 				else if(2==flag) nextStepName="确认承保（保险公司）";
@@ -128,20 +128,20 @@ function transAplyPsrltCd(aplyPsrltCd) {
 				if(1==flag) nextStepName="订单审核(平台)";
 				else if(2==flag) nextStepName="";
 			} else if("32" == currStep){
-				if(1==flag) nextStepName="保证金支付(下游)";
+				if(1==flag) nextStepName="保证金支付(融资企业)";
 				else if(2==flag) nextStepName="订单发起(供应链)";
 			} else if("33" == currStep){
 				if(1==flag) nextStepName="融资发放(银行)";
 				else if(2==flag) nextStepName="订单审核(平台)";
 			} else if("34" == currStep){
-				if(1==flag) nextStepName="货款支付(下游)";
-				else if(2==flag) nextStepName="保证金支付(下游)";
+				if(1==flag) nextStepName="货款支付(融资企业)";
+				else if(2==flag) nextStepName="保证金支付(融资企业)";
 			} else if("35" == currStep){
 				if(1==flag) nextStepName="货款支付(供应链)";
 				else if(2==flag) nextStepName="融资发放(银行)";
 			} else if("36" == currStep){
 				if(1==flag) nextStepName="确认收款(供应链)";
-				else if(2==flag) nextStepName="货款支付(下游)";
+				else if(2==flag) nextStepName="货款支付(融资企业)";
 			} else if("37" == currStep){
 				if(1==flag) nextStepName="确认承保(保险公司)";
 				else if(2==flag) nextStepName="货款支付(供应链)";
@@ -158,14 +158,14 @@ function transAplyPsrltCd(aplyPsrltCd) {
 				if(1==flag) nextStepName="选择赎货方式(供应链)";
 				else if(2==flag) nextStepName="发货发起(上游)";
 			} else if("63" == currStep){
-				if(1==flag) nextStepName="回款赎货(下游)";
+				if(1==flag) nextStepName="回款赎货(融资企业)";
 				else if(2==flag) nextStepName="接货承运(物流)";
 			} else if("64" == currStep){
 				if(1==flag) nextStepName="质押置换(供应链)";
 				else if(2==flag) nextStepName="选择赎货方式(供应链)";
 			} else if("65" == currStep){
 				if(1==flag) nextStepName="出质(银行)";
-				else if(2==flag) nextStepName="回款赎货(下游)";
+				else if(2==flag) nextStepName="回款赎货(融资企业)";
 			} else if("66" == currStep){
 				if(1==flag) nextStepName="通知转货权(银行)";
 				else if(2==flag) nextStepName="质押置换(供应链)";
@@ -179,16 +179,16 @@ function transAplyPsrltCd(aplyPsrltCd) {
 				if(1==flag) nextStepName="确定质押(仓储)";
 				else if(2==flag) nextStepName="通知转货权(供应链)";
 			} else if("70" == currStep){
-				if(1==flag) nextStepName="存入自有货物(下游)";
+				if(1==flag) nextStepName="存入自有货物(融资企业)";
 				else if(2==flag) nextStepName="转货权1(仓储)";
 			} else if("71" == currStep){
 				if(1==flag) nextStepName="通知解押(银行)";
 				else if(2==flag) nextStepName="确定质押(仓储)";
 			} else if("72" == currStep){
 				if(1==flag) nextStepName="转货权2(仓储)";
-				else if(2==flag) nextStepName="存入自有货物(下游)";
+				else if(2==flag) nextStepName="存入自有货物(融资企业)";
 			} else if("73" == currStep){
-				if(1==flag) nextStepName="提取货物(下游)";
+				if(1==flag) nextStepName="提取货物(融资企业)";
 				else if(2==flag) nextStepName="通知解押(银行)";
 			} else if("74" == currStep){
 				if(1==flag) nextStepName="发货终止(供应链)";

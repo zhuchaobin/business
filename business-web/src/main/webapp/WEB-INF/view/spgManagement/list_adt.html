@@ -54,7 +54,19 @@
             border-radius: 4px;
         }
     </style>
-    <!-- 自定义按钮样式 -->
+    
+<!-- 页面背景图片 -->
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+	background: url(/resources/dist/img/page_bg.png) no-repeat;
+	width: 100%;
+	background-size: cover;
+}
+</style>
+<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
+<!-- 自定义按钮样式 -->
     <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}"/>
     <link rel="stylesheet"
           th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}"/>
@@ -829,35 +841,40 @@
 </div>
 <!-- 订单提交确认提示框 end -->
 
-<!-- 订单删除确认提示框 start -->
-<div aria-hidden="true" aria-labelledby="submitModalLabel" class="modal fade" id="arUndoModal"
-     role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div align="center" class="modal-header">
-                <h4 class="modal-title">友情提示</h4>
-                <button aria-label="Close" class="close" data-dismiss="modal"
-                        type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div align="center" class="modal-body">您确定要撤销该发货吗?</div>
-            <div align="center" class="modal-footer">
-                <button class="btn btn-primary-red" data-dismiss="modal"
-                        onclick="javascript:spgUndo()" type="button">
-                    <i class="glyphicon glyphicon-ok-sign"></i>确定
-                </button>
-                <button class="btn btn-primary-gray" data-dismiss="modal"
-                        type="button">
-                    <i class="glyphicon glyphicon-remove-sign"></i>取消
-                </button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- 订单删除确认提示框 end -->
+<!-- 发货撤销确认提示框 start -->
+	<div class="modal fade" id="arUndoModal" tabindex="-1" role="dialog"
+		aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="text-info">提示：请填写撤销原因并提交 或 取消</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center"></div>				
+				<div class="container-fluid text-center">
+					<div class="form-group" >
+						<textarea name="epap" rows="3" class="form-control" placeholder="请填写撤销原因"></textarea>
+					</div>
+				</div>								
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:spgUndo()"
+						class="btn btn-primary-red" data-dismiss="modal">
+						<i class="glyphicon glyphicon-ok-sign"></i>确定
+					</button>
+					<button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+<!-- 发货撤销确认提示框 end -->
 
 
 <!-- 审核提交界面的返回按钮 start-->
@@ -1288,7 +1305,7 @@
                 nextStepName = "";
         } else if ("02" == currStep) {
             if (1 == flag)
-                nextStepName = "长约确认(下游)";
+                nextStepName = "长约确认(融资企业)";
             else if (2 == flag)
                 nextStepName = "长约发起（平台）";
         } else if ("03" == currStep) {
@@ -1300,7 +1317,7 @@
             if (1 == flag)
                 nextStepName = "长约一审（平台）";
             else if (2 == flag)
-                nextStepName = "长约确认(下游)";
+                nextStepName = "长约确认(融资企业)";
         } else if ("05" == currStep) {
             if (1 == flag)
                 nextStepName = "长约二审（平台）";
@@ -1323,7 +1340,7 @@
                 nextStepName = "";
         } else if ("32" == currStep) {
             if (1 == flag)
-                nextStepName = "保证金支付(下游)";
+                nextStepName = "保证金支付(融资企业)";
             else if (2 == flag)
                 nextStepName = "订单发起(供应链)";
         } else if ("33" == currStep) {
@@ -1333,9 +1350,9 @@
                 nextStepName = "订单审核(平台)";
         } else if ("34" == currStep) {
             if (1 == flag)
-                nextStepName = "货款支付(下游)";
+                nextStepName = "货款支付(融资企业)";
             else if (2 == flag)
-                nextStepName = "保证金支付(下游)";
+                nextStepName = "保证金支付(融资企业)";
         } else if ("35" == currStep) {
             if (1 == flag) {
                 if ("01" == pymtmod)
@@ -1348,7 +1365,7 @@
             if (1 == flag)
                 nextStepName = "确认承保(保险公司)";
             else if (2 == flag)
-                nextStepName = "货款支付(下游)";
+                nextStepName = "货款支付(融资企业)";
         } else if ("37" == currStep) {
             if (1 == flag) {
                 if ("02" == pymtmod)
@@ -1478,7 +1495,7 @@
 
                 if ("01" == selRdmgdsMod) {
 
-                    nextStepName = "67-回款赎货(下游)";
+                    nextStepName = "67-回款赎货(融资企业)";
                 } else if ("02" == selRdmgdsMod) {
 
                     nextStepName = "68-质押置换(供应链)";
@@ -1489,14 +1506,14 @@
             if (1 == flag) {
                 if ("01" == selRdmgdsMod) {
 
-                    nextStepName = "67-回款赎货(下游)";
+                    nextStepName = "67-回款赎货(融资企业)";
                 } else if ("02" == selRdmgdsMod) {
 
                     nextStepName = "68-质押置换(供应链)";
                 }
             } else if (2 == flag)
                 nextStepName = "63-接货入库(仓储)";
-        } else if ("67" == currStep) {//67-回款赎货(下游)
+        } else if ("67" == currStep) {//67-回款赎货(融资企业)
             if (1 == flag) {
                 if ("01" == selRdmgdsMod) {
 
@@ -1552,7 +1569,7 @@
                     nextStepName = "71-通知转货权(供应链)";
                 }
             } else if (2 == flag)
-                nextStepName = "67-回款赎货(下游)";
+                nextStepName = "67-回款赎货(融资企业)";
         } else if ("71" == currStep) {//71-通知转货权(供应链)
             if (1 == flag) {
 
@@ -1579,7 +1596,7 @@
             if (1 == flag) {
                 if ("01" == selRdmgdsMod) {
 
-                    nextStepName = "77-提取货物(下游)";
+                    nextStepName = "77-提取货物(融资企业)";
                 }
             } else if (2 == flag)
                 nextStepName = "71-通知转货权(供应链)";
@@ -1588,12 +1605,12 @@
 
                 if ("02" == selRdmgdsMod) {
 
-                    nextStepName = "74-存入自有货物回款赎货(下游)";
+                    nextStepName = "74-存入自有货物回款赎货(融资企业)";
                 }
 
             } else if (2 == flag)
                 nextStepName = "71-通知转货权(供应链)";
-        } else if ("74" == currStep) {//74-存入自有货物回款赎货(下游)
+        } else if ("74" == currStep) {//74-存入自有货物回款赎货(融资企业)
             if (1 == flag) {
                 if ("02" == selRdmgdsMod) {
 
@@ -1608,12 +1625,12 @@
                     nextStepName = "76-转货权2(仓储)";
                 }
             } else if (2 == flag)
-                nextStepName = "74-存入自有货物回款赎货(下游)";
+                nextStepName = "74-存入自有货物回款赎货(融资企业)";
         } else if ("76" == currStep) {//76-转货权2(仓储)
             if (1 == flag) {
                 if ("02" == selRdmgdsMod) {
 
-                    nextStepName = "77-提取货物(下游)";
+                    nextStepName = "77-提取货物(融资企业)";
                 }
             } else if (2 == flag)
                 nextStepName = "75-通知解押(银行)";
@@ -2278,10 +2295,6 @@
     }
 
     function confirmArUndo() {
-        $('#arUndoModal').modal('show');
-    }
-
-    function spgUndo() {
         var rows = $('#tbl_query').e7table('getSelectedRows');
         if (rows.length == 0) {
             bootbox.alert({
@@ -2296,6 +2309,24 @@
             });
             return;
         }
+        $('#arUndoModal').modal('show');
+    }
+
+    function spgUndo() {
+        var rows = $('#tbl_query').e7table('getSelectedRows');
+ /*        if (rows.length == 0) {
+            bootbox.alert({
+                'title': '错误消息',
+                'message': '请选择数据！'
+            });
+            return;
+        } else if (rows.length > 1) {
+            bootbox.alert({
+                'title': '错误消息',
+                'message': '一次只能撤销一条发货单！'
+            });
+            return;
+        } */
         if ($('#frm_detail').data('bootstrapValidator')) {
             $('#frm_detail').data('bootstrapValidator').resetForm(true);
         }
@@ -2712,7 +2743,7 @@
                                         + row.id
                                         + ',"'
                                         + value
-                                        + '")>回款赎货_下游</button>&nbsp;';
+                                        + '")>回款赎货_融资企业</button>&nbsp;';
                                     return s;
                                 } else if (value == '68') {
                                     var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
@@ -2761,7 +2792,7 @@
                                         + row.id
                                         + ',"'
                                         + value
-                                        + '")>存入自有货物回款赎货_下游</button>&nbsp;';
+                                        + '")>存入自有货物回款赎货_融资企业</button>&nbsp;';
                                     return s;
                                 } else if (value == '75') {
                                     var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
@@ -2782,7 +2813,7 @@
                                         + row.id
                                         + ',"'
                                         + value
-                                        + '")>提取货物_下游</button>&nbsp;';
+                                        + '")>提取货物_融资企业</button>&nbsp;';
                                     return s;
                                 } else if (value == '79') {
                                     var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
@@ -2820,7 +2851,7 @@
             return "选择赎货方式并支付_供应链";
             ;
         } else if (value == '67') {
-            return "回款赎货_下游";
+            return "回款赎货_融资企业";
         } else if (value == '68') {
             return "质押置换_供应链";
         } else if (value == '69') {
@@ -2834,13 +2865,13 @@
         } else if (value == '73') {
             return "转货权1确定质押_仓储";
         } else if (value == '74') {
-            return "存入自有货物回款赎货_下游";
+            return "存入自有货物回款赎货_融资企业";
         } else if (value == '75') {
             return "通知解押_银行";
         } else if (value == '76') {
             return "转货权2_仓储";
         } else if (value == '77') {
-            return "提取货物_下游";
+            return "提取货物_融资企业";
         } else if (value == '79') {
             return "发货终止_供应链";
         } else

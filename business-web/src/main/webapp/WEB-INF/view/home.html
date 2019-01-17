@@ -4,14 +4,178 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>XLINK运营平台</title>
-<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+<meta
+	content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+	name='viewport'>
 <link th:href="@{/resources/style.css}" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/skins/_all-skins.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/dist/css/AdminLTE.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/plugins/iCheck/all.css}" />
+<link rel="stylesheet" th:href="@{/resources/style.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}" />
+<style type="text/css">
+.btn_small {
+	display: inline-block;
+	padding: 1px 10px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+</style>
+<!-- 自定义按钮样式 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+<style type="text/css">
+html, body {
+	width: 100%;
+	height: 100%
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	background: url(/resources/dist/img/index_bg.png) no-repeat;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	background-size: cover;
+}
+</style>
+
 </head>
 <body class="skin-blue sidebar-mini">
-	<div id="welcome" style="text-align:center">
+	<div id="welcome" style="text-align: center">
 		<!-- 上部标题 -->
-			<!-- <img id="welcomeimg" th:src="@{/resources/dist/img/Welcome.png}" style="width:300px;margin-top:150px;margin-left:100px;"> -->
+		<img id="welcomeimg" th:src="@{/resources/dist/img/Welcome.png}"
+			style="width: 400px; margin-top: 50px;">
+	</div>
+	
+	<div class="container-fluid text-center">
+		<div class="row" style="margin-top: 35px;">
+		<p align="left" style="margin-left: 65px;margin-right:65px;" class="text-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp供应链金融（Supply Chain Finance），SCF，是商业银行信贷业务的一个专业领域（银行层面），也是企业尤其是中小企业的一种融资渠道（企业层面）。</p>
+		<p align="left" style="margin-left: 65px;margin-right:65px;" class="text-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp指银行向客户（核心企业）提供融资和其他结算、理财服务，同时向这些客户的供应商提供贷款及时收达的便利，或者向其分销商提供预付款代付及存货融资服务。（简单地说，就是银行将核心企业和上下游企业联系在一起提供灵活运用的金融产品和服务的一种融资模式。）</p>
+		<p align="left" style="margin-left: 65px;margin-right:65px;" class="text-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp供应链金融对商业银行的价值还在于：首先，供应链金融实现银企互利共赢，在供应链金融模式下，银行跳出单个企业的局限，站在产业供应链的全局和高度，向所有成员的企业进行融资安排，通过中小企业与核心企业的资信捆绑来提供授信。其次，供应链金融能够降低商业银行资本消耗。根据巴塞尔资本协议有关规定，贸易融资项下风险权重仅为一般信贷业务的20%。供应链金融涵盖传统授信业务、贸易融资、电子化金融工具等，为银行拓展中间业务增长提供较大空间。</p>
+		<p align="left" style="margin-left: 65px;margin-right:65px;" class="text-info">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp供应链金融缘起于传统银行，然而在互联网技术的冲击下，金融的门槛也随之放低，互联网金融为市场提供了更多的选择空间。在供应链金融模式下，对于核心企业来说，供应链上的相关企业依然能为其分担资金风险；对于核心企业的上下游企业而言，则可以在核心企业的信用支持下，以较低的成本顺利地获取贷款额度；而对于P2P等资金供应方，通过与核心大企业的合作，可以掌握供应链条上的完整资金流、物流和信息流等核心数据，从而把单个企业不可控的风险转化为供应链整体可控的风险，从而更有效地控制风险。</p>
 		</div>
+		</div>
+<!-- 	<div class="container-fluid text-center">
+		<div class="row" style="margin-top: 35px;">
+			<div class="col-md-2">
+				<div class="form-group">
+					<a href="/register"  type="button"  class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
+					<a href="/arManagement/list_adt" target="_blank" type="button"
+						class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
+				</div>
+
+			</div>
+			<div class="col-md-4" id="业务类型_div">
+				<button id="btn_close_detail" type="button"
+					class="btn btn-warning pull-center btn-lg"
+					href="/arManagement/list_adt" style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-arrow-left"></i> 待审批长约12个
+				</button>
+			</div>
+
+			<div class="col-md-4" id="业务类型_div">
+				<button id="btn_close_detail" type="button"
+					class="btn btn-success pull-center btn-lg"
+					onclick='javascript:showOrHideDetail(true, 1);'
+					style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-arrow-left"></i> 已审批长约8个
+				</button>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		
+		<div class="row" style="margin-top: 35px;">
+			<div class="col-md-2">
+				<div class="form-group">
+					<a href="/register"  type="button"  class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
+					<a href="/arManagement/list_adt" target="_blank" type="button"
+						class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
+				</div>
+
+			</div>
+			<div class="col-md-4" id="业务类型_div">
+				<button id="btn_close_detail" type="button"
+					class="btn btn-warning pull-center btn-lg"
+					href="/arManagement/list_adt" style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-arrow-left"></i> 待审批长约12个
+				</button>
+			</div>
+
+			<div class="col-md-4" id="业务类型_div">
+				<button id="btn_close_detail" type="button"
+					class="btn btn-success pull-center btn-lg"
+					onclick='javascript:showOrHideDetail(true, 1);'
+					style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-arrow-left"></i> 已审批长约8个
+				</button>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		
+		<div class="row" style="margin-top: 35px;">
+			<div class="col-md-2">
+				<div class="form-group">
+					<a href="/register"  type="button"  class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
+					<a href="/arManagement/list_adt" target="_blank" type="button"
+						class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
+				</div>
+
+			</div>
+			<div class="col-md-4" id="业务类型_div">
+				<button id="btn_close_detail" type="button"
+					class="btn btn-warning pull-center btn-lg"
+					href="/arManagement/list_adt" style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-arrow-left"></i> 待审批长约12个
+				</button>
+			</div>
+
+			<div class="col-md-4" id="业务类型_div">
+				<button id="btn_close_detail" type="button"
+					class="btn btn-success pull-center btn-lg"
+					onclick='javascript:showOrHideDetail(true, 1);'
+					style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-arrow-left"></i> 已审批长约8个
+				</button>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div> -->
 </body>
 </html>
 

@@ -54,6 +54,17 @@
 	border-radius: 4px;
 }
 </style>
+<!-- 页面背景图片 -->
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+	background: url(/resources/dist/img/page_bg.png) no-repeat;
+	width: 100%;
+	background-size: cover;
+}
+</style>
+<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
 </head>
@@ -1280,14 +1291,14 @@
 				if(1==flag) nextStepName="长约确认(供应链)";
 				else if(2==flag) nextStepName="";
 			} else if("02" == currStep){
-				if(1==flag) nextStepName="长约确认(下游)";
+				if(1==flag) nextStepName="长约确认(融资企业)";
 				else if(2==flag) nextStepName="长约发起（平台）";
 			}  else if("03" == currStep){
 				if(1==flag) nextStepName="确认承保（保险公司）";
 				else if(2==flag) nextStepName="长约确认(供应链)";
 			} else if("04" == currStep){
 				if(1==flag) nextStepName="长约一审（平台）";
-				else if(2==flag) nextStepName="长约确认(下游)";
+				else if(2==flag) nextStepName="长约确认(融资企业)";
 			} else if("05" == currStep){
 				if(1==flag) nextStepName="长约二审（平台）";
 				else if(2==flag) nextStepName="确认承保（保险公司）";
