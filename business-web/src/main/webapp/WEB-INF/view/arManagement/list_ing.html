@@ -1299,13 +1299,14 @@ body {
 							
 							<div class="col-md-12" style="padding-right: 15px;">
 							<!-- 订单明细部分 -->
-							<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"   data-target="#orderDetailModal" style="margin-right:15px;"><i class="glyphicon glyphicon-th"></i>订单明细</button>
+							<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"   onclick="showOrderDetailModal()" style="margin-right:15px;"><i class="glyphicon glyphicon-th"></i>订单明细</button>
 							</div>
 							
 							<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;" id="boot_table_div">
 								<table id="boot-table"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
 									<thead>
 									<tr bgcolor="#337AB7">
+										<th style="border-bottom: none;" data-field="ids">序号</th>
 										<th style="border-bottom: none;" data-field="pdNm">品名</th>
 										<th style="border-bottom: none;" data-field="spec">规格</th>
 										<th style="border-bottom: none;" data-field="spec">型号</th>
@@ -1317,7 +1318,8 @@ body {
 										<th style="border-bottom: none;" data-field="pchUnitprc">采购单价</th>
 										<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
 										<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th>
-										<!-- <th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th> -->
+										<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th>
+					<!-- 					<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">删除</th> -->
 									</tr>
 									</thead>
 										<!-- <tbody class="list">
@@ -1366,8 +1368,17 @@ body {
             <div class="modal-body">
             <div id="custom_data">
 
-				<form id="frm_submit_ar222" class="form-horizontal">
+				<form id="frm_orderDetailModal" class="form-horizontal">
 					<input type="hidden" id=ordrId name="ordrId">
+							<div class="col-md-6" style="display:none">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">序号<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="ids" id="ids" class="form-control" placeholder="序号" value="" />
+									</div>
+								</div>
+							</div>
 							<div class="col-md-6" >
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">品名<span
@@ -1497,7 +1508,12 @@ body {
             </div>
             </div>
             <div class="modal-footer" style="text-align:center;">
-                <a class="btn btn-primary-red"  type="button"  id="add" onclick=addOrderDetail()><i class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>													
+                <a class="btn btn-primary-red"  type="button"  id="btn_add_order_detail" onclick=addOrderDetail()><i class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>
+                <a class="btn btn-primary-red"  type="button"  id="btn_modify_order_detail" onclick=addOrderDetail()><i class="glyphicon glyphicon-edit"></i>&nbsp更新</a>	
+                <button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>												
             </div>
         </div>
     </div>
@@ -1513,7 +1529,7 @@ body {
 	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
 	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
 	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
-	<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script>
+<!-- 	<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script> -->
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
 	<script
@@ -1535,10 +1551,11 @@ body {
 			validator_1_Init();
 			validator_2_Init();
 			validator_3_Init();
+			validator_4_Init();
 			buttonInit();
 			// 是否投保默认不选中，用户自己选择
 			//			$("input:radio[name="isNeedIns"]").attr("checked",false);
-			CKEDITOR.replace("editor1")
+		//	CKEDITOR.replace("editor1")
 
 		});
 
@@ -2079,9 +2096,9 @@ body {
 		}
 
 		function save() {
-			for (instance in CKEDITOR.instances) {
+/* 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
-			}
+			} */
 
 			var formParams = E7.serialForm('#frm_detail');
 			E7.post(pageSetting.resetPath + '/save', formParams,
@@ -2104,9 +2121,9 @@ body {
 		}
 
 		function saveOrder(flag) {
-			for (instance in CKEDITOR.instances) {
+/* 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
-			}
+			} */
 			// 取订单明细表格的数据
 			var all = $('#boot-table').bootstrapTable('getData');
 			var formParams = E7.serialForm('#frm_detail_order');
@@ -2247,7 +2264,7 @@ body {
 						}
 					}
 				} else if (els[0].id == 'editor1') {
-					CKEDITOR.instances.editor1.setData(elValue);
+				///	CKEDITOR.instances.editor1.setData(elValue);
 				} else {
 					els.val(elValue + '');
 				}
@@ -2748,9 +2765,9 @@ body {
 		 * 长约提交
 		 */
 		function submitAr() {
-			for (instance in CKEDITOR.instances) {
+/* 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
-			}
+			} */
 			var formParams = E7.serialForm('#frm_submit_ar');
 			E7.post(pageSetting.resetPath + '/submitAr', formParams, function(
 					data) {
@@ -3390,6 +3407,91 @@ body {
 				$('#frm_detail_order').bootstrapValidator('validate');
 			});
 		}
+		
+		
+		
+		/***
+		 * 表单校验控件初始化4（订单明细）
+		 */
+		function validator_4_Init() {
+			$('#frm_orderDetailModal').bootstrapValidator({
+				feedbackIcons : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+					"pdNm" : {
+						validators : {
+							notEmpty : {
+								message : '品名不能为空'
+							}
+						}
+					},
+					"spec" : {
+						validators : {
+							notEmpty : {
+								message : '规格不能为空'
+							}
+						}
+					},
+					"qlyStd" : {
+						validators : {
+							notEmpty : {
+								message : '质量标准不能为空'
+							}
+						}
+					},
+					"pchUnitprc" : {
+						validators : {
+							notEmpty : {
+								message : '采购单价不能为空'
+							},
+							numeric : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"num" : {
+						validators : {
+							notEmpty : {
+								message : '数量不能为空'
+							},
+							numeric : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"txnPrcdif" : {
+						validators : {
+							notEmpty : {
+								message : '交易差价不能为空'
+							},
+							numeric : {
+								message : '只能输入数字'
+							}
+						}
+					},
+					"saleTntvPrc" : {
+						validators : {
+							notEmpty : {
+								message : '销售暂定价不能为空'
+							},
+							numeric : {
+								message : '只能输入数字'
+							}
+						}
+					}
+				}
+			});
+
+			$('#btn_add_order_detail').click(function() {
+				$('#frm_orderDetailModal').bootstrapValidator('validate');
+			});
+			$('#btn_modify_order_detail').click(function() {
+				$('#frm_orderDetailModal').bootstrapValidator('validate');
+			});
+		}
 
 		function show_or_hide_ins_div(flag) {
 			if (flag) {
@@ -3491,7 +3593,7 @@ body {
 						}
 					}
 				} else if (els[0].id == 'editor1') {
-					CKEDITOR.instances.editor1.setData(elValue);
+	///				CKEDITOR.instances.editor1.setData(elValue);
 				} else {
 					els.val(elValue + '');
 				}
@@ -3510,26 +3612,31 @@ body {
 			}
 		}
 		
+		
 		/***
 		 * 添加订单明细到页面表格
 		 */
-		function addOrderDetail() {	
-			
-/* 			var result='<tr class="item"><td class="nowrap">'+$('#pdNm').val()+'</td>'
-			+'<td class="nowrap">'+$('#spec').val()+'</td>'
-			+'<td class="nowrap">'+$('#modl').val()+'</td>'
-			+'<td class="nowrap">'+$('#qlyStd').val()+'</td>'
-			+'<td class="nowrap">'+$('#brnd').val()+'</td>'
-			+'<td class="nowrap">'+$('#pdFctr').val()+'</td>'
-			+'<td class="nowrap">'+$('#num').val()+'</td>'
-			+'<td class="nowrap">'+$('#msunit').val()+'</td>'
-			+'<td class="nowrap">'+$('#pchUnitprc').val()+'</td>'
-			+'<td class="nowrap">'+$('#txnPrcdif').val()+'</td>'
-			+'<td class="nowrap">'+$('#saleTntvPrc').val()+'</td>'
-			+'<td class="del1" style="cursor:pointer"onclick="delOrderTr(this)">删除</td>'+
-        '</tr>'; */
+		function addOrderDetail() {				
+        var count = 0;
+        var preIds = $('#ids').val();
+        if("" == preIds || undefined == preIds || null == preIds){
+            var all = $('#boot-table').bootstrapTable('getData');
+	        for(var i=0;i<all.length;i++){
+	        	if(parseInt(all[i]["ids"])>count)
+	        		count=all[i]["ids"];
+	        }
+	        count=parseInt(count)+1;
+        } else {
+        	// 删除旧的数据行
+        	var ids = [];//定义一个数组
+        	ids.push(parseInt(preIds));
+			$('#boot-table').bootstrapTable('remove', { field: 'ids', values: ids});
+			// 修改后的数据序号不变
+        	count = preIds;       
+        }
         var rows=[];
         rows.push({
+        	ids:count,
         	pdNm:$('#pdNm').val(),
         	spec:$('#spec').val(),
         	spec:$('#modl').val(),
@@ -3540,13 +3647,56 @@ body {
         	msunit:$('#msunit').val(),
         	pchUnitprc:$('#pchUnitprc').val(),
         	txnPrcdif:$('#txnPrcdif').val(),
-        	saleTntvPrc:$('#saleTntvPrc').val() 
-       	
+        	saleTntvPrc:$('#saleTntvPrc').val(),
+        	operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',       	
         })
         $('#boot-table').bootstrapTable('append', rows);
-//        $('#boot-table').bootstrapTable('hideColumn', 'pdNm');
-		   $("#boot_table_div").fadeIn(800);
-		   $("#orderDetailModal").modal("hide");
+		$("#boot_table_div").fadeIn(800);
+		$("#orderDetailModal").modal("hide");
+	}
+		
+		// 新增行
+		function showOrderDetailModal() {
+			$('#ids').val("");
+			$('#pdNm').val("");
+			$('#spec').val("");
+			$('#modl').val("");
+			$('#qlyStd').val("");
+			$('#pdFctr').val("");
+			$('#msunit').val("");
+			$('#pchUnitprc').val("");
+			$('#txnPrcdif').val("");
+			$('#saleTntvPrc').val("");
+			$('#num').val("");
+			$('#brnd').val("");
+			// 按钮控制
+			$('#btn_modify_order_detail').hide();
+			$('#btn_add_order_detail').show();
+			$('#orderDetailModal').modal('show');
+		}
+		// 修改行
+		function modifyTr(input) {
+			$('#ids').val($(input).parent().parent().find('td').eq(0).text());
+			$('#pdNm').val($(input).parent().parent().find('td').eq(1).text());
+			$('#spec').val($(input).parent().parent().find('td').eq(2).text());
+			$('#modl').val($(input).parent().parent().find('td').eq(3).text());
+			$('#qlyStd').val($(input).parent().parent().find('td').eq(4).text());
+			$('#pdFctr').val($(input).parent().parent().find('td').eq(5).text());
+			$('#msunit').val($(input).parent().parent().find('td').eq(6).text());
+			$('#pchUnitprc').val($(input).parent().parent().find('td').eq(7).text());
+			$('#txnPrcdif').val($(input).parent().parent().find('td').eq(8).text());
+			$('#saleTntvPrc').val($(input).parent().parent().find('td').eq(9).text());
+			// 按钮控制
+			$('#btn_modify_order_detail').show();
+			$('#btn_add_order_detail').hide();
+			$('#orderDetailModal').modal('show');
+		}
+		
+		function deleteItem4(input) {
+			var id = $(input).parent().parent().find('td').eq(0).text();
+ 			var ids = [];//定义一个数组
+			ids.push(parseInt(id));
+			$('#boot-table').bootstrapTable('remove', { field: 'ids', values: ids});
 		}
 		
 		function delOrderTr(obj){

@@ -27,6 +27,7 @@
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
+				$('#frm_detail_box-footer_div').fadeIn(200);
 				// 详情页面返回按钮
 				$('#btn_close_div').hide();
 				// 提交详情页面的返回
@@ -48,6 +49,7 @@
 				div = document.getElementById('main_edit_detail_li');
 				div.setAttribute("class", "fa fa-minus");
 			} else if (flag == 3) {// 订单详情查看
+			alert("444");
 				//$('#main_edit_detail_title').text("订单信息");
 				// section
 				// 保险信息输入部门显示隐藏
@@ -57,6 +59,8 @@
 				$('#ar_lnk_jrnl_inf_detail').fadeIn(800);
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
+				$('#frm_detail_box-footer_div').hide();
+
 				// 附件
 				$('#upload_ar_div').hide();
 				//				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
@@ -69,6 +73,7 @@
 				// 按钮	
 				$('#btn_close').hide();
 				$('#btn_save').hide();
+				$('#btn_save_submmit').hide();
 				//面板收缩控制
 				var div = document
 						.getElementById('ar_lnk_jrnl_inf_detail_clapse_box');
@@ -86,6 +91,7 @@
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
+				$('#frm_detail_box-footer_div').fadeIn(200);
 				// 详情页面返回按钮
 				$('#btn_close_div').hide();
 				// 提交详情页面的返回
@@ -100,6 +106,7 @@
 				// 按钮				
 				$('#btn_close').show();
 				$('#btn_save').show();
+				$('#btn_save_submmit').show();
 				//面板收缩控制
 				var div = document.getElementById('main_edit_detail_clapse');
 				div.setAttribute("class", "box box-info");
