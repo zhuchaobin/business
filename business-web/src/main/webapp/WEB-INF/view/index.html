@@ -59,6 +59,10 @@
 		border-top-color: #ABC6DB;
 		} */
 	</style>
+	
+	<script>
+        setInterval("document.getElementById('jnkc').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+    </script>
 </head>
 
 <body class="hold-transition skin-blue-light sidebar-mini fixed" style="overflow-y:hidden;">
@@ -100,6 +104,18 @@
 						 <!-- <li>
 							<a href="javascript:openWarningTab();"><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi"></i></a>
 						</li> -->
+	<!-- 					<a href="javascript:openWarningTab();"><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi"></i></a> -->
+						
+						<li>
+							<a id="jnkc">时间的实时显示</a>				
+						</li>
+						
+						<li>
+							<a><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi"></i></a>
+					
+						</li>
+						
+						
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" id="dLabel" type="button" data-toggle="dropdown" >
 								当前用户：<span class="hidden-xs" th:text="${session.loginUser.chineseName}"></span><i class="icon iconfont icon-kl-arrdown"></i>

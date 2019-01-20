@@ -1427,13 +1427,13 @@ body {
 				var td = detail["t2UploadAtch01List"];
 				var insertHtml="";
 				$('#query_ar_atch_div2').hide();
-				if(null != td && undifined != td){
+				if(null != td && undefined != td){
 					for (var kk = 0; kk < td.length; kk++) {
 						insertHtml = insertHtml
 								+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
 								+ td[kk].oriFileNm + '<p>'
 								+ getFileType(td[kk].oriFileNm)
-								+ transDateTime(suffix)
+								/* + transDateTime(suffix) */
 								+ '</div></a></div>';
 					}
 					if (td.length > 0) {

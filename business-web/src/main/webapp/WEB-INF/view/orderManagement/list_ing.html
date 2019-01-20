@@ -1458,15 +1458,18 @@ body {
 				///附件列表
 				var td = detail["t2UploadAtch01List"];
 				var insertHtml="";
-				for ( var kk = 0; kk < td.length; kk++) {
-					insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm)+'</div></a></div>';
-				}
-				if(td.length > 0){
-					var testdiv = document.getElementById("upload_atch_div");
-					testdiv.innerHTML=insertHtml;
-					$('#query_ar_atch_div').fadeIn(300);
-				} else {
-					$('#query_ar_atch_div').hide();
+				$('#query_ar_atch_div').hide();	
+				if(null != td && undefined != td && ""!=td){	
+					for ( var kk = 0; kk < td.length; kk++) {
+						insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm)+'</div></a></div>';
+					}
+					if(td.length > 0){
+						var testdiv = document.getElementById("upload_atch_div");
+						testdiv.innerHTML=insertHtml;
+						$('#query_ar_atch_div').fadeIn(300);
+					} else {
+						$('#query_ar_atch_div').hide();
+					}
 				}
 //				bespeakStatus = detail['bespeakStatus'];
 				///环节流转列表table生成
@@ -1587,13 +1590,13 @@ body {
 								var td = detail["t2UploadAtch01List"];
 								var insertHtml = "";
 								$('#query_ar_atch_div2').hide();
-								if(null != td && undifined != td){
+								if(null != td && undefined != td){
 									for (var kk = 0; kk < td.length; kk++) {
 										insertHtml = insertHtml
 												+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
 												+ td[kk].oriFileNm + '<p>'
 												+ getFileType(td[kk].oriFileNm)
-												+ transDateTime(suffix)
+												/* + transDateTime(suffix)*/
 												+ '</div></a></div>';
 									}
 									if (td.length > 0) {

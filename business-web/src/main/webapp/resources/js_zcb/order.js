@@ -49,7 +49,6 @@
 				div = document.getElementById('main_edit_detail_li');
 				div.setAttribute("class", "fa fa-minus");
 			} else if (flag == 3) {// 订单详情查看
-			alert("444");
 				//$('#main_edit_detail_title').text("订单信息");
 				// section
 				// 保险信息输入部门显示隐藏

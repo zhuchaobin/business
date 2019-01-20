@@ -1745,13 +1745,13 @@ body {
 				var td = detail["t2UploadAtch01List"];
 				var insertHtml="";
 				$('#query_ar_atch_div2').hide();
-				if(null != td && undifined != td){
+				if(null != td && undefined != td){
 					for (var kk = 0; kk < td.length; kk++) {
 						insertHtml = insertHtml
 								+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
 								+ td[kk].oriFileNm + '<p>'
 								+ getFileType(td[kk].oriFileNm)
-								+ transDateTime(suffix)
+							/* 	+ transDateTime(suffix) */
 								+ '</div></a></div>';
 					}
 					if (td.length > 0) {
@@ -2244,10 +2244,9 @@ body {
 		function buttonInit() {
 			/* if ('[[${userType}]]' == 'Group') { */
 			if(1==1){
-/* 				$("#div_buttons")
+ 				$("#div_buttons")
 						.append(
-						 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
-						); */
+						 '<a href="/arManagement/list_ing" target="_blank" type="button" class="btn btn-primary-red btn-sm" style="margin-right:5px;" role="button"><i class="glyphicon glyphicon-plus"></i>发起</a>'); 
 				 
 				$("#div_buttons")
 						.append(

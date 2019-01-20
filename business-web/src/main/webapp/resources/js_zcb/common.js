@@ -59,7 +59,7 @@ function transAplyPsrltCd(aplyPsrltCd) {
 			} else if (value == '38') {
 				return "确认承保";
 			} else if (value == '39') {
-				return "完结";
+				return "审批完成";
 			} else if (value == '61') {
 				return "发货发起";
 			} else if (value == '62') {

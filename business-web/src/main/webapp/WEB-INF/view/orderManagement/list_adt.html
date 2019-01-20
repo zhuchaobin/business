@@ -1207,12 +1207,12 @@ body {
 					if ("02" == pymtmod)
 						nextStepName = "确认承保(保险公司)";
 					else if ("03" == pymtmod)
-						nextStepName = "订单终止(供应链)";
+						nextStepName = "订单流转完成(供应链)";
 				} else if (2 == flag)
 					nextStepName = "货款支付(供应链)";
 			} else if ("38" == currStep) {
 				if (1 == flag)
-					nextStepName = "订单终止(供应链)";
+					nextStepName = "订单流转完成(供应链)";
 				else if (2 == flag) {
 					if ("01" == pymtmod)
 						nextStepName = "货款支付(供应链)";
@@ -1232,7 +1232,7 @@ body {
 				if (1 == flag)
 					nextStepName = "接货承运(物流)";
 				else if (2 == flag)
-					nextStepName = "订单终止(供应链)";
+					nextStepName = "订单流转完成(供应链)";
 			} else if ("62" == currStep) {
 				if (1 == flag)
 					nextStepName = "选择赎货方式(供应链)";
@@ -1892,13 +1892,13 @@ body {
 								var td = detail["t2UploadAtch01List"];
 								var insertHtml = "";
 								$('#query_ar_atch_div2').hide();
-								if(null != td && undifined != td){
+								if(null != td && undefined != td){
 									for (var kk = 0; kk < td.length; kk++) {
 										insertHtml = insertHtml
 												+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
 												+ td[kk].oriFileNm + '<p>'
 												+ getFileType(td[kk].oriFileNm)
-												+ transDateTime(suffix)
+											/* 	+ transDateTime(suffix) */
 												+ '</div></a></div>';
 									}
 									if (td.length > 0) {
