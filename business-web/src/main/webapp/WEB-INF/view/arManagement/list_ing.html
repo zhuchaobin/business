@@ -1936,7 +1936,7 @@ body {
 								///附件列表
 								var td = detail["t2UploadAtch01List"];
 								var insertHtml = "";
-								for (var kk = 0; kk < td.length; kk++) {
+/* 								for (var kk = 0; kk < td.length; kk++) {
 									var oriFileNm = td[kk].oriFileNm;
 									var index1 = oriFileNm.lastIndexOf(".");
 									var index2 = oriFileNm.length;
@@ -1957,6 +1957,26 @@ body {
 									$('#query_ar_atch_div2').fadeIn(300);
 								} else {
 									$('#query_ar_atch_div2').hide();
+								} */
+								
+								
+							 	$('#query_ar_atch_div2').hide();	
+								if(null != td && undefined != td && ""!=td){
+									for ( var kk = 0; kk < td.length; kk++) {
+										var oriFileNm = td[kk].oriFileNm;
+										var index1=oriFileNm.lastIndexOf(".");
+										var index2=oriFileNm.length;
+										var suffix=oriFileNm.substring(index1+1,index2);//后缀名
+										//insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm) + transDateTime(td[kk].tms) +'</div></a></div>';
+										insertHtml = insertHtml + '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'+td[kk].oriFileNm+'<p>'+getFileType(td[kk].oriFileNm)+'</div></a></div>';
+									}								
+									if(td.length > 0){
+										var testdiv = document.getElementById("upload_atch_div2");
+										testdiv.innerHTML=insertHtml;
+										$('#query_ar_atch_div2').fadeIn(300);
+									} else {
+										$('#query_ar_atch_div2').hide();	
+									} 
 								}
 								showOrHideDetail(false, 5);
 							});
@@ -2664,12 +2684,11 @@ body {
 				$('#main_edit_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
-				//新发起订单
-				$('#main_order_edit_detail').fadeIn(800);
 				// 返回按钮
-				$('#btn_close_div').hide();
-				//新发起订单
-				$('#query_ar_submmit_detail').hide();
+				$('#btn_close_div').hide();	
+				$('#query_ar_submmit_detail').fadeIn(300);	
+				// 提交详情页面的返回
+				$('#submmit_btn_close_div').show();
 			} else if (flag == 7) {//新发起订单
 				$('#main_search_detail').hide();
 				$('#main_edit_detail').hide();
