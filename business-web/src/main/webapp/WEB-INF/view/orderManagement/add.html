@@ -311,31 +311,37 @@ body {
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="融资金额_div">
+							<div class="col-md-6" id="融资额度_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资金额<span
+									<label for="" class="col-sm-4 control-label">融资额度<span
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<div class="col-xs-4" style="padding-left: 0px;">
+<!-- 										<div class="col-xs-4" style="padding-left: 0px;">
 											<input name="fncRto" id="fncRto" class="form-control" placeholder="融资比率"
 												value="4" onchange="fncRto_change()"/>
 										</div>
 										<div class="col-xs-2">
 											<label for="" class="control-label">%</label>
 										</div>
-										<div class="col-xs-4" style="padding-left: 0px;">
-											<input name="fncAmt" id="fncAmt" class="form-control" placeholder="融资金额"
-												value="2" />
+										<div class="col-xs-4" style="padding-left: 0px;"> -->
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="fncAmt" id="fncAmt" class="form-control" placeholder="融资额度"
+												value="2" />												
 										</div>
-										<div class="col-xs-2">
+										<div class="col-xs-1">
 											<label for="" class="control-label">元</label>
 										</div>
+										
+<!-- 										</div>
+										<div class="col-xs-2">
+											<label for="" class="control-label">元</label>
+										</div> -->
 
 									</div>
 								</div>
 							</div>
 
-							<div class="col-md-6" id="合同总额_div">
+<!-- 							<div class="col-md-6" id="合同总额_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">合同总额<span
 										style="color: red">*</span></label>
@@ -349,19 +355,18 @@ body {
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-6" id="预付金比率_div">
+							</div> -->
+							<div class="col-md-6" id="预付金_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预付金比率<span
+									<label for="" class="col-sm-4 control-label">预付金<span
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
-
 										<div class="col-xs-10" style="padding-left: 0px;">
 											<input name="prpyGldRto" class="form-control"
-												placeholder="预付金比率" value="2" />
-										</div>
+												placeholder="预付金" value="2" />
+												</div>
 										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
+											<label for="" class="control-label">元</label>
 										</div>
 									</div>
 								</div>
@@ -1087,6 +1092,8 @@ body {
 	<script th:src="@{/resources/js_zcb/common.js}"></script>
 	<script th:src="@{/resources/js_zcb/order.js}"></script>
 		<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
+		<!-- 弹出层 -->
+		<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-订单开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1185,8 +1192,22 @@ body {
 			buttonInit();
 			// 是否投保默认不选中，用户自己选择
 //			$("input:radio[name="isNeedIns"]").attr("checked",false);
-			CKEDITOR.replace("editor1")
+			CKEDITOR.replace("editor1");
+			addNewOrderLayer();
 		});
+		
+		function addNewOrderLayer(){
+			//iframe窗
+				layer.open({
+				type: 2,
+				title: '订单发起',
+				shadeClose: true,
+				shade: true,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1024px', '600px'],
+				content: '/arManagement/list_ing'
+				});
+			}
 
 		/***
 		 * 表单校验控件初始化4（订单明细）
@@ -1430,7 +1451,7 @@ body {
 					},
 			    	"prpyGldRto" : {
 						validators : {
-							notEmpty : {message : '预付金比率不能为空'},
+							notEmpty : {message : '预付金不能为空'},
 							number: {message: '输入只能为数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}
@@ -2246,8 +2267,7 @@ body {
 			if(1==1){
  				$("#div_buttons")
 						.append(
-						 '<a href="/arManagement/list_ing" target="_blank" type="button" class="btn btn-primary-red btn-sm" style="margin-right:5px;" role="button"><i class="glyphicon glyphicon-plus"></i>发起</a>'); 
-				 
+ 			 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:addNewOrderLayer();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i>发起</button>');
 				$("#div_buttons")
 						.append(
 							/* 	'<button class="btn btn-default" onclick="javascript:showEditDialog();" style="margin-right:5px;">修改</button>'); */

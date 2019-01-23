@@ -12,11 +12,15 @@
     <link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}" />
 	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
 	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.ext.css}"/>
+	
+		<!-- 阿里的字体图标 --> 
+<!-- 	<link rel="stylesheet" th:href="@{/resources/css_zcb/iconfont.css}" /> -->
+	
  	<link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
 	<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/> 
 	<link rel="stylesheet" th:href="@{/resources/dist/kl-iconfont/iconfont.css}"/> 
 	<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css?v=1}"/>
-	
+
 	<style type="text/css">
 		.sidebar-menu .icon:before{
 			font-family: "iconfont" !important;
@@ -84,7 +88,7 @@
 			<nav class="navbar navbar-static-top" role="navigation"  style="background:#B0B5B9;">
 				<a id="min_offcanvas" href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>
 				<a href="#" style="color: #fff; margin-left:10px;font-size: 20px; font-weight: 600; line-height: 50px; font-family: 'Helvetica,Arial,';">
-            		国家市场监督管理总局, 科技创新供应链金融服务平台
+            		国家市场监督管理总局  科技创新供应链金融服务平台
           		</a>
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
@@ -111,11 +115,12 @@
 						</li>
 						
 						<li>
-							<a><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi"></i></a>
-					
+							<a><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi warning" ></i></a>
+							<!-- <span class="iconfont icon-duanxintongzhi"></span>
+							<span class="icon iconfont  icon-duanxintongzhi"></span> -->
+
 						</li>
-						
-						
+											
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" id="dLabel" type="button" data-toggle="dropdown" >
 								当前用户：<span class="hidden-xs" th:text="${session.loginUser.chineseName}"></span><i class="icon iconfont icon-kl-arrdown"></i>

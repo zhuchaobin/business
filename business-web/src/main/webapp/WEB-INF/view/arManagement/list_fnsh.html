@@ -326,12 +326,12 @@ body {
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="融资比例_div">
+							<div class="col-md-6" id="保证金比例_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资比例：</label>
+									<label for="" class="col-sm-4 control-label">保证金比例：</label>
 									<div class="col-sm-8 pull-right">
 										<div class="col-xs-10" style="padding-left: 0px;">
-											<input name="fncPctg" class="form-control" placeholder="融资比例"
+											<input name="fncPctg" class="form-control" placeholder="保证金比例"
 												value="2" />
 										</div>
 										<div class="col-xs-1">
@@ -340,17 +340,12 @@ body {
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="预付金比率_div">
+							<div class="col-md-6" id="预付金_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预付金比率：</label>
+									<label for="" class="col-sm-4 control-label">预付金：</label>
 									<div class="col-sm-8">
-										<div class="col-xs-10" style="padding-left: 0px;">
 											<input name="prpyGldRto" class="form-control"
-												placeholder="预付金比率" value="2" />
-										</div>
-										<div class="col-xs-1">
-											<label for="" class="control-label">%</label>
-										</div>
+												placeholder="预付金" value="2" />
 									</div>
 								</div>
 							</div>
@@ -1326,7 +1321,7 @@ body {
 					},
 			    	"fncPctg" : {
 						validators : {
-							notEmpty : {message : '融资比例不能为空'},
+							notEmpty : {message : '保证金比例不能为空'},
 							digits: {message: '输入只能为0~100的数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}
@@ -1334,7 +1329,7 @@ body {
 					},
 			    	"prpyGldRto" : {
 						validators : {
-							notEmpty : {message : '预付金比率不能为空'},
+							notEmpty : {message : '预付金不能为空'},
 							digits: {message: '输入只能为数字'},
 							greaterThan: {value: 0, message:'输入不能小于0'},
 							lessThan: {value: 101, message:'输入不能超过100'}

@@ -322,31 +322,36 @@ body {
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6" id="融资金额_div">
+							<div class="col-md-6" id="融资额度_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">融资金额<span
+									<label for="" class="col-sm-4 control-label">融资额度<span
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<div class="col-xs-4" style="padding-left: 0px;">
+<!-- 										<div class="col-xs-4" style="padding-left: 0px;">
 											<input name="fncRto" class="form-control" placeholder="融资比率"
 												value="4" />
 										</div>
 										<div class="col-xs-2">
 											<label for="" class="control-label">%</label>
 										</div>
-										<div class="col-xs-4" style="padding-left: 0px;">
-											<input name="fncAmt" class="form-control" placeholder="融资金额"
-												value="2" />
+										<div class="col-xs-4" style="padding-left: 0px;"> -->
+										<div class="col-xs-10" style="padding-left: 0px;">
+											<input name="fncAmt" id="fncAmt" class="form-control" placeholder="融资额度"
+												value="2" />												
 										</div>
-										<div class="col-xs-2">
+										<div class="col-xs-1">
 											<label for="" class="control-label">元</label>
 										</div>
+										<!-- </div>
+										<div class="col-xs-2">
+											<label for="" class="control-label">元</label>
+										</div> -->
 
 									</div>
 								</div>
 							</div>
 
-							<div class="col-md-6" id="合同总额_div">
+<!-- 							<div class="col-md-6" id="合同总额_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">合同总额<span
 										style="color: red">*</span></label>
@@ -360,17 +365,16 @@ body {
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-6" id="预付金比率_div">
+							</div> -->
+							<div class="col-md-6" id="预付金_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">预付金比率<span
+									<label for="" class="col-sm-4 control-label">预付金<span
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
-
 										<div class="col-xs-10" style="padding-left: 0px;">
 											<input name="prpyGldRto" class="form-control"
-												placeholder="预付金比率" value="2" disabled="disabled" />
-										</div>
+												placeholder="预付金" value="2" />
+												</div>
 										<div class="col-xs-1">
 											<label for="" class="control-label">元</label>
 										</div>
@@ -1470,7 +1474,7 @@ body {
 					"prpyGldRto" : {
 						validators : {
 							notEmpty : {
-								message : '预付金比率不能为空'
+								message : '预付金不能为空'
 							},
 							digits : {
 								message : '输入只能为数字'
@@ -1834,7 +1838,7 @@ body {
 								var aplyPsrlt = detail["aplyPsrlt"];
 								if(aplyPsrlt !== null || aplyPsrlt !== undefined || aplyPsrlt !== '')
                     				$("#aplyPsrltDiv").append(aplyPsrlt);
-								// 融资金额从订单信息中读取且允许修改
+								// 融资额度从订单信息中读取且允许修改
 								$('#frm_submit_ar [id="fncAmt"]').val(
 										detail["fncAmt"]);
 								

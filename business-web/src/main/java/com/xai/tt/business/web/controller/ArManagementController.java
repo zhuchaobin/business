@@ -518,8 +518,11 @@ public class ArManagementController extends BaseController {
         	logger.error("查询[仓储公司]公司信息异常");
 //            throw new RuntimeException("查询[仓储公司]公司信息异常");
         }
-        mav.addObject("stgcoModels", result.getData().getList());    
-    	mav.addObject("userType", "Group");
+        mav.addObject("stgcoModels", result.getData().getList());  
+        
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	logger.info("user.getUserType() =" + user.getUserType());
+    	mav.addObject("userType", user.getUserType());
     	return mav;
     }
     	
@@ -599,7 +602,10 @@ public class ArManagementController extends BaseController {
 //            throw new RuntimeException("查询[仓储公司]公司信息异常");
         }
         mav.addObject("stgcoModels", result.getData().getList());    
-    	mav.addObject("userType", "Group");
+        
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	logger.info("user.getUserType() =" + user.getUserType());
+    	mav.addObject("userType", user.getUserType());
         return mav;
     }
     @LogAspect(type = LogAspect.LogType.Upload_Ar_Atch)
@@ -791,7 +797,10 @@ public class ArManagementController extends BaseController {
 //            throw new RuntimeException("查询[仓储公司]公司信息异常");
         }
         mav.addObject("stgcoModels", result.getData().getList());    
-    	mav.addObject("userType", "Group");
+        
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	logger.info("user.getUserType() =" + user.getUserType());
+    	mav.addObject("userType", user.getUserType());
         return mav;
     } 
        
