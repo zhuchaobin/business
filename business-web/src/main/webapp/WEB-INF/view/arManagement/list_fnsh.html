@@ -1843,7 +1843,7 @@ body {
 		
 		
 		function buttonInit() {
-			if ('[[${userType}]]' == 'Group') {
+			if (1==1) {
 			/* 	$("#div_buttons")
 						.append(
 							 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
@@ -1900,7 +1900,7 @@ body {
 											sortable : true,
 											formatter : function(value, row,
 													index) {
-													 var s = '<a onclick=getOrderListByArId("'+ value +'") >'+ value + '</a>&nbsp;'; 
+												var s = '<a onclick=getOrderListByArId("'+ value +'") ><code class="text-success bg-success">'+ value+'</code></a>&nbsp;'; 
 													return s;
 											}
 										},
@@ -1998,8 +1998,6 @@ body {
 		 
 		//根据长约id查询订单列表
 		function getOrderListByArId(arId) {
-				alert(pageSetting.resetPath);
-				alert(arId);
 				//iframe窗
 	 			layer.open({
 				type: 2,

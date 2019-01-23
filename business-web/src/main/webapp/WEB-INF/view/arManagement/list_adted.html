@@ -1002,6 +1002,7 @@ body {
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/js_zcb/ar.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1992,7 +1993,7 @@ body {
 		
 		
 		function buttonInit() {
-			if ('[[${userType}]]' == 'Group') {
+			if (1==1) {
 				/* 	$("#div_buttons")
 				.append(
 					 '<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-plus"></i>发起</button>'		
@@ -2026,7 +2027,7 @@ $("#div_buttons")
 			} else {
 				$("#div_buttons")
 						.append(
-								'<button class="btn btn-default" onclick="javascript:showViewDialog1();">查看33</button>');
+								'<button class="btn btn-default" onclick="javascript:showViewDialog1();">查看</button>');
 				$("#div_buttons")
 						.append(
 								'<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
@@ -2052,11 +2053,18 @@ $("#div_buttons")
 								rownumbers: false,		//如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
-										{
-											title : '长约编号',
-											field : 'arId',
-											sortable : true
-										},
+									{
+										title : '长约编号',
+										field : 'arId',
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+											var s = value;
+											if(("07"==row.aplyPcstpCd) || ("99"==row.aplyPcstpCd))
+												s = '<a onclick=getOrderListByArId("'+ value +'") ><code class="text-success bg-success">'+ value+'</code></a>&nbsp;'; 														
+											return s;
+										}
+									},
 										{
 											title : '供应链',
 											field : 'splchainCoName',
@@ -2183,6 +2191,20 @@ $("#div_buttons")
 			var date = new Date(timestamp);    //根据时间戳生成的时间对象
 	        return date.format("yyyy-MM-dd hh:mm:ss");
         }
+		 
+		//根据长约id查询订单列表
+		function getOrderListByArId(arId) {
+				//iframe窗
+	 			layer.open({
+				type: 2,
+				title: '长约 ['+arId+'] 订单列表',
+				shadeClose: true,
+				shade: true,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1024px', '600px'],
+				content: '/orderManagement/list_by_ar?arId='+arId
+			});
+		}
 	</script>
 </body>
 </html>

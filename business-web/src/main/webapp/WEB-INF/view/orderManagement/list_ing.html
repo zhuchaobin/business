@@ -1246,7 +1246,7 @@ body {
 										sortable : true,
 										formatter : function(value, row,
 												index) {
-												 var s = '<a onclick=getSpgListByOrderId("'+ value +'") >'+ value + '</a>&nbsp;'; 
+												var s = '<a onclick=getSpgListByOrderId("'+ value +'") ><code class="text-success bg-success">'+ value+'</code></a>&nbsp;'; 														
 												return s;
 										}
 									},
@@ -1256,7 +1256,7 @@ body {
 										sortable : true,
 										formatter : function(value, row,
 												index) {
-												 var s = '<a onclick=getOrderListByArId("'+ value +'") >'+ value + '</a>&nbsp;'; 
+												var s = '<a onclick=getOrderListByArId("'+ value +'") ><code class="text-success bg-success">'+ value+'</code></a>&nbsp;'; 														
 												return s;
 										}
 									},
@@ -2985,8 +2985,6 @@ body {
 		
 		//根据长约id查询订单列表
 		function getOrderListByArId(arId) {
-				alert(pageSetting.resetPath);
-				alert(arId);
 				//iframe窗
 	 			layer.open({
 				type: 2,
@@ -3001,7 +2999,6 @@ body {
 		
 		//根据订单id查询发货列表
 		function getSpgListByOrderId(orderId) {
-				alert(orderId);
 				//iframe窗
 	 			layer.open({
 				type: 2,
