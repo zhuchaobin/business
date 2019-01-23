@@ -966,6 +966,7 @@ body {
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/js_zcb/ar.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1896,7 +1897,12 @@ body {
 										{
 											title : '长约编号',
 											field : 'arId',
-											sortable : true
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+													 var s = '<a onclick=getOrderListByArId("'+ value +'") >'+ value + '</a>&nbsp;'; 
+													return s;
+											}
 										},
 										{
 											title : '供应链',
@@ -1989,6 +1995,23 @@ body {
 			var date = new Date(timestamp);    //根据时间戳生成的时间对象
 	        return date.format("yyyy-MM-dd hh:mm:ss");
         }
+		 
+		//根据长约id查询订单列表
+		function getOrderListByArId(arId) {
+				alert(pageSetting.resetPath);
+				alert(arId);
+				//iframe窗
+	 			layer.open({
+				type: 2,
+				title: '长约 ['+arId+'] 订单列表',
+				shadeClose: true,
+				shade: true,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1024px', '600px'],
+				content: '/orderManagement/list_by_ar?arId='+arId
+			//	content: '/orderManagement/list_by_ar'
+			});
+		}
 	</script>
 </body>
 </html>

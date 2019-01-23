@@ -1203,6 +1203,7 @@ body {
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<!-- 	<script th:src="@{/resources/js_zcb/ar.js}"></script> -->
 	<script th:src="@{/resources/js_zcb/order.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<script type="text/javascript">
 		var pageSetting = {
 			modelName : '长约信息管理',
@@ -1242,12 +1243,22 @@ body {
 									{
 										title : '订单编号',
 										field : 'ordrId',
-										sortable : true
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+												 var s = '<a onclick=getSpgListByOrderId("'+ value +'") >'+ value + '</a>&nbsp;'; 
+												return s;
+										}
 									},
 									{
 										title : '长约编号',
 										field : 'arId',
-										sortable : true
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+												 var s = '<a onclick=getOrderListByArId("'+ value +'") >'+ value + '</a>&nbsp;'; 
+												return s;
+										}
 									},
 									{
 										title : '供应链',
@@ -2970,6 +2981,37 @@ body {
 			} else if ("03" == pymtmod) {
 				document.getElementById('ins_order_div').style.display = "none";
 			}
+		}
+		
+		//根据长约id查询订单列表
+		function getOrderListByArId(arId) {
+				alert(pageSetting.resetPath);
+				alert(arId);
+				//iframe窗
+	 			layer.open({
+				type: 2,
+				title: '长约 ['+arId+'] 订单列表',
+				shadeClose: true,
+				shade: true,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1024px', '600px'],
+				content: '/orderManagement/list_by_ar?arId='+arId
+			});
+		}
+		
+		//根据订单id查询发货列表
+		function getSpgListByOrderId(orderId) {
+				alert(orderId);
+				//iframe窗
+	 			layer.open({
+				type: 2,
+				title: '订单 ['+orderId+'] 货物列表',
+				shadeClose: true,
+				shade: true,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1024px', '600px'],
+				content: '/spgManagement/list_by_order?ordrId='+orderId
+			});
 		}
 	</script>
 </body>

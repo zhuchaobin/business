@@ -1626,11 +1626,10 @@ body {
 										{
 											title : '长约编号',
 											field : 'arId',
-							/* 				sortable : true, */
+											sortable : true,
 											formatter : function(value, row,
 													index) {
-													 var s = '<a onclick=getOrderListByArId("'+ value +'") >'+ value + '</a>&nbsp;';
-												/* 	var s = '<a href="/orderManagement/list_adt" target="_blank">'+ value + '</a>&nbsp;'; */ 
+													 var s = '<a onclick=getOrderListByArId("'+ value +'") >'+ value + '</a>&nbsp;'; 
 													return s;
 											}
 										},
@@ -3839,19 +3838,7 @@ body {
 				maxmin: true, //开启最大化最小化按钮
 				area: ['1024px', '600px'],
 				content: '/orderManagement/list_by_ar?arId='+arId
-			//	content: '/orderManagement/list_by_ar'
 			});
-						
-			//iframe窗
-/* 			layer.open({
-			type: 2,
-			title: '订单发起',
-			shadeClose: true,
-			shade: true,
-			maxmin: true, //开启最大化最小化按钮
-			area: ['1024px', '600px'],
-			content: '/orderManagement/list_by_ar'
-			}); */
 		}
 	</script>
 </body>

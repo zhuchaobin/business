@@ -32,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -318,6 +319,36 @@ public class SpgManagementController extends BaseController {
         return Result.createSuccessResult(result.getData());
     }
     
+    @RequestMapping(value = { "queryPage_by_order" })
+    @ResponseBody
+    public Result<?>  queryPage_by_order(SpgManagementInVo spgManagementInVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	spgManagementInVo.setUserType(user.getUserType().ordinal());
+    	spgManagementInVo.setUsername(user.getUsername());
+    	spgManagementInVo.setCompanyId(user.getCompanyId());
+    	spgManagementInVo.setNickname(user.getNickname());
+    	spgManagementInVo.setChineseName(user.getChineseName());
+    	spgManagementInVo.setQueryType(6);
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = spgManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		spgManagementInVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(spgManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
+        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
+    
 
         
     @RequestMapping(value = { "getDetail" })
@@ -397,6 +428,15 @@ public class SpgManagementController extends BaseController {
     @RequestMapping(value = { "list_fnsh" })
     public ModelAndView list_fnsh() {
     	ModelAndView mav = lists(3);
+    	return mav;
+    }
+    
+    @RequestMapping(value = { "list_by_order" })
+    public ModelAndView list_by_ar(@RequestParam(name="ordrId") String ordrId) {
+ //   public ModelAndView list_by_ar() {
+    	logger.info("list_by_order 请求参数ordrId=" + ordrId);
+    	ModelAndView mav = new ModelAndView("spgManagement/list_by_order");
+    	mav.addObject("ordrId", ordrId);
     	return mav;
     }
     
