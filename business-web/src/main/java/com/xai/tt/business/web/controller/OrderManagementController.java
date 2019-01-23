@@ -36,6 +36,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -295,6 +297,36 @@ public class OrderManagementController extends BaseController {
         logger.info("订单信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
+        
+    @RequestMapping(value = { "queryPage_by_ar" })
+    @ResponseBody
+    public Result<?>  queryPage_by_ar(OrderManagementInVo orderManagementInVo, PageParam pageParam) {
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	orderManagementInVo.setUserType(user.getUserType().ordinal());
+    	orderManagementInVo.setUsername(user.getUsername());
+    	orderManagementInVo.setCompanyId(user.getCompanyId());
+    	orderManagementInVo.setNickname(user.getNickname());
+    	orderManagementInVo.setChineseName(user.getChineseName());
+    	orderManagementInVo.setQueryType(6);
+    	// 因前后端名字不一样，转义排序参数
+    	String sortName = orderManagementInVo.getSortName();
+    	if(StringUtils.isNotBlank(sortName)) {
+    		sortName = sortName.replace("fncEntpName", "fncEntp");
+    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
+    		sortName = sortName.replace("stgcoName", "stgco");
+    		sortName = sortName.replace("bnkName", "bnk");
+    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
+    		sortName = sortName.replace("insCoName", "insCo");
+    		sortName = sortName.replace("splchainCoName", "splchainCo");
+    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
+    		orderManagementInVo.setSortName(sortName);
+    	}
+    		
+    	logger.info("订单信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(orderManagementInVo),JSON.toJSONString(pageParam));
+        Result<PageData<QueryOrderInfDetailOutVo>> result = orderManagementDcService.queryPage(orderManagementInVo, pageParam);
+        logger.info("订单信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+        return Result.createSuccessResult(result.getData());
+    }
     
 /*    @RequestMapping("/detail2")
     public ModelAndView  getDetail2(String id) {
@@ -377,6 +409,15 @@ public class OrderManagementController extends BaseController {
     @RequestMapping(value = { "list_fnsh" })
     public ModelAndView list_fnsh() {
     	ModelAndView mav = lists(3);
+    	return mav;
+    }
+    
+    @RequestMapping(value = { "list_by_ar" })
+    public ModelAndView list_by_ar(@RequestParam(name="arId") String arId) {
+ //   public ModelAndView list_by_ar() {
+    	logger.info("list_by_ar 请求参数arId=" + arId);
+    	ModelAndView mav = new ModelAndView("orderManagement/list_by_ar");
+    	mav.addObject("arId", arId);
     	return mav;
     }
     
