@@ -675,6 +675,7 @@ body {
 	<script th:src="@{/resources/js_zcb/common.js}"></script>
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<script th:src="@{/resources/js_zcb/order.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<script type="text/javascript">
 		/* 日期选择控件-订单开始日期 */
 		$('#arStdtDTPicker').datetimepicker({
@@ -2051,7 +2052,14 @@ body {
 										{
 											title : '订单编号',
 											field : 'ordrId',
-											sortable : true
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+													var s = value;
+													if(("39"==row.aplyPcstpCd) || ("99"==row.aplyPcstpCd))
+														s = '<a onclick=getSpgListByOrderId("'+ value +'") ><code class="text-success bg-success">'+ value+'</code></a>&nbsp;'; 														
+														return s;
+											}
 										},
 										{
 											title : '供应链',
@@ -2170,7 +2178,21 @@ body {
 			}
 		}
 		
-
+		//根据订单id查询发货列表
+		function getSpgListByOrderId(orderId) {
+				//iframe窗
+	 		perContent=layer.open({
+				type: 2,
+				title: '订单 ['+orderId+'] 货物列表',
+				shadeClose: true,
+				shade: true,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1024px', '600px'],
+				content: '/spgManagement/list_by_order?ordrId='+orderId
+			});
+				// 默认弹出后就最大化
+				layer.full(perContent);
+		}
 	
 	</script>
 </body>

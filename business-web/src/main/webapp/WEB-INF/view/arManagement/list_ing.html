@@ -1566,11 +1566,12 @@ body {
 	<script
 		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
-	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
+	
 	<!-- <script th:src="@{/resources/bootstrap-table/bootstrap-table.js}"></script> -->
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	
 	<script th:src="@{/resources/bootstrap/js/bootstrap-select.min.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<!-- 	<script th:src="@{/resources/js_zcb/ar.js}"></script> -->
 	<script type="text/javascript">
 		var pageSetting = {
@@ -1629,7 +1630,7 @@ body {
 											sortable : true,
 											formatter : function(value, row,
 													index) {
-													 var s = '<a onclick=getOrderListByArId("'+ value +'") >'+ value + '</a>&nbsp;'; 
+													 var s = '<a onclick=getOrderListByArId("'+ value +'") ><code class="text-success bg-success">'+ value+'</code></a>&nbsp;'; 
 													return s;
 											}
 										},
@@ -3825,10 +3826,8 @@ body {
 	        $("#fncRto").val(sum);
 		} 
 		
-		//根据长约id查询订单列表
+ 		//根据长约id查询订单列表
 		function getOrderListByArId(arId) {
-				alert(pageSetting.resetPath);
-				alert(arId);
 				//iframe窗
 	 			layer.open({
 				type: 2,
@@ -3838,6 +3837,20 @@ body {
 				maxmin: true, //开启最大化最小化按钮
 				area: ['1024px', '600px'],
 				content: '/orderManagement/list_by_ar?arId='+arId
+			});
+		}
+		
+		//根据订单id查询发货列表
+		function getSpgListByOrderId(orderId) {
+				//iframe窗
+	 			layer.open({
+				type: 2,
+				title: '订单 ['+orderId+'] 货物列表',
+				shadeClose: true,
+				shade: true,
+				maxmin: true, //开启最大化最小化按钮
+				area: ['1024px', '600px'],
+				content: '/spgManagement/list_by_order?ordrId='+orderId
 			});
 		}
 	</script>
