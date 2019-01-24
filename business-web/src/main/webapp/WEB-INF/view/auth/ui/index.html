@@ -238,8 +238,13 @@
 			navigationPosition:'left',
 			scrollOverflow:true,
 		});
+		// 解决超时后跳转到首页在框架内部打开的问题
+		// 2019-01-24 
+		if (top.location != location) 
+			top.location.href = location.href;  
     });
 	
+
 	
 		function login() {
 		var params = E7.serialForm('#frm_login');
