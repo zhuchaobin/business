@@ -23,7 +23,7 @@ public @interface LogAspect {
 		Login("登录系统"),
 		Update_Password("修改密码"),
 		Forget_Password("忘记密码"),
-		Update_Car_Model("更新车型信息"),
+/*		Update_Car_Model("更新车型信息"),
 		Delete_Car_Model("删除车型信息"),
 		Export_Car_Model("导出车型信息"),
 		Add_Fleet_Task("新建任务"),
@@ -103,7 +103,7 @@ public @interface LogAspect {
 		Export_FlowOrder("导出通信套餐订单信息"),
 		Export_FlowStatisics("导出通信套餐流量统计信息"),
 		Export_PackageStatisics("导出通信套餐营收统计信息"),
-		Export_Address("导出常用地址信息"),
+		Export_Address("导出常用地址信息"),*/
 		Update_Menu("更新菜单"),
 		Delete_Menu("删除菜单"),
 		Update_Role("更新角色"),
@@ -117,7 +117,7 @@ public @interface LogAspect {
 		Locked_User("锁定或解锁用户"),
 		Reset_Password("重置密码"),
 		Distribute_Role("分配角色"),
-		Add_Publish("新增推广活动"),
+	/*	Add_Publish("新增推广活动"),
 		Update_Publish("更新推广活动"),
 		Delete_Publish("删除推广活动"),
 		Upload_Publish("上传推广活动附件信息"),
@@ -132,7 +132,8 @@ public @interface LogAspect {
 		Delete_MarketProduct("删除商品协议"),
 
 		Update_MaintenanceAppointment("更新维保记录"),
-		Export_MaintenanceAppointment("导出维保记录");
+		Export_MaintenanceAppointment("导出维保记录");*/
+		;
 
 		private final String msg;
 
