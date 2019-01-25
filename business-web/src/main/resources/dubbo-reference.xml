@@ -31,5 +31,8 @@
     
     <!--发票信息管理, 20190110-->
     <dubbo:reference id="invInfDcService" interface="com.xai.tt.dc.client.service.InvInfDcService" version="1.0"/>
+ 	
+ 	<!--站内信息管理, 20190125-->
+    <dubbo:reference id="msgDcService" interface="com.xai.tt.dc.client.service.MsgDcService" version="1.0"/>
 
 </beans>
