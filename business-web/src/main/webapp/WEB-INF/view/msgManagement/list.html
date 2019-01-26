@@ -88,6 +88,8 @@ body {
 <link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+<!-- 图标字体库http://fontawesome.dashgame.com/ -->
+<link rel="stylesheet" th:href="@{/resources/font-awesome-4.7.0/css/font-awesome.min.css}" />
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -98,7 +100,7 @@ body {
 			<div class="box-body" style="padding-bottom: 0px;">
 				<form id="frm_query" class="form-horizontal">
 					<div id="div_criteria" class="flowlayout">
-							
+						<input name="secSrvCd" id="secSrvCd" type="hidden" value="" />
 						<div class="col-md-6" id="起止日期_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">起止日期：</label>
@@ -156,7 +158,7 @@ body {
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header" align="center">
-					<h4 class="modal-title">友情提示</h4>
+					<h4 class="modal-title">信息详情</h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -170,7 +172,7 @@ body {
 								type="hidden" id="fileToDeleteId" name="filesToDelete">
 							<input name="id" type="hidden" value="" /> <input name="arId"
 								type="hidden" value="" />
-							<input name="secSrvCd" type="hidden" value="01" />
+							
 							<div class="col-md-12" id="发件人_div">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">发件人：</label>
@@ -270,9 +272,9 @@ body {
 				
 				</div>
 				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:save()" class="btn"
-						data-dismiss="modal">确定</button>
-					<button type="button" class="btn" data-dismiss="modal">取消</button>
+<!-- 					<button type="button" onclick="javascript:save()" class="btn"
+						data-dismiss="modal">确定</button> -->
+					<button type="button" class="btn" onclick='javascript:closeMsgDetails();'>关闭</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -692,6 +694,12 @@ body {
 			validator_1_Init();
 			validator_2_Init();
 			buttonInit();
+			alert('[[${secSrvCd}]]');
+			var tett = '[[${secSrvCd}]]';
+			alert(tett);
+		 	$('#secSrvCd').val(tett);
+			alert($('#secSrvCd').val());
+			query_ar_list()
 			// 是否投保默认不选中，用户自己选择
 //			$("input:radio[name="isNeedIns"]").attr("checked",false);
 			CKEDITOR.replace("editor1")
@@ -989,15 +997,20 @@ body {
 			});
 		}
  
-		function queryArDetails(id){
+		function queryArDetails(id, msgRevId){
 			// 带过来的环节编号
 	//		$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
 
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
+			var secSrvCd = "";
+			// 如果是收件箱页面进行了查看详情，则认为是读取操作
+			if('[[${secSrvCd}]]' == "02"){
+				secSrvCd = "09"
+			}
 			E7.post(pageSetting.resetPath + '/getDetail', {
-				'id' : id
+				'id' : id,'secSrvCd':secSrvCd,'msgRevId':msgRevId
 			}, function(result) {
 				fillForm('#frm_detail', result.data);
 				var detail = result.data;
@@ -1021,7 +1034,7 @@ body {
 					shadeClose: true,
 					shade: false,
 					maxmin: true, //开启最大化最小化按钮
-					area: ['580px', '390px'],
+					area: ['580px', '400px'],
 					title: '信息详情',
 					content: msgContent
 				}); */
@@ -1123,11 +1136,11 @@ body {
 				return value;
 		}	
 		
-		function showViewSubmitAr(id) {
+		function showViewSubmitAr(id, msgRevId) {
  
 			// 初始化上传附件控件
 		//	initInputItem(2); 
-			queryArDetails(id);// 
+			queryArDetails(id, msgRevId);// 
 	//		showOrHideDetail(true, 4);
 		}	
 		function showArDetailDialog() {
@@ -1221,6 +1234,11 @@ body {
 			} else { */
 				$('#saveSubmitModal').modal('show');
 /* 			} */
+		}
+		
+		function closeMsgDetails(){
+			$('#saveSubmitModal').modal('hide');
+			query_ar_list();
 		}
 		
 
@@ -1476,12 +1494,15 @@ body {
 		 * e7table表格控件初始化
 		 */
 		function e7tableInit() {
+		// 如果是收件箱查询	
+		if('[[${secSrvCd}]]' == "02"){
+
 			$('#tbl_query')
 					.e7table(
 							{
 								url : '[[@{/msgManagement/queryPage}]]',
 								pageSize : 10,
-								autoLoading : true, //控件初始化后，自动远程请求数据
+								autoLoading : false, //控件初始化后，自动远程请求数据
 								selectType : 'single',
 								sortName : '', //排序列名,创建时间
 								striped: false, //奇偶行不同背景
@@ -1489,6 +1510,22 @@ body {
 								rownumbers: false,		//如果为true，则显示一个行号列
 								sortOrder : 'desc', //排序方向
 								columns : [
+
+										{
+											title : '状态',
+											field : 'msgRevStcd',
+											sortable : false,
+											formatter : function(value, row,
+													index) {
+												if (value == '03') {
+													return '<i class="fa fa-envelope"  style="color:#C3214A;"></i>';
+												} else if (value == '04') {
+													return '<i class="fa fa-envelope-open"  style="color:#5CB85C;"></i>';
+												} else
+													return value;
+											}
+										},
+
 										{
 											title : '发件人',
 											field : 'sndPsnUserName',
@@ -1520,9 +1557,58 @@ body {
 										}
 										],
 								onDblclick : function(index, row) {
-									showViewSubmitAr(row.id);
+									showViewSubmitAr(row.id, row.msgRevId);
 								}
 							});
+			} else {
+				$('#tbl_query')
+				.e7table(
+						{
+							url : '[[@{/msgManagement/queryPage}]]',
+							pageSize : 10,
+							autoLoading : false, //控件初始化后，自动远程请求数据
+							selectType : 'single',
+							sortName : '', //排序列名,创建时间
+							striped: false, //奇偶行不同背景
+							pagination: true,
+							rownumbers: false,		//如果为true，则显示一个行号列
+							sortOrder : 'desc', //排序方向
+							columns : [
+									{
+										title : '发件人',
+										field : 'sndPsnUserName',
+										sortable : false
+									},
+										{
+										title : '收件人',
+										field : 'rcvPsnList',
+										sortable : true
+									},
+									{
+										title : '类型',
+										field : 'msgTpcd',
+										sortable : true
+									},
+									{
+										title : '标题',
+										field : 'msgTitle',
+										sortable : true
+									},
+									{
+										title : '发送时间',
+										field : 'msgSndTm',
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+											return transDateTime(value);
+										}
+									}
+									],
+							onDblclick : function(index, row) {
+								showViewSubmitAr(row.id, row.msgRevId);
+							}
+						});
+			}
 		}		
 		function show_or_hide_ins_div(flag){
 			if(flag){

@@ -110,8 +110,8 @@ public class MsgController extends BaseController {
         return result;
     } 
     
-	   @RequestMapping(value = { "list" })
-	    public ModelAndView list() {
+	   @RequestMapping(value = { "list_snd" })
+	    public ModelAndView list_snd() {
 	    	ModelAndView mav = new ModelAndView("msgManagement/list");
 	    	MsgVo inVo = new MsgVo();
 	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
@@ -132,7 +132,33 @@ public class MsgController extends BaseController {
 	        	logger.error("查询付款方列表返回结果异常");
 	        }
 	//        mav.addObject("skFkFModels", result.getData().getList());
-	 
+	        mav.addObject("secSrvCd", "01");
+	    	mav.addObject("userType", "Group");
+	        return mav;
+	    }
+	   
+	   @RequestMapping(value = { "list_rev" })
+	    public ModelAndView list_rev() {
+	    	ModelAndView mav = new ModelAndView("msgManagement/list");
+	    	MsgVo inVo = new MsgVo();
+	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+	    	inVo.setUserType(user.getUserType().ordinal());
+	    	inVo.setUsername(user.getUsername());
+	    	inVo.setCompanyId(user.getCompanyId());
+	    	inVo.setNickname(user.getNickname());
+	    	inVo.setChineseName(user.getChineseName());
+	    	inVo.setSecSrvCd("02");
+	    	
+	    	CompanyQuery query = new CompanyQuery();        
+	    	// 查询平台下拉菜单
+	        query.setUsrTp("01");
+	        /*Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);*/
+	        Result<PageInfo<Company>> result = null;
+	    	logger.info("查询付款方列表返回结果：{}", JSON.toJSONString(result));
+	        if (result == null || result.getCode() != 0) {
+	        	logger.error("查询付款方列表返回结果异常");
+	        }
+	        mav.addObject("secSrvCd", "02");
 	    	mav.addObject("userType", "Group");
 	        return mav;
 	    }
@@ -252,8 +278,8 @@ public class MsgController extends BaseController {
     
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
-    public Result<?>   getDetail(String id) {
-    	logger.info("查询站内详情，请求参数id=：{}", id);
+    public Result<?>   getDetail(String id, String secSrvCd, String msgRevId) {
+    	logger.info("查询站内详情，请求参数id=：{} secSrvCd=：{} msgRevId=：{}", id, secSrvCd, msgRevId);
     	MsgVo inVo = new MsgVo();
     	inVo.setId(Long.parseLong(id));
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
@@ -262,7 +288,7 @@ public class MsgController extends BaseController {
     	inVo.setCompanyId(user.getCompanyId());
     	inVo.setNickname(user.getNickname());
     	inVo.setChineseName(user.getChineseName());
-    	Result<MsgVo> rlt = msgDcService.queryDetail(id);
+    	Result<MsgVo> rlt = msgDcService.queryDetail(id, secSrvCd, msgRevId);
     	logger.info("查询站内详情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
@@ -287,7 +313,7 @@ public class MsgController extends BaseController {
     	queryPageInvInfVo.setCompanyId(user.getCompanyId());
     	queryPageInvInfVo.setNickname(user.getNickname());
     	queryPageInvInfVo.setChineseName(user.getChineseName());    
-    	queryPageInvInfVo.setSecSrvCd("01");
+//    	queryPageInvInfVo.setSecSrvCd("01");
     	queryPageInvInfVo.setCurrentUserId(user.getId());
     	// 因前后端名字不一样，转义排序参数
     	String sortName = queryPageInvInfVo.getSortName();
