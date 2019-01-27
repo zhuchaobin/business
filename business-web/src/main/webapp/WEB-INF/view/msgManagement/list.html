@@ -1023,7 +1023,8 @@ body {
 						//alert(key + detail[key]);
 					}
 				}
-				
+				if("99999999" == detail["sndPsnId"])
+					$('#frm_detail [name="sndPsnUserName"]').val("系统");
 				$('#saveSubmitModal').modal('show');
 				/* alert($("#msgSndTm").val());
 				var msgContent = document.getElementById('msg_content_div').innerHTML;
@@ -1529,18 +1530,25 @@ body {
 										{
 											title : '发件人',
 											field : 'sndPsnUserName',
-											sortable : false
+											sortable : false,
+											formatter : function(value, row,
+													index) {
+												if (row.sndPsnId == '99999999') {
+													return '系统';
+												} else
+													return value;
+											}
 										},
  										{
 											title : '收件人',
 											field : 'rcvPsnList',
 											sortable : true
 										},
-										{
+/* 										{
 											title : '类型',
 											field : 'msgTpcd',
 											sortable : true
-										},
+										}, */
 										{
 											title : '标题',
 											field : 'msgTitle',
