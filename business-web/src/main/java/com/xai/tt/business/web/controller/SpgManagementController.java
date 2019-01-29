@@ -15,17 +15,11 @@ import com.xai.tt.business.biz.common.util.Constants;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T7SpgDetail;
-import com.xai.tt.dc.client.model.T8OrderDetail;
 import com.xai.tt.dc.client.query.CompanyQuery;
-import com.xai.tt.dc.client.query.SubmitArQuery;
-
 import com.xai.tt.dc.client.query.SubmitSpgQuery;
+import com.xai.tt.dc.client.query.UserInfoQuery;
 import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.service.SpgManagementDcService;
-import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
-import com.xai.tt.dc.client.vo.T6SpgInfDetailVo;
-import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
-import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.*;
 import org.apache.commons.lang.StringUtils;
@@ -227,6 +221,25 @@ public class SpgManagementController extends BaseController {
         Result<PageData<QuerySpgInfDetailOutVo>> result = spgManagementDcService.queryPage(spgManagementInVo, pageParam);
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
+    }
+    
+	/**
+	 * 描述：查询待处理任务数
+	 * 
+	 * @author zhang 2019-1-29
+	 */
+    @RequestMapping(value = { "getAdtTaskNum" })
+    @ResponseBody
+	public Result<?> getAdtTaskNum() {
+    	UserInfoQuery query = new UserInfoQuery();
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	query.setUserType(user.getUserType().ordinal());
+    	query.setUsername(user.getUsername());
+    	query.setCompanyId(user.getCompanyId());
+    	query.setNickname(user.getNickname());
+    	query.setChineseName(user.getChineseName());
+    	Result<List<Integer>> rlt = spgManagementDcService.getAdtTaskNum(query);
+    	return Result.createSuccessResult(rlt.getData());
     }
     
     @RequestMapping(value = { "queryPage_ing" })

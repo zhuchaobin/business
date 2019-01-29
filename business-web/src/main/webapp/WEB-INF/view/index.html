@@ -106,19 +106,19 @@
 						</li> -->
 						
 						 <!-- <li>
-							<a href="javascript:openWarningTab();"><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi"></i></a>
+							<a href="javascript:openWarningTab();"><i id="i_msg_rev_notify" class="icon iconfont icon-kl-baojingxinxi"></i></a>
 						</li> -->
-	<!-- 					<a href="javascript:openWarningTab();"><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi"></i></a> -->
+	<!-- 					<a href="javascript:openWarningTab();"><i id="i_msg_rev_notify" class="icon iconfont icon-kl-baojingxinxi"></i></a> -->
 						
 						<li>
 							<a id="jnkc">时间的实时显示</a>				
 						</li>
 						
 						<li>
-							<a><i id="i_warning" class="icon iconfont icon-kl-baojingxinxi warning" ></i></a>
-							<!-- <span class="iconfont icon-duanxintongzhi"></span>
-							<span class="icon iconfont  icon-duanxintongzhi"></span> -->
-
+							<a><i id="i_msg_rev_notify" class="fa fa-envelope-o fa-lg" ></i></a>
+						</li>
+						<li>
+							<a><i id="i_adt_task_notify" class="fa fa-tasks fa-lg"></i></a>
 						</li>
 											
 						<li class="dropdown user user-menu">
@@ -170,6 +170,7 @@
 <script th:src="@{/resources/dist/js/App.Extend.js?v=1}"></script>
 <script th:src="@{/resources/e7/e7util-0.2.js}"></script>
 <script th:src="@{/resources/e7/e7tabs/e7tabs-0.3.js}"></script>
+<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 <script th:inline="javascript">
 	/*<![CDATA[*/  
  	$(function(){
@@ -183,8 +184,10 @@
 		
 		Menu.init(menus, [[@{/}]]);		
 		
-		//refreshWarningStatus();
-		//setInterval(refreshWarningStatus, 30000);
+		refreshMsgRevStatus();
+		setInterval(refreshMsgRevStatus, 10000);
+		refreshAdtTaskStatus();
+		setInterval(refreshAdtTaskStatus, 10000);
 	});
 	
 	function modifyPassword() {
@@ -213,11 +216,23 @@
 		});			
 	}
 	
-	function setWarning(warning) {
-		if(warning) {
-			$('#i_warning').addClass('warning');
+	function setMsgRevNotify(wdMsgNum) {
+		if(wdMsgNum > 0) {
+			$('#i_msg_rev_notify').addClass('warning');
 		} else {
-			$('#i_warning').removeClass('warning');
+			$('#i_msg_rev_notify').removeClass('warning');
+		}
+	}
+	
+	function setAdtTaskNotify(adtTaskList) {
+		if(null != adtTaskList){
+			if(adtTaskList.length == 3){
+			// 如果有待审批单子
+			if(adtTaskList[0] + adtTaskList[1]+ adtTaskList[2] >0)
+					$('#i_adt_task_notify').addClass('warning');
+			} else {
+					$('#i_adt_task_notify').removeClass('warning');
+			}
 		}
 	}
 	
@@ -230,13 +245,19 @@
 		$('#tabPanel').e7tabs('add', tab);
 	}
 	
-	function refreshWarningStatus() {
-		E7.ajax({
-			url:[[@{/haveFault}]],
+	var preWdMsgNum = 0;
+	function refreshMsgRevStatus() {	
+ 		E7.ajax({
+			url:[[@{/msgManagement/getWdMgsNum}]],
 			maskable:false,
 			success:function(result) {
 				if(result.code == 0) {
-					setWarning(result.data);
+					var wdMsgNum = result.data;
+					if(preWdMsgNum < wdMsgNum){
+						layer.msg('您有新的消息，请注意查收！');
+						preWdMsgNum = wdMsgNum;
+					}
+					setMsgRevNotify(result.data);
 				} else {
 					console.log(result.msg);
 				}
@@ -246,5 +267,44 @@
 			}
 		});
 	}
- 	/*]]>*/  
+	
+	var preAdtArTskNum = -1;
+	var preAdtOrdrTskNum = -1;
+	var preAdtSpgTskNum = -1;
+	function refreshAdtTaskStatus() {	
+ 		E7.ajax({
+			url:[[@{/spgManagement/getAdtTaskNum}]],
+			maskable:false,
+			success:function(result) {
+				if(result.code == 0) {
+					var adtTaskList = result.data;
+					if(null != adtTaskList){
+						setAdtTaskNotify(adtTaskList);
+						var adtArTskNum = adtTaskList[0];
+						var adtOrdrTskNum = adtTaskList[1];
+						var adtSpgTskNum = adtTaskList[2];
+						if(preAdtArTskNum == -1 && preAdtOrdrTskNum==-1 && preAdtSpgTskNum==-1){
+							//tips层
+							layer.tips('Hi，我是tips', '#i_adt_task_notify');
+						} else {
+							if(preAdtArTskNum < adtArTskNum){
+								preAdtArTskNum = adtArTskNum;
+							}
+							if(preAdtOrdrTskNum < adtOrdrTskNum)
+								preAdtOrdrTskNum = adtOrdrTskNum;
+							
+							if(preAdtSpgTskNum < adtSpgTskNum)
+								preAdtSpgTskNum = adtSpgTskNum;
+						}
+					}
+				} else {
+					console.log(result.msg);
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				console.log('E7.ajax请求error！');
+			}
+		});
+	}
+ 
 </script>

@@ -14,17 +14,13 @@ import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
-import com.xai.tt.dc.client.model.T0LnkJrnlInf;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.SubmitArQuery;
 import com.xai.tt.dc.client.service.ArManagementDcService;
 import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.vo.T1ARInfDetailVo;
-import com.xai.tt.dc.client.vo.T1ARInfVo;
 import com.xai.tt.dc.client.vo.inVo.ArManagementInVo;
-import com.xai.tt.dc.client.vo.inVo.OrderManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryOrderInfDetailOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageArOutVo;
 
 import java.io.File;

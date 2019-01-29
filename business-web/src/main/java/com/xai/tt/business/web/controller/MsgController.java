@@ -63,53 +63,7 @@ public class MsgController extends BaseController {
 	private CompanyDcService companyDcService; 
 	@Autowired
 	private MsgDcService msgDcService;    
- 
-    @RequestMapping(value = { "save_dk" })
-    @ResponseBody
-    public Result<?>  save_dk(MsgVo inVo) {
-    	logger.info("保存站内信息请求报文：MsgVo={}", JSON.toJSONString(inVo));
-
-//    	logger.info("长约附件信息长度：{}", inVo.getList().size());
-       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-       	inVo.setUserType(user.getUserType().ordinal());
-       	inVo.setUsername(user.getUsername());
-       	inVo.setCompanyId(user.getCompanyId());
-       	inVo.setNickname(user.getNickname());
-       	inVo.setChineseName(user.getChineseName());
-       	inVo.setSecSrvCd("01");
-/*       	inVo.setUsrTp(user.getUsrTp());
-       	inVo.setSplchainCo(user.getSplchainCo());
-       	inVo.setCtfnTp(user.getCtfnTp());
-       	inVo.setAdtInd(user.getAdtInd());*/
-       	// 
-    	Result<Boolean> result = msgDcService.save(inVo);
-    	logger.info("保存站内信息返回结果：{}", JSON.toJSONString(result));
-        return result;
-    }  
-    
-    @RequestMapping(value = { "save_ds" })
-    @ResponseBody
-    public Result<?>  save_ds(MsgVo inVo) {
-    	logger.info("保存站内信息请求报文：MsgVo={}", JSON.toJSONString(inVo));
-
-//    	logger.info("长约附件信息长度：{}", inVo.getList().size());
-       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-       	inVo.setUserType(user.getUserType().ordinal());
-       	inVo.setUsername(user.getUsername());
-       	inVo.setCompanyId(user.getCompanyId());
-       	inVo.setNickname(user.getNickname());
-       	inVo.setChineseName(user.getChineseName());
-       	inVo.setSecSrvCd("02");
-/*       	inVo.setUsrTp(user.getUsrTp());
-       	inVo.setSplchainCo(user.getSplchainCo());
-       	inVo.setCtfnTp(user.getCtfnTp());
-       	inVo.setAdtInd(user.getAdtInd());*/
-       	// 
-    	Result<Boolean> result = msgDcService.save(inVo);
-    	logger.info("保存站内信息返回结果：{}", JSON.toJSONString(result));
-        return result;
-    } 
-    
+     
 	   @RequestMapping(value = { "list_snd" })
 	    public ModelAndView list_snd() {
 	    	ModelAndView mav = new ModelAndView("msgManagement/list");
@@ -162,90 +116,6 @@ public class MsgController extends BaseController {
 	    	mav.addObject("userType", "Group");
 	        return mav;
 	    }
-	   
-	   @RequestMapping(value = { "list_yk" })
-	    public ModelAndView list_yk(HttpSession session) {
-	    	ModelAndView mav = new ModelAndView("invInfManagement/list_yk");
-	    	MsgVo inVo = new MsgVo();
-	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-	    	inVo.setUserType(user.getUserType().ordinal());
-	    	inVo.setUsername(user.getUsername());
-	    	inVo.setCompanyId(user.getCompanyId());
-	    	inVo.setNickname(user.getNickname());
-	    	inVo.setChineseName(user.getChineseName());
-	    	inVo.setSecSrvCd("02");
-	    	
-	    	CompanyQuery query = new CompanyQuery();        
-	    	// 查询平台下拉菜单
-	        query.setUsrTp("01");
-	        /*Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);*/
-	        Result<PageInfo<Company>> result = null;
-
-	    	logger.info("查询付款方列表返回结果：{}", JSON.toJSONString(result));
-	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询付款方列表返回结果异常");
-	        }
-	        mav.addObject("skFkFModels", result.getData().getList());
-	 
-	    	mav.addObject("userType", "Group");
-	        return mav;
-	    }
-	   
-	   @RequestMapping(value = { "list_ds" })
-	    public ModelAndView list_ds(HttpSession session) {
-	    	ModelAndView mav = new ModelAndView("invInfManagement/list_ds");
-	    	MsgVo inVo = new MsgVo();
-	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-	    	inVo.setUserType(user.getUserType().ordinal());
-	    	inVo.setUsername(user.getUsername());
-	    	inVo.setCompanyId(user.getCompanyId());
-	    	inVo.setNickname(user.getNickname());
-	    	inVo.setChineseName(user.getChineseName());
-	    	inVo.setSecSrvCd("03");
-	    	
-	    	CompanyQuery query = new CompanyQuery();        
-	    	// 查询平台下拉菜单
-	        query.setUsrTp("01");
-	        /*Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);*/
-	        Result<PageInfo<Company>> result = null;
-	    	logger.info("查询收款方列表返回结果：{}", JSON.toJSONString(result));
-	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询收款方列表返回结果异常");
-	        }
-	        mav.addObject("skFkFModels", result.getData().getList());
-	 
-	    	mav.addObject("userType", "Group");
-	        return mav;
-	    }
-	   
-	   @RequestMapping(value = { "list_ys" })
-	    public ModelAndView list_ys(HttpSession session) {
-	    	ModelAndView mav = new ModelAndView("invInfManagement/list_ys");
-	    	MsgVo inVo = new MsgVo();
-	    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-	    	inVo.setUserType(user.getUserType().ordinal());
-	    	inVo.setUsername(user.getUsername());
-	    	inVo.setCompanyId(user.getCompanyId());
-	    	inVo.setNickname(user.getNickname());
-	    	inVo.setChineseName(user.getChineseName());
-	    	inVo.setSecSrvCd("04");
-	    	
-	    	CompanyQuery query = new CompanyQuery();        
-	    	// 查询平台下拉菜单
-	        query.setUsrTp("01");
-	        /*Result<PageInfo<Company>> result = companyDcService.queryPage_skf_fkf(inVo);*/
-	        Result<PageInfo<Company>> result = null;
-	    	logger.info("查询收款方列表返回结果：{}", JSON.toJSONString(result));
-	        if (result == null || result.getCode() != 0) {
-	        	logger.error("查询收款方列表返回结果异常");
-	        }
-	        mav.addObject("skFkFModels", result.getData().getList());
-	 
-	    	mav.addObject("userType", "Group");
-	        return mav;
-	    }
-	
-	
     
     @RequestMapping(value = { "queryCompanyModels" })
     public ModelAndView queryCompanyModels(CompanyQuery query) {
@@ -260,22 +130,7 @@ public class MsgController extends BaseController {
 
         return mv;
     }  
-    
- /*   @RequestMapping(value = { "submit" })
-    @ResponseBody
-    public Result<?>  submit(SubmitArQuery query, String fileUrl2) {
-    	logger.info("提交站内请求报文：{}, fileUrl2={}", JSON.toJSONString(query), JSON.toJSONString(fileUrl2));
-        if (StringUtils.isNotEmpty(fileUrl2)) {
-        	query.setFileNames(fileUrl2);
-        }
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	query.setUsername(user.getUsername());
-    	query.setCompanyId(user.getCompanyId());
-    	Result<Boolean> result = msgDcService.submitAr(query);
-    	logger.info("提交站内返回结果：{}", JSON.toJSONString(result));
-        return result;
-    }   */
-    
+   
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
     public Result<?>   getDetail(String id, String secSrvCd, String msgRevId) {
@@ -302,7 +157,23 @@ public class MsgController extends BaseController {
         return Result.createSuccessResult(rlt.getData());        
     }
     
- 
+    @RequestMapping(value = { "getWdMgsNum" })
+    @ResponseBody
+    /*查询未读消息数目*/
+	Result<Integer> getWdMgsNum(){
+      	MsgVo inVo = new MsgVo();
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	inVo.setUserType(user.getUserType().ordinal());
+    	inVo.setUsername(user.getUsername());
+    	inVo.setCompanyId(user.getCompanyId());
+    	inVo.setNickname(user.getNickname());
+    	inVo.setChineseName(user.getChineseName());
+    	inVo.setCurrentUserId(user.getId());
+		inVo.setSecSrvCd("02");//收信
+		inVo.setMsgRevStcd("03");//未读
+    	Result<Integer> rlt = msgDcService.getWdMgsNum(inVo);
+    	return rlt;
+	}
     
     @RequestMapping(value = { "queryPage" })
     @ResponseBody
@@ -335,96 +206,7 @@ public class MsgController extends BaseController {
         return Result.createSuccessResult(result.getData());
     }
     
-    @RequestMapping(value = { "queryPage_yk" })
-    @ResponseBody
-    public Result<?>  queryPage_yk(MsgVo queryPageInvInfVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	queryPageInvInfVo.setUserType(user.getUserType().ordinal());
-    	queryPageInvInfVo.setUsername(user.getUsername());
-    	queryPageInvInfVo.setCompanyId(user.getCompanyId());
-    	queryPageInvInfVo.setNickname(user.getNickname());
-    	queryPageInvInfVo.setChineseName(user.getChineseName());    
-    	queryPageInvInfVo.setSecSrvCd("02");
-    	// 因前后端名字不一样，转义排序参数
-    	String sortName = queryPageInvInfVo.getSortName();
-    	if(StringUtils.isNotBlank(sortName)) {
-    		sortName = sortName.replace("fncEntpName", "fncEntp");
-    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
-    		sortName = sortName.replace("stgcoName", "stgco");
-    		sortName = sortName.replace("bnkName", "bnk");
-    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
-    		sortName = sortName.replace("insCoName", "insCo");
-    		sortName = sortName.replace("splchainCoName", "splchainCo");
-    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		queryPageInvInfVo.setSortName(sortName);
-    	}
-    		
-    	logger.info("站内信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(queryPageInvInfVo),JSON.toJSONString(pageParam));
-        Result<PageData<MsgVo>> result = msgDcService.queryPage(queryPageInvInfVo, pageParam);
-        logger.info("站内信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
-    }
-    
-    @RequestMapping(value = { "queryPage_ds" })
-    @ResponseBody
-    public Result<?>  queryPage_ds(MsgVo queryPageInvInfVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	queryPageInvInfVo.setUserType(user.getUserType().ordinal());
-    	queryPageInvInfVo.setUsername(user.getUsername());
-    	queryPageInvInfVo.setCompanyId(user.getCompanyId());
-    	queryPageInvInfVo.setNickname(user.getNickname());
-    	queryPageInvInfVo.setChineseName(user.getChineseName());    
-    	queryPageInvInfVo.setSecSrvCd("03");
-    	// 因前后端名字不一样，转义排序参数
-    	String sortName = queryPageInvInfVo.getSortName();
-    	if(StringUtils.isNotBlank(sortName)) {
-    		sortName = sortName.replace("fncEntpName", "fncEntp");
-    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
-    		sortName = sortName.replace("stgcoName", "stgco");
-    		sortName = sortName.replace("bnkName", "bnk");
-    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
-    		sortName = sortName.replace("insCoName", "insCo");
-    		sortName = sortName.replace("splchainCoName", "splchainCo");
-    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		queryPageInvInfVo.setSortName(sortName);
-    	}
-    		
-    	logger.info("站内信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(queryPageInvInfVo),JSON.toJSONString(pageParam));
-        Result<PageData<MsgVo>> result = msgDcService.queryPage(queryPageInvInfVo, pageParam);
-        logger.info("站内信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
-    }
-    
-    @RequestMapping(value = { "queryPage_ys" })
-    @ResponseBody
-    public Result<?>  queryPage_ys(MsgVo queryPageInvInfVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	queryPageInvInfVo.setUserType(user.getUserType().ordinal());
-    	queryPageInvInfVo.setUsername(user.getUsername());
-    	queryPageInvInfVo.setCompanyId(user.getCompanyId());
-    	queryPageInvInfVo.setNickname(user.getNickname());
-    	queryPageInvInfVo.setChineseName(user.getChineseName());    
-    	queryPageInvInfVo.setSecSrvCd("04");
-    	// 因前后端名字不一样，转义排序参数
-    	String sortName = queryPageInvInfVo.getSortName();
-    	if(StringUtils.isNotBlank(sortName)) {
-    		sortName = sortName.replace("fncEntpName", "fncEntp");
-    		sortName = sortName.replace("ustrmSplrName", "ustrmSplr");
-    		sortName = sortName.replace("stgcoName", "stgco");
-    		sortName = sortName.replace("bnkName", "bnk");
-    		sortName = sortName.replace("lgstcCoName", "lgstcCo");
-    		sortName = sortName.replace("insCoName", "insCo");
-    		sortName = sortName.replace("splchainCoName", "splchainCo");
-    		sortName = sortName.replace("aplyPcstpCd", "aplypcstpcd");
-    		queryPageInvInfVo.setSortName(sortName);
-    	}
-    		
-    	logger.info("站内信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(queryPageInvInfVo),JSON.toJSONString(pageParam));
-        Result<PageData<MsgVo>> result = msgDcService.queryPage(queryPageInvInfVo, pageParam);
-        logger.info("站内信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
-    }
-  
+   
     @LogAspect(type = LogAspect.LogType.Upload_Ar_Atch)
     @RequestMapping("/ossUpload")
     @ResponseBody
