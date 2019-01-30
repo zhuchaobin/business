@@ -114,11 +114,11 @@
 							<a id="jnkc">时间的实时显示</a>				
 						</li>
 						
-						<li>
-							<a><i id="i_msg_rev_notify" class="fa fa-envelope-o fa-lg" ></i></a>
+						<li alt="Brand">
+							<a><i id="i_msg_rev_notify" class="fa fa-envelope-o fa-lg"><span class="badge" id="span_1"></span></i></a>
 						</li>
-						<li>
-							<a><i id="i_adt_task_notify" class="fa fa-tasks fa-lg"></i></a>
+						<li onmouseover="refreshAdtTaskStatus(2)">
+							<a><i id="i_adt_task_notify" class="fa fa-tasks fa-lg"><span class="badge" id="span_2"></span></i></a>
 						</li>
 											
 						<li class="dropdown user user-menu">
@@ -173,7 +173,7 @@
 <script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 <script th:inline="javascript">
 	/*<![CDATA[*/  
- 	$(function(){
+ 	$(function(){ 		
 		$('#tabPanel').e7tabs({
 			tabs:[
 			     {id:'158',title:'首页', url:[[@{/home}]], closable:false} 
@@ -185,11 +185,11 @@
 		Menu.init(menus, [[@{/}]]);		
 		
 		refreshMsgRevStatus();
-		setInterval(refreshMsgRevStatus, 10000);
+	//	setInterval(refreshMsgRevStatus, 10000);
 		refreshAdtTaskStatus();
-		setInterval(refreshAdtTaskStatus, 10000);
+	//	setInterval(refreshAdtTaskStatus, 10000);
 	});
-	
+		
 	function modifyPassword() {
 		var tab = {title:'修改密码', url:[[@{/password}]]};
 		$('#tabPanel').e7tabs('add', tab);
@@ -218,21 +218,26 @@
 	
 	function setMsgRevNotify(wdMsgNum) {
 		if(wdMsgNum > 0) {
+			// 展示未读消息条数
+			$("#span_1").html(wdMsgNum);
 			$('#i_msg_rev_notify').addClass('warning');
 		} else {
+			// 清除未读消息条数
+			$("#span_1").html("");
 			$('#i_msg_rev_notify').removeClass('warning');
 		}
 	}
 	
-	function setAdtTaskNotify(adtTaskList) {
-		if(null != adtTaskList){
-			if(adtTaskList.length == 3){
-			// 如果有待审批单子
-			if(adtTaskList[0] + adtTaskList[1]+ adtTaskList[2] >0)
-					$('#i_adt_task_notify').addClass('warning');
-			} else {
-					$('#i_adt_task_notify').removeClass('warning');
-			}
+	function setAdtTaskNotify(totalAdtTskNum) {
+		// 如果有待审批单子
+		if(totalAdtTskNum>0){
+			// 展示待处理任务数
+			$("#span_2").html(totalAdtTskNum);
+			$('#i_adt_task_notify').addClass('warning');
+		} else {
+			// 清除待处理任务数
+			$("#span_2").html("");
+			$('#i_adt_task_notify').removeClass('warning');
 		}
 	}
 	
@@ -253,8 +258,12 @@
 			success:function(result) {
 				if(result.code == 0) {
 					var wdMsgNum = result.data;
-					if(preWdMsgNum < wdMsgNum){
-						layer.msg('您有新的消息，请注意查收！');
+					if(preWdMsgNum < wdMsgNum){						
+						layer.msg('您有'+ (wdMsgNum-preWdMsgNum)+'条新消息，请注意查收！', {
+							  time: 15000, //15s后自动关闭
+							  btn: ['知道了']
+							});
+						
 						preWdMsgNum = wdMsgNum;
 					}
 					setMsgRevNotify(result.data);
@@ -267,34 +276,57 @@
 			}
 		});
 	}
-	
-	var preAdtArTskNum = -1;
-	var preAdtOrdrTskNum = -1;
-	var preAdtSpgTskNum = -1;
-	function refreshAdtTaskStatus() {	
+	var preAdtArTskNum = 0;
+	var preAdtOrdrTskNum = 0;
+	var preAdtSpgTskNum = 0;
+	function refreshAdtTaskStatus(flag) {	
+		// flag=2:手动查询实时展示， 其他值自动定时查询
+		isNeedTip = false;
  		E7.ajax({
 			url:[[@{/spgManagement/getAdtTaskNum}]],
 			maskable:false,
 			success:function(result) {
+				var adtTsktips = "";
+				var isNeedTip = false;
 				if(result.code == 0) {
 					var adtTaskList = result.data;
 					if(null != adtTaskList){
-						setAdtTaskNotify(adtTaskList);
 						var adtArTskNum = adtTaskList[0];
 						var adtOrdrTskNum = adtTaskList[1];
 						var adtSpgTskNum = adtTaskList[2];
-						if(preAdtArTskNum == -1 && preAdtOrdrTskNum==-1 && preAdtSpgTskNum==-1){
+						var totalAdtTskNum = adtArTskNum + adtOrdrTskNum + adtSpgTskNum;
+						setAdtTaskNotify(totalAdtTskNum);
+						adtTsktips = "您有";		
+						
+						if(2==flag){
+							preAdtArTskNum = 0;
+							preAdtOrdrTskNum = 0;
+							preAdtSpgTskNum = 0;
+						}
+						if(preAdtArTskNum < adtArTskNum){
+							adtTsktips += ((adtArTskNum - preAdtArTskNum) + "笔新的待审批长约；");	
+							isNeedTip = true;
+						}
+						preAdtArTskNum = adtArTskNum;
+						if(preAdtOrdrTskNum < adtOrdrTskNum){
+							adtTsktips += ((adtOrdrTskNum - preAdtOrdrTskNum) + "笔新的待处理订单；");
+							isNeedTip = true;
+						}
+						preAdtOrdrTskNum = adtOrdrTskNum;
+						if(preAdtSpgTskNum < adtSpgTskNum){
+							adtTsktips += ((adtSpgTskNum - preAdtSpgTskNum) + "笔新的待处理货物；");
+							isNeedTip = true;
+						}
+						preAdtSpgTskNum = adtSpgTskNum;
+						adtTsktips += "请您及时处理。";
+						
+						if(isNeedTip){
 							//tips层
-							layer.tips('Hi，我是tips', '#i_adt_task_notify');
-						} else {
-							if(preAdtArTskNum < adtArTskNum){
-								preAdtArTskNum = adtArTskNum;
-							}
-							if(preAdtOrdrTskNum < adtOrdrTskNum)
-								preAdtOrdrTskNum = adtOrdrTskNum;
-							
-							if(preAdtSpgTskNum < adtSpgTskNum)
-								preAdtSpgTskNum = adtSpgTskNum;
+							layer.tips(adtTsktips, '#i_adt_task_notify',{
+								tips: [1, '#3595CC'],
+								time: 30000,
+								closeBtn: 1 //不显示关闭按钮
+							})
 						}
 					}
 				} else {
