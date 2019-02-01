@@ -35,4 +35,7 @@
  	<!--站内信息管理, 20190125-->
     <dubbo:reference id="msgDcService" interface="com.xai.tt.dc.client.service.MsgDcService" version="1.0"/>
 
+
+    <dubbo:reference id="kcDcService" interface="com.xai.tt.dc.client.service.KcDcService" version="1.0"/>
+
 </beans>
