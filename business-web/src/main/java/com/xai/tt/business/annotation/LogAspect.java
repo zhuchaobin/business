@@ -117,6 +117,10 @@ public @interface LogAspect {
 		Locked_User("锁定或解锁用户"),
 		Reset_Password("重置密码"),
 		Distribute_Role("分配角色"),
+		// added by zhuchaobin,20190202
+		Update_vrty("更新品种"),
+		Delete_vrty("删除品种"),
+
 	/*	Add_Publish("新增推广活动"),
 		Update_Publish("更新推广活动"),
 		Delete_Publish("删除推广活动"),
