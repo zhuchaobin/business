@@ -690,7 +690,7 @@ body {
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" align="center">提交后将自动流转到[供应链确认]，若需修改需要下一环节退回，确定提交吗?</div>
+				<div class="modal-body" align="center">提交后将自动流转到[下一步]，若需修改需要下一环节退回，确定提交吗?</div>
 				<div class="modal-footer" align="center">
 					<button type="button" onclick="javascript:save(2)"
 						class="btn btn-primary-red" data-dismiss="modal">
@@ -916,17 +916,7 @@ body {
 
              $('#insert-new-spgDetail').click(function() {
             	 
-/*                  var rows=[];
-                 rows.push({
-                     "rid" : '23',
-                     "pdNm" : '',
-                     "spec" : '',
-                     "qlyStd" : '',
-                     "brnd" : '',
-                     "pdFctr" : '',
-                     "num" : ''                	
-                 })
-                 $('#boot-table-spgDetail').bootstrapTable('append', rows); */
+
                  
                   var row = {
                     "rid" : '1',
@@ -934,8 +924,8 @@ body {
                     "spec" : '33',
                     "qlyStd" : '44',
                     "brnd" : '55',
-                    "pdFctr" : '',
-                    "num" : '',
+                    "pdFctr" : '1',
+                    "num" : '1',
 
                 }
 
@@ -1640,30 +1630,6 @@ body {
                 return value;
 		}	
 		
-		function transAplyPcstpCdTospgSt(value) {
-			if (value == '01') {
-				return "退回件";
-			} else if (value == '02') {
-				return "供应链确认";
-			} else if (value == '03') {
-				return "融资企业确认";
-			} else if (value == '04') {
-				return "承保";
-			} else if (value == '05') {
-				return "一审";
-			} else if (value == '06') {
-				return "二审";;
-			} else if (value == '07') {
-				return "终止";
-			} else if (value == '') {
-				return "";
-			} else if (value == '10') {
-				return "草稿件";
-			} else if (value == '11') {
-				return "撤销件";
-			} else
-				return value;
-		}
 
 
 
@@ -1788,9 +1754,9 @@ body {
 		
 		
 		function save(flag) {			
-			for (instance in CKEDITOR.instances) {
-				CKEDITOR.instances[instance].updateElement();
-			}
+			// for (instance in CKEDITOR.instances) {
+			// 	CKEDITOR.instances[instance].updateElement();
+			// }
 
 
 

@@ -493,12 +493,52 @@ body {
                         <input name="arId" class="form-control" placeholder="" value="" type="hidden"/>
                         <input id="pymtMod" name="pymtMod" class="form-control" placeholder="" value="" type="hidden"/>
                         <input name="spgId" class="form-control" placeholder="" value="" type="hidden"/>
-
                         <input id="selRdmgdsMod1" name="selRdmgdsMod1" class="form-control" placeholder="" value="" type="hidden"/>
-
-
                         <input class="form-control" id="aplyPsrlt" name="aplyPsrlt" placeholder="" type="hidden"
                                value=""/>
+
+
+
+                        <!-- 接货承运信息 start-->
+                        <input class="form-control" id="vhclNum" name="vhclNum" placeholder="车辆数目" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="tprtModAndImt" name="tprtModAndImt" placeholder="运输方式及工具" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="lgstcCo" name="lgstcCo" placeholder="物流公司" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="revMnyPsn" name="revMnyPsn" placeholder="接货人" type="hidden"
+                               value=""/>
+                            <input class="form-control" id="revMnyCtcTel" name="revMnyCtcTel" placeholder="接货联系电话" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="revMnyTm" name="revMnyTm" placeholder="接货时间" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="revMnyRmrk" name="revMnyRmrk" placeholder="接货备注" type="hidden"
+                               value=""/>
+                        <!-- 接货承运信息 end-->
+
+                        <!-- 接货入仓信息 start-->
+                        <input class="form-control" id="stgco" name="stgco" placeholder="仓储公司" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="intrsrPsn" name="intrsrPsn" placeholder="入库人" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="intrsrTm" name="intrsrTm" placeholder="入库时间" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="intrsrRmrk" name="intrsrRmrk" placeholder="入库备注" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="outstgTm" name="outstgTm" placeholder="出库时间" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="plgSt" name="plgSt" placeholder="质押状态" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="strBit" name="strBit" placeholder="库位" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="whrecptId" name="whrecptId" placeholder="仓单编号" type="hidden"
+                               value=""/>
+                        <input class="form-control" id="plgWarnStcd" name="plgWarnStcd" placeholder="质押预警状态代码" type="hidden"
+                               value=""/>
+                        <!-- 接货入仓信息 end-->
+
+
+
 
                         <div id="aplyPsrltInnerDiv">
                             <div class="row">
@@ -1228,6 +1268,8 @@ body {
         E7.resetForm('#frm_query');
     }
 
+
+    //提交审批前的校验
     function validate_frm_submit_ar() {
         $('#frm_submit_ar').bootstrapValidator('validate');
         if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
@@ -1242,7 +1284,6 @@ body {
                 if (aplyPsrltCdRadio[i].checked)
                     aplyPsrltCd = aplyPsrltCdRadio[i].value;
             }
-
 
 
             if ("01" == aplyPsrltCd) {
@@ -1263,6 +1304,9 @@ body {
             //清除校验格式
             $('#frm_submit_ar').data('bootstrapValidator').resetForm();
             $('#aplyPsrlt').val(document.getElementById('aplyPsrltInnerDiv').innerHTML);
+
+
+
 
 
             $('#submitArModal').modal('show');
@@ -1661,6 +1705,15 @@ body {
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
+
+        $('#frm_submit_ar [name="vhclNum"]').val($('#vhclNum_spe').val());
+        $('#frm_submit_ar [name="tprtModAndImt"]').val($('#tprtModAndImt_spe').val());
+        $('#frm_submit_ar [name="lgstcCo"]').val($('#lgstcCo_spe').val());
+        $('#frm_submit_ar [name="revMnyPsn"]').val($('#revMnyPsn_spe').val());
+        $('#frm_submit_ar [name="revMnyCtcTel"]').val($('#revMnyCtcTel_spe').val());
+        $('#frm_submit_ar [name="revMnyRmrk"]').val($('#revMnyRmrk_spe').val());
+
+
         var formParams = E7.serialForm('#frm_submit_ar');
         E7.post(pageSetting.resetPath + '/submitSpg', formParams, function (
             data) {
@@ -2083,8 +2136,6 @@ body {
                     $('#boot-table').bootstrapTable('append', rows);
 
 
-                    var specialDiv = detail["specialDiv"];
-                    $("#special_div").append(specialDiv);
 
                     // 根据角色不同控制数据展示
                     var datas = detail["roleParmsList"];
