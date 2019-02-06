@@ -1714,6 +1714,12 @@ body {
         $('#frm_submit_ar [name="revMnyRmrk"]').val($('#revMnyRmrk_spe').val());
 
 
+        $('#frm_submit_ar [name="stgco"]').val($('#stgco_spe').val());
+
+        $('#frm_submit_ar [name="revMnyRmrk"]').val($('#revMnyRmrk_spe').val());
+
+        
+
         var formParams = E7.serialForm('#frm_submit_ar');
         E7.post(pageSetting.resetPath + '/submitSpg', formParams, function (
             data) {
