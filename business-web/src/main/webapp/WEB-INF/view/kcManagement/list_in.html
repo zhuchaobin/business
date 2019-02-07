@@ -82,22 +82,15 @@ body {
                 <div class="flowlayout" id="div_criteria">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">长约编号：</label>
+                            <label class="col-sm-4 control-label" for="">运单编号：</label>
                             <div class="col-sm-8">
 
-                                <input class="form-control" id="arId" name="arId" placeholder="长约编号"/>
+                                <input class="form-control" id="tprtBlId" name="tprtBlId" placeholder="运单编号"/>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">订单编号：</label>
-                            <div class="col-sm-8">
-                                 <input class="form-control" id="ordrId" name="ordrId" placeholder="订单编号"/>
-                            </div>
-                        </div>
-                    </div>
+
 
 
                     <div class="col-md-4">
@@ -110,68 +103,6 @@ body {
                     </div>
 
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">供应链：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="splchainCo">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${splchainCoModels}"
-                                            th:text="${model.name}" th:value="${model.id}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">融资企业：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="fncEntp">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${fncEntpModels}"
-                                            th:text="${model.name}" th:value="${model.id}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">供应商：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="ustrmSplr">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${ustrmSplrModels}"
-                                            th:text="${model.name}" th:value="${model.id}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">类型：</label>
-                            <div class="col-sm-8">
-
-                                <select class="form-control" name="spgSt">
-                                    <option value="">全部</option>
-                                    <option value="01">退回件</option>
-                                    <option value="10">草稿件</option>
-                                    <option value="11">撤销件</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">关键字：</label>
-                            <div class="col-sm-8">
-                                <input class="form-control" id="keyWorlds" name="keyWorlds"
-                                       placeholder="搜索关键字"/>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </div>
@@ -493,52 +424,12 @@ body {
                         <input name="arId" class="form-control" placeholder="" value="" type="hidden"/>
                         <input id="pymtMod" name="pymtMod" class="form-control" placeholder="" value="" type="hidden"/>
                         <input name="spgId" class="form-control" placeholder="" value="" type="hidden"/>
+
                         <input id="selRdmgdsMod1" name="selRdmgdsMod1" class="form-control" placeholder="" value="" type="hidden"/>
+
+
                         <input class="form-control" id="aplyPsrlt" name="aplyPsrlt" placeholder="" type="hidden"
                                value=""/>
-
-
-
-                        <!-- 接货承运信息 start-->
-                        <input class="form-control" id="vhclNum" name="vhclNum" placeholder="车辆数目" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="tprtModAndImt" name="tprtModAndImt" placeholder="运输方式及工具" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="lgstcCo" name="lgstcCo" placeholder="物流公司" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="revMnyPsn" name="revMnyPsn" placeholder="接货人" type="hidden"
-                               value=""/>
-                            <input class="form-control" id="revMnyCtcTel" name="revMnyCtcTel" placeholder="接货联系电话" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="revMnyTm" name="revMnyTm" placeholder="接货时间" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="revMnyRmrk" name="revMnyRmrk" placeholder="接货备注" type="hidden"
-                               value=""/>
-                        <!-- 接货承运信息 end-->
-
-                        <!-- 接货入仓信息 start-->
-                        <input class="form-control" id="stgco" name="stgco" placeholder="仓储公司" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="intrsrPsn" name="intrsrPsn" placeholder="入库人" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="intrsrTm" name="intrsrTm" placeholder="入库时间" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="intrsrRmrk" name="intrsrRmrk" placeholder="入库备注" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="outstgTm" name="outstgTm" placeholder="出库时间" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="plgSt" name="plgSt" placeholder="质押状态" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="strBit" name="strBit" placeholder="库位" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="whrecptId" name="whrecptId" placeholder="仓单编号" type="hidden"
-                               value=""/>
-                        <input class="form-control" id="plgWarnStcd" name="plgWarnStcd" placeholder="质押预警状态代码" type="hidden"
-                               value=""/>
-                        <!-- 接货入仓信息 end-->
-
-
-
 
                         <div id="aplyPsrltInnerDiv">
                             <div class="row">
@@ -1268,8 +1159,6 @@ body {
         E7.resetForm('#frm_query');
     }
 
-
-    //提交审批前的校验
     function validate_frm_submit_ar() {
         $('#frm_submit_ar').bootstrapValidator('validate');
         if (!$('#frm_submit_ar').data('bootstrapValidator').isValid()) {
@@ -1284,6 +1173,7 @@ body {
                 if (aplyPsrltCdRadio[i].checked)
                     aplyPsrltCd = aplyPsrltCdRadio[i].value;
             }
+
 
 
             if ("01" == aplyPsrltCd) {
@@ -1304,9 +1194,6 @@ body {
             //清除校验格式
             $('#frm_submit_ar').data('bootstrapValidator').resetForm();
             $('#aplyPsrlt').val(document.getElementById('aplyPsrltInnerDiv').innerHTML);
-
-
-
 
 
             $('#submitArModal').modal('show');
@@ -1705,24 +1592,6 @@ body {
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
-
-        /*接货承运 物流公司信息*/
-        $('#frm_submit_ar [name="vhclNum"]').val($('#vhclNum_spe').val());
-        $('#frm_submit_ar [name="tprtModAndImt"]').val($('#tprtModAndImt_spe').val());
-        $('#frm_submit_ar [name="lgstcCo"]').val($('#lgstcCo_spe').val());
-        $('#frm_submit_ar [name="revMnyPsn"]').val($('#revMnyPsn_spe').val());
-        $('#frm_submit_ar [name="revMnyCtcTel"]').val($('#revMnyCtcTel_spe').val());
-        $('#frm_submit_ar [name="revMnyRmrk"]').val($('#revMnyRmrk_spe').val());
-
-
-        /*接货入仓 仓储公司信息*/
-        $('#frm_submit_ar [name="stgco"]').val($('#stgco_spe').val());
-        $('#frm_submit_ar [name="intrsrPsn"]').val($('#intrsrPsn_spe').val());
-        $('#frm_submit_ar [name="intrsrRmrk"]').val($('#intrsrRmrk_spe').val());
-        $('#frm_submit_ar [name="plgSt"]').val($('#plgSt_spe').val());
-        $('#frm_submit_ar [name="strBit"]').val($('#strBit_spe').val());
-        $('#frm_submit_ar [name="plgWarnStcd"]').val($('#plgWarnStcd_spe').val());
-
         var formParams = E7.serialForm('#frm_submit_ar');
         E7.post(pageSetting.resetPath + '/submitSpg', formParams, function (
             data) {
@@ -2145,6 +2014,8 @@ body {
                     $('#boot-table').bootstrapTable('append', rows);
 
 
+                    var specialDiv = detail["specialDiv"];
+                    $("#special_div").append(specialDiv);
 
                     // 根据角色不同控制数据展示
                     var datas = detail["roleParmsList"];
@@ -2681,7 +2552,7 @@ body {
         $('#tbl_query')
             .e7table(
                 {
-                    url: '[[@{/spgManagement/queryPage_adt}]]',
+                    url: '[[@{/kcManagement/queryPage_in}]]',
                     pageSize: 10,
                     autoLoading: true, //控件初始化后，自动远程请求数据
                     selectType: 'single',
@@ -2691,195 +2562,30 @@ body {
                     rownumbers: false, //如果为true，则显示一个行号列
                     sortOrder: 'desc', //排序方向
                     columns: [
-                        {
-                            title: '长约编号',
-                            field: 'arId',
-                            sortable: true
-                        },
-                        {
-                            title: '订单编号',
-                            field: 'ordrId',
-                            sortable: true
-                        },
+
                         {
                             title: '发货编号',
                             field: 'spgId',
                             sortable: true
                         },
-                        {
-                            title: '发货人',
-                            field: 'spgPsn',
-                            sortable: true
-                        },
-
 
                         {
-                            title: '收货人',
-                            field: 'cnsgn',
-                            sortable: true
-                        },
-
-
-                        {
-                            title: '目的地',
-                            field: 'ppsLnd',
+                            title: '运单编号',
+                            field: 'tprtBlId',
                             sortable: true
                         },
 
                         {
-                            title: '发起时间',
-                            field: 'crtTm',
+                            title: '库存状态',
+                            field: 'ivntSt',
                             sortable: true,
-                            formatter: function (value, row,
-                                                 index) {
-                                return transDateTime(value);
-                            }
-                        },
-                        {
-                            title: '环节',
-                            field: 'aplyPcstpCd',
-                            sortable: true,
-                            formatter: function (value, row,
+                            formatter : function(value, row,
                                                  index) {
                                 return transAplyPcstpCd(value);
                             }
-                        },
+                        }
 
-
-                        {
-                            title: '操作',
-                            field: 'aplyPcstpCd',
-                            formatter: function (value, row,
-                                                 index) {
-                                if (value == '61') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>发货发起_上游</button>&nbsp;';
-                                    return s;
-                                } else if (value == '62') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>接货承运_物流</button>&nbsp;';
-                                    return s;
-                                } else if (value == '63') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>接货入库_仓储</button>&nbsp;';
-                                    return s;
-                                } else if (value == '64') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>货款支付_供应链</button>&nbsp;';
-                                    return s;
-                                } else if (value == '65') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>选择赎货方式_供应链</button>&nbsp;';
-                                    return s;
-                                } else if (value == '66') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>选择赎货方式并支付_供应链</button>&nbsp;';
-                                    return s;
-                                } else if (value == '67') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>回款赎货_融资企业</button>&nbsp;';
-                                    return s;
-                                } else if (value == '68') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>质押置换_供应链</button>&nbsp;';
-                                    return s;
-                                } else if (value == '69') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>出质通知转货权_银行</button>&nbsp;';
-                                    return s;
-                                } else if (value == '70') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>通知转货权_银行</button>&nbsp;';
-                                    return s;
-                                } else if (value == '71') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>通知转货权_供应链</button>&nbsp;';
-                                    return s;
-                                } else if (value == '72') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>转货权1_仓储</button>&nbsp;';
-                                    return s;
-                                } else if (value == '73') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>转货权1确定质押_仓储</button>&nbsp;';
-                                    return s;
-                                } else if (value == '74') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>存入自有货物回款赎货_融资企业</button>&nbsp;';
-                                    return s;
-                                } else if (value == '75') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>通知解押_银行</button>&nbsp;';
-                                    return s;
-                                } else if (value == '76') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>转货权2_仓储</button>&nbsp;';
-                                    return s;
-                                } else if (value == '77') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>提取货物_融资企业</button>&nbsp;';
-                                    return s;
-                                } else if (value == '79') {
-                                    var s = '<button class="btn-success btn_small" onclick=showViewSubmit('
-                                        + row.id
-                                        + ',"'
-                                        + value
-                                        + '")>发货终止_供应链</button>&nbsp;';
-                                    return s;
-                                }
-                            }
-                        }],
+                        ],
                     onDblclick: function (index, row) {
                         showDetailDialog();
                     }
@@ -2891,46 +2597,16 @@ body {
     }
 
 
+
     function transAplyPcstpCd(value) {
-        if (value == '61') {
-            return "发货发起_上游";
-        } else if (value == '62') {
-            return "接货承运_物流";
+        if (value == '62') {
+            return "在途";
         } else if (value == '63') {
-            return "接货入库_仓储";
-        } else if (value == '64') {
-            return "货款支付_供应链";
-        } else if (value == '65') {
-            return "选择赎货方式_供应链";
-        } else if (value == '66') {
-            return "选择赎货方式并支付_供应链";
-            ;
-        } else if (value == '67') {
-            return "回款赎货_融资企业";
-        } else if (value == '68') {
-            return "质押置换_供应链";
-        } else if (value == '69') {
-            return "出质通知转货权_银行";
-        } else if (value == '70') {
-            return "通知转货权_银行";
-        } else if (value == '71') {
-            return "通知转货权_供应链";
-        } else if (value == '72') {
-            return "转货权1_仓储";
-        } else if (value == '73') {
-            return "转货权1确定质押_仓储";
-        } else if (value == '74') {
-            return "存入自有货物回款赎货_融资企业";
-        } else if (value == '75') {
-            return "通知解押_银行";
-        } else if (value == '76') {
-            return "转货权2_仓储";
-        } else if (value == '77') {
-            return "提取货物_融资企业";
-        } else if (value == '79') {
-            return "发货终止_供应链";
-        } else
-            return value;
+            return "入库";
+        } else if (value >= '65') {
+            return "出库";
+        }
+        return value;
     }
 
 

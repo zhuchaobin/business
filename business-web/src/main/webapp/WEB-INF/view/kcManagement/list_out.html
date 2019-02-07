@@ -54,19 +54,19 @@
             border-radius: 4px;
         }
     </style>
-    
-<!-- 页面背景图片 -->
-<style type="text/css">
-body {
-	padding: 0;
-	margin: 0;
-	background: url(/resources/dist/img/page_bg.png) no-repeat;
-	width: 100%;
-	background-size: cover;
-}
-</style>
-<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
-<!-- 自定义按钮样式 -->
+
+    <!-- 页面背景图片 -->
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+            background: url(/resources/dist/img/page_bg.png) no-repeat;
+            width: 100%;
+            background-size: cover;
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
+    <!-- 自定义按钮样式 -->
     <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}"/>
     <link rel="stylesheet"
           th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}"/>
@@ -82,22 +82,15 @@ body {
                 <div class="flowlayout" id="div_criteria">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">长约编号：</label>
+                            <label class="col-sm-4 control-label" for="">运单编号：</label>
                             <div class="col-sm-8">
 
-                                <input class="form-control" id="arId" name="arId" placeholder="长约编号"/>
+                                <input class="form-control" id="tprtBlId" name="tprtBlId" placeholder="运单编号"/>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">订单编号：</label>
-                            <div class="col-sm-8">
-                                 <input class="form-control" id="ordrId" name="ordrId" placeholder="订单编号"/>
-                            </div>
-                        </div>
-                    </div>
+
 
 
                     <div class="col-md-4">
@@ -110,68 +103,6 @@ body {
                     </div>
 
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">供应链：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="splchainCo">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${splchainCoModels}"
-                                            th:text="${model.name}" th:value="${model.id}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">融资企业：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="fncEntp">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${fncEntpModels}"
-                                            th:text="${model.name}" th:value="${model.id}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">供应商：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="ustrmSplr">
-                                    <option value="">请选择</option>
-                                    <option th:each="model: ${ustrmSplrModels}"
-                                            th:text="${model.name}" th:value="${model.id}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">类型：</label>
-                            <div class="col-sm-8">
-
-                                <select class="form-control" name="spgSt">
-                                    <option value="">全部</option>
-                                    <option value="01">退回件</option>
-                                    <option value="10">草稿件</option>
-                                    <option value="11">撤销件</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">关键字：</label>
-                            <div class="col-sm-8">
-                                <input class="form-control" id="keyWorlds" name="keyWorlds"
-                                       placeholder="搜索关键字"/>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </div>
@@ -837,38 +768,38 @@ body {
 <!-- 订单提交确认提示框 end -->
 
 <!-- 发货撤销确认提示框 start -->
-	<div class="modal fade" id="arUndoModal" tabindex="-1" role="dialog"
-		aria-labelledby="submitModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header" align="center">
-					<h4 class="text-info">提示：请填写撤销原因并提交 或 取消</h4>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body" align="center"></div>				
-				<div class="container-fluid text-center">
-					<div class="form-group" >
-						<textarea name="epap" rows="3" class="form-control" placeholder="请填写撤销原因"></textarea>
-					</div>
-				</div>								
-				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:spgUndo()"
-						class="btn btn-primary-red" data-dismiss="modal">
-						<i class="glyphicon glyphicon-ok-sign"></i>确定
-					</button>
-					<button type="button" class="btn btn-primary-gray"
-						data-dismiss="modal">
-						<i class="glyphicon glyphicon-remove-sign"></i>取消
-					</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
+<div class="modal fade" id="arUndoModal" tabindex="-1" role="dialog"
+     aria-labelledby="submitModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" align="center">
+                <h4 class="text-info">提示：请填写撤销原因并提交 或 取消</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" align="center"></div>
+            <div class="container-fluid text-center">
+                <div class="form-group" >
+                    <textarea name="epap" rows="3" class="form-control" placeholder="请填写撤销原因"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer" align="center">
+                <button type="button" onclick="javascript:spgUndo()"
+                        class="btn btn-primary-red" data-dismiss="modal">
+                    <i class="glyphicon glyphicon-ok-sign"></i>确定
+                </button>
+                <button type="button" class="btn btn-primary-gray"
+                        data-dismiss="modal">
+                    <i class="glyphicon glyphicon-remove-sign"></i>取消
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <!-- 发货撤销确认提示框 end -->
 
 
@@ -1274,14 +1205,14 @@ body {
 
 
 
-            var a = "";
-            var selRdmgdsModRadio = document
-                .getElementsByName("selRdmgdsMod");
-            var pymtmod = $('#pymtmod').val();
-            for (var i = 0; i < selRdmgdsModRadio.length; i++) {
-                if (selRdmgdsModRadio[i].checked)
-                    a = selRdmgdsModRadio[i].value;
-            }
+        var a = "";
+        var selRdmgdsModRadio = document
+            .getElementsByName("selRdmgdsMod");
+        var pymtmod = $('#pymtmod').val();
+        for (var i = 0; i < selRdmgdsModRadio.length; i++) {
+            if (selRdmgdsModRadio[i].checked)
+                a = selRdmgdsModRadio[i].value;
+        }
 
 
 
@@ -1536,14 +1467,14 @@ body {
 
             } else if (2 == flag){
 
-                 if ("01" == pymtmod||"02" == pymtmod) {
+                if ("01" == pymtmod||"02" == pymtmod) {
 
-                     nextStepName = "65-选择赎货方式(供应链)";
+                    nextStepName = "65-选择赎货方式(供应链)";
 
 
                 }  else  if ("03" == pymtmod) {
 
-                     nextStepName = "66-选择赎货方式并支付(供应链)";
+                    nextStepName = "66-选择赎货方式并支付(供应链)";
 
                 }
             }
@@ -2309,19 +2240,19 @@ body {
 
     function spgUndo() {
         var rows = $('#tbl_query').e7table('getSelectedRows');
- /*        if (rows.length == 0) {
-            bootbox.alert({
-                'title': '错误消息',
-                'message': '请选择数据！'
-            });
-            return;
-        } else if (rows.length > 1) {
-            bootbox.alert({
-                'title': '错误消息',
-                'message': '一次只能撤销一条发货单！'
-            });
-            return;
-        } */
+        /*        if (rows.length == 0) {
+                   bootbox.alert({
+                       'title': '错误消息',
+                       'message': '请选择数据！'
+                   });
+                   return;
+               } else if (rows.length > 1) {
+                   bootbox.alert({
+                       'title': '错误消息',
+                       'message': '一次只能撤销一条发货单！'
+                   });
+                   return;
+               } */
         if ($('#frm_detail').data('bootstrapValidator')) {
             $('#frm_detail').data('bootstrapValidator').resetForm(true);
         }
@@ -2621,7 +2552,7 @@ body {
         $('#tbl_query')
             .e7table(
                 {
-                    url: '[[@{/kcManagement/queryPage}]]',
+                    url: '[[@{/kcManagement/queryPage_out}]]',
                     pageSize: 10,
                     autoLoading: true, //控件初始化后，自动远程请求数据
                     selectType: 'single',
@@ -2647,10 +2578,14 @@ body {
                         {
                             title: '库存状态',
                             field: 'ivntSt',
-                            sortable: true
+                            sortable: true,
+                            formatter : function(value, row,
+                                                 index) {
+                                return transAplyPcstpCd(value);
+                            }
                         }
 
-                        ],
+                    ],
                     onDblclick: function (index, row) {
                         showDetailDialog();
                     }
@@ -2663,45 +2598,14 @@ body {
 
 
     function transAplyPcstpCd(value) {
-        if (value == '61') {
-            return "发货发起_上游";
-        } else if (value == '62') {
-            return "接货承运_物流";
+        if (value == '62') {
+            return "在途";
         } else if (value == '63') {
-            return "接货入库_仓储";
-        } else if (value == '64') {
-            return "货款支付_供应链";
-        } else if (value == '65') {
-            return "选择赎货方式_供应链";
-        } else if (value == '66') {
-            return "选择赎货方式并支付_供应链";
-            ;
-        } else if (value == '67') {
-            return "回款赎货_融资企业";
-        } else if (value == '68') {
-            return "质押置换_供应链";
-        } else if (value == '69') {
-            return "出质通知转货权_银行";
-        } else if (value == '70') {
-            return "通知转货权_银行";
-        } else if (value == '71') {
-            return "通知转货权_供应链";
-        } else if (value == '72') {
-            return "转货权1_仓储";
-        } else if (value == '73') {
-            return "转货权1确定质押_仓储";
-        } else if (value == '74') {
-            return "存入自有货物回款赎货_融资企业";
-        } else if (value == '75') {
-            return "通知解押_银行";
-        } else if (value == '76') {
-            return "转货权2_仓储";
-        } else if (value == '77') {
-            return "提取货物_融资企业";
-        } else if (value == '79') {
-            return "发货终止_供应链";
-        } else
-            return value;
+            return "入库";
+        } else if (value >= '65') {
+            return "出库";
+        }
+        return value;
     }
 
 
