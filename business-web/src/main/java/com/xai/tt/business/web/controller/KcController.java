@@ -9,7 +9,9 @@ import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.service.KcDcService;
 import com.xai.tt.dc.client.vo.inVo.KcManagementInVo;
+import com.xai.tt.dc.client.vo.inVo.SpgManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryKcDetailOutVo;
+import com.xai.tt.dc.client.vo.outVo.QuerySpgInfDetailOutVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -115,6 +117,33 @@ public class KcController extends BaseController {
         logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
+
+
+	@RequestMapping(value = { "getDetail" })
+	@ResponseBody
+	public Result<?>   getDetail(String id, String aplyPcstpCd, String type) {
+
+		logger.info("查询长约详情，请求参数id=：{}", id);
+		logger.info("查询长约详情，请求参数aplyPcstpCd=：{}", aplyPcstpCd);
+		logger.info("查询长约详情，请求参数type=：{}", type);
+		KcManagementInVo inVo = new KcManagementInVo();
+		inVo.setId(Long.parseLong(id));
+
+
+
+		inVo.setId(Long.parseLong(id));
+		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+		inVo.setUserType(user.getUserType().ordinal());
+		inVo.setUsername(user.getUsername());
+		inVo.setCompanyId(user.getCompanyId());
+		inVo.setNickname(user.getNickname());
+		inVo.setChineseName(user.getChineseName());
+		Result<QueryKcDetailOutVo> rlt = kcDcService.queryDetail(inVo);
+		logger.info("查询发货详情，返回结果rlt：{}", JSON.toJSONString(rlt));
+		return Result.createSuccessResult(rlt.getData());
+
+	}
+
 
 
 

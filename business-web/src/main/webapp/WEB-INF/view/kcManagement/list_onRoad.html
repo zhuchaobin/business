@@ -272,7 +272,7 @@ body {
                         <div id="t7SpgDetail_div_hide">
                             <div class="col-md-12" style="padding-right: 15px;">
                                 <!-- 订单明细部分 -->
-                                <h4 class="text-info pull-left">发货明细</h4>
+                                <h4 class="text-info pull-left">库存明细</h4>
                             </div>
                             <div class="col-md-12"
                                  id="boot_table_div"
@@ -966,7 +966,7 @@ body {
 
     var pageSetting = {
         modelName: '订单信息管理',
-        resetPath: '[[@{/spgManagement}]]'
+        resetPath: '[[@{/kcManagement}]]'
     };
     $(function () {
         //e7table表格控件初始化
@@ -1064,12 +1064,12 @@ body {
             show_or_hide_ins_div(true);
             $('#main_edit_detail').fadeIn(800);
             $('#main_search_detail').hide();
-            $('#ar_lnk_jrnl_inf_detail').fadeIn(800);
+            $('#ar_lnk_jrnl_inf_detail').hide;
             $('#submit_ar_detail').hide();
             $('#query_ar_submmit_detail').hide();
             // 附件
             $('#upload_ar_div').hide();
-            //				$('#query_ar_atch_div').show();//改为在查询后控制显示，没有数据的不显示
+            $('#query_ar_atch_div').hide();
             // 返回按钮
             $('#btn_close_div').show();
             // 参数
