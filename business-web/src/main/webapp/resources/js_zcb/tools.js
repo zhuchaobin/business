@@ -49,3 +49,129 @@
 				'message' : '对不起，该功能暂未实施，请等待后续开发完成后测试...'
 			});
 		}
+		
+		function drawProcessDiagraph(st, processType, pymtMod, selRdmgdsMod){
+
+			if("01"==processType){
+				// 展示流程图
+				$(".steps").step({
+					  stepNames: [ '长约发起','长约确认','长约确认','确认承保','长约一审','长约二审','长约终结'],
+					  initStep: getStepSeq(st, processType, 0, 0)
+				})
+			} else if("02"==processType){
+				if("01"==pymtMod){
+					// 展示流程图
+					$(".steps").step({
+						  stepNames: [ '发起','审核','保证金支付','融资发放','货款支付','货款支付','确认承保','订单完成'],
+						  initStep: getStepSeq(st, processType, pymtMod, 0)
+					})
+				} else if("02"==pymtMod){
+					// 展示流程图
+					$(".steps").step({
+						  stepNames: [ '发起','审核','保证金支付','融资发放','货款支付','确认收款','确认承保','订单完成'],
+						  initStep: getStepSeq(st, processType, pymtMod, 0)
+					})
+				} else if("03"==pymtMod){
+					// 展示流程图
+					$(".steps").step({
+						  stepNames: [ '发起','审核','保证金支付','融资发放','货款支付','确认收款','订单完成'],
+						  initStep: getStepSeq(st, processType, pymtMod, 0)
+					})
+				}
+			}
+		}
+
+		function getStepSeq(aplyPcstpCd, processType, pymtMod, selRdmgdsMod){
+
+			if("01"==processType){
+				if("01" == aplyPcstpCd)
+					return 0;
+				else if("02" == aplyPcstpCd)
+					return 1;
+				else if("03" == aplyPcstpCd)
+					return 2;
+				else if("04" == aplyPcstpCd)
+					return 3;
+				else if("05" == aplyPcstpCd)
+					return 4;
+				else if("06" == aplyPcstpCd)
+					return 5;
+				else if("07" == aplyPcstpCd)
+					return 6;
+				else if("10" == aplyPcstpCd)
+					return 0;
+				else if("11" == aplyPcstpCd)
+					return 0;
+				else if("99" == aplyPcstpCd)
+					return 7;
+			} else if("02"==processType) {
+				if("01"==pymtMod){
+					if("31" == aplyPcstpCd)
+						return 0;
+					else if("32" == aplyPcstpCd)
+						return 1;
+					else if("33" == aplyPcstpCd)
+						return 2;
+					else if("34" == aplyPcstpCd)
+						return 3;
+					else if("35" == aplyPcstpCd)
+						return 4;
+					else if("36" == aplyPcstpCd)
+						return 5;
+					else if("38" == aplyPcstpCd)
+						return 6;
+					else if("39" == aplyPcstpCd)
+						return 7;
+					else if("10" == aplyPcstpCd)
+						return 0;
+					else if("11" == aplyPcstpCd)
+						return 0;
+					else if("99" == aplyPcstpCd)
+						return 7;
+				} else 	if("02"==pymtMod){
+					if("31" == aplyPcstpCd)
+						return 0;
+					else if("32" == aplyPcstpCd)
+						return 1;
+					else if("33" == aplyPcstpCd)
+						return 2;
+					else if("34" == aplyPcstpCd)
+						return 3;
+					else if("35" == aplyPcstpCd)
+						return 4;
+					else if("37" == aplyPcstpCd)
+						return 5;
+					else if("38" == aplyPcstpCd)
+						return 6;
+					else if("39" == aplyPcstpCd)
+						return 7;
+					else if("10" == aplyPcstpCd)
+						return 0;
+					else if("11" == aplyPcstpCd)
+						return 0;
+					else if("99" == aplyPcstpCd)
+						return 7;
+				} else 	if("03"==pymtMod){
+					if("31" == aplyPcstpCd)
+						return 0;
+					else if("32" == aplyPcstpCd)
+						return 1;
+					else if("33" == aplyPcstpCd)
+						return 2;
+					else if("34" == aplyPcstpCd)
+						return 3;
+					else if("35" == aplyPcstpCd)
+						return 4;
+					else if("37" == aplyPcstpCd)
+						return 5;
+					else if("39" == aplyPcstpCd)
+						return 6;
+					else if("10" == aplyPcstpCd)
+						return 0;
+					else if("11" == aplyPcstpCd)
+						return 0;
+					else if("99" == aplyPcstpCd)
+						return 6;
+				}
+			}
+		}

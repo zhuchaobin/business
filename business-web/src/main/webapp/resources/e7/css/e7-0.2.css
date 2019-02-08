@@ -188,7 +188,7 @@ h1,h2,h3,h4{font-family: "微软雅黑"}
 }
 
 @keyframes warning_animation{
-	0% {color: red;}
+	0% {color: #FE9A00;}
 	50% {color: white;}
-	100% {color: red;}
+	100% {color: #FE9A00;}
 }
