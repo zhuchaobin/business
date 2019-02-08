@@ -353,6 +353,19 @@ body {
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="">库存状态：</label>
+                                <div class="col-sm-8">
+                                    <div class="col-xs-10" style="padding-left: 0px;">
+                                        <input class="form-control" name="ivntSt" placeholder="库存状态"
+                                               value="2"/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div id="t7SpgDetail_div_hide">
                             <div class="col-md-12" style="padding-right: 15px;">
@@ -2585,6 +2598,18 @@ body {
                         {
                             title: '运单编号',
                             field: 'tprtBlId',
+                            sortable: true
+                        },
+
+                        {
+                            title: '发货人',
+                            field: 'spgPsn',
+                            sortable: true
+                        },
+
+                        {
+                            title: '收货人',
+                            field: 'cnsgn',
                             sortable: true
                         },
 
