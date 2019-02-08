@@ -67,6 +67,8 @@ body {
 <link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+<!-- 流程图 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/step/css/step.css}" />
 </head>
 <body class="body-bg">
 	<!-- 列表查询 start-->
@@ -676,6 +678,8 @@ body {
 				<form id="frm_detail3" class="form-horizontal">
 					<fieldset id='fld_detail3'>
 						<div class="w-z-info">
+						<!-- // 流程图 -->
+						<div class="steps"></div>
 							<!-- 环节流水信息列表 -->
 							<div class="row">
 								<div class="col-xs-12">
@@ -1009,6 +1013,8 @@ body {
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/js_zcb/ar.js}"></script>
 	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
+	<!-- 时间轴流程图 -->
+	<script th:src="@{/resources/js_zcb/step/js/step.js}"></script>
 	
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
@@ -1107,7 +1113,6 @@ body {
 			// 是否投保默认不选中，用户自己选择
 //			$("input:radio[name="isNeedIns"]").attr("checked",false);
 		//	CKEDITOR.replace("editor1")
-
 		});
 
 		/***
@@ -1450,11 +1455,12 @@ body {
 				$('#frm_detail').bootstrapValidator('validate');
 			});
 		}
+
  
 		function queryArDetails(id, aplyPcstpCd, type){// type 1:长约提交  0：长约详情查询
 			// 带过来的环节编号
 			$('#frm_submit_ar [name="aplyPcstpCd"]').val(aplyPcstpCd);
-
+				
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
@@ -1466,6 +1472,9 @@ body {
 				for (key in detail) {
 					$('#frm_detail [name="' + key + '"]').val(detail[key]);
 				}
+				// 展示时间轴进度图				
+				drawProcessDiagraph(detail["arSt"], "01", "", "");
+				
 				///
 				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
 				// 长约详情div标题
@@ -1519,6 +1528,8 @@ body {
 				}				
 				insertHtml = insertHtml + "</tbody></table>";
 				testdiv = document.getElementById("lnk_jrnl_inf_tbl_div");
+				
+				
 				// 长约流转div标题
 				$('#ar_lnk_jrnl_inf_detail_title').text("流转信息 [ " + detail["arId"]+" ]");
 				// 长约提交div标题				

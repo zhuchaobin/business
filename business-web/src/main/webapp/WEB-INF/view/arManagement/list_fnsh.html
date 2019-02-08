@@ -67,6 +67,8 @@ body {
 <link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+<!-- 时间轴流程图 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/step/css/step.css}" />
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -675,6 +677,8 @@ body {
 				<form id="frm_detail3" class="form-horizontal">
 					<fieldset id='fld_detail3'>
 						<div class="w-z-info">
+						<!-- // 流程图 -->
+						<div class="steps"></div>
 							<!-- 环节流水信息列表 -->
 							<div class="row">
 								<div class="col-xs-12">
@@ -967,6 +971,8 @@ body {
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/js_zcb/ar.js}"></script>
 	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
+		<!-- 时间轴流程图 -->
+	<script th:src="@{/resources/js_zcb/step/js/step.js}"></script>
 	<script type="text/javascript">
 	/* 日期选择控件-长约开始日期 */
 	$('#arStdtDTPicker').datetimepicker({
@@ -1478,6 +1484,8 @@ body {
 				for (key in detail) {
 					$('#frm_detail [name="' + key + '"]').val(detail[key]);
 				}
+				// 展示时间轴进度图				
+				drawProcessDiagraph(detail["arSt"], "01", "", "");
 				///
 				$('#frm_submit_ar [name="arId"]').val(detail["arId"]);
 				// 长约详情div标题

@@ -73,7 +73,8 @@ body {
 	th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}" />
 	
 	<link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap-select.min.css}" />
-
+<!-- 时间轴流程图 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/step/css/step.css}" />
 	
 </head>
 <body>
@@ -683,6 +684,8 @@ body {
 				<form id="frm_detail3" class="form-horizontal">
 					<fieldset id='fld_detail3'>
 						<div class="w-z-info">
+						<!-- // 流程图 -->
+						<div class="steps"></div>
 							<!-- 环节流水信息列表 -->
 							<div class="row">
 								<div class="col-xs-12">
@@ -1573,6 +1576,8 @@ body {
 	<script th:src="@{/resources/bootstrap/js/bootstrap-select.min.js}"></script>
 	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<!-- 	<script th:src="@{/resources/js_zcb/ar.js}"></script> -->
+		<!-- 时间轴流程图 -->
+	<script th:src="@{/resources/js_zcb/step/js/step.js}"></script>
 	<script type="text/javascript">
 		var pageSetting = {
 			modelName : '长约信息管理',
@@ -1826,6 +1831,8 @@ body {
 									$('#frm_detail [name="' + key + '"]').val(
 											detail[key]);
 								}
+								// 展示时间轴进度图				
+								drawProcessDiagraph(detail["arSt"], "01", "", "");
 								///
 								$('#frm_submit_ar [name="arId"]').val(
 										detail["arId"]);
