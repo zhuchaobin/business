@@ -51,7 +51,7 @@
         // 初始化步骤判断
         if (!options.initStep || isNaN(options.initStep) || options.initStep < 0) {
           options.initStep = defStep.initStep;
-        }
+        } 
         // 初始化步骤大于最大值
         if (options.initStep > options.stepNames.length) {
           options.initStep = options.stepNames.length;
