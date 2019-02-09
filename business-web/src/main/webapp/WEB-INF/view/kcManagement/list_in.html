@@ -131,7 +131,7 @@
 <section class="content" id="main_edit_detail" style="display: none;">
     <div class="box box-info" id="main_edit_detail_clapse">
         <div class="box-header with-border">
-            <h4 class="text-info" id="main_edit_detail_title">发货信息</h4>
+            <h4 class="text-info" id="main_edit_detail_title">出库信息</h4>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse">
                     <i class="fa fa-minus" id="main_edit_detail_li"></i>
@@ -149,7 +149,7 @@
 
                         <div class="col-md-6 ">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="">运单编号：</label>
+                                <label class="col-sm-4 control-label" for="">出库编号：</label>
                                 <div class="col-sm-8 pull-right">
                                     <div class="col-xs-10" style="padding-left: 0px;">
                                         <input class="form-control" name="tprtBlId"
@@ -318,7 +318,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" for="">库存状态：</label>
+                                <label class="col-sm-4 control-label" for="">入库状态：</label>
                                 <div class="col-sm-8">
                                     <div class="col-xs-10" style="padding-left: 0px;">
                                         <input class="form-control" name="ivntSt" placeholder="库存状态"
@@ -334,7 +334,7 @@
                         <div id="t7SpgDetail_div_hide">
                             <div class="col-md-12" style="padding-right: 15px;">
                                 <!-- 订单明细部分 -->
-                                <h4 class="text-info pull-left">库存明细</h4>
+                                <h4 class="text-info pull-left">入库明细</h4>
                             </div>
                             <div class="col-md-12"
                                  id="boot_table_div"
@@ -2579,7 +2579,7 @@
                         },
 
                         {
-                            title: '库存状态',
+                            title: '入库状态',
                             field: 'ivntSt',
                             sortable: true,
                             formatter : function(value, row,
