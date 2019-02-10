@@ -58,7 +58,7 @@ public class KcController extends BaseController {
 		return mav;
 	}
 
-	@RequestMapping(value = { "queryPage_onRoad" })
+	@RequestMapping(value = { "queryPage" })
 	@ResponseBody
 	public Result<?>  queryPage_onRoad(KcManagementInVo inVo, PageParam pageParam) {
 		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
@@ -67,7 +67,6 @@ public class KcController extends BaseController {
 		inVo.setCompanyId(user.getCompanyId());
 		inVo.setNickname(user.getNickname());
 		inVo.setChineseName(user.getChineseName());
-		inVo.setIvntSt("62");
 		// 因前后端名字不一样，转义排序参数
 
 
@@ -78,45 +77,6 @@ public class KcController extends BaseController {
 	}
 
 
-
-	@RequestMapping(value = { "queryPage_in" })
-	@ResponseBody
-	public Result<?>  queryPage_in(KcManagementInVo inVo, PageParam pageParam) {
-		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-		inVo.setUserType(user.getUserType().ordinal());
-		inVo.setUsername(user.getUsername());
-		inVo.setCompanyId(user.getCompanyId());
-		inVo.setNickname(user.getNickname());
-		inVo.setChineseName(user.getChineseName());
-		inVo.setIvntSt("63");
-		// 因前后端名字不一样，转义排序参数
-
-
-		logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(inVo),JSON.toJSONString(pageParam));
-		Result<PageData<QueryKcDetailOutVo>> result = kcDcService.queryPage(inVo, pageParam);
-		logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-		return Result.createSuccessResult(result.getData());
-	}
-
-
-    @RequestMapping(value = { "queryPage_out" })
-    @ResponseBody
-    public Result<?>  queryPage_out(KcManagementInVo inVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	inVo.setUserType(user.getUserType().ordinal());
-    	inVo.setUsername(user.getUsername());
-    	inVo.setCompanyId(user.getCompanyId());
-    	inVo.setNickname(user.getNickname());
-    	inVo.setChineseName(user.getChineseName());
-		inVo.setIvntSt("65");
-    	// 因前后端名字不一样，转义排序参数
-
-
-    	logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(inVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryKcDetailOutVo>> result = kcDcService.queryPage(inVo, pageParam);
-        logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
-        return Result.createSuccessResult(result.getData());
-    }
 
 
 	@RequestMapping(value = { "getDetail" })

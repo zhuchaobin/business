@@ -80,18 +80,6 @@ body {
         <div class="box-body" style="padding-bottom: 0px;">
             <form class="form-horizontal" id="frm_query">
                 <div class="flowlayout" id="div_criteria">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="">运单编号：</label>
-                            <div class="col-sm-8">
-
-                                <input class="form-control" id="tprtBlId" name="tprtBlId" placeholder="运单编号"/>
-                            </div>
-                        </div>
-                    </div>
-
-
-
 
                     <div class="col-md-4">
                         <div class="form-group">
@@ -1083,7 +1071,7 @@ body {
         buttonInit();
         // 是否投保默认不选中，用户自己选择
         //			$("input:radio[name="isNeedIns"]").attr("checked",false);
-        CKEDITOR.replace("editor1")
+        // CKEDITOR.replace("editor1")
 
     });
 
@@ -2578,7 +2566,7 @@ body {
         $('#tbl_query')
             .e7table(
                 {
-                    url: '[[@{/kcManagement/queryPage_onRoad}]]',
+                    url: '[[@{/kcManagement/queryPage}]]',
                     pageSize: 10,
                     autoLoading: true, //控件初始化后，自动远程请求数据
                     selectType: 'single',
@@ -2597,7 +2585,7 @@ body {
 
                         {
                             title: '运单编号',
-                            field: 'tprtBlId',
+                            field: 'rltvId',
                             sortable: true
                         },
 
@@ -2614,12 +2602,22 @@ body {
                         },
 
                         {
-                            title: '运单状态',
+                            title: '库存状态',
                             field: 'ivntSt',
                             sortable: true,
                             formatter : function(value, row,
                                                  index) {
                                 return transAplyPcstpCd(value);
+                            }
+                        },
+
+                        {
+                            title: '质押状态',
+                            field: 'plgSt',
+                            sortable: true,
+                            formatter : function(value, row,
+                                                 index) {
+                                return transPlgSt(value);
                             }
                         }
 
@@ -2636,14 +2634,32 @@ body {
 
 
     function transAplyPcstpCd(value) {
-        if (value == '62') {
-            return "在途";
+
+        if (value == '61') {
+            return "待承运";
+        }
+       else if (value == '62') {
+            return "已承运，运输中";
         } else if (value == '63') {
-            return "入库";
-        } else if (value >= '65') {
-            return "出库";
+            return "在库";
+        }
+        else if (value == '77') {
+            return "已出库";
         }
             return value;
+    }
+
+
+
+    function transPlgSt(value) {
+
+        if (value == '01') {
+            return "质押";
+        }
+        else if (value == '02') {
+            return "解押";
+        }
+        return value;
     }
 
 
