@@ -69,6 +69,7 @@ body {
 <link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
 <!-- 流程图 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/step/css/step.css}" />
+
 </head>
 <body class="body-bg">
 	<!-- 列表查询 start-->
@@ -1103,7 +1104,10 @@ body {
 			modelName : '长约信息管理',
 			resetPath : '[[@{/arManagement}]]'
 		};
+		
 		$(function() {
+		
+		//	getShfeDate();
 			//e7table表格控件初始化
 			e7tableInit();
 			//表单校验控件初始化
@@ -2070,7 +2074,7 @@ body {
 		   var o = {   
 		     "M+" : this.getMonth()+1,                 //月份   
 		     "d+" : this.getDate(),                    //日
-		    "h+" : this.getHours(),                   //小时   
+		     "h+" : this.getHours(),                   //小时   
 		     "m+" : this.getMinutes(),                 //分   
 		     "s+" : this.getSeconds(),                 //秒   
 		     "q+" : Math.floor((this.getMonth()+3)/3), //季度   
@@ -2102,6 +2106,7 @@ body {
 				content: '/orderManagement/list_by_ar?arId='+arId
 			});
 		}
+		
 	</script>
 </body>
 </html>
