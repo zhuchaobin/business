@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="templates/list_div_layout">
+
+<head>
+	<title>账号管理</title>
+</head>
+
+<body>
+	<div layout:fragment="query_form">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">用户名称：</label>
+				<div class="col-sm-8">
+					<input name="username_like" class="form-control" placeholder="用户名称"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">真实姓名：</label>
+				<div class="col-sm-8">
+					<input name="chineseName_like" class="form-control" placeholder="真实姓名"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">性别：</label>
+				<div class="col-sm-8">
+					<select name="sex_eq" class="form-control">
+						<option value="">-请选择-</option>
+						<option value="M">男</option>
+						<option value="W">女</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">手机号码：</label>
+				<div class="col-sm-8">
+					<input name="mobile_eq" class="form-control" placeholder="手机号码"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">账号类型：</label>
+				<div class="col-sm-8">
+					<select name="userType_eq" class="form-control">
+						<option value="">-请选择-</option>
+						<option value="Emplyee">员工</option>
+						<option value="Channel">渠道商</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label for="" class="col-sm-4 control-label">账号状态：</label>
+				<div class="col-sm-8">
+					<select name="locked_eq" class="form-control">
+						<option value="">-请选择-</option>
+						<option value="0">启用</option>
+						<option value="1">锁定</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div layout:fragment="detail_form">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">用户名称 <span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<input name="username" class="form-control" placeholder="用户名称" maxlength="20"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">性别 <span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<select name="sex" class="form-control">
+							<option value="M" selected="selected">男</option>
+							<option value="W">女</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">真实姓名 <span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<input name="chineseName" class="form-control" placeholder="真实姓名" maxlength="20"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">手机号码 <span style="color:red">*</span></label>
+					<div class="col-sm-8">
+						<input name="mobile" class="form-control" placeholder="手机号码" maxlength="20"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">昵称</label>
+					<div class="col-sm-8">
+						<input name="nickname" class="form-control" placeholder="昵称" maxlength="20"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="" class="col-sm-4 control-label">邮箱地址</label>
+					<div class="col-sm-8">
+						<input name="email" class="form-control" placeholder="邮箱地址" maxlength="50"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="" class="col-sm-2 control-label">备注</label>
+					<div class="col-sm-10">
+						<textarea name="memo" class="form-control" placeholder="备注" rows="5" maxlength="200"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer layout:fragment="footer">
+		<!-- Modal 详情-->
+		<div class="modal fade" id="mdl_import" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">号卡导入</h4>
+					</div>
+					<div class="modal-body" style="overflow: auto;">
+						<form id="frm_import" class="form-horizontal" enctype="multipart/form-data"  method="post">  
+							<div>
+								<input id="file" name="file" type="file"  class="form-control"/><br/>
+								<a th:href="@{/demo/getImportTemplate}">模板下载</a>
+							</div>			
+						</form>
+					</div>
+					<!-- Loading (remove the following to stop the loading)-->
+					<!-- end loading -->
+					<div class="modal-footer">
+						<button id="btn_save" type="button" class="btn btn-primary" onclick="javascript:subitImportFile();">导入</button>
+						<button id="btn_close" type="button" class="btn btn-default"  data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	
+	<script type="text/javascript" layout:fragment="foot_script">
+		/*<![CDATA[*/
+		var pageSetting = {
+			modelName : '账号',
+			resetPath : '[[@{/demo}]]',
+			buttons : [
+				{'text':'添加', 'class':'btn-success', 'click':'showAddDialog'},
+				{'text':'编辑', 'class':'btn-warning', 'click':'showEditDialog'},
+				{'text':'导入', 'class':'btn-info', 'click':'showImportDialog'},
+				{'text':'大数据导出', 'class':'btn-info', 'click':'exportQuery'},
+				{'text':'模板导出', 'class':'btn-info', 'click':'export4Template'},
+				{'text':'刷新', 'class':'btn-default', 'click':'refresh'}
+			]
+		};
+		
+		$(function(){
+			$('#tbl_query').e7table({
+				url : '[[@{/demo/query}]]',
+				pageSize: 10,
+				autoLoading: true,			//控件初始化后，自动远程请求数据
+				selectType: 'single',
+				sortName: 'createTime',		//排序列名
+				sortOrder: 'desc',			//排序方向
+				columns : [
+					{title: '用户名称', field: 'username', sortable: true},
+					{title: '真实姓名', field: 'chineseName', sortable: true},
+					{title: '性别', field: 'sex', formatter: function(value, row, index) {
+						if(value == 'W') return '女';
+						if(value == 'M') return '男';
+					}},
+					{title: '手机号码', field: 'mobile'},
+					{title: '邮箱地址', field: 'email', align:'left'},
+					{title: '账号状态', field: 'locked', formatter: function(value, row, index) {
+						if(value) {
+							return '<code>锁定</code>';
+						} else {
+							return '<code class="text-success bg-success">正常</code>';
+						}
+					}},
+					{title: '创建日期', field: 'createTime', formatter: function(value, row, index) {
+						return new Date(value).format();
+					}}
+				],
+				onDblclick : function(index, row) {
+					showEditDialog();
+				}
+			});
+			
+			validatorInit();
+		});
+		
+		/***
+		 * 表单验证
+		 */
+		function validatorInit() {
+			 $('#frm_detail').bootstrapValidator({
+			    feedbackIcons: {
+			        valid: 'glyphicon glyphicon-ok',
+			        invalid: 'glyphicon glyphicon-remove',
+			        validating: 'glyphicon glyphicon-refresh'
+			    },
+			    fields: {	  	 
+			    	username : {
+						validators : {
+							notEmpty : {message : '用户名不能为空'},
+							stringLength : {min : 3, max : 20, message : '用户名长度必须在3-20之间' }
+						}
+					},
+					chineseName : {
+						validators : {
+							notEmpty : {message : '真实姓名不能为空'},
+							stringLength : {min : 2, max : 20, message : '真实姓名必须在2-20之间' }
+						}
+					},
+					mobile : {
+						validators : {
+							notEmpty : {message : '手机号码不能为空'},
+							regexp : {regexp : /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/, message : '手机号码格式不正确' },
+						}
+					},
+					email : {
+						validators : {
+							emailAddress : {message : '邮箱地址格式不正确'}
+						}
+					}
+				}
+			});
+		
+			$('#btn_save').click(function() {
+				$('#frm_detail').bootstrapValidator('validate');
+			});
+		}	
+		
+		function showImportDialog() {
+			E7.resetForm('#frm_import');
+			$('#mdl_import').modal('show');
+		}
+		
+		function subitImportFile(){
+			var formData = new FormData();
+			formData.append("file", document.getElementById("file").files[0]);   
+			E7.postMultipart('/demo/importData', formData, function(result){
+				$('#mdl_import').modal('hide');
+				bootbox.alert({'title':'消息', 'message': '导入成功！'});
+			});
+		}
+		
+		function export4Template() {
+			var ifrm = $('#ifr_export');
+			if(ifrm.length == 0) {
+				ifrm = $('<iframe id="ifr_export" style="display:none;height:0px,width:0px></iframe>');
+				$('body').append(ifrm);
+				$('#frm_query').attr('action', pageSetting.resetPath + '/export4Template');
+				$('#frm_query').attr('target', 'ifr_export');
+			}
+			$('#frm_query').submit();
+		}
+		
+		/*]]>*/
+	</script>
+</body>
+</html>
