@@ -1022,12 +1022,15 @@ body {
 								<table id="boot-table-spgDetail"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
 									<thead>
 									<tr bgcolor="#337AB7">
+										<th style="border-bottom: none;" data-field="id">序号</th>
+
 										<th style="border-bottom: none;" data-field="pdNm">品名</th>
 										<th style="border-bottom: none;" data-field="spec">规格</th>
 										<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
 										<th style="border-bottom: none;" data-field="brnd">品牌</th>
 										<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
 										<th style="border-bottom: none;" data-field="num">数量</th>
+										<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th>
 
 									</tr>
 									</thead>
@@ -1159,7 +1162,13 @@ body {
 					</div>
 				</div>
 				<div class="modal-footer" style="text-align:center;">
-					<a class="btn btn-primary-red"  type="button"  id="add" onclick=addSpgDetail()><i class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>
+
+					<a class="btn btn-primary-red"  type="button"  id="btn_add_order_detail" onclick=addOrderDetail()><i class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>
+					<a class="btn btn-primary-red"  type="button"  id="btn_modify_order_detail" onclick=addOrderDetail()><i class="glyphicon glyphicon-edit"></i>&nbsp更新</a>
+					<button type="button" class="btn btn-primary-gray"
+							data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>
 				</div>
 			</div>
 		</div>
@@ -1570,17 +1579,37 @@ body {
         /***
          * 添加订单明细到页面表格
          */
-        function addSpgDetail() {
+        function addOrderDetail() {
+
+            var count = 0;
+            var preIds = $('#id').val();
+            if("" == preIds || undefined == preIds || null == preIds){
+                var all = $('#boot-table').bootstrapTable('getData');
+                for(var i=0;i<all.length;i++){
+                    if(parseInt(all[i]["id"])>count)
+                        count=all[i]["id"];
+                }
+                count=parseInt(count)+1;
+            } else {
+                // 删除旧的数据行
+                var id = [];//定义一个数组
+                id.push(parseInt(preIds));
+                $('#boot-table-spgDetail').bootstrapTable('remove', { field: 'id', values: id});
+                // 修改后的数据序号不变
+                count = preIds;
+            }
 
 
             var rows=[];
             rows.push({
+                id:count,
                 pdNm:$('#pdNm').val(),
                 spec:$('#spec').val(),
                 qlyStd:$('#qlyStd').val(),
                 brnd:$('#brnd').val(),
                 pdFctr:$('#pdFctr').val(),
                 num:$('#num').val(),
+                operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',
 
 
             })
@@ -1591,7 +1620,43 @@ body {
         }
 
 
-		function getArSubmmitDetail(id, arId, aplyPcstpCd) {
+        function modifyTr(input) {
+            $('#pdNm').val($(input).parent().parent().find('td').eq(1).text());
+            $('#spec').val($(input).parent().parent().find('td').eq(2).text());
+            $('#modl').val($(input).parent().parent().find('td').eq(3).text());
+            $('#qlyStd').val($(input).parent().parent().find('td').eq(4).text());
+            $('#pdFctr').val($(input).parent().parent().find('td').eq(5).text());
+            $('#msunit').val($(input).parent().parent().find('td').eq(6).text());
+            $('#pchUnitprc').val($(input).parent().parent().find('td').eq(7).text());
+            $('#txnPrcdif').val($(input).parent().parent().find('td').eq(8).text());
+            $('#saleTntvPrc').val($(input).parent().parent().find('td').eq(9).text());
+            // 按钮控制
+            $('#btn_modify_order_detail').show();
+            $('#btn_add_order_detail').hide();
+            $('#spgDetailModal').modal('show');
+        }
+
+        function deleteItem4(input) {
+            var id = $(input).parent().parent().find('td').eq(0).text();
+            var ids = [];//定义一个数组
+            ids.push(parseInt(id));
+            $('#boot-table-spgDetail').bootstrapTable('remove', { field: 'id', values: ids});
+        }
+
+        function delOrderTr(obj){
+            //询问框
+            layer.confirm('请确认是否要删除？', {
+                title: ['提示'],btn: ['确定','取消'] //按钮
+            }, function(){
+                all='';
+                $(obj).parent().remove();
+                layer.closeAll();
+            }, function(){
+            });
+        }
+
+
+        function getArSubmmitDetail(id, arId, aplyPcstpCd) {
 			// 带过来的环节编号
 			E7
 					.post(
