@@ -19,7 +19,12 @@
 <link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}" />
 <link rel="stylesheet"
 	th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}" />
+
 <link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
+	
+	
 <link rel="stylesheet"
 	th:href="@{/resources/plugins/ligerUI/ligerui-tree.css}" />
 <link rel="stylesheet"
@@ -40,7 +45,85 @@
 <body style="background: white; overflow-y: auto;">
 	<div class="panel" style="margin-bottom: 70px;">
 		<div class="panel-default panel-body">
+		<div class="col-md-3">
 			<ul id="treeDiv"></ul>
+			</div>
+			<div class="col-md-9">
+				<!-- 列表查询 start-->
+	<section id="main_search_detail" class="content">
+		<!-- 条件查询 -->
+		<div class="box box-info">
+			<!-- 条件区域 -->
+			<div class="box-body" style="padding-bottom: 0px;">
+				<form id="frm_query" class="form-horizontal">
+					<div id="div_criteria" class="flowlayout">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">品名：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										value="4"> <input id="arId" name="arId"
+										class="form-control" placeholder="品名" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">俗名：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										value="4"> <input id="arId" name="arId"
+										class="form-control" placeholder="俗名" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">学名：</label>
+								<div class="col-sm-8">
+									<input type="hidden" id="queryTypeId" name="queryType"
+										value="4"> <input id="arId" name="arId"
+										class="form-control" placeholder="学名" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">类型：</label>
+								<div class="col-sm-8">
+									<select name="fncEntp" class="form-control">
+										<option value="">请选择</option>
+										<option th:each="model: ${splchainCoModels}"
+											th:value="${model.id}" th:text="${model.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
+
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer"></div>
+		</div>
+
+		<!-- 信息列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-info">
+					<div class="box-body table-responsive no-padding">
+						<table id="tbl_query" class="table table-hover"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+			</div>
 		</div>
 	</div>
 
@@ -168,8 +251,7 @@
 										</div>
 									</div>
 								</div>
-							</div>	
-							
+							</div>								
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="" class="col-sm-3 control-label">计量单位</label>
@@ -212,7 +294,6 @@
 											</div>
 										</div>
 									</div>
-
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="" class="col-sm-3 control-label">生产厂家</label>
@@ -223,10 +304,7 @@
 										</div>
 									</div>
 								</div>
-
 							</div>
-
-
 						</fieldset>
 					</form>
 				</div>
@@ -254,8 +332,30 @@
 	<script th:src="@{/resources/plugins/ligerUI/base.js}"></script>
 	<script th:src="@{/resources/plugins/ligerUI/ligerTree.js}"></script>
 	<script th:src="@{/resources/plugins/ligerUI/ligerMenu.js}"></script>
+		<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
 
 	<script type="text/javascript">
+	
+	function buttonInit() {
+			$("#div_buttons")
+					.append(
+							'<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>');
+			$("#div_buttons")
+					.append(
+							'<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>');
+	}
+	
+	/***
+	 * 查询
+	 */
+	function query_ar_list() {
+//		showOrHideDetail(true, 1);
+		$('#tbl_query').e7table('query', '#frm_query');
+
+	}	
+	
 		/*<![CDATA[*/
 		$(function() {
 			tree = $("#treeDiv").ligerTree({
@@ -280,8 +380,132 @@
 
 			validatorInit();
 
+			e7tableInit();
+			buttonInit();
 		});
 
+		/***
+		 * e7table表格控件初始化
+		 */
+		function e7tableInit() {
+			alert("333");
+			$('#tbl_query')
+					.e7table(
+							{
+								url : '[[@{/arManagement/queryPage_adt}]]',
+								pageSize : 10,
+								autoLoading : true, //控件初始化后，自动远程请求数据
+								selectType : 'single',
+								sortName : 'crtTm', //排序列名,创建时间
+						 		striped: false, //奇偶行不同背景 
+								pagination: true,
+								rownumbers: false,		//如果为true，则显示一个行号列
+								sortOrder : 'desc', //排序方向
+								columns : [
+									{
+										title : '长约编号',
+										field : 'arId',
+										sortable : true,
+										formatter : function(value, row,
+												index) {
+											var s = value;
+											if(("07"==row.aplyPcstpCd) || ("99"==row.aplyPcstpCd))
+												s = '<a onclick=getOrderListByArId("'+ value +'") ><code class="text-success bg-success">'+ value+'</code></a>&nbsp;'; 														
+											return s;
+										}
+									},
+										{
+											title : '供应链',
+											field : 'splchainCoName',
+											sortable : true
+										},
+										{
+											title : '融资企业',
+											field : 'fncEntpName',
+											sortable : true
+										},
+										{
+											title : '供应商',
+											field : 'ustrmSplrName',
+											sortable : true
+										},
+							/* 			{
+											title : '仓储公司',
+											field : 'stgcoName',
+											sortable : true
+										},
+										{
+											title : '业务类型',
+											field : 'btp',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													return "订单融资";
+												} else if (value == '02') {
+													return "保证金融资";
+												} else if (value == '03') {
+													return "质押融资";
+												} else
+													return value;
+											}
+										}, */
+										{
+											title : '发起时间',
+											field : 'crtTm',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												return transDateTime(value);
+											}
+										},
+										{
+											title : '环节',
+											field : 'aplyPcstpCd',
+											sortable : true,
+											formatter : function(value, row,
+													index) {
+												return transAplyPcstpCd(value);
+											}
+										},
+										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
+										 return new Date(value).format();
+										 }}, */
+										{
+											title : '操作',
+											field : 'aplyPcstpCd',
+											formatter : function(value, row,
+													index) {
+												if (value == '01') {
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>发起</button>&nbsp;';
+													return s;
+												}  else if (value == '02') {
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+													return s;
+												}  else if (value == '03') {
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>确认</button>&nbsp;';
+													return s;
+												} else if (value == '04') {
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>承保</button>&nbsp;';
+													return s;
+												} else if (value == '05') {
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>一审</button>&nbsp;';
+													return s;
+												} else if (value == '06') {
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>二审</button>&nbsp;';
+													return s;
+												} else if (value == '07') {
+													var s = '<button class="btn-success btn_small" onclick=showViewSubmitAr('+ row.id + ',"' + value +'")>终止</button>&nbsp;';
+													return s; 
+												} 
+											}
+										} ],
+								onDblclick : function(index, row) {
+									showArDetailDialog();
+								}
+							});
+		}	
+		
 		function save() {
 			$('#frm_detail').bootstrapValidator('validate');
 

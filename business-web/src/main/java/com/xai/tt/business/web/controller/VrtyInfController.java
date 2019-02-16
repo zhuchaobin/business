@@ -72,9 +72,9 @@ public class VrtyInfController extends BaseController {
 		}
     	Vrty root = new Vrty();
 		root.setId(0);
-		root.setName("品种管理");
+		root.setName("所有");
 		root.setLevel(0);
-		root.setIcon("fa-tasks");
+		root.setIcon("fa-cubes");
 		root.setFolder(true);
 		
     	menuList.add(root);
