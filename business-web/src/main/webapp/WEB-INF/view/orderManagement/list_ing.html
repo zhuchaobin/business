@@ -1016,6 +1016,9 @@ body {
 								<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"  onclick="showOrderDetailModal()"  style="margin-right:15px;">
 									<i class="glyphicon glyphicon-th"></i>发货明细
 								</button>
+
+								<button id="btn_import_excel" type="button" class="btn btn-primary" onclick="javascript:showImportDialog();">excel导入</button>
+
 							</div>
 
 							<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;" id="boot_table_div_spg">
@@ -1185,6 +1188,34 @@ body {
 		</div>
 	</div>
 
+	<!-- Modal 详情-->
+	<div class="modal fade" id="mdl_import" tabindex="-1" role="dialog"
+		 aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">发货明细导入</h4>
+				</div>
+				<div class="modal-body" style="overflow: auto;">
+					<form id="frm_import" class="form-horizontal" enctype="multipart/form-data"  method="post">
+						<div>
+							<input id="file" name="file" type="file"  class="form-control"/><br/>
+							<a th:href="@{/spgManagement/getImportTemplate}">模板下载</a>
+						</div>
+					</form>
+				</div>
+				<!-- Loading (remove the following to stop the loading)-->
+				<!-- end loading -->
+				<div class="modal-footer">
+					<button id="btn_save" type="button" class="btn btn-primary" onclick="javascript:subitImportFile();">导入</button>
+					<button id="btn_close" type="button" class="btn btn-default"  data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- 审核提交界面的返回按钮 start-->
 <div id="submmit_btn_close_div" style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; display: none; opacity:0.65">
@@ -1248,6 +1279,28 @@ body {
 			CKEDITOR.replace("editor1")
 
 		});
+
+        function showImportDialog() {
+            E7.resetForm('#frm_import');
+            $('#mdl_import').modal('show');
+        }
+
+
+        function subitImportFile(){
+            var formData = new FormData();
+            formData.append("file", document.getElementById("file").files[0]);
+            E7.postMultipart('/spgManagement/importData', formData, function(result){
+                $('#mdl_import').modal('hide');
+                bootbox.alert({'title':'消息', 'message': '导入成功！'+result});
+
+                let data = result.data;
+
+                for (let i = 0; i <data.length ; i++) {
+                    addOrderDetail();
+                }
+
+            });
+        }
 
 		/***
 		 * e7table表格控件初始化

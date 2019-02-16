@@ -9,9 +9,12 @@ import com.tianan.common.api.bean.Result;
 import com.tianan.common.api.mybatis.PageParam;
 import com.tianan.common.api.support.SecurityContext;
 import com.tianan.common.core.support.OssET;
+import com.tianan.common.core.support.poi.ExcelColumn;
+import com.tianan.common.core.support.poi.PoiET;
 import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
+import com.xai.tt.business.client.entity.Demo;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T7SpgDetail;
@@ -31,9 +34,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
 
@@ -808,6 +810,62 @@ public class SpgManagementController extends BaseController {
         mav.addObject("stgcoModels", result.getData().getList());    
     	mav.addObject("userType", "Group");
         return mav;
-    } 
+    }
+
+
+	@RequestMapping("/getImportTemplate")
+	@ResponseBody
+	public void getImportTemplate(HttpServletResponse response) {
+		try(
+				InputStream in = this.getClass().getResourceAsStream("/template/spgDetail.xlsx");
+				OutputStream out = response.getOutputStream();) {
+
+			// 设置response的Header
+			response.addHeader("Content-Disposition", "attachment;filename=spgDetail.xlsx");
+			// 以流的形式下载文件。
+			response.setContentType("application/octet-stream");
+
+			byte[] buffer = new byte[1024];
+			int count = 0;
+			while ((count = in.read(buffer)) != -1) {
+				out.write(buffer, 0, count);
+			}
+
+			out.close();
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
+
+	@RequestMapping("/importData")
+	@ResponseBody
+	public Result<?> importData(MultipartFile file, Boolean ajax) throws IOException {
+		logger.info("importData");
+		if(file == null) {
+			return Result.createFailResult("请选择导入文件！");
+		}
+
+		List<ExcelColumn> columns = new ArrayList<>();
+		columns.add(new ExcelColumn("username", 0));
+		columns.add(new ExcelColumn("chineseName", 1));
+		columns.add(new ExcelColumn("sex", 2));
+		columns.add(new ExcelColumn("mobile", 3));
+
+		List<Demo> list = PoiET.import2class(file.getInputStream(), columns, Demo.class);
+
+
+		System.out.println(list);
+//
+//    	//TODO:校验
+//    	demoManager.saveBatch(list);
+
+		return Result.createSuccessResult(list);
+	}
+
+
        
 }
