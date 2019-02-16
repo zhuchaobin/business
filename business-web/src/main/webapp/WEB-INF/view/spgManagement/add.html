@@ -377,12 +377,33 @@ body {
 								</div>
 								<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; " id="boot_table_spgDetail_div">
 
-									<div id="toolbar">
-										<button id="insert-new-spgDetail" class="btn btn-default">新增</button>
-										<button id="delete-row-spgDetail" class="btn btn-default">删除</button>
-									</div>
+									<!--<div id="toolbar">-->
+										<!--<button id="insert-new-spgDetail" class="btn btn-default">新增</button>-->
+										<!--<button id="delete-row-spgDetail" class="btn btn-default">删除</button>-->
+									<!--</div>-->
 
 									<table id="boot-table-spgDetail"></table>
+
+
+									<table id="boot-table" align="center" data-toggle="table"
+										   class="table table-hover" name="area"
+										   style="table-layout: fixed">
+										<thead>
+										<tr bgcolor="#337AB7">
+											<th style="border-bottom: none;" data-field="id">序号</th>
+											<th style="border-bottom: none;" data-field="pdNm">品名</th>
+											<th style="border-bottom: none;" data-field="spec">型号</th>
+											<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+											<th style="border-bottom: none;" data-field="brnd">品牌</th>
+											<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+											<th style="border-bottom: none;" data-field="num">数量</th>
+											<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th>
+										</tr>
+										</thead>
+										<!-- <tbody class="list">
+									</tbody> -->
+									</table>
+
 
 								</div>
 							</div>
@@ -788,7 +809,7 @@ body {
 
 
             //可编辑表格
-            bootTableSpgDetailInit();
+            // bootTableSpgDetailInit();
 
             //e7table表格控件初始化
             //		showAddDialog();
@@ -806,167 +827,221 @@ body {
         /***
          * 可编辑表格控件初始化
          */
-        function bootTableSpgDetailInit() {
-
-            $('#boot-table-spgDetail').bootstrapTable({
-                toolbar: '#toolbar',
-                clickEdit: true,
-                showToggle: true,
-                pagination: true,       //显示分页条
-                showColumns: true,
-                showPaginationSwitch: true,     //显示切换分页按钮
-                showRefresh: true,      //显示刷新按钮
-                //clickToSelect: true,  //点击row选中radio或CheckBox
-                columns: [{
-                    checkbox: true
-                }, 	{
-                    field: 'rid',
-                    title: '序号'
-                }, {
-                    field: 'pdNm',
-                    title: '品名'
-                }, {
-                    field: 'spec',
-                    title: '规格'
-                }, {
-                    field: 'qlyStd',
-                    title: '质量标准'
-                }, {
-                    field: 'brnd',
-                    title: '品牌'
-                }, {
-                    field: 'pdFctr',
-                    title: '生产厂家'
-                }, {
-                    field: 'num',
-                    title: '数量'
-                }
-                      
-                ], 
-         
-                /**
-                 * @param {点击列的 field 名称} field
-                 * @param {点击列的 value 值} value
-                 * @param {点击列的整行数据} row
-                 * @param {td 元素} $element
-                 */
-                   onClickCell: function(field, value, row, $element) {
-                	  var isInput = true;
-                	  var td=$element;
-                	  td.attr("onclick", ""); 
-                	  //1,取出当前td中的文本内容保存起来 
-                	  var text=td.text(); 
-                	  //2,清空td里面的内容 
-                	  td.html(""); //也可以用td.empty(); 
-                	  //3，建立一个文本框 或者选择控件，也就是input的元素节点 
-                	  var input;
-                	  // 如果是文本输入框
-                	  if(isInput){
-                		  input=$('<input>'); 
-                		  //4，设置文本框的值是保存起来的文本内容 
-                    	  input.attr("value",text); 
-                       	  input.bind("blur",function(){ 
-                    	    var inputnode=$(this); 
-                    	    var inputtext=inputnode.val(); 
-                    	    var tdNode=inputnode.parent(); 
-                    	    tdNode.html(inputtext); 
-//               	    	tdNode.click(tdclick); 
-//                    	    td.attr("onclick", "onClickCell(this)"); 
-                    	  });
-                	  } else {
-	                	  var test = document.getElementById('gongyingshang').innerHTML;
-	               	  	  var input=$(test);                	  
-	                  	  input.bind("change",function(){ 
-	                	    var inputnode=$(this); 
-	                	    var inputtext=inputnode.val(); 
-	                	    var tdNode=inputnode.parent(); 
-	                	    tdNode.html(inputtext); 
-	 //               	    tdNode.click(tdclick); 
-	//                	    td.attr("onclick", "onClickCell(this)"); 
-	                	  }); 
-                	  }
-                	 
-                	  //5，将文本框加入到td中 
-                	  td.append(input); 
-                 	  var t =input.val(); 
-                	  input.val("").focus().val(t); 
-                	  input.focus();                 	 
-                	  //6,清除点击事件 
-                	  td.unbind("click"); 
-              	  
-                //	  $("#test").children(); 
-   //             	var b =$element.children();
-   //             		$element.removeChild(b[i]);
-                	
-//                    $element.getElementsByTagName("p").attr('contenteditable', true);
-						alert("111");
-						alert($element.children('input').val());
-						
-/*                       $element.blur(function() {
-                        let index = $element.parent().data('index');
-                        let tdValue = $element.html();
-                        alert("dddd");
-                        alert($element.firstChild.nodeName);
-                  //      $element.removeChild();
-                        
-                        saveBootTableData(index, field, tdValue);
-                    })   */
-                }  
-            });
-
-             $('#insert-new-spgDetail').click(function() {
-            	 
-
-                 
-                  var row = {
-                    "rid" : '1',
-                    "pdNm" : '2',
-                    "spec" : '33',
-                    "qlyStd" : '44',
-                    "brnd" : '55',
-                    "pdFctr" : '1',
-                    "num" : '1',
-
-                }
-
-                $('#boot-table-spgDetail').bootstrapTable('prepend', row); 
-
-
-            });
-
-
-            $('#delete-row-spgDetail').click(function() {
-
-
-                var row= $('#boot-table-spgDetail').bootstrapTable('getSelections');
-
-
-                var ids = [];//定义一个数组
-                for (let i = 0; i < row.length; i++) {
-                    ids.push(row[i].rid);//将要删除的id存入数组
-
-                }
-
-
-                $('#boot-table-spgDetail').bootstrapTable('remove', { field: 'rid', values: ids});
-
-            });
-       }
+//         function bootTableSpgDetailInit() {
+//
+//             $('#boot-table-spgDetail').bootstrapTable({
+//                 toolbar: '#toolbar',
+//                 clickEdit: true,
+//                 showToggle: true,
+//                 pagination: true,       //显示分页条
+//                 showColumns: true,
+//                 showPaginationSwitch: true,     //显示切换分页按钮
+//                 showRefresh: true,      //显示刷新按钮
+//                 //clickToSelect: true,  //点击row选中radio或CheckBox
+//                 columns: [{
+//                     checkbox: true
+//                 }, 	{
+//                     field: 'rid',
+//                     title: '序号'
+//                 }, {
+//                     field: 'pdNm',
+//                     title: '品名'
+//                 }, {
+//                     field: 'spec',
+//                     title: '规格'
+//                 }, {
+//                     field: 'qlyStd',
+//                     title: '质量标准'
+//                 }, {
+//                     field: 'brnd',
+//                     title: '品牌'
+//                 }, {
+//                     field: 'pdFctr',
+//                     title: '生产厂家'
+//                 }, {
+//                     field: 'num',
+//                     title: '数量'
+//                 }
+//
+//                 ],
+//
+//                 /**
+//                  * @param {点击列的 field 名称} field
+//                  * @param {点击列的 value 值} value
+//                  * @param {点击列的整行数据} row
+//                  * @param {td 元素} $element
+//                  */
+//                    onClickCell: function(field, value, row, $element) {
+//                 	  var isInput = true;
+//                 	  var td=$element;
+//                 	  td.attr("onclick", "");
+//                 	  //1,取出当前td中的文本内容保存起来
+//                 	  var text=td.text();
+//                 	  //2,清空td里面的内容
+//                 	  td.html(""); //也可以用td.empty();
+//                 	  //3，建立一个文本框 或者选择控件，也就是input的元素节点
+//                 	  var input;
+//                 	  // 如果是文本输入框
+//                 	  if(isInput){
+//                 		  input=$('<input>');
+//                 		  //4，设置文本框的值是保存起来的文本内容
+//                     	  input.attr("value",text);
+//                        	  input.bind("blur",function(){
+//                     	    var inputnode=$(this);
+//                     	    var inputtext=inputnode.val();
+//                     	    var tdNode=inputnode.parent();
+//                     	    tdNode.html(inputtext);
+// //               	    	tdNode.click(tdclick);
+// //                    	    td.attr("onclick", "onClickCell(this)");
+//                     	  });
+//                 	  } else {
+// 	                	  var test = document.getElementById('gongyingshang').innerHTML;
+// 	               	  	  var input=$(test);
+// 	                  	  input.bind("change",function(){
+// 	                	    var inputnode=$(this);
+// 	                	    var inputtext=inputnode.val();
+// 	                	    var tdNode=inputnode.parent();
+// 	                	    tdNode.html(inputtext);
+// 	 //               	    tdNode.click(tdclick);
+// 	//                	    td.attr("onclick", "onClickCell(this)");
+// 	                	  });
+//                 	  }
+//
+//                 	  //5，将文本框加入到td中
+//                 	  td.append(input);
+//                  	  var t =input.val();
+//                 	  input.val("").focus().val(t);
+//                 	  input.focus();
+//                 	  //6,清除点击事件
+//                 	  td.unbind("click");
+//
+//                 //	  $("#test").children();
+//    //             	var b =$element.children();
+//    //             		$element.removeChild(b[i]);
+//
+// //                    $element.getElementsByTagName("p").attr('contenteditable', true);
+// 						alert("111");
+// 						alert($element.children('input').val());
+//
+// /*                       $element.blur(function() {
+//                         let index = $element.parent().data('index');
+//                         let tdValue = $element.html();
+//                         alert("dddd");
+//                         alert($element.firstChild.nodeName);
+//                   //      $element.removeChild();
+//
+//                         saveBootTableData(index, field, tdValue);
+//                     })   */
+//                 }
+//             });
+//
+//              $('#insert-new-spgDetail').click(function() {
+//
+//
+//
+//                   var row = {
+//                     "rid" : '1',
+//                     "pdNm" : '2',
+//                     "spec" : '33',
+//                     "qlyStd" : '44',
+//                     "brnd" : '55',
+//                     "pdFctr" : '1',
+//                     "num" : '1',
+//
+//                 }
+//
+//                 $('#boot-table-spgDetail').bootstrapTable('prepend', row);
+//
+//
+//             });
+//
+//
+//             $('#delete-row-spgDetail').click(function() {
+//
+//
+//                 var row= $('#boot-table-spgDetail').bootstrapTable('getSelections');
+//
+//
+//                 var ids = [];//定义一个数组
+//                 for (let i = 0; i < row.length; i++) {
+//                     ids.push(row[i].rid);//将要删除的id存入数组
+//
+//                 }
+//
+//
+//                 $('#boot-table-spgDetail').bootstrapTable('remove', { field: 'rid', values: ids});
+//
+//             });
+//        }
         
-        function saveBootTableData(index, field, value) {
-        	alert(index);
-        	alert(field);
-        	alert(value);
+        // function saveBootTableData(index, field, value) {
+        // 	alert(index);
+        // 	alert(field);
+        // 	alert(value);
+		//
+        //     $('#boot-table-spgDetail').bootstrapTable('updateCell', {
+        //         index: index,       //行索引
+        //         field: field,       //列名
+        //         value: value        //cell值
+        //     })
+        // }
 
-            $('#boot-table-spgDetail').bootstrapTable('updateCell', {
-                index: index,       //行索引
-                field: field,       //列名
-                value: value        //cell值
-            })
+
+// 新增行
+        function showOrderDetailModal() {
+            $('#ids').val("");
+            $('#pdNm').val("");
+            $('#spec').val("");
+            $('#modl').val("");
+            $('#qlyStd').val("");
+            $('#pdFctr').val("");
+            $('#msunit').val("");
+            $('#pchUnitprc').val("");
+            $('#txnPrcdif').val("");
+            $('#saleTntvPrc').val("");
+            $('#num').val("");
+            $('#brnd').val("");
+            // 按钮控制
+            $('#btn_modify_order_detail').hide();
+            $('#btn_add_order_detail').show();
+            $('#orderDetailModal').modal('show');
+        }
+        // 修改行
+        function modifyTr(input) {
+            $('#ids').val($(input).parent().parent().find('td').eq(0).text());
+            $('#pdNm').val($(input).parent().parent().find('td').eq(1).text());
+            $('#spec').val($(input).parent().parent().find('td').eq(2).text());
+            $('#modl').val($(input).parent().parent().find('td').eq(3).text());
+            $('#qlyStd').val($(input).parent().parent().find('td').eq(4).text());
+            $('#pdFctr').val($(input).parent().parent().find('td').eq(5).text());
+            $('#msunit').val($(input).parent().parent().find('td').eq(6).text());
+            $('#pchUnitprc').val($(input).parent().parent().find('td').eq(7).text());
+            $('#txnPrcdif').val($(input).parent().parent().find('td').eq(8).text());
+            $('#saleTntvPrc').val($(input).parent().parent().find('td').eq(9).text());
+            // 按钮控制
+            $('#btn_modify_order_detail').show();
+            $('#btn_add_order_detail').hide();
+            $('#orderDetailModal').modal('show');
         }
 
+        function deleteItem4(input) {
+            var id = $(input).parent().parent().find('td').eq(0).text();
+            var ids = [];//定义一个数组
+            ids.push(parseInt(id));
+            $('#boot-table').bootstrapTable('remove', { field: 'ids', values: ids});
+        }
 
-
+        function delOrderTr(obj){
+            //询问框
+            layer.confirm('请确认是否要删除？', {
+                title: ['提示'],btn: ['确定','取消'] //按钮
+            }, function(){
+                all='';
+                $(obj).parent().remove();
+                layer.closeAll();
+            }, function(){
+            });
+        }
 
 	/* 日期选择控件-发货开始日期 */
 	$('#spgStdtDTPicker').datetimepicker({
@@ -1762,7 +1837,7 @@ body {
 
 
             // 取订单明细表格的数据
-            var all = $('#boot-table-spgDetail').bootstrapTable('getData');
+            var all = $('#boot-table').bootstrapTable('getData');
 
 
 			var formParams = E7.serialForm('#frm_detail');
@@ -1845,6 +1920,7 @@ body {
                                         brnd: t7SpgDetailList[jj].brnd,
                                         pdFctr: t7SpgDetailList[jj].pdFctr,
                                         num: t7SpgDetailList[jj].num,
+										operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',
 
                                     })
 
