@@ -388,7 +388,6 @@
 		 * e7table表格控件初始化
 		 */
 		function e7tableInit() {
-			alert("333");
 			$('#tbl_query')
 					.e7table(
 							{
@@ -403,7 +402,7 @@
 								sortOrder : 'desc', //排序方向
 								columns : [
 									{
-										title : '长约编号',
+										title : '品名',
 										field : 'arId',
 										sortable : true,
 										formatter : function(value, row,
@@ -415,17 +414,17 @@
 										}
 									},
 										{
-											title : '供应链',
+											title : '俗名',
 											field : 'splchainCoName',
 											sortable : true
 										},
 										{
-											title : '融资企业',
+											title : '学名',
 											field : 'fncEntpName',
 											sortable : true
 										},
 										{
-											title : '供应商',
+											title : '是否启用',
 											field : 'ustrmSplrName',
 											sortable : true
 										},
@@ -451,7 +450,7 @@
 											}
 										}, */
 										{
-											title : '发起时间',
+											title : '更新时间',
 											field : 'crtTm',
 											sortable : true,
 											formatter : function(value, row,
@@ -460,18 +459,18 @@
 											}
 										},
 										{
-											title : '环节',
+											title : '修改人',
 											field : 'aplyPcstpCd',
 											sortable : true,
 											formatter : function(value, row,
 													index) {
 												return transAplyPcstpCd(value);
 											}
-										},
+										}/* , */
 										/* 				{title: '更新时间', field: 'crtTm', formatter: function(value, row, index) {
 										 return new Date(value).format();
 										 }}, */
-										{
+										/* {
 											title : '操作',
 											field : 'aplyPcstpCd',
 											formatter : function(value, row,
@@ -499,7 +498,7 @@
 													return s; 
 												} 
 											}
-										} ],
+										}  */],
 								onDblclick : function(index, row) {
 									showArDetailDialog();
 								}
