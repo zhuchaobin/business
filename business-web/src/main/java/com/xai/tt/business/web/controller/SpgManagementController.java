@@ -850,18 +850,19 @@ public class SpgManagementController extends BaseController {
 		}
 
 		List<ExcelColumn> columns = new ArrayList<>();
-		columns.add(new ExcelColumn("username", 0));
-		columns.add(new ExcelColumn("chineseName", 1));
-		columns.add(new ExcelColumn("sex", 2));
-		columns.add(new ExcelColumn("mobile", 3));
+		columns.add(new ExcelColumn("pdNm", 1));
+		columns.add(new ExcelColumn("spec", 2));
+		columns.add(new ExcelColumn("qlyStd", 3));
+		columns.add(new ExcelColumn("brnd", 4));
+		columns.add(new ExcelColumn("pdFctr", 5));
+		columns.add(new ExcelColumn("num", 6));
 
-		List<Demo> list = PoiET.import2class(file.getInputStream(), columns, Demo.class);
+		List<T7SpgDetail> list = PoiET.import2class(file.getInputStream(), columns, T7SpgDetail.class);
 
 
 		System.out.println(list);
-//
-//    	//TODO:校验
-//    	demoManager.saveBatch(list);
+
+
 
 		return Result.createSuccessResult(list);
 	}

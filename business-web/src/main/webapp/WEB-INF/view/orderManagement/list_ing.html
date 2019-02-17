@@ -1291,16 +1291,56 @@ body {
             formData.append("file", document.getElementById("file").files[0]);
             E7.postMultipart('/spgManagement/importData', formData, function(result){
                 $('#mdl_import').modal('hide');
-                bootbox.alert({'title':'消息', 'message': '导入成功！'+result});
+                bootbox.alert({'title':'消息', 'message': '导入成功！'});
 
                 let data = result.data;
 
-                for (let i = 0; i <data.length ; i++) {
-                    addOrderDetail();
+                var rows = [];
+
+
+                //拿到目前的最大序号
+                var count;
+                var all = $('#boot-table-spgDetail').bootstrapTable('getData');
+                for(var i=0;i<all.length;i++){
+                    if(parseInt(all[i]["ids"])>count)
+                        count=all[i]["ids"];
                 }
+                
+                if (count==undefined) {
+                    count=0;
+				}else{
+                    count=parseInt(count)+1;
+				}
+
+
+
+                //接收服务端数据
+                for (let i = 0; i <data.length ; i++) {
+
+                    rows.push({
+                        ids:count+i,
+                        pdNm:data[i].pdNm,
+                        spec:data[i].spec,
+                        qlyStd:data[i].qlyStd,
+                        brnd:data[i].brnd,
+                        pdFctr:data[i].pdFctr,
+                        num:data[i].num,
+                        operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',
+
+
+                    })
+
+                }
+
+                $('#boot-table-spgDetail').bootstrapTable('append', rows);
+                $("#boot_table_div_spg").fadeIn(800);
 
             });
         }
+
+
+
+
 
 		/***
 		 * e7table表格控件初始化
@@ -1704,17 +1744,18 @@ body {
         }
 
 
+
+
+
+
         function modifyTr(input) {
             $('#ids').val($(input).parent().parent().find('td').eq(0).text());
             $('#pdNm').val($(input).parent().parent().find('td').eq(1).text());
             $('#spec').val($(input).parent().parent().find('td').eq(2).text());
-            $('#modl').val($(input).parent().parent().find('td').eq(3).text());
-            $('#qlyStd').val($(input).parent().parent().find('td').eq(4).text());
+            $('#qlyStd').val($(input).parent().parent().find('td').eq(3).text());
+            $('#brnd').val($(input).parent().parent().find('td').eq(4).text());
             $('#pdFctr').val($(input).parent().parent().find('td').eq(5).text());
-            $('#msunit').val($(input).parent().parent().find('td').eq(6).text());
-            $('#pchUnitprc').val($(input).parent().parent().find('td').eq(7).text());
-            $('#txnPrcdif').val($(input).parent().parent().find('td').eq(8).text());
-            $('#saleTntvPrc').val($(input).parent().parent().find('td').eq(9).text());
+            $('#num').val($(input).parent().parent().find('td').eq(6).text());
             // 按钮控制
             $('#btn_modify_order_detail').show();
             $('#btn_add_order_detail').hide();
