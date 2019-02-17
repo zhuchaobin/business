@@ -2585,7 +2585,18 @@
                                                  index) {
                                 return transPlgSt(value);
                             }
-                        }
+                        },
+
+                        {
+                            title: '接货时间',
+                            field: 'revMnyTm',
+                            sortable: true,
+                            formatter : function(value, row,
+                                                 index) {
+                                return transDateTime(value);
+                            }
+
+                        },
 
                     ],
                     onDblclick: function (index, row) {
@@ -2623,7 +2634,7 @@
         }
         else if (value == '02') {
             return "解押";
-        } 
+        }
         return value;
     }
 

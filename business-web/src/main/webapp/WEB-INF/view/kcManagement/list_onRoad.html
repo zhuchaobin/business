@@ -2619,7 +2619,17 @@ body {
                                                  index) {
                                 return transPlgSt(value);
                             }
-                        }
+                        },
+                        {
+                            title: '发货时间',
+                            field: 'spgTm',
+                            sortable: true,
+                            formatter : function(value, row,
+                                                 index) {
+                                return transDateTime(value);
+                            }
+
+                        },
 
                         ],
                     onDblclick: function (index, row) {
@@ -2630,6 +2640,11 @@ body {
 
     function show_or_hide_ins_div(flag) {
 
+    }
+    // js 一串数字1403149534转换为日期格式
+    function transDateTime(timestamp){
+        var date = new Date(timestamp);    //根据时间戳生成的时间对象
+        return date.format("yyyy-MM-dd hh:mm:ss");
     }
 
 
