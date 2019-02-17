@@ -12,7 +12,7 @@
 	<groupId>com.xai.tt</groupId>
 	<artifactId>business-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>business-web</name>
 
@@ -137,24 +137,51 @@
 
 	</dependencies>
 
+
 	<build>
 		<finalName>business</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
+			<!--<plugin>-->
+			<!--<groupId>org.apache.maven.plugins</groupId>-->
+			<!--<artifactId>maven-war-plugin</artifactId>-->
+			<!--<configuration>-->
+			<!--<webappDirectory>./target/exploded/dc.war</webappDirectory>-->
+			<!--</configuration>-->
+			<!--</plugin>-->
+			<!--<plugin>-->
+			<!--<groupId>org.apache.maven.plugins</groupId>-->
+			<!--<artifactId>maven-surefire-plugin</artifactId>-->
+			<!--<configuration>-->
+			<!--<skipTests>true</skipTests>-->
+			<!--</configuration>-->
+			<!--</plugin>-->
 
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<webappDirectory>./target/exploded/business.war</webappDirectory>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<skipTests>true</skipTests>
+					<maimClass>com.xai.tt.business.App</maimClass>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
+
+
+
 		</plugins>
 	</build>
 </project>
