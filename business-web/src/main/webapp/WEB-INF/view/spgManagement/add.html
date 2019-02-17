@@ -906,6 +906,8 @@ body {
 	<script th:src="@{/resources/js_zcb/tools.js}"></script>
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table.min.js}"></script>
 	<script th:src="@{/resources/bootstrap/js/bootstrap-table-zh-CN.min.js}"></script>
+	<!-- 弹出层 -->
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 	<script type="text/javascript">
 
 
@@ -2088,7 +2090,11 @@ body {
 		
 		function buttonInit() {
 			if ('[[${userType}]]' == 'Group') {
-				
+
+                $("#div_buttons")
+                    .append(
+                        '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:addNewOrderLayer();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i>发起</button>');
+
 				 
 				$("#div_buttons")
 						.append('<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-edit"></i>修改</button>');
@@ -2110,6 +2116,22 @@ body {
 						.append('<button class="btn btn-primary pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;">查询</button>');
 			}
 		}
+
+
+        function addNewOrderLayer(){
+            //iframe窗
+            layer.open({
+                type: 2,
+                title: '发货发起',
+                shadeClose: true,
+                shade: true,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['1024px', '600px'],
+                content: '/spgManagement/list_adt'
+            });
+        }
+
+
 		/***
 		 * e7table表格控件初始化
 		 */
