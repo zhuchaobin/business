@@ -27,7 +27,7 @@ public class DataAuthorizedAOP {
 
 	@Around("serviceMethodPointcut()") 
 	public Object Interceptor(ProceedingJoinPoint pjp) throws Throwable {
-		if(pjp.getTarget().getClass().getName().startsWith("com.tianan.kltsp.admin")) {
+		if(pjp.getTarget().getClass().getName().startsWith("com.xai.tt.business")) {
 			return pjp.proceed();
 		}
 		

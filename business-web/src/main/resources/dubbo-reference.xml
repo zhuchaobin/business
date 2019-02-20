@@ -15,7 +15,6 @@
    <dubbo:reference interface="com.xai.tt.dc.client.inter.UserInfoService" id="userInfoService" version="1.0"/>
    <dubbo:reference id="userProtocolService" interface="com.xai.tt.dc.client.inter.UserProtocolService" version="1.0"/>
 
-	<dubbo:reference id="postAddressDcService" interface="com.xai.tt.dc.client.inter.PostAddressDcService" version="1.0"/>
 	<!--长约管理, 20181121-->
 	<dubbo:reference id="arManagementDcService" interface="com.xai.tt.dc.client.service.ArManagementDcService" version="1.0"/>
 	<!--公司信息, 20181201-->
@@ -37,5 +36,13 @@
 
 
     <dubbo:reference id="kcDcService" interface="com.xai.tt.dc.client.service.KcDcService" version="1.0"/>
-
+    
+    <!-- 知识库 -->
+    <dubbo:reference id="iKnowledgeBaseService" interface="com.xai.tt.dc.client.inter.IKnowledgeBaseService" version="1.0"/>
+	
+	<!-- 意见建议 -->
+	<dubbo:reference id="iOpinionSuggestionService" interface="com.xai.tt.dc.client.inter.IOpinionSuggestionService" version="1.0"/>
+	
+	<!-- 帮助指南 -->
+	<dubbo:reference id="iHelpFaqService" interface="com.xai.tt.dc.client.inter.IHelpFaqService" version="1.0"/>
 </beans>
