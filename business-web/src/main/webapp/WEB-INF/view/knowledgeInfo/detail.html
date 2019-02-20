@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <meta http-equiv="refresh" content="2"> -->
+	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/plugins/iCheck/all.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/style.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/kl-iconfont/iconfont.css}"/>
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="w-z-info">
+	<p class="w-z-title"><span class="w-z-t-title">标题:</span><span class="w-z-t-title" th:text="${item.abstracts}"></span></p>
+	<p class="w-z-class"><span class="w-z-t-title">类目:</span><span class="w-z-t-title" th:utext="${item.catelogName}"></span></p>
+	<div class="w-z-content" th:utext="${item.content}"/></div>
+	<div class="w-z-docx" >
+		<div class="w-z-d-title">附件</div>
+		<div class="w-z-d-list" th:each="info: ${item.fileInfos}">
+			<i class="iconfont icon-kl-wendang"></i><a th:href="${info.fileUrl}" target="_blank"><div th:text="${info.fileName}"></div></a>
+		</div>
+	</div>
+</div>
+
+
+
+
+</body>
+</html>
+

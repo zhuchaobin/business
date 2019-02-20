@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<title>无模版</title>
+	<link rel="stylesheet" th:href="@{/resources/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/skins/_all-skins.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/font-awesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/e7/e7table/e7table-0.2.css}"/>
+</head>
+
+<body>
+<!-- Main content -->
+<section id="sec_main" class="content">
+	<!-- 条件查询 -->
+	<div class="box box-info">
+		<!-- 条件区域 -->
+		<div class="box-body" style="padding-bottom:0px;">
+			<form id="frm_query" class="form-horizontal">
+				<div id="div_criteria" class="flowlayout">
+					<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="form-group">
+							<label for="" class="col-sm-4 control-label">问题：</label>
+							<div class="col-sm-8">
+								<input name="question" class="form-control" placeholder="问题"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<!-- 按钮区域 -->
+		<div id="div_buttons" class="box-footer">
+			<button class="btn btn-default" onclick="javascript:showAddDialog();">添加</button>
+			<button class="btn btn-default" onclick="javascript:showEditDialog();">编辑</button>
+			<button class="btn btn-default" onclick="javascript:showViewDialog();">查看</button>
+			<button class="btn btn-default" onclick="javascript:del();">删除</button>
+			<button class="btn btn-default pull-right" onclick="javascript:reset()">重置</button>
+			<button class="btn btn-primary pull-right" onclick="javascript:query()" style="margin-right:15px;">查询</button>
+		</div>
+	</div>
+
+	<!-- 信息列表 -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-info">
+				<!-- /.box-header -->
+				<div class="box-body table-responsive no-padding">
+					<table id="tbl_query" class="table table-hover"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+<!-- /.content -->
+
+
+<!-- 详细信息 -->
+<section id="sec_detail" class="content detail" style="display:none;">
+	<div class="box box-info">
+		<div class="box-body">
+			<form id="frm_detail" class="form-horizontal" >
+				<fieldset id='fld_detail'>
+					<input name="id" type="hidden" value=""/>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">问题 <span style="color:red">*</span></label>
+								<div class="col-sm-8">
+									<input name="question" class="form-control"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">排序 <span style="color:red">*</span></label>
+									<div class="col-sm-8">
+										<input name="sort" class="form-control"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="" class="col-sm-2 control-label">回答<span style="color:red">*</span></label>
+								<div class="col-sm-10">
+									<textarea name="answer" class="form-control" placeholder="简介内容" rows="5" maxlength="200"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="box-footer">
+			<button id="btn_save" type="button" class="btn btn-primary pull-right" onclick="javascript:save();">保存</button>
+			<button id="btn_close" type="button" class="btn btn-default pull-right" onclick="javascript:hideDetail();" style="margin-right:15px;">返回</button>
+		</div>
+	</div>
+</section>
+<!-- /.content -->
+
+<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+<script th:src="@{/resources/dist/js/app.min.js}"></script>
+<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+
+<script type="text/javascript">
+	var pageSetting = {
+		modelName : '帮助FAQ',
+		resetPath : '[[@{/helpFaq}]]'
+	};
+
+	$(function(){
+		//e7table表格控件初始化
+		e7tableInit();
+		//表单校验控件初始化
+		validatorInit();
+	});
+
+	/***
+	 * 查询
+	 */
+	function query() {
+		$('#tbl_query').e7table('query','#frm_query');
+	}
+
+	/***
+	 * 重置
+	 */
+	function reset() {
+		E7.resetForm('#frm_query');
+	}
+
+	/***
+	 * e7table表格控件初始化
+	 */
+	function e7tableInit() {
+		$('#tbl_query').e7table({
+			url : '[[@{/helpFaq/queryPage}]]',
+			pageSize: 10,
+			autoLoading: true,			//控件初始化后，自动远程请求数据
+			selectType: 'single',
+			sortName: 'createTime',		//排序列名
+			sortOrder: 'desc',			//排序方向
+			columns : [
+				{title: '问题', field: 'question', sortable: false},
+				{title: '回答', field: 'answer', sortable: false},
+				{title: '排序', field: 'sort', sortable: false},
+			],
+			onDblclick : function(index, row) {
+				showViewDialog();
+			}
+		});
+	}
+
+	/***
+	 * 表单校验控件初始化
+	 */
+	function validatorInit() {
+		$('#frm_detail').bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				question:{
+					validators : {
+						notEmpty : {message : '问题不能为空'}
+					}
+				},
+				sort : {
+					validators : {
+						notEmpty : {message : '排序不能为空'},
+						regexp : {regexp : /^[0-9]*$/, message : '排序必须为数字' },
+					}
+				},
+				answer:{
+					validators : {
+						notEmpty : {message : '回答不能为空'}
+					}
+				}
+			}
+		});
+
+		$('#btn_save').click(function() {
+			$('#frm_detail').bootstrapValidator('validate');
+		});
+	}
+
+	/***
+	 * 显示详情div
+	 */
+	function showDetail(title, editable){
+		if(editable) {
+			$('#fld_detail').prop('disabled', false);
+			$('#btn_save').show();
+		} else {
+			$('#fld_detail').prop('disabled', true);
+			$('#btn_save').hide();
+		}
+
+		$('#h3_detailTitle').text(title);
+		$('#sec_detail').fadeIn(300);
+		$('#sec_main').hide();
+	}
+
+	/***
+	 * 隐藏详情div
+	 */
+	function hideDetail(){
+		$('#sec_detail').fadeOut(300);
+		setTimeout(function(){
+			$('#sec_main').show();
+		}, 300)
+	}
+
+</script>
+</body>
+</html>
