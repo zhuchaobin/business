@@ -9,14 +9,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
+import com.tianan.common.api.jpa.JpaCriteria;
+import com.tianan.common.api.jpa.JpaMatchType;
+import com.tianan.common.api.support.SecurityContext;
 import com.tianan.common.mvc.bean.HttpCriteria;
 import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.annotation.LogAspect.LogType;
 import com.xai.tt.business.biz.manager.VrtyManager;
+import com.xai.tt.business.client.entity.User;
 import com.xai.tt.business.client.entity.Vrty;
-
+import com.xai.tt.business.client.enums.UserType;
+import com.xai.tt.business.client.vo.LoginUser;
+import com.xai.tt.business.client.vo.UserVo;
+/*品种品名管理*/
 @RequestMapping("vrty")
 @Controller
 public class VrtyInfController extends BaseController {
@@ -35,6 +43,22 @@ public class VrtyInfController extends BaseController {
     public Result<?> get(Integer id){
     	Vrty vrty = vrtyManager.get(id);
         return Result.createSuccessResult(vrty);
+    }
+    
+    @RequestMapping("/queryPage")
+    @ResponseBody
+    public Result<?> query(HttpCriteria params) {
+    	logger.info("query params:{}", params);
+    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
+/*    	//用户身份
+    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	if(UserType.pltfrm != user.getUserType() && !user.hasRole("ROLE_ADMIN")) {
+			criteria.add("userType", user.getUserType(), JpaMatchType.EQ);//除了管理员和集团用户，其他用户只能查本类型下的用户
+			criteria.add("companyId", user.getCompanyId(), JpaMatchType.EQ);//只能查本公司的员工
+		}*/
+    	
+    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
+        return Result.createSuccessResult(vrtyList);
     }
     
     @LogAspect(type=LogType.Delete_vrty, argNames={"id"})

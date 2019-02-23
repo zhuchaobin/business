@@ -14,12 +14,12 @@
 	<p class="w-z-title"><span class="w-z-t-title">标题:</span><span class="w-z-t-title" th:text="${item.abstracts}"></span></p>
 	<p class="w-z-class"><span class="w-z-t-title">类目:</span><span class="w-z-t-title" th:utext="${item.catelogName}"></span></p>
 	<div class="w-z-content" th:utext="${item.content}"/></div>
-	<div class="w-z-docx" >
+<!-- 	<div class="w-z-docx" >
 		<div class="w-z-d-title">附件</div>
 		<div class="w-z-d-list" th:each="info: ${item.fileInfos}">
 			<i class="iconfont icon-kl-wendang"></i><a th:href="${info.fileUrl}" target="_blank"><div th:text="${info.fileName}"></div></a>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 
