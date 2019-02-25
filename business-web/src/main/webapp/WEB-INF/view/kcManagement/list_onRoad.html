@@ -2654,12 +2654,14 @@ body {
             return "待承运";
         }
         else if (value == '62') {
-            return "已承运，运输中";
+            return "待承运";
+        }  else if (value == '63') {
+            return "已承运，待入库";
         }
         else if (value == '77') {
-            return "已出库";
+            return "在库结束，已出库";
         }else  {
-            return "运输结束，已在库";
+            return "已在库";
         }
         return value;
     }
