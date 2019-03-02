@@ -1,21 +1,43 @@
 <!doctype html>
 <html>
 <head>
-<link rel="shortcut icon" th:href="@{/resources/image/favicon.ico}" type="image/x-icon">
+<link rel="shortcut icon" th:href="@{/resources/image/favicon.ico}"
+	type="image/x-icon">
 <meta charset="utf-8">
 <title>欢迎使用中检供应链金融服务平台</title>
 <link type="text/css" rel="stylesheet" href="/resources/ui/CSS/base.css">
-<link type="text/css" rel="stylesheet" href="/resources/ui/CSS/jquery.fullPage-2.1.9.css" />
-<link type="text/css" rel="stylesheet" href="/resources/ui/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-<link type="text/css" rel="stylesheet" href="/resources/ui/CSS/welcome.css">
+<link type="text/css" rel="stylesheet"
+	href="/resources/ui/CSS/jquery.fullPage-2.1.9.css" />
+<link type="text/css" rel="stylesheet"
+	href="/resources/ui/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet"
+	href="/resources/ui/CSS/welcome.css">
+	<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <style type="text/css">
 .samples_down {
-    width: 100%;
-    height: 400px;
-    margin-top: -260px;
+	width: 100%;
+	height: 400px;
+	margin-top: -260px;
 }
-</style>
 
+.ancmnews_list{
+	font-size:18px;
+	color:#fff;
+	font-family:'微软雅黑';
+}
+.ancmnews_list:hover{
+	color:#FF8711;
+	text-decoration:none;
+}
+ 
+</style>
+<link rel="stylesheet" th:href="@{/resources/style.css}"/>
+	<!-- <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/dist/css/dist/css/AdminLTE.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/adminlte/plugins/iCheck/all.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/style.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/dist/kl-iconfont/iconfont.css}"/> -->
 
 <!-- //刷新包含该框架的页面用   -->
 <!-- <script language=JavaScript>
@@ -29,36 +51,44 @@
 </head>
 
 <body>
-<ul id="fullpageMenu">
-  <li data-menuanchor="page1" class="active"><a href="#page1">系统介绍</a></li>
-  <li data-menuanchor="page2"><a href="#page2">公告新闻</a></li>
-  <li data-menuanchor="page3"><a href="#page3">业务案例</a></li>
-  <li data-menuanchor="page6"><a href="#page6">融资申请</a></li>
-  <li data-menuanchor="page4"><a href="#page4">登录注册</a></li>
-  <li data-menuanchor="page5"><a href="#page5">联系我们</a></li>
-</ul>
-<div id="fullpage">
-  <div class="section section1">
-    <div class="container description">
+	<ul id="fullpageMenu">
+		<li data-menuanchor="page1" class="active"><a href="#page1">系统介绍</a></li>
+		<li data-menuanchor="page2"><a href="#page2">公告新闻</a></li>
+		<li data-menuanchor="page3"><a href="#page3">业务案例</a></li>
+		<li data-menuanchor="page6"><a href="#page6">融资申请</a></li>
+		<li data-menuanchor="page4"><a href="#page4">登录注册</a></li>
+		<li data-menuanchor="page5"><a href="#page5">联系我们</a></li>
+	</ul>
+	<div id="fullpage">
+		<div class="section section1">
+			<div class="container description">
 
-<!-- <DIV class=compontentCo style="position:relative;background:#eee">
+				<!-- <DIV class=compontentCo style="position:relative;background:#eee">
 <EMBED 
 style="POSITION: absolute; RIGHT: 300px; TOP: -400px;z-index:1" height=400 
 type=application/x-shockwave-flash align=right width=400 
 th:src="@{/resources/flash_zcb/1.swf}" quality="high" 
 wmode="transparent"> </DIV> -->
 
-    	<div class="jumbotron">
-          <h1>Welcome to use</h1>
-          <p>中检供应链金融服务平台</p>
-          <p><a class="btn btn-primary btn-lg" href="#page4" role="button">Enter the system</a></p>
-        </div>
-    </div>
-  </div>
-  <div class="section section2">
-    <div class="container" style="width:1000px; margin:0 auto;">
-    	<h2 class="announce_title">公告 <span>新闻</span></h2>
-        <ul class="list-group">
+				<div class="jumbotron">
+					<h1>Welcome to use</h1>
+					<p>中检供应链金融服务平台</p>
+					<p>
+						<a class="btn btn-primary btn-lg" href="#page4" role="button">Enter
+							the system</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="section section2">
+			<div class="container" style="width: 1000px; margin: 0 auto;">
+				<h2 class="announce_title">
+					公告 <span>新闻</span>
+				</h2>
+				<ul class="list-group">
+					<div id="ancmNewsDiv"></div>
+				</ul>
+				<!--        <ul class="list-group">
           <li class="list-group-item">TT供应链业务运行系统用户突破5000万！ （2018年7月13日）</li>
           <li class="list-group-item">双十一快递包裹攻陷全城 各方发力助配送（2018年夏季）</li>
           <li class="list-group-item">日售100万卖家还亏钱？鞋企电商头顶两座大山咋破 （2018年7月3日）</li>
@@ -66,176 +96,215 @@ wmode="transparent"> </DIV> -->
           <li class="list-group-item">中国台湾二维码支付平台下月接入银联卡支付 （2018年7月13日）</li>
           <li class="list-group-item">尴尬！京东市值输网易 拼多多也虎视眈眈 （2018年夏季）</li>
           <li class="list-group-item last">苏宁、物美相关人士否认将接盘全时 （2018年7月3日）</li>
-        </ul>
-    </div>
-  </div>
-  <div class="section section3">
-    <div class="slide">
-    	<div class="samples_wrap">
-        	<div class="samples one">
-            	<div class="samples_top">
-                </div>
-                <div class="samples_down">
-                	<p class="img" align="center"><img src="/resources/ui/Images/welcome/sample_a.png" width="660" height="260"></p>
-                    <p class="text">供应链-票据融资</p>
-                </div>
-            </div>
-        	
-        </div>
-    </div>
-        <div class="slide">
-    	<div class="samples_wrap">
-        	<div class="samples one">
-            	<div class="samples_top">
-                </div>
-                <div class="samples_down">
-                	<p class="img" align="center"><img src="/resources/ui/Images/welcome/sample_a.png" width="660" height="260"></p>
-                    <p class="text">供应链-应收款融资</p>
-                </div>
-            </div>
-        	
-        </div>
-    </div>
-            <div class="slide">
-    	<div class="samples_wrap">
-        	<div class="samples one">
-            	<div class="samples_top">
-                </div>
-                <div class="samples_down">
-                	<p class="img" align="center"><img src="/resources/ui/Images/welcome/sample_a.png" width="660" height="260"></p>
-                    <p class="text">供应链-授信融资</p>
-                </div>
-            </div>
-        	
-        </div>
-    </div>
-            <div class="slide">
-    	<div class="samples_wrap">
-        	<div class="samples one">
-            	<div class="samples_top">
-                </div>
-                <div class="samples_down">
-                	<p class="img" align="center"><img src="/resources/ui/Images/welcome/sample_a.png" width="660" height="260"></p>
-                    <p class="text">供应链-保证金融资</p>
-                </div>
-            </div>
-        	
-        </div>
-    </div>
-    
-                <div class="slide">
-    	<div class="samples_wrap">
-        	<div class="samples one">
-            	<div class="samples_top">
-                </div>
-                <div class="samples_down">
-                	<p class="img" align="center"><img src="/resources/ui/Images/welcome/sample_a.png" width="660" height="260"></p>
-                    <p class="text">供应链-订单融资</p>
-                </div>
-            </div>
-              </div>
-            </div>
-        	
-      <div class="slide">
-    	<div class="samples_wrap">
-        	<div class="samples one">
-            	<div class="samples_top">
-                </div>
-                <div class="samples_down">
-                	<p class="img" align="center"><img src="/resources/ui/Images/welcome/sample_a.png" width="660" height="260"></p>
-                    <p class="text">供应链-货物融资</p>
-                </div>
-            </div>          
-        </div>
-    </div>
-    
-    </div>
-  <div class="section section6">
-    <div class="rongzi_request">
-    	<form id="frm_fnc_aply"  method="post" class="form-horizontal">
-          <h3 class="text-danger">填写联系方式及融资需求，我们将及时与您联系。</h3>
-          <div class="form-group">   
-          	<input name="companyName" class="form-control" placeholder="公司全称(必输)">      
-            <input name="ctcpsn" class="form-control" placeholder="联系人姓名(必输)">
-            <input name="ctcTel"  class="form-control" placeholder="联系电话(必输)">
-            <input name="email"  class="form-control" placeholder="电子邮箱">       
-            <textarea name="fncRqmDsc" rows="4" class="form-control" placeholder="融资需求描述(必输)"></textarea>
-          </div>
-          <div class="form-group">
-            <a type="button"  href="javascript:submmitFncAply();" class="btn btn-info btn-lg welcome_btn1" role="button">提交</a>
-          </div>
-        </form>
-    </div>
-  </div>
-  
-  <div class="section section4">
-    <div class="welcome_login">
-    	<form id="frm_login"  method="post">
-          <h2></h2>
-          <div class="form-group">
-            <input name="uname" class="form-control" placeholder="请输入用户名">
-            <input name="pword" type="password" class="form-control" placeholder="请输入用户密码">
-            <div class="form-group" style="margin-left:0;">
-            	<input type="text" class="form-control" style="width:400px; float:left; margin-top:0;" placeholder="验证码"><span class="checkcode_img"></span><span class="checkcode_text">刷新</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <a type="button" href="javascript:login();" class="btn btn-info btn-lg welcome_btn1" role="button">登录</a>
-          </div>
-          <div class="form-group">
-            <p class="line">or</p>
-          </div>
-          <div class="form-group">
-            <!-- <a href="/register"  type="button"  class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a> -->
-            <a href="/user/toRegisterPage"  type="button"  class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
-          </div>
-          <div class="form-group">
-            <a class="forget_password" href="/forget">忘记密码</a>
-          </div>
-        </form>
-    </div>
-  </div>
-  <div class="section section5">
-    <div class="BbContact">
-    	<div class="Contact_infowrap">
-        	<div class="Contact_info">
-                <h2>< 联系我们 ></h2>
-                <div class="row">
-                  <div class="col-xs-4 col-sm-4 one">
-                    <address>
-                        	中国广州市天河区黄埔大道西106号维多利酒店1楼01单元<br>
-                    </address>
-                  </div>
-                  <div class="col-xs-4 col-sm-4 two">
-                    <p>
-                        +86(020)-8373 9062 -13<br>
-                        +86(020)-3868 6150 -20
-                    </p>
-                  </div>
-                  <div class="col-xs-4 col-sm-4 three">
-                    <p>admin@tt.com.cn</p>
-                  </div>
-                </div>
-                <div class="copyrights"><p>备案号 | 友情链接 | 友情链接 | 友情链接</p></div>
-            </div>
-        </div>
-        
-    </div>
-  </div>
-</div>
-<script src="/resources/ui/JS/jquery-2.0.0.min.js"></script> 
-<script src="/resources/ui/JS/jquery.fullPage-2.6.7.min.js"></script>
-<script src="/resources/ui/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script src="/resources/ui/JS/jquery.slimscroll.js"></script> 
+        </ul> -->
 
-<!--  <script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script> -->
+			</div>
+		</div>
+		<div class="section section3">
+			<div class="slide">
+				<div class="samples_wrap">
+					<div class="samples one">
+						<div class="samples_top"></div>
+						<div class="samples_down">
+							<p class="img" align="center">
+								<img src="/resources/ui/Images/welcome/sample_a.png" width="660"
+									height="260">
+							</p>
+							<p class="text">供应链-票据融资</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="slide">
+				<div class="samples_wrap">
+					<div class="samples one">
+						<div class="samples_top"></div>
+						<div class="samples_down">
+							<p class="img" align="center">
+								<img src="/resources/ui/Images/welcome/sample_a.png" width="660"
+									height="260">
+							</p>
+							<p class="text">供应链-应收款融资</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="slide">
+				<div class="samples_wrap">
+					<div class="samples one">
+						<div class="samples_top"></div>
+						<div class="samples_down">
+							<p class="img" align="center">
+								<img src="/resources/ui/Images/welcome/sample_a.png" width="660"
+									height="260">
+							</p>
+							<p class="text">供应链-授信融资</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="slide">
+				<div class="samples_wrap">
+					<div class="samples one">
+						<div class="samples_top"></div>
+						<div class="samples_down">
+							<p class="img" align="center">
+								<img src="/resources/ui/Images/welcome/sample_a.png" width="660"
+									height="260">
+							</p>
+							<p class="text">供应链-保证金融资</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="slide">
+				<div class="samples_wrap">
+					<div class="samples one">
+						<div class="samples_top"></div>
+						<div class="samples_down">
+							<p class="img" align="center">
+								<img src="/resources/ui/Images/welcome/sample_a.png" width="660"
+									height="260">
+							</p>
+							<p class="text">供应链-订单融资</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="slide">
+				<div class="samples_wrap">
+					<div class="samples one">
+						<div class="samples_top"></div>
+						<div class="samples_down">
+							<p class="img" align="center">
+								<img src="/resources/ui/Images/welcome/sample_a.png" width="660"
+									height="260">
+							</p>
+							<p class="text">供应链-货物融资</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="section section6">
+			<div class="rongzi_request">
+				<form id="frm_fnc_aply" method="post" class="form-horizontal">
+					<h3 class="text-danger">填写联系方式及融资需求，我们将及时与您联系。</h3>
+					<div class="form-group">
+						<input name="companyName" class="form-control"
+							placeholder="公司全称(必输)"> <input name="ctcpsn"
+							class="form-control" placeholder="联系人姓名(必输)"> <input
+							name="ctcTel" class="form-control" placeholder="联系电话(必输)">
+						<input name="email" class="form-control" placeholder="电子邮箱">
+						<textarea name="fncRqmDsc" rows="4" class="form-control"
+							placeholder="融资需求描述(必输)"></textarea>
+					</div>
+					<div class="form-group">
+						<a type="button" href="javascript:submmitFncAply();"
+							class="btn btn-info btn-lg welcome_btn1" role="button">提交</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="section section4">
+			<div class="welcome_login">
+				<form id="frm_login" method="post">
+					<h2></h2>
+					<div class="form-group">
+						<input name="uname" class="form-control" placeholder="请输入用户名">
+						<input name="pword" type="password" class="form-control"
+							placeholder="请输入用户密码">
+						<div class="form-group" style="margin-left: 0;">
+							<input type="text" class="form-control"
+								style="width: 400px; float: left; margin-top: 0;"
+								placeholder="验证码"><span class="checkcode_img"></span><span
+								class="checkcode_text">刷新</span>
+						</div>
+					</div>
+					<!-- <div class="form-group">
+						<a type="button" href="javascript:login();"
+							class="btn btn-info btn-lg welcome_btn1" role="button">登录</a>
+					</div> -->
+					
+					<div class="form-group">
+						<a type="button" href="javascript:login();"
+							class="btn btn-info btn-lg welcome_btn1" role="button">登录</a>
+					</div>
+					
+					<div class="form-group">
+						<p class="line">or</p>
+					</div>
+					<div class="form-group">
+						<!-- <a href="/register"  type="button"  class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a> -->
+						<a href="/user/toRegisterPage" type="button"
+							class="btn btn-primary btn-lg welcome_btn1" role="button">注册</a>
+
+					</div>
+					<div class="form-group">
+						<a class="forget_password" href="/forget">忘记密码</a>
+					</div>
+					
+					<div class="form-group">
+						<a class="forget_password" href="/ancmNews/ancmNewsList" target="blank">忘记密码222</a>
+					</div>
+					<div class="form-group">
+						<a class="forget_password" href="/user/toRegisterPage" target="blank">忘记密码333</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="section section5">
+			<div class="BbContact">
+				<div class="Contact_infowrap">
+					<div class="Contact_info">
+						<h2>< 联系我们 ></h2>
+						<div class="row">
+							<div class="col-xs-4 col-sm-4 one">
+								<address>
+									中国广州市天河区黄埔大道西106号维多利酒店1楼01单元<br>
+								</address>
+							</div>
+							<div class="col-xs-4 col-sm-4 two">
+								<p>
+									+86(020)-8373 9062 -13<br> +86(020)-3868 6150 -20
+								</p>
+							</div>
+							<div class="col-xs-4 col-sm-4 three">
+								<p>admin@tt.com.cn</p>
+							</div>
+						</div>
+						<div class="copyrights">
+							<p>备案号 | 友情链接 | 友情链接 | 友情链接</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script src="/resources/ui/JS/jquery-2.0.0.min.js"></script>
+	<script src="/resources/ui/JS/jquery.fullPage-2.6.7.min.js"></script>
+	<script src="/resources/ui/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="/resources/ui/JS/jquery.slimscroll.js"></script>
+
+	<!--  <script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script> -->
 	<script th:src="@{/resources/plugins/iCheck/icheck.min.js}"></script>
-	<script th:src="@{/resources/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
 	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js}"></script>
-	<script th:src="@{/resources/e7/e7util-0.2.js}"></script> 
-	
-<script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
+
+	<script>
 	$(document).ready(function(e) {
 		$('#fullpage').fullpage({
 			paddingTop:'70px',
@@ -250,9 +319,40 @@ wmode="transparent"> </DIV> -->
 		// 2019-01-24 
 		if (top.location != location) 
 			top.location.href = location.href;  
+		
+		var params;
+		E7.post('ancmNews/queryPage', params, function(result) {
+			if(result && result.code == 0) {
+				var test1 = result.data;
+				var test2= test1.rows;
+
+				var insertHtml="";
+				for ( var jj = 0; jj < test2.length && jj <6; jj++){
+					insertHtml+='<a  class="ancmnews_list" href="/ancmNews/newsContent?id='+ test2[jj].id + '" target="blank"><li class="list-group-item" >' + test2[jj].abstracts + '  <small>'+new Date(test2[jj].updateTime).format()+'</small></li></a>';
+				}
+				if(test2.length > 6)
+					insertHtml+='<a  class="ancmnews_list" href="/ancmNews/ancmNewsList" target="blank"><li class="list-group-item">' + "更多信息>>>>" + '</li>';
+				var testdiv = document.getElementById("ancmNewsDiv");
+				testdiv.innerHTML=insertHtml;	
+				
+				var ttt='<div class="w-z-info"><div class="w-z-content" th:utext="发斯蒂芬斯蒂芬斯蒂芬是防守打法">dddd</div></div>';
+			}
+		});	 
     });
 	
 
+function test333(){
+	alert("3333");
+/* 	layer.open({
+		type: 2,
+		title: '长订单列表',
+		shadeClose: true,
+		shade: true,
+		maxmin: true, //开启最大化最小化按钮
+		area: ['1024px', '600px'],
+		content: 'www.shfe.com.cn'
+	}); */
+}
 	
 		function login() {
 		var params = E7.serialForm('#frm_login');

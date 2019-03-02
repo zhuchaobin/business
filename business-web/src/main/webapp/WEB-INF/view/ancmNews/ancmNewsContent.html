@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<title>待审批长约</title>
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/skins/_all-skins.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/dist/css/AdminLTE.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/plugins/iCheck/all.css}" />
+<link rel="stylesheet" th:href="@{/resources/style.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}" />
+<style type="text/css">
+.btn_small {
+	display: inline-block;
+	padding: 1px 10px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.title {
+ 	font-size: 25px;
+	color: #fff;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 0;
+	padding-top: 10px;
+}
+
+.copyrights {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	color: #a4a4a4;
+	font-size: 14px;
+	/* 	position: absolute; */
+	bottom: 0;
+	z-index: 100;
+	text-align: center;
+}
+
+.announce_title {
+	font-size: 36px;
+	color: #fff;
+	font-weight: bold;
+	/*    background: url(/resources/ui/Images/welcome/announce_icon.png) no-repeat left center; */
+	height: 80px;
+	line-height: 65px;
+	padding-left: 10px;
+	margin-bottom: 0;
+}
+
+.announce_title span {
+	color: #F6AD6E;
+}
+
+.announce_title div {
+	color: #00c6ff;
+}
+</style>
+<!-- 页面背景图片 -->
+<style type="text/css">
+body {
+	background-position: center;
+/* 	background: url(/resources/dist/img/index_bg.png) no-repeat; */
+	background-attachment: fixed;
+	}
+
+.box.box-info {
+	border-top-color: #F6AD6E;
+	background: #F6AD6E;
+}
+
+.box-footer {
+	background: #BBCFD2;
+}
+
+.content {
+	min-height: 250px;
+	padding: 0px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+</style>
+<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
+<!-- 自定义按钮样式 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+<!-- 流程图 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/step/css/step.css}" />
+
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8" align="center">
+
+			<ul class="list-inline">
+				<li><img alt="中检国控科技集团 中检供应链金融服务平台"
+					th:src="@{/resources/image/logo_4.png}"
+					style="width: 300px; height: 74px; margin-top: 10px; margin-bottom: 10px;" /></li>
+				<li><h2 class="announce_title">
+						<span>公告</span>
+					</h2></li>
+				<li><h2 class="announce_title">
+						<div>新闻</div>
+					</h2></li>
+			</ul>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<!-- 列表查询 start-->
+			<section id="main_search_detail" class="content" width="70%">
+				<!-- 条件查询 -->
+				<div class="box box-info">
+					<!-- 条件区域 -->
+					<div class="box-body" style="padding-bottom: 0px;">
+						<form id="frm_query" class="form-horizontal">
+							<div id="div_criteria" class="flowlayout">
+								<div >
+									<div class="form-group">
+										<p class="title" id="p_abstracts_div"></p>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<div id="div_buttons" class="box-footer">
+						<div>
+							<form class="form-horizontal"
+								style="width: 100%; margin: 0 auto; padding-bottom: 35px; padding-top: 15px;">
+
+								<p align="left" class="text-info" id="p_createtime_div"
+									style="margin-left: 45px; margin-right: 45px;"></p>
+								<p align="left" style="margin-left: 45px; margin-right: 45px;"
+									class="text-info" id="p_updatetime_div"></p>
+								<p align="left" style="margin-left: 45px; margin-right: 45px;"
+									class="text-info" id="p_username_div"></p>
+								<p align="left" style="margin-left: 45px; margin-right: 45px;"
+									class="text-info">正文：</p>
+								<!-- <p align="left"id="p_content_div" style="margin-left: 45px; margin-right: 45px;">&nbsp&nbsp</p> -->
+								<div class="w-z-content"
+									style="margin-left: 45px; margin-right: 45px;"
+									id="p_content_div" /></div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="copyrights">
+				<p>备案号 | 友情链接 | 友情链接 | 友情链接</p>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+	<!-- /.content -->
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+	<!-- 	<script th:src="@{/resources/adminlte/plugins/ckeditor/ckeditor.js}"></script> -->
+	<script
+		th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/ar.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
+	<!-- 时间轴流程图 -->
+	<script th:src="@{/resources/js_zcb/step/js/step.js}"></script>
+
+	<script type="text/javascript">		
+		$(document).ready(function(e) {  	
+			var params= [[${id}]];
+	 		E7.post('/ancmNews/get', {'id' : params}, function(result) {
+				var ancmNew = result.data;
+				if("01" == ancmNew.type)
+					$("#p_abstracts_div").append('<i class="fa fa-bullhorn"><span class="badge" id="span_2"></span></i>'+'   公告 : ' + ancmNew.abstracts);
+				else if("02" == ancmNew.type)
+					$("#p_abstracts_div").append('<i class="fa fa-newspaper-o"><span class="badge" id="span_2"></span></i>'+'   新闻 : ' + ancmNew.abstracts);
+				else
+					$("#p_abstracts_div").append("< "+ancmNew.abstracts + " >");
+				$("#p_createtime_div").append("创建时间："+new Date(ancmNew.createTime).format());
+				$("#p_updatetime_div").append("修改时间："+new Date(ancmNew.updateTime).format());
+				$("#p_username_div").append("提交人："+ancmNew.username);
+				$("#p_content_div").append(ancmNew.content);
+			}); 
+		});
+		</script>
+
+</body>
+</html>
