@@ -162,7 +162,7 @@ public class AncmNewsController   extends BaseController {
                 }
                 
                	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-               	saveAncmNewInfo.setUsername(user.getUsername());
+               	saveAncmNewInfo.setUsername(user.getChineseName());
                	
                 Result result = iAncmNewsBaseService.saveAncmNewInfo(saveAncmNewInfo);
                 return result;
