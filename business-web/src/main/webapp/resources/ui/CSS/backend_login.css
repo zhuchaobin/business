@@ -81,10 +81,11 @@
 }
 .checkcode_text{
 	font-size:14px;
-	color:#00b4ff;
+	color:#ff8000;
 	cursor:pointer;
 	text-decoration:underline;
 	height:38px;
 	line-height:38px;
 }
+
 

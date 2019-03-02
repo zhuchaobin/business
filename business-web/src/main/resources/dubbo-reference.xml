@@ -34,7 +34,6 @@
  	<!--站内信息管理, 20190125-->
     <dubbo:reference id="msgDcService" interface="com.xai.tt.dc.client.service.MsgDcService" version="1.0"/>
 
-
     <dubbo:reference id="kcDcService" interface="com.xai.tt.dc.client.service.KcDcService" version="1.0"/>
     
     <!-- 知识库 -->
@@ -45,4 +44,7 @@
 	
 	<!-- 帮助指南 -->
 	<dubbo:reference id="iHelpFaqService" interface="com.xai.tt.dc.client.inter.IHelpFaqService" version="1.0"/>
+	
+	<!-- 公告新闻 -->
+    <dubbo:reference id="iAncmNewsBaseServiceImpl" interface="com.xai.tt.dc.client.inter.IAncmNewsBaseService" version="1.0"/>
 </beans>
