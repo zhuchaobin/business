@@ -6,7 +6,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport" />
-<title>待审批长约</title>
+<title>公告新闻</title>
 <link rel="stylesheet"
 	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet"
@@ -70,9 +70,10 @@
 	color: #a4a4a4;
 	font-size: 14px;
 	/* 	position: absolute; */
-	bottom: 0;
+	bottom: 10px;
 	z-index: 100;
 	text-align: center;
+	padding-botton: 20px;
 }
 
 .announce_title {
@@ -87,19 +88,20 @@
 }
 
 .announce_title span {
-	color: #F6AD6E;
+	color: #FABB37;
 }
 
 .announce_title div {
-	color: #00c6ff;
+	color: #4584EF;
 }
 </style>
 <!-- 页面背景图片 -->
 <style type="text/css">
 body {
-	background-position: center;
-/* 	background: url(/resources/dist/img/index_bg.png) no-repeat; */
-	background-attachment: fixed;
+/* 	background: url(/resources/ui/Images/welcome/section2_bg.jpg) no-repeat center center; */
+/* 	background-size:100%; */
+/* 	overflow:hidden; */
+/* 	background-attachment: fixed; */
 	}
 
 .box.box-info {
@@ -111,6 +113,11 @@ body {
 	background: #BBCFD2;
 }
 
+.box-footer2 {
+	background: url(/resources/ui/Images/welcome/section2_bg.jpg) no-repeat;
+	-moz-background-size:100% 100%; background-size:100% 100%;
+}
+
 .content {
 	min-height: 250px;
 	padding: 0px;
@@ -119,6 +126,7 @@ body {
 	padding-left: 0px;
 	padding-right: 0px;
 }
+
 </style>
 <link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
@@ -128,14 +136,14 @@ body {
 
 </head>
 <body>
-	<div class="row">
+<div class="box-footer2">
+	<div class="row" >
 		<div class="col-md-2"></div>
 		<div class="col-md-8" align="center">
-
 			<ul class="list-inline">
 				<li><img alt="中检国控科技集团 中检供应链金融服务平台"
-					th:src="@{/resources/image/logo_4.png}"
-					style="width: 300px; height: 74px; margin-top: 10px; margin-bottom: 10px;" /></li>
+					th:src="@{/resources/ui/Images/welcome/yourlogo.png}"
+					style="width: 500px;  margin-bottom: 10px;" /></li>
 				<li><h2 class="announce_title">
 						<span>公告</span>
 					</h2></li>
@@ -146,14 +154,12 @@ body {
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-	<div class="row">
+	
+ 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<!-- 列表查询 start-->
 			<section id="main_search_detail" class="content" width="70%">
-				<!-- 条件查询 -->
 				<div class="box box-info">
-					<!-- 条件区域 -->
 					<div class="box-body" style="padding-bottom: 0px;">
 						<form id="frm_query" class="form-horizontal">
 							<div id="div_criteria" class="flowlayout">
@@ -177,19 +183,26 @@ body {
 									class="text-info" id="p_updatetime_div"></p>
 								<p align="left" style="margin-left: 45px; margin-right: 45px;"
 									class="text-info" id="p_username_div"></p>
-								<p align="left" style="margin-left: 45px; margin-right: 45px;"
-									class="text-info">正文：</p>
-								<!-- <p align="left"id="p_content_div" style="margin-left: 45px; margin-right: 45px;">&nbsp&nbsp</p> -->
-								<div class="w-z-content"
+								<p align="left"id="p_content_div" style="margin-left: 45px; margin-right: 45px;">&nbsp&nbsp</p>
+<!-- 								<div class="w-z-content"
 									style="margin-left: 45px; margin-right: 45px;"
-									id="p_content_div" /></div>
+									id="p_content_div" /></div> -->
 							</form>
+						</div>
+						<div align="center" style="padding-bottom: 25px;">
+						<button type="button" class="btn btn-warning btn-lg" onclick="custom_close()">关闭本页</button>
+						<a href="/ancmNews/ancmNewsList" class="btn btn-primary  btn-lg">公告新闻列表</a>
 						</div>
 					</div>
 				</div>
+				
+				
+				
 			</section>
 		</div>
 		<div class="col-md-2"></div>
+		
+		
 	</div>
 
 	<div class="row">
@@ -200,8 +213,9 @@ body {
 			</div>
 		</div>
 		<div class="col-md-2"></div>
-	</div>
-
+	</div> 
+	<p>
+</div>
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -228,19 +242,54 @@ body {
 			var params= [[${id}]];
 	 		E7.post('/ancmNews/get', {'id' : params}, function(result) {
 				var ancmNew = result.data;
-				if("01" == ancmNew.type)
-					$("#p_abstracts_div").append('<i class="fa fa-bullhorn"><span class="badge" id="span_2"></span></i>'+'   公告 : ' + ancmNew.abstracts);
-				else if("02" == ancmNew.type)
-					$("#p_abstracts_div").append('<i class="fa fa-newspaper-o"><span class="badge" id="span_2"></span></i>'+'   新闻 : ' + ancmNew.abstracts);
+				
+				var abstracts = ancmNew.abstracts;
+				if(undefined == abstracts)
+					abstracts = "";
+				
+				var content = ancmNew.content;
+				if(undefined == content)
+					content = "";
+				
+				var username = ancmNew.username;
+				if(undefined == username)
+					username = "";
+				
+				var createTime = ancmNew.createTime;
+				if(undefined == createTime)
+					createTime = "";
 				else
-					$("#p_abstracts_div").append("< "+ancmNew.abstracts + " >");
-				$("#p_createtime_div").append("创建时间："+new Date(ancmNew.createTime).format());
-				$("#p_updatetime_div").append("修改时间："+new Date(ancmNew.updateTime).format());
-				$("#p_username_div").append("提交人："+ancmNew.username);
-				$("#p_content_div").append(ancmNew.content);
+					createTime = new Date(ancmNew.createTime).format();
+					
+				var updateTime = ancmNew.updateTime;
+				if(undefined == updateTime)
+					updateTime = "";
+				else
+					updateTime = new Date(ancmNew.updateTime).format();
+				if("01" == ancmNew.type)
+					$("#p_abstracts_div").append('<i class="fa fa-bullhorn"><span class="badge" id="span_2"></span></i>'+'   公告 : ' + abstracts);
+				else if("02" == ancmNew.type)
+					$("#p_abstracts_div").append('<i class="fa fa-newspaper-o"><span class="badge" id="span_2"></span></i>'+'   新闻 : ' + abstracts);
+				else
+					$("#p_abstracts_div").append("< "+abstracts + " >");
+				$("#p_createtime_div").append("创建时间："+createTime);
+				$("#p_updatetime_div").append("修改时间："+updateTime);
+				$("#p_username_div").append("编辑："+username);
+				$("#p_content_div").append(content);
 			}); 
 		});
 		</script>
-
+  <script language="javascript">
+  // 这个脚本是 ie6和ie7 通用的脚本
+  function custom_close(){
+      if(confirm("您确定要关闭本页吗？")){
+          window.opener=null;
+          window.open('','_self');
+          window.close();
+      }
+      else{
+     }
+ }
+ </script>
 </body>
 </html>

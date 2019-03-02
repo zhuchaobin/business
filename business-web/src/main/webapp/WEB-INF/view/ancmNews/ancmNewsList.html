@@ -6,7 +6,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport" />
-<title>待审批长约</title>
+<title>公告新闻</title>
 <link rel="stylesheet"
 	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet"
@@ -53,7 +53,15 @@
 	border: 1px solid transparent;
 	border-radius: 4px;
 }
-
+.ancmnews_list{
+	font-size:18px;
+	color:#fff;
+	font-family:'微软雅黑';
+}
+.ancmnews_list:hover{
+	color:#337AB7;
+	text-decoration:none;
+}
 .title {
 	font-size: 25px;
 	color: #fff;
@@ -74,6 +82,7 @@
 	bottom: 0;
 	z-index: 100;
 	text-align: center;
+	padding-top: 35px;
 }
 
 .announce_title {
@@ -88,7 +97,7 @@
 }
 
 .announce_title span {
-	color: #F6AD6E;
+	color: #337AB7;
 }
 
 .announce_title div {
@@ -98,20 +107,21 @@
 <!-- 页面背景图片 -->
 <style type="text/css">
 body {
-	background-position: center;
-	/* 	background: url(/resources/dist/img/index_bg.png) no-repeat; */
-	background-attachment: fixed;
+
 }
 
 .box.box-info {
-	border-top-color: #F3D2B5;
-	background: #fff;
+	border-top-color: #F6AD6E;
+	background: #F6AD6E;
 }
 
 .box-footer {
-	background: #F8D8BB;
+	background: #F6AD6E;
 }
-
+.box-footer2 {
+	background: url(/resources/ui/Images/welcome/section2_bg.jpg) no-repeat;
+	-moz-background-size:100% 100%; background-size:100% 100%;
+}
 .content {
 	min-height: 250px;
 	padding: 0px;
@@ -130,14 +140,15 @@ body {
 	href="/resources/ui/CSS/welcome.css">
 </head>
 <body>
+<div class="box-footer2">
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8" align="center">
 
 			<ul class="list-inline">
 				<li><img alt="中检国控科技集团 中检供应链金融服务平台"
-					th:src="@{/resources/image/logo_4.png}"
-					style="width: 300px; height: 74px; margin-top: 10px; margin-bottom: 10px;" /></li>
+					th:src="@{/resources/ui/Images/welcome/yourlogo.png}"
+					style="width: 500px;  margin-bottom: 10px;margin-top: 25px;" /></li>
 				<li></li>
 				<li></li>
 			</ul>
@@ -152,14 +163,6 @@ body {
 				<!-- 条件查询 -->
 				<div class="box box-info">
 					<!-- 条件区域 -->
-					<div class="box-body" style="padding-bottom: 0px;">
-						<form id="frm_query" class="form-horizontal">
-							<div id="div_criteria" class="flowlayout">
-
-							</div>
-						</form>
-					</div>
-
 					<div id="div_buttons" class="box-footer">
 						<div>
 							<form class="form-horizontal"
@@ -174,6 +177,11 @@ body {
 								</div>
 
 							</form>
+						</div>
+												<div align="center" style="padding-bottom: 25px;">
+						<button type="button" class="btn btn-primary  btn-lg" onclick="custom_close()">关闭本页</button>
+						
+						 
 						</div>
 					</div>
 				</div>
@@ -191,7 +199,7 @@ body {
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-
+</div>
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -247,6 +255,17 @@ body {
 											});
 						});
 	</script>
-
+  <script language="javascript">
+  // 这个脚本是 ie6和ie7 通用的脚本
+  function custom_close(){
+      if(confirm("您确定要关闭本页吗？")){
+          window.opener=null;
+          window.open('','_self');
+          window.close();
+      }
+      else{
+     }
+ }
+ </script>
 </body>
 </html>
