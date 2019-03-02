@@ -13,6 +13,8 @@
 <link type="text/css" rel="stylesheet"
 	href="/resources/ui/CSS/welcome.css">
 	<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
+	<link rel="stylesheet"
+	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
 <style type="text/css">
 .samples_down {
 	width: 100%;
@@ -26,10 +28,10 @@
 	font-family:'微软雅黑';
 }
 .ancmnews_list:hover{
-	color:#FF8711;
+	color:#00C6FF;
 	text-decoration:none;
 }
- 
+ .bg-danger{  background-color:#DD5347 ;  }
 </style>
 <link rel="stylesheet" th:href="@{/resources/style.css}"/>
 	<!-- <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -327,15 +329,34 @@ wmode="transparent"> </DIV> -->
 				var test2= test1.rows;
 
 				var insertHtml="";
-				for ( var jj = 0; jj < test2.length && jj <6; jj++){
-					insertHtml+='<a  class="ancmnews_list" href="/ancmNews/newsContent?id='+ test2[jj].id + '" target="blank"><li class="list-group-item" >' + test2[jj].abstracts + '  <small>'+new Date(test2[jj].updateTime).format()+'</small></li></a>';
+				for (var jj = 0; jj < test2.length && jj<6; jj++) {
+					if("01"==test2[jj].type){
+						insertHtml += '<a  class="ancmnews_list" href="/ancmNews/newsContent?id='     
+								+ test2[jj].id
+								+ '" target="blank"><li class="list-group-item" ><i class="fa fa-bullhorn"><span class="badge" id="span_2"></span></i> <code class="text-success bg-info">公告</code>  '
+								+ test2[jj].abstracts
+								+ '  <small>'
+								+ new Date(
+										test2[jj].updateTime)
+										.format()
+								+ '</small></li></a>';
+					} else {
+							insertHtml += '<a  class="ancmnews_list" href="/ancmNews/newsContent?id='
+									+ test2[jj].id
+									+ '" target="blank"><li class="list-group-item" ><i class="fa fa-newspaper-o"><span class="badge" id="span_2"></span></i> <code class="text-success bg-danger">新闻</code>  '
+									+ test2[jj].abstracts
+									+ '  <small>'
+									+ new Date(
+											test2[jj].updateTime)
+											.format()
+									+ '</small></li></a>';
+						}
 				}
-				if(test2.length > 6)
+				if(test2.length >= 6)
 					insertHtml+='<a  class="ancmnews_list" href="/ancmNews/ancmNewsList" target="blank"><li class="list-group-item">' + "更多信息>>>>" + '</li>';
 				var testdiv = document.getElementById("ancmNewsDiv");
 				testdiv.innerHTML=insertHtml;	
-				
-				var ttt='<div class="w-z-info"><div class="w-z-content" th:utext="发斯蒂芬斯蒂芬斯蒂芬是防守打法">dddd</div></div>';
+
 			}
 		});	 
     });
