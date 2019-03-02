@@ -53,7 +53,7 @@ public class CompanyController extends BaseController {
 	public Result<?>  queryPage(CompanyQuery inVo, PageParam pageParam) {
 		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
 
-		inVo.setUsrTp(String.valueOf(user.getUserType().ordinal()));
+		inVo.setUsrTp("08");
 		// 因前后端名字不一样，转义排序参数
 
 
