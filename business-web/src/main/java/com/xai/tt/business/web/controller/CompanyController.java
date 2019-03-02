@@ -69,24 +69,12 @@ public class CompanyController extends BaseController {
 
 	@RequestMapping(value = { "getDetail" })
 	@ResponseBody
-	public Result<?>   getDetail(String id, String aplyPcstpCd, String type) {
+	public Result<?>   getDetail(String id) {
 
-		logger.info("查询长约详情，请求参数id=：{}", id);
-		logger.info("查询长约详情，请求参数aplyPcstpCd=：{}", aplyPcstpCd);
-		logger.info("查询长约详情，请求参数type=：{}", type);
-		KcManagementInVo inVo = new KcManagementInVo();
-		inVo.setId(Long.parseLong(id));
+		logger.info("查询仓储详情，请求参数id=：{}", id);
 
 
-
-		inVo.setId(Long.parseLong(id));
-		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-		inVo.setUserType(user.getUserType().ordinal());
-		inVo.setUsername(user.getUsername());
-		inVo.setCompanyId(user.getCompanyId());
-		inVo.setNickname(user.getNickname());
-		inVo.setChineseName(user.getChineseName());
-		Result<QueryKcDetailOutVo> rlt = kcDcService.queryDetail(inVo);
+		Result<Company> rlt = companyDcService.queryDetail(id);
 		logger.info("查询发货详情，返回结果rlt：{}", JSON.toJSONString(rlt));
 		return Result.createSuccessResult(rlt.getData());
 
