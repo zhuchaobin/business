@@ -130,6 +130,8 @@ body {
 	padding-left: 0px;
 	padding-right: 0px;
 }
+
+.bg-danger{  background-color:#DD5347 ;  }
 </style>
 <link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
 <!-- 自定义按钮样式 -->
@@ -237,15 +239,27 @@ body {
 
 													var insertHtml = "";
 													for (var jj = 0; jj < test2.length; jj++) {
-														insertHtml += '<a  class="ancmnews_list" href="/ancmNews/newsContent?id='
-																+ test2[jj].id
-																+ '" target="blank"><li class="list-group-item" >'
-																+ test2[jj].abstracts
-																+ '  <small>'
-																+ new Date(
-																		test2[jj].updateTime)
-																		.format()
-																+ '</small></li></a>';
+														if("01"==test2[jj].type){
+															insertHtml += '<a  class="ancmnews_list" href="/ancmNews/newsContent?id='     
+																	+ test2[jj].id
+																	+ '" target="blank"><li class="list-group-item" ><i class="fa fa-bullhorn"><span class="badge" id="span_2"></span></i> <code class="text-success bg-info">公告</code>  '
+																	+ test2[jj].abstracts
+																	+ '  <small>'
+																	+ new Date(
+																			test2[jj].updateTime)
+																			.format()
+																	+ '</small></li></a>';
+														} else {
+																insertHtml += '<a  class="ancmnews_list" href="/ancmNews/newsContent?id='
+																		+ test2[jj].id
+																		+ '" target="blank"><li class="list-group-item" ><i class="fa fa-newspaper-o"><span class="badge" id="span_2"></span></i> <code class="text-success bg-danger">新闻</code>  '
+																		+ test2[jj].abstracts
+																		+ '  <small>'
+																		+ new Date(
+																				test2[jj].updateTime)
+																				.format()
+																		+ '</small></li></a>';
+															}
 													}
 													var testdiv = document
 															.getElementById("ancmNewsDiv");
