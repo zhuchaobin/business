@@ -83,6 +83,22 @@ public class CompanyController extends BaseController {
 
 
 
+	@RequestMapping(value = { "queryPageGoods" })
+	@ResponseBody
+	public Result<?>  queryPageGoods(CompanyQuery inVo, PageParam pageParam) {
+		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+
+		inVo.setUsrTp("08");
+		// 因前后端名字不一样，转义排序参数
+
+
+		logger.info("发货信息查询请求参数:{}，分页参数：{}", JSON.toJSONString(inVo),JSON.toJSONString(pageParam));
+		Result<PageData<Company>>  result = companyDcService.queryPage(inVo, pageParam);
+
+		logger.info("发货信息查询返回结果:{}，", JSON.toJSONString(result.getData()));
+		return Result.createSuccessResult(result.getData());
+	}
+
 
 
 
