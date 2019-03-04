@@ -1286,7 +1286,15 @@ body {
                     aplyPsrltCd = aplyPsrltCdRadio[i].value;
             }
 
-
+			// 设置单选钮的选中状态，为了查询时展示正确状态
+			  if("01" == aplyPsrltCd){
+				  $('#aplyPsrltCd02').attr("checked",false); 
+				  $('#aplyPsrltCd01').attr("checked",true);
+			    } else if("02" == aplyPsrltCd){
+					  $('#aplyPsrltCd02').attr("checked",true); 
+					  $('#aplyPsrltCd01').attr("checked",false);
+		    	}
+			
             if ("01" == aplyPsrltCd) {
                 nestStepName = getNextStepNameOfOrder($('#aplyPcstpCd')
                     .val(), 1, $('#pymtmod').val(),$('#selRdmgdsMod1').val());
@@ -2203,24 +2211,29 @@ body {
                         if ((null == rmrkDesc) || ("" == rmrkDesc)) {
                             rmrkDesc = "无";
                         }
-                        insertHtml = insertHtml
-                            + '<tr><td>'
-                            + transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)
-                            + '</td><td>'
-                            + transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)
-                            + '</td><td>'
-                            + lnk_jrnl_inf[jj].username
-                            + '</td><td>'
-                            + lnk_jrnl_inf[jj].companyName
-                            + '</td><td>'
-                            + rmrkDesc
-                            + '</td><td>'
-                            + transDateTime(lnk_jrnl_inf[jj].lnkEdtm)
-                            + '</td><td><input type="button" class="btn-success btn_small" onclick=getArSubmmitDetail("'
-                            + lnk_jrnl_inf[jj].id + '","'
-                            + lnk_jrnl_inf[jj].rltvId + '","'
-                            + lnk_jrnl_inf[jj].aplyPcstpCd
-                            + '") value="查看"> </td></tr>';
+                     // 是否显示查看详情按钮
+						var buttonHtml = '无';
+						if ('61' != lnk_jrnl_inf[jj].aplyPcstpCd)
+							buttonHtml ='<input type="button" class="btn-success btn_small" onclick=getArSubmmitDetail("'
+						+ lnk_jrnl_inf[jj].id + '","'
+						+ lnk_jrnl_inf[jj].rltvId + '","'
+						+ lnk_jrnl_inf[jj].aplyPcstpCd
+						+ '") value="查看">';
+						
+						insertHtml = insertHtml
+								+ '<tr><td>'
+								+ transAplyPcstpCd(lnk_jrnl_inf[jj].aplyPcstpCd)
+								+ '</td><td>'
+								+ transAplyPsrltCd(lnk_jrnl_inf[jj].aplyPsrltCd)
+								+ '</td><td>'
+								+ lnk_jrnl_inf[jj].username
+								+ '</td><td>'
+								+ lnk_jrnl_inf[jj].companyName
+								+ '</td><td>'
+								+ rmrkDesc
+								+ '</td><td>'
+								+ transDateTime(lnk_jrnl_inf[jj].lnkEdtm)
+								+ '</td><td>' + buttonHtml + ' </td></tr>';
                     }
                     insertHtml = insertHtml + "</tbody></table>";
                     testdiv = document
