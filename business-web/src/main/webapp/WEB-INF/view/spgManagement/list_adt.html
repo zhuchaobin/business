@@ -1256,7 +1256,8 @@ body {
             $('#ar_lnk_jrnl_inf_detail').hide();
             $('#submit_ar_detail').hide();
             // 返回按钮
-            $('#btn_close_div').hide();
+            // $('#btn_close_div').show();
+            $('#submmit_btn_close_div').show();
             $('#query_ar_submmit_detail').fadeIn(800);
         }
     }
@@ -2273,8 +2274,9 @@ body {
                     'aplyPcstpCd': aplyPcstpCd
                 },
                 function (result) {
-                    //				fillForm('#frm_detail2', result.data);
+
                     var detail = result.data;
+
 
                     // 个人化审批参数查询展示
                     var testdiv22 = document
