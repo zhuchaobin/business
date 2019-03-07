@@ -47,4 +47,15 @@
 	
 	<!-- 公告新闻 -->
     <dubbo:reference id="iAncmNewsBaseServiceImpl" interface="com.xai.tt.dc.client.inter.IAncmNewsBaseService" version="1.0"/>
+    
+    <!-- 质押管理20190306-->
+    <dubbo:reference id="plgAplyDcService" interface="com.xai.tt.dc.client.service.PlgAplyDcService" version="1.0"/>
+    <!-- 库存明细管理20190306-->
+ <!--   <dubbo:reference id="ivntDtlDcService" interface="com.xai.tt.dc.client.service.IvntDtlDcService" version="1.0"/>-->
+    <!-- 质押指导价管理20190306-->
+ <!--   <dubbo:reference id="plgDrcPrcDcService" interface="com.xai.tt.dc.client.service.PlgDrcPrcDcService" version="1.0"/>-->
+    <!-- 质押控货预警线管理20190306-->
+<!--    <dubbo:reference id="plgCntlMnyWnLnDcService" interface="com.xai.tt.dc.client.service.PlgCntlMnyWnLnDcService" version="1.0"/>-->
+    <!-- 货物操作流水管理20190306-->
+ <!--   <dubbo:reference id="gdsOIStgJrnlDcService" interface="com.xai.tt.dc.client.service.GdsOIStgJrnlDcService" version="1.0"/>-->
 </beans>

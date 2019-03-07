@@ -1388,6 +1388,9 @@ body {
 	</section>
 	<!-- 详细信息 end-->
 	
+	
+	
+	
 <!-- 订单明细信息 -->
   <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="systemModalLabel"
      aria-hidden="true">
@@ -1552,6 +1555,323 @@ body {
         </div>
     </div>
    </div>
+   
+   <!-- 质押申请 -->
+   
+   	<!-- 质押申请 - start-->	
+	<section id="main_order_edit_detail2" class="content"
+		style="display: none;">
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h4 id="main_order_edit_detail_title" class="text-info">出质信息</h4>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail_order2" class="form-horizontal">
+					<fieldset id='fld_detail'>
+						<div class="w-z-info">
+							 <input
+								type="hidden" id="fileToDeleteId4" name="filesToDelete4">
+							 <input id="secSrvCd2"
+								name="secSrvCd" type="hidden" value="" /> <input id="arSt"
+								name=arSt type="hidden" value="" />
+							<div class="col-md-6" id="长约编号_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">长约编号<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="arId" class="form-control" placeholder="长约编号"
+											disabled="disabled" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="银行_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">银行：</label>
+									<div class="col-sm-8">
+										<select name="bnk" class="form-control" disabled="disabled">
+											<option value="">请选择</option>
+											<option th:each="model: ${bnkModels}" th:value="${model.id}"
+												th:text="${model.name}"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="融资企业_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">融资企业<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<select name="fncEntp" class="form-control"
+											disabled="disabled">
+											<option value="">请选择</option>
+											<option th:each="model: ${fncEntpModels}"
+												th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="供应商_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">供应商<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<select name="ustrmSplr" class="form-control"
+											disabled="disabled">
+											<option value="">请选择</option>
+											<option th:each="model: ${ustrmSplrModels}"
+												th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="仓储公司_div">
+							<div class="form-group">
+									<label for="" class="col-sm-4 control-label">仓储公司<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<select name="stgco" class="form-control" >
+											<option value="">请选择</option>
+											<option th:each="model: ${stgcoModels}"
+												th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+														
+							<input type="hidden" id="fileId4" name="fileUrl4">
+							
+							<div class="row" id="upload_order_div2" >
+								<div class="col-md-12" style="padding-right: 15px;">
+									<div class="form-group" style="padding-left: 15px;">
+										<label for="" class="col-sm-2 control-label" style="padding-left: 15px;">出质附件<span
+											style="color: red">*</span></label>
+										<div class="col-sm-10" style="padding-left: 10px;">
+											<form id="frm_transfer" class="form-horizontal"
+												enctype="multipart/form-data" method="post">
+												<div id="fujianId4"></div>
+											</form>
+											<div class="modal-footer">
+												<button id="btn_save2" type="button"
+													class="btn btn-primary-red"
+													onclick="javascript:addInputItem(4);">
+													<i class="glyphicon glyphicon-plus"></i>新增附件
+												</button>
+												<button id="btn_save1" type="button"
+													class="btn btn-primary-red"
+													onclick="javascript:submitTransferFile(4);">
+													<i class="glyphicon glyphicon-upload"></i>上传
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-12" style="padding-right: 15px;">
+							<!-- 订单明细部分 -->
+							<button type="button" class="btn btn-primary-gray btn-lg pull-right" data-toggle="modal"   onclick="showOrderDetailModal2()" style="margin-right:15px;"><i class="glyphicon glyphicon-th"></i>货物明细</button>
+							</div>
+							
+							<div class="col-md-12" style="padding-right: 15px; padding-top: 10px; display:none;" id="boot_table_div2">
+								<table id="boot-table2"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
+									<thead>
+									<tr bgcolor="#337AB7">
+										<th style="border-bottom: none;" data-field="ids">序号</th>
+										<th style="border-bottom: none;" data-field="pdNm">品名</th>
+										<th style="border-bottom: none;" data-field="spec">规格</th>
+										<th style="border-bottom: none;" data-field="spec">型号</th>
+										<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+										<th style="border-bottom: none;" data-field="brnd">品牌</th>
+										<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+										<th style="border-bottom: none;" data-field="num">数量</th>
+										<th style="border-bottom: none;" data-field="msunit">计量单位</th>
+			<!-- 							<th style="border-bottom: none;" data-field="pchUnitprc">采购单价</th>
+										<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
+										<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th> -->
+										<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th>
+					<!-- 					<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">删除</th> -->
+									</tr>
+									</thead>
+										<!-- <tbody class="list">
+									</tbody> -->
+								</table>
+							</div>
+							
+						</div>
+			</fieldset>
+			</form>
+		</div>
+		<div class="box-footer">
+			<button id="btn_close" type="button"
+				class="btn btn-primary-gray pull-right "
+				onclick='javascript:showOrHideDetail(true, 1);'
+				style="margin-right: 15px;">
+				<i class="glyphicon glyphicon-remove-sign"></i>取消
+			</button>
+<!-- 			<button id="btn_save" type="button"
+				class="btn btn-primary-red pull-right"
+				onclick='javascript:validate_order_edit_detail2(2);'
+				style="margin-right: 5px;">
+				<i class="glyphicon glyphicon-floppy-disk"></i>保存
+			</button> -->
+			<button id="btn_save_submmit" type="button"
+				class="btn btn-primary-red pull-right"
+				onclick='javascript:validate_order_edit_detail2(1);'
+				style="margin-right: 5px;">
+				<i class="glyphicon glyphicon-ok-sign"></i>提交
+			</button>
+		</div>
+		</div>
+	</section>
+	<!-- 详细信息 end-->
+	
+	<!-- 订单明细信息 -->
+  <div class="modal fade" id="orderDetailModal2" tabindex="-1" role="dialog" aria-labelledby="systemModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 800px;height:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">订单货物明细</h5>
+                <button class="close" type="button"  data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+            <div id="custom_data">
+
+				<form id="frm_orderDetailModal2" class="form-horizontal">
+					<input type="hidden" id=ordrId name="ordrId">
+							<div class="col-md-6" style="display:none">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">序号<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="ids" id="ids2" class="form-control" placeholder="序号" value="" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">品名<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="pdNm" id="pdNm2" class="form-control" placeholder="品名" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">规格<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="spec" id="spec2" class="form-control" placeholder="规格" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">型号</label>
+									<div class="col-sm-8">
+										<input name="modl" id="modl2" class="form-control" placeholder="型号" value="223"  />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">质量标准<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="qlyStd" id="qlyStd2" class="form-control" placeholder="质量标准" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">品牌</label>
+									<div class="col-sm-8">
+										<input name="brnd" id="brnd2" class="form-control" placeholder="品牌" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">生产厂家</label>
+									<div class="col-sm-8">
+										<input name="pdFctr" id="pdFctr2" class="form-control" placeholder="生产厂家" value="223" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="num_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">数量<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+											<input name="num" id="num2" class="form-control" placeholder="数量"
+												value="4" />
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-6" id="msunit_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">计量单位<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+											<select name="msunit" id="msunit2" class="form-control" style="width:150px;padding-left: 0px;">
+												<option value="">-计量单位-</option>
+												<option value="01" selected="selected">吨</option>
+												<option value="02">件</option>
+												<option value="03">公斤</option>
+												<option value="04">方</option>
+												<option value="05">个</option>
+											</select>
+									</div>
+								</div>
+							</div>	
+				</form>
+	
+            </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;">
+                <a class="btn btn-primary-red"  type="button"  id="btn_add_order_detail" onclick=addOrderDetail2()><i class="glyphicon glyphicon-plus"></i>&nbsp添 加</a>
+                <a class="btn btn-primary-red"  type="button"  id="btn_modify_order_detail" onclick=addOrderDetail2()><i class="glyphicon glyphicon-edit"></i>&nbsp更新</a>	
+                <button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>												
+            </div>
+        </div>
+    </div>
+   </div>
+   
+   	<!-- 发起质押确认提示框 start-->
+	<div class="modal fade" id="saveOrderSubmitModal2" tabindex="-1"
+		role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">友情提示</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center">提交后货物将入库并向银行发起质押申请，确定提交吗?</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:saveOrder2(2)" class="btn"
+						data-dismiss="modal">确定</button>
+					<button type="button" class="btn" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 发起质押确认提示框 end -->
 
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
@@ -1776,6 +2096,14 @@ body {
 							.append(
 								'<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:showAddOrderDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-list"></i>发起订单</button>');
 				 }
+				 
+				 /* 平台方、仓储方 发起质押申请按钮 */
+				 if('[[${userType}]]' == "pltfrm" || '[[${userType}]]' == "stgco"){
+					$("#div_buttons")
+							.append(
+								'<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:showAddOrderDialog2();" style="margin-right:5px;"><i class="glyphicon glyphicon-list"></i>质押申请</button>');
+				 }
+				 
 				/* $("#div_buttons")
 						.append(
 								'<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:notFinishTips();" style="margin-right:5px;"><i class="glyphicon glyphicon-exclamation-sign"></i>申请质押</button>');
@@ -2164,6 +2492,36 @@ body {
 				}
 			}
 		}
+		
+		// 提交质押申请
+			function validate_order_edit_detail2(flag) {
+			$('#frm_detail_order').bootstrapValidator('validate');
+			
+			if (!$('#frm_detail_order').data('bootstrapValidator')
+					.isValid()) {
+				return;				
+			} else {
+				if (1 == flag) {			
+					// 取订单明细表格的数据
+					var all = $('#boot-table2').bootstrapTable('getData');
+					//发起的时候订单明细不能为空
+						if(all == null || all == undefined || all == ""){
+							bootbox.alert({
+								'title' : "提示信息",
+								'message' : '订单明细不能为空！'
+							});
+							return;
+						}
+										
+					$('#secSrvCd2').val("02");//提交
+					$('#saveOrderSubmitModal2').modal('show');
+				} 
+				/*else if (2 == flag) {					
+					$("#secSrvCd").val("01");//保存
+					saveOrder(1);
+				} */
+			}
+		}
 
 		function save() {
 /* 			for (instance in CKEDITOR.instances) {
@@ -2228,6 +2586,45 @@ body {
 						});
 			});
 		}
+		// 提交质押申请
+		function saveOrder2(flag) {
+			/* 			for (instance in CKEDITOR.instances) {
+							CKEDITOR.instances[instance].updateElement();
+						} */
+						// 取订单明细表格的数据
+						var all = $('#boot-table2').bootstrapTable('getData');
+						var formParams = E7.serialForm('#frm_detail_order2');
+						var fileUrl4 = document.getElementById("fileId4").value;
+						alert(all);
+						E7.post('/plgAply/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl4}, function(data) {
+							query_ar_list();
+							showOrHideDetail(true, 1);
+							if(flag==1){
+								bootbox.alert({
+									'title' : "消息",
+									'message' : '质押申请保存成功！'
+								});
+							} else if(flag==2){
+								bootbox.alert({
+									'title' : "消息",
+									'message' : '质押申请提交成功！'
+								});
+							} else {
+								bootbox.alert({
+									'title' : "消息",
+									'message' : '操作成功！'
+								});
+							}
+							$('#tbl_query').e7table(
+									'reload',
+									function() {
+										if (formParams['id'] != '') {
+											$('#tbl_query').e7table('selectById',
+													formParams['id']);
+										}
+									});
+						});
+					}
 
 		function showEditDialog(disable) {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
@@ -2396,6 +2793,24 @@ body {
 										+ '</code>！'
 							});
 						});
+			}else if (flag == 4) {
+				var file = document.getElementsByName("fileName4")
+				//var file = $('.select-file').files//document.getElementById("file_transfer").files;
+				//TODO:valid
+				var formData = new FormData();
+				for (i = 0; i < file.length; i++) {
+					formData.append('file', file[i].files[0]);
+				}
+				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
+						function(result) {
+							var fileUrl4 = result.data;
+							$("#fileId4").val(fileUrl4);
+							bootbox.alert({
+								'title' : '消息',
+								'message' : '上传成功, 文件：<code>' + result.data
+										+ '</code>！'
+							});
+						});
 			}
 		}
 
@@ -2409,6 +2824,9 @@ body {
 			} else if (flag == 3) {
 				var item = '<div name="inputDiv"><input name="fileName3" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
 				$("#fujianId3").append(item);
+			}else if (flag == 4) {
+				var item = '<div name="inputDiv"><input name="fileName4" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+				$("#fujianId4").append(item);
 			}
 		}
 		function initInputItem(flag) {
@@ -2424,7 +2842,11 @@ body {
 				var item = '<div name="inputDiv"><input name="fileName3" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
 				var testdiv = document.getElementById("fujianId3");
 				testdiv.innerHTML = item;
-			}
+			} else if (flag == 4) {
+					var item = '<div name="inputDiv"><input name="fileName4" type="file"  class="form-control"/><a onclick="deleteItem(this)">删除</a> <br/></div>';
+					var testdiv = document.getElementById("fujianId4");
+					testdiv.innerHTML = item;
+				}
 		}
 		function deleteItem(input) {
 			$(input).parent().remove();
@@ -2608,6 +3030,8 @@ body {
 				$('#main_edit_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').hide();
 				//新发起订单
 				$('#main_order_edit_detail').hide();
 				// 返回按钮
@@ -2621,6 +3045,8 @@ body {
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').hide();
 				//新发起订单
 				$('#main_order_edit_detail').hide();
 				// 返回按钮
@@ -2649,6 +3075,8 @@ body {
 				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').hide();
 				//新发起订单
 				$('#main_order_edit_detail').hide();
 				// 附件
@@ -2678,6 +3106,8 @@ body {
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
 				$('#query_ar_submmit_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').hide();
 				//新发起订单
 				$('#main_order_edit_detail').hide();
 				// 返回按钮
@@ -2706,6 +3136,8 @@ body {
 				$('#ar_lnk_jrnl_inf_detail').fadeIn(300);
 				$('#submit_ar_detail').fadeIn(300);
 				$('#query_ar_submmit_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').hide();
 				//新发起订单
 				$('#main_order_edit_detail').hide();
 				// 附件
@@ -2729,11 +3161,14 @@ body {
 				div.setAttribute("class", "fa fa-plus");
 				div = document.getElementById('ar_lnk_jrnl_inf_detail_li');
 				div.setAttribute("class", "fa fa-plus");
+				
 			} else if (flag == 5) {//长约提交详情查看
 				$('#main_search_detail').hide();
 				$('#main_edit_detail').hide();
 				$('#ar_lnk_jrnl_inf_detail').hide();
 				$('#submit_ar_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').hide();
 				// 返回按钮
 				$('#btn_close_div').hide();	
 				$('#query_ar_submmit_detail').fadeIn(300);	
@@ -2748,8 +3183,23 @@ body {
 				$('#btn_close_div').hide();
 				//长约审批提交
 				$('#query_ar_submmit_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').hide();
 				//新发起订单
 				$('#main_order_edit_detail').fadeIn(800);
+			} else if (flag == 8) {//新发起质押
+				$('#main_search_detail').hide();
+				$('#main_edit_detail').hide();
+				$('#ar_lnk_jrnl_inf_detail').hide();
+				$('#submit_ar_detail').hide();
+				// 返回按钮
+				$('#btn_close_div').hide();
+				//长约审批提交
+				$('#query_ar_submmit_detail').hide();
+				//新发起订单
+				$('#main_order_edit_detail').hide();
+				//新发起质押
+				$('#main_order_edit_detail2').fadeIn(800);
 			}
 		}
 		/***
@@ -3613,6 +4063,50 @@ body {
 			});
 		}
 		
+		
+		//平台、仓储 发起质押
+		function showAddOrderDialog2() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			var arId = "";
+			var arSt = "";
+			if (rows.length == 0) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '请选择数据！'
+				});
+				return;
+			} else if (rows.length > 1) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '一次只能修改一条数据！'
+				});
+				return;
+			}
+
+			E7.post(pageSetting.resetPath + '/getDetail', {
+				'id' : rows[0]['id']
+			}, function(result) {
+				fillForm('#frm_detail_order2', result.data);
+				arId = result.data["arId"];
+				arSt = result.data["arSt"];
+				// 实时判断长约是否可以修改	
+				if (result.data["arSt"] != "07") {
+					bootbox.alert({
+						'title' : '错误消息',
+						'message' : '该长约非执行中长约禁止发起订单！'
+					});
+					return;
+				}
+
+/* 				$('#main_order_edit_detail_title').text(
+						"您所在位置 : 长约管理 > 执行中长约 [ " + arId + " ] > 发起订单"); */
+				$('#main_order_edit_detail_title').text(
+								"您所在位置 : 出质申请");
+				showOrHideDetail(true, 8);
+
+			});
+		}
+		
 		//供应链 发起订单
 		function showAddOrderDialog_gyl(id) {
 			var arId = "";
@@ -3800,6 +4294,8 @@ body {
 			$('#orderDetailModal').modal('show');
 		}
 		
+		
+		
 		function deleteItem4(input) {
 			var id = $(input).parent().parent().find('td').eq(0).text();
  			var ids = [];//定义一个数组
@@ -3818,6 +4314,94 @@ body {
 		    	}, function(){
 		    	});
 		     }
+		
+		// 质押货物明细
+			/***
+		 * 添加订单明细到页面表格
+		 */
+		function addOrderDetail2() {				
+        var count = 0;
+        var preIds = $('#ids2').val();
+        if("" == preIds || undefined == preIds || null == preIds){
+            var all = $('#boot-table2').bootstrapTable('getData');
+	        for(var i=0;i<all.length;i++){
+	        	if(parseInt(all[i]["ids"])>count)
+	        		count=all[i]["ids"];
+	        }
+	        count=parseInt(count)+1;
+        } else {
+        	// 删除旧的数据行
+        	var ids = [];//定义一个数组
+        	ids.push(parseInt(preIds));
+			$('#boot-table2').bootstrapTable('remove', { field: 'ids', values: ids});
+			// 修改后的数据序号不变
+        	count = preIds;       
+        }
+        var rows=[];
+        rows.push({
+        	ids:count,
+        	pdNm:$('#pdNm2').val(),
+        	spec:$('#spec2').val(),
+        	spec:$('#modl2').val(),
+        	qlyStd:$('#qlyStd2').val(),
+        	brnd:$('#brnd2').val(),
+        	pdFctr:$('#pdFctr2').val(),
+        	num:$('#num2').val(),
+        	msunit:$('#msunit2').val(),
+        	operation:'<a onclick="modifyTr2(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',       	
+        })
+        $('#boot-table2').bootstrapTable('append', rows);
+		$("#boot_table_div2").fadeIn(800);
+		
+		// 计算采购货款总额,并实时更新
+		    var all = $('#boot-table').bootstrapTable('getData');
+			var sum = 0;
+	        for(var i=0;i<all.length;i++){
+	        	if((""!=all[i]["pchUnitprc"])&&(""!=all[i]["num"])){
+	        		sum += (parseFloat(all[i]["pchUnitprc"]) * parseFloat(all[i]["num"]));
+	        	}
+	        }
+	        $("#pchPymfrgdsTamt").val(sum);
+	        
+		$("#orderDetailModal").modal("hide");
+	}
+		
+		// 新增行
+		function showOrderDetailModal2() {
+			$('#ids2').val("");
+			$('#pdNm2').val("");
+			$('#spec2').val("");
+			$('#modl2').val("");
+			$('#qlyStd2').val("");
+			$('#pdFctr2').val("");
+			$('#msunit2').val("");
+/* 			$('#pchUnitprc2').val("");
+			$('#txnPrcdif2').val("");
+			$('#saleTntvPrc2').val(""); */
+			$('#num2').val("");
+			$('#brnd2').val("");
+			// 按钮控制
+			$('#btn_modify_order_detail2').hide();
+			$('#btn_add_order_detail2').show();
+			$('#orderDetailModal2').modal('show');
+		}
+		// 修改行
+		function modifyTr2(input) {
+			$('#ids2').val($(input).parent().parent().find('td').eq(0).text());
+			$('#pdNm2').val($(input).parent().parent().find('td').eq(1).text());
+			$('#spec2').val($(input).parent().parent().find('td').eq(2).text());
+			$('#modl2').val($(input).parent().parent().find('td').eq(3).text());
+			$('#qlyStd2').val($(input).parent().parent().find('td').eq(4).text());
+			$('#pdFctr2').val($(input).parent().parent().find('td').eq(5).text());
+			$('#msunit2').val($(input).parent().parent().find('td').eq(6).text());
+/* 			$('#pchUnitprc2').val($(input).parent().parent().find('td').eq(7).text());
+			$('#txnPrcdif2').val($(input).parent().parent().find('td').eq(8).text());
+			$('#saleTntvPrc2').val($(input).parent().parent().find('td').eq(9).text()); */
+			// 按钮控制
+			$('#btn_modify_order_detail2').show();
+			$('#btn_add_order_detail2').hide();
+			$('#orderDetailModal2').modal('show');
+		}
 		
 		function operateFormatter(value, row, index) {
 			return "xxxx";
