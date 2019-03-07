@@ -17,6 +17,7 @@ import com.xai.tt.business.biz.common.util.Constants;
 import com.xai.tt.business.client.entity.Demo;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
+import com.xai.tt.dc.client.model.T13GdsDetail;
 import com.xai.tt.dc.client.model.T7SpgDetail;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.SubmitSpgQuery;
@@ -118,7 +119,7 @@ public class SpgManagementController extends BaseController {
 
 		SubmitSpgQuery query = JSON.parseObject(inVo,SubmitSpgQuery.class);
 
-		List<T7SpgDetail> t7SpgDetailList = JSON.parseArray(detail, T7SpgDetail.class);
+		List<T13GdsDetail> T13GdsDetailList = JSON.parseArray(detail, T13GdsDetail.class);
 
 
     	logger.info("提交发货请求报文：{}, fileUrl2={}", JSON.toJSONString(query), JSON.toJSONString(fileUrl2));
@@ -128,7 +129,7 @@ public class SpgManagementController extends BaseController {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	query.setUsername(user.getUsername());
     	query.setCompanyId(user.getCompanyId());
-		query.setT7SpgDetailList(t7SpgDetailList);
+		query.setT13GdsDetailList(T13GdsDetailList);
     	Result<Boolean> result = spgManagementDcService.submitSpg(query);
     	logger.info("提交发货返回结果：{}", JSON.toJSONString(result));
         return result;
