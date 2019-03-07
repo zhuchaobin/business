@@ -113,7 +113,14 @@ public class SpgManagementController extends BaseController {
     
     @RequestMapping(value = { "submitSpg" })
     @ResponseBody
-    public Result<?>  submitSpg(SubmitSpgQuery query, String fileUrl2) {
+    public Result<?>  submitSpg(String inVo, String detail, String fileUrl2) {
+
+
+		SubmitSpgQuery query = JSON.parseObject(inVo,SubmitSpgQuery.class);
+
+		List<T7SpgDetail> t7SpgDetailList = JSON.parseArray(detail, T7SpgDetail.class);
+
+
     	logger.info("提交发货请求报文：{}, fileUrl2={}", JSON.toJSONString(query), JSON.toJSONString(fileUrl2));
         if (StringUtils.isNotEmpty(fileUrl2)) {
         	query.setFileNames(fileUrl2);
@@ -121,6 +128,7 @@ public class SpgManagementController extends BaseController {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	query.setUsername(user.getUsername());
     	query.setCompanyId(user.getCompanyId());
+		query.setT7SpgDetailList(t7SpgDetailList);
     	Result<Boolean> result = spgManagementDcService.submitSpg(query);
     	logger.info("提交发货返回结果：{}", JSON.toJSONString(result));
         return result;

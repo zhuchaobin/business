@@ -1879,8 +1879,15 @@ body {
         $('#frm_submit_ar [name="plgWarnStcd"]').val($('#plgWarnStcd_spe').val());
 
         var formParams = E7.serialForm('#frm_submit_ar');
-        E7.post(pageSetting.resetPath + '/submitSpg', formParams, function (
-            data) {
+
+
+        // 取订单明细表格的数据
+        var all = $('#boot-table-kc').bootstrapTable('getData');
+
+        var fileUrl2 = document.getElementById("fileId2").value;
+
+        E7.post(pageSetting.resetPath + '/submitSpg', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl2:fileUrl2}, function(data) {
+
             showOrHideDetail(true, 1);
             bootbox.alert({
                 'title': "消息",
@@ -2305,9 +2312,6 @@ body {
                     }
                     $('#boot-table').bootstrapTable('append', rows);
 
-
-
-                    alert(aplyPcstpCd);
                     if(aplyPcstpCd==63){
 
                         $('#boot_table_div_kc').show();
