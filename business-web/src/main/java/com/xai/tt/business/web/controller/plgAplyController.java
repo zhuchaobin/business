@@ -78,7 +78,34 @@ public class plgAplyController extends BaseController {
     	Result<Boolean> result = plgAplyDcService.save(plgAplyInVo);
     	logger.info("保存质押返回结果：{}", JSON.toJSONString(result));
         return result;
-    }   
+    }  
+    
+    // 质押审核提交
+    @RequestMapping(value = { "adt" })
+    @ResponseBody
+    public Result<?>  adt(String inVo, String detail, String fileUrl) {
+    	logger.info("保存质押请求报文：inVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
+
+		List<T13GdsDetail> detailList = JSON.parseArray(detail, T13GdsDetail.class);
+		logger.info("保存质押请求报文,货物明细：detailList={}", detailList);
+		PlgAplyInVo plgAplyInVo = JSON.parseObject(inVo,PlgAplyInVo.class);
+        if (StringUtils.isNotEmpty(fileUrl)) {
+        	plgAplyInVo.setFileNames(fileUrl);
+        }
+   // 	logger.info("长约附件信息长度：{}", plgAplyInVo.getList().size());
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	plgAplyInVo.setUserType(user.getUserType().ordinal());
+       	plgAplyInVo.setUsername(user.getUsername());
+       	plgAplyInVo.setCompanyId(user.getCompanyId());
+       	plgAplyInVo.setNickname(user.getNickname());
+       	plgAplyInVo.setChineseName(user.getChineseName());
+       	plgAplyInVo.setT13GdsDetailList(detailList);
+       	// 
+       	logger.info("保存质押拼装后请求报文：plgAplyInVo={}", JSON.toJSONString(plgAplyInVo));
+    	Result<Boolean> result = plgAplyDcService.adt(plgAplyInVo);
+    	logger.info("保存质押返回结果：{}", JSON.toJSONString(result));
+        return result;
+    }  
     
     @RequestMapping(value = { "list" })
     public ModelAndView list() {

@@ -87,6 +87,7 @@ body {
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">订单编号：</label>
 								<div class="col-sm-8">
+								
 									<input type="hidden" id="queryTypeId" name="queryType"
 										value="4"> <input id="arId" name="arId"
 										class="form-control" placeholder="订单编号" />
@@ -198,6 +199,7 @@ body {
 				<form id="frm_detail" class="form-horizontal">
 					<fieldset id='fld_detail'>
 						<div class="w-z-info">
+						<input type="hidden" id="plgAplySt" name="plgAplySt">
 							<input type="hidden" id="fileId" name="fileUrl"> <input
 								type="hidden" id="fileToDeleteId" name="filesToDelete">
 							<input name="id" type="hidden" value="" /> <input id="ordrId"
@@ -317,6 +319,7 @@ body {
 												<th style="border-bottom: none;" data-field="num">数量</th>
 												<th style="border-bottom: none;" data-field="msunit">计量单位</th>
 												<th style="border-bottom: none;" data-field="pchUnitprc">质押指导价</th>
+												<th style="border-bottom: none;" data-field="pdId">品名id</th>
 									<!-- 			<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
 												<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th> -->
 												<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th>
@@ -359,17 +362,17 @@ body {
 					style="margin-right: 15px;">
 					<i class="glyphicon glyphicon-remove-sign"></i>取消
 				</button>
-<!-- 				<button id="btn_save" type="button"
+				<button id="btn_save" type="button"
 					class="btn btn-primary-red pull-right"
 					onclick='javascript:validate_frm_detail(2);'
 					style="margin-right: 5px;">
-					<i class="glyphicon glyphicon-floppy-disk"></i>保存
-				</button> -->
+					<i class="glyphicon glyphicon-floppy-disk"></i>拒绝质押
+				</button>
 				<button id="btn_save_submmit" type="button"
 					class="btn btn-primary-red pull-right"
 					onclick='javascript:validate_frm_detail(1);'
 					style="margin-right: 5px;">
-					<i class="glyphicon glyphicon-ok-sign"></i>提交3
+					<i class="glyphicon glyphicon-ok-sign"></i>同意质押
 				</button>
 			</div>
 		</div>
@@ -582,7 +585,37 @@ body {
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" align="center">提交后将自动流转到[平台审核]，若需修改需要下一环节退回，确定提交吗?</div>
+				<div class="modal-body" align="center">提交后将完成该批货物的质押，确定提交吗?</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:save(2)"
+						class="btn btn-primary-red" data-dismiss="modal">
+						<i class="glyphicon glyphicon-ok-sign"></i>确认
+					</button>
+					<button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 发起确认提示框 end -->
+	
+		<!-- 发起确认提示框 start-->
+	<div class="modal fade" id="saveSubmitModal2" tabindex="-1"
+		role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">友情提示</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" align="center">点击确认后将拒绝该批货物的质押，确定提交吗?</div>
 				<div class="modal-footer" align="center">
 					<button type="button" onclick="javascript:save(2)"
 						class="btn btn-primary-red" data-dismiss="modal">
@@ -719,6 +752,7 @@ body {
 
 						<form id="frm_orderDetailModal" class="form-horizontal">
 							<input type="hidden" id=ordrId name="ordrId">
+							<input name="pdId" id="pdId" class="form-control" placeholder="品名id" value=""/>
 							<div class="col-md-6" style="display: none">
 								<div class="form-group">
 									<label for="" class="col-sm-4 control-label">序号<span
@@ -1225,6 +1259,7 @@ body {
 										<th style="border-bottom: none;" data-field="num">数量</th>
 										<th style="border-bottom: none;" data-field="msunit">计量单位</th>
  										<th style="border-bottom: none;" data-field="pchUnitprc">质押指导价</th>
+ 										<th style="border-bottom: none;" data-field="pdId">品名id</th>
 								<!--		<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
 										<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th> -->
 										<th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th>
@@ -1265,7 +1300,7 @@ body {
 	<!-- 详细信息 end-->
 	
 <!-- 订单明细信息 -->
-  <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="systemModalLabel"
+ <!--  <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="systemModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document" style="width: 800px;height:900px;">
         <div class="modal-content">
@@ -1285,6 +1320,7 @@ body {
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
 										<input name="ids" id="ids" class="form-control" placeholder="序号" value="" disabled="disabled"/>
+										<input name="pdId" id="pdId" class="form-control" placeholder="品名id" value="" disabled="disabled"/>
 									</div>
 								</div>
 							</div>
@@ -1397,7 +1433,7 @@ body {
             </div>
         </div>
     </div>
-   </div>
+   </div> -->
    
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
@@ -2146,16 +2182,17 @@ body {
 				return;
 			} else {
 				if(1 == flag){
-					$('#secSrvCd').val("02");//提交
+					$('#plgAplySt').val("02");//质押通过
 					$('#saveSubmitModal').modal('show');
 				} else if(2 == flag){
+					$('#plgAplySt').val("03");//质押拒绝
 					$("#secSrvCd").val("01");//保存
-					save(1);
+					$('#saveSubmitModal2').modal('show');
 				}
 			}
 		}
 		
-		
+		// 质押审核提交
 		function save(flag) {			
 /* 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
@@ -2166,18 +2203,18 @@ body {
 			var formParams = E7.serialForm('#frm_detail');
 			var fileUrl3 = document.getElementById("fileId3").value;
 			
-			E7.post('/orderManagement/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl3}, function(data) {
+			E7.post('/plgAply/adt', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl3}, function(data) {
 						query_ar_list();
 						//showOrHideDetail(true, 1);
 						if(flag == 1){
 							bootbox.alert({
 								'title' : "消息",
-								'message' : '订单保存成功！'
+								'message' : '质押审核完成！'
 							});
 						} else if(flag == 2){
 							bootbox.alert({
 								'title' : "消息",
-								'message' : '订单发起成功！'
+								'message' : '质押审核完成！'
 							});
 						}
 						$('#tbl_query').e7table(
@@ -2359,6 +2396,7 @@ body {
         	count = preIds;       
         }
         var rows=[];
+        alert($('#pdId').val());
         rows.push({
         	ids:count,
         	pdNm:$('#pdNm').val(),
@@ -2372,6 +2410,7 @@ body {
         	pchUnitprc:$('#pchUnitprc').val(),
         	txnPrcdif:$('#txnPrcdif').val(),
         	saleTntvPrc:$('#saleTntvPrc').val(),
+        	pdId:$('#pdId').val(),
         	operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',       	
         })
         $('#boot-table').bootstrapTable('append', rows);
@@ -2408,6 +2447,7 @@ body {
 			$('#pdFctr').val($(input).parent().parent().find('td').eq(5).text());
 			$('#msunit').val($(input).parent().parent().find('td').eq(6).text());
 			$('#pchUnitprc').val($(input).parent().parent().find('td').eq(7).text());
+			$('#pdId').val($(input).parent().parent().find('td').eq(10).text());
 /* 			$('#txnPrcdif').val($(input).parent().parent().find('td').eq(8).text());
 			$('#saleTntvPrc').val($(input).parent().parent().find('td').eq(9).text()); */
 			// 按钮控制
@@ -3021,6 +3061,7 @@ body {
 												num : t13GdsDetailList[jj].num,
 												msunit : t13GdsDetailList[jj].msunit,
  												pchUnitprc : t13GdsDetailList[jj].pchUnitprc,
+ 												pdId : t13GdsDetailList[jj].pdId,
  												/*txnPrcdif : t13GdsDetailList[jj].txnPrcdif,
 												saleTntvPrc : t13GdsDetailList[jj].saleTntvPrc, */
 												//operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp',

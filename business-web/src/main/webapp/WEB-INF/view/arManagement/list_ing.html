@@ -1681,7 +1681,7 @@ body {
 								<table id="boot-table2"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
 									<thead>
 									<tr bgcolor="#337AB7">
-										<th style="border-bottom: none;" data-field="ids">序号</th>
+										<th style="border-bottom: none;" data-field="ids">序号</th>										
 										<th style="border-bottom: none;" data-field="pdNm">品名</th>
 										<th style="border-bottom: none;" data-field="spec">规格</th>
 										<th style="border-bottom: none;" data-field="spec">型号</th>
@@ -1690,6 +1690,7 @@ body {
 										<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
 										<th style="border-bottom: none;" data-field="num">数量</th>
 										<th style="border-bottom: none;" data-field="msunit">计量单位</th>
+										<th style="border-bottom: none;" data-field="pdId">品名id</th>
 			<!-- 							<th style="border-bottom: none;" data-field="pchUnitprc">采购单价</th>
 										<th style="border-bottom: none;" data-field="txnPrcdif">交易差价</th>
 										<th style="border-bottom: none;" data-field="saleTntvPrc">销售暂定价</th> -->
@@ -1759,7 +1760,12 @@ body {
 									<label for="" class="col-sm-4 control-label">品名<span
 										style="color: red">*</span></label>
 									<div class="col-sm-8">
-										<input name="pdNm" id="pdNm2" class="form-control" placeholder="品名" value="223" />
+									<!-- 	<input name="pdNm" id="pdNm2" class="form-control" placeholder="品名" value="223" /> -->
+										<select name="pdNm" id="pdNm2" class="form-control">
+											<option value="">请选择</option>
+											<option th:each="model: ${pmModels}"
+												th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -4339,8 +4345,8 @@ body {
         }
         var rows=[];
         rows.push({
-        	ids:count,
-        	pdNm:$('#pdNm2').val(),
+        	ids:count,       	
+        	pdNm:$("#pdNm2").find("option:selected").text(),
         	spec:$('#spec2').val(),
         	spec:$('#modl2').val(),
         	qlyStd:$('#qlyStd2').val(),
@@ -4348,6 +4354,7 @@ body {
         	pdFctr:$('#pdFctr2').val(),
         	num:$('#num2').val(),
         	msunit:$('#msunit2').val(),
+        	pdId:$('#pdNm2').val(),
         	operation:'<a onclick="modifyTr2(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',       	
         })
         $('#boot-table2').bootstrapTable('append', rows);
@@ -4394,10 +4401,13 @@ body {
 			$('#qlyStd2').val($(input).parent().parent().find('td').eq(4).text());
 			$('#pdFctr2').val($(input).parent().parent().find('td').eq(5).text());
 			$('#msunit2').val($(input).parent().parent().find('td').eq(6).text());
-/* 			$('#pchUnitprc2').val($(input).parent().parent().find('td').eq(7).text());
-			$('#txnPrcdif2').val($(input).parent().parent().find('td').eq(8).text());
+			$('#pchUnitprc2').val($(input).parent().parent().find('td').eq(7).text());
+			$('#pdId2').val($(input).parent().parent().find('td').eq(8).text());
+ 
+			/*$('#txnPrcdif2').val($(input).parent().parent().find('td').eq(8).text());
 			$('#saleTntvPrc2').val($(input).parent().parent().find('td').eq(9).text()); */
 			// 按钮控制
+			
 			$('#btn_modify_order_detail2').show();
 			$('#btn_add_order_detail2').hide();
 			$('#orderDetailModal2').modal('show');

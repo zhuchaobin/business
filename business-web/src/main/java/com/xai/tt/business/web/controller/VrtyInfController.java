@@ -60,7 +60,7 @@ public class VrtyInfController extends BaseController {
     	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
         return Result.createSuccessResult(vrtyList);
     }
-    
+        
     @LogAspect(type=LogType.Delete_vrty, argNames={"id"})
     @RequestMapping("/del")
     @ResponseBody
