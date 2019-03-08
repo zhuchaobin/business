@@ -489,7 +489,7 @@ body {
                         <input type="hidden" id="fileId2" name="fileUrl2">
                         <input id="aplyPcstpCd" name="aplyPcstpCd" class="form-control" placeholder="" value=""
                                type="hidden"/>
-                        <input id="ordrId" name="ordrId" class="form-control" placeholder="" value="" type="hidden"/>
+                        <input name="ordrId" class="form-control" placeholder="" value="" type="hidden"/>
                         <input name="arId" class="form-control" placeholder="" value="" type="hidden"/>
                         <input id="pymtMod" name="pymtMod" class="form-control" placeholder="" value="" type="hidden"/>
                         <input name="spgId" class="form-control" placeholder="" value="" type="hidden"/>
@@ -2280,6 +2280,7 @@ body {
                     }
 
                     $('#frm_submit_ar [name="spgId"]').val(detail["spgId"]);
+                    $('#frm_submit_ar [name="arId"]').val(detail["arId"]);
 
                     $('#frm_submit_ar [name="ordrId"]').val(detail["ordrId"]);
                     $('#frm_submit_ar [name="pymtMod"]').val(detail["pymtMod"]);
@@ -2311,6 +2312,8 @@ body {
 
                     }
                     $('#boot-table').bootstrapTable('append', rows);
+
+                    $('#boot-table-kc').bootstrapTable('removeAll');
 
                     if(aplyPcstpCd==63){
 
