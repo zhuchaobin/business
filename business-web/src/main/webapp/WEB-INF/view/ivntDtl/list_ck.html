@@ -152,7 +152,7 @@ body {
 							<div class="form-group">
 								<label for="" class="col-sm-4 control-label">融资企业：</label>
 								<div class="col-sm-8">
-									<select name="fncEntp" class="form-control">
+									<select name="fncEntp" class="form-control" id="outStgFncEntpSelected">
 										<option value="">请选择</option>
 										<option th:each="model: ${fncEntpModels}"
 											th:value="${model.id}" th:text="${model.name}"></option>
@@ -1461,6 +1461,50 @@ body {
     </div>
    </div> -->
    
+   
+   
+   	<!-- 长约提交确认提示框 start -->
+	<div class="modal fade" id="firstStepModal" tabindex="-1" role="dialog"
+		aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">出库操作第一步：请选择融资企业</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+										
+				<div class="modal-body" align="center">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">待出库融资企业：</label>
+									<div class="col-sm-8">
+										<select name="outStgFncEntp" class="form-control" id="outStgFncEntp">
+											<option value="">请选择</option>
+											<option th:each="model: ${fncEntpModels}"
+												th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
+									</div>
+							</div>
+				</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:secondStep()"
+						class="btn btn-primary-red" data-dismiss="modal">
+						<i class="glyphicon glyphicon-ok-sign"></i>确定
+					</button>
+					<button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 长约提交确认提示框 end -->
+	
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -1573,7 +1617,8 @@ body {
 		$(function() {
 			//e7table表格控件初始化
 	//		showAddDialog();
-			e7tableInit();
+			firstStep();
+//			e7tableInit();
 			//表单校验控件初始化
 			validator_1_Init();
 			validator_2_Init();
@@ -1584,6 +1629,17 @@ body {
 			CKEDITOR.replace("editor1");
 			addNewOrderLayer();
 		});
+		
+		function firstStep(){
+			$('#firstStepModal').modal('show');
+		}
+		
+		function secondStep(){
+			alert($('#outStgFncEntp').val());
+			$('#outStgFncEntpSelected').val($('#outStgFncEntp').val());
+			$('#outStgFncEntpSelected').attr("disabled","disabled");  
+			e7tableInit();
+		}
 		
 		function addNewOrderLayer(){
 			//iframe窗
