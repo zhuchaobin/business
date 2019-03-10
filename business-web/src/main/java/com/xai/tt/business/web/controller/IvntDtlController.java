@@ -22,9 +22,11 @@ import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T13GdsDetail;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.KnowledgeCatalogQuery;
+import com.xai.tt.dc.client.query.UserInfoQuery;
 import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.service.IvntDtlDcService;
 import com.xai.tt.dc.client.vo.inVo.IvntDtlInVo;
+import com.xai.tt.dc.client.vo.outVo.GdsBlgOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
 import com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo;
 
@@ -39,6 +41,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -150,6 +153,20 @@ public class IvntDtlController extends BaseController {
         mav.addObject("pmModels", vrtyList.getRows());
         logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
         
+        // 货物归属下拉菜单
+        UserInfoQuery userInfo = new UserInfoQuery();
+        LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+        BeanUtils.copyProperties(user, userInfo);
+        userInfo.setUserType(user.getUserType().ordinal());
+        Result<List<GdsBlgOutVo>> gdsBlgOutVoRlt = ivntDtlDcService.queryGdsBlgList(userInfo);
+        if (null ==gdsBlgOutVoRlt || gdsBlgOutVoRlt.getCode() != 0) {
+        	logger.error("查询[货物归属列表]异常");
+//            throw new RuntimeException("查询[融资企业]公司信息异常");
+        } else
+        	mav.addObject("gdsBlgModels", gdsBlgOutVoRlt.getData());
+        	String gdsBlgModelsString = JSON.toJSONString( gdsBlgOutVoRlt.getData());
+        	mav.addObject("gdsBlgModelsString", gdsBlgModelsString);
+        	logger.info("gdsBlgModelsString=" + gdsBlgModelsString);
         return mav;
     }
   

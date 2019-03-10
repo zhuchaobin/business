@@ -83,111 +83,95 @@ body {
 			<div class="box-body" style="padding-bottom: 0px;">
 				<form id="frm_query" class="form-horizontal">
 					<div id="div_criteria" class="flowlayout">
+					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">长约编号：</label>
-								<div class="col-sm-8">
-									<input id="arId" name="arId"
-										class="form-control" placeholder="长约编号" />
+								<label for="" class="col-sm-6 control-label">第一步：选择出库企业</label>
+								<div class="col-sm-6">									
+									<select name="gdsBlgId" class="form-control" onchange="firstStep()" id="outGdsBlgSelected">
+											<option value="">请选择</option>
+											<option th:each="model: ${gdsBlgModels}"
+												th:value="${model.gdsBlgId}" th:text="${model.gdsBlgNm}"></option>
+										</select>
 								</div>
 							</div>
 						</div>
+						<div class="col-md-1">
+						</div>
+						<div class="col-md-2">
+						当前质押货值：7889元
+						</div>
+						<div class="col-md-4">
+							<div class="progress progress-striped">
+							    <div class="progress-bar progress-bar-success" role="progressbar"
+							         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+							         style="width: 130%;">
+							        <span class="sr-only">130% 完成（成功）</span>
+							    </div>
+							</div>
+						</div>
+						<div class="col-md-1">
+						</div>
+						</div>
+						<div class ="row">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">订单编号：</label>
-								<div class="col-sm-8">
-								
-									<input type="hidden" id="queryTypeId" name="queryType"
-										value="4"> <input id="arId" name="arId"
-										class="form-control" placeholder="订单编号" />
+								<label for="" class="col-sm-6 control-label">第二步：选择长约编号</label>
+								<div class="col-sm-6">									
+										<select name="arId" class="form-control" id="arIdSelected">
+											<option value="">请选择</option>
+											<option th:each="model: ${arIdModels}"
+												th:value="${model.arId}"th:text="${model.arId}"></option>
+										</select>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">仓单编号：</label>
-								<div class="col-sm-8">
-									<input id="plgBillno" name="whrecptId"
-										class="form-control" placeholder="质押单号" />
-								</div>
-							</div>
+						<div class="col-md-1">
+						</div>
+						<div class="col-md-2">
+						当前质押货值：7889元
 						</div>
 						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">质押单号：</label>
-								<div class="col-sm-8">
-									<input id="plgBillno" name="plgBillno"
-										class="form-control" placeholder="质押单号" />
-								</div>
+							<div class="progress progress-striped">
+							    <div class="progress-bar progress-bar-info" role="progressbar"
+							         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+							         style="width: 30%;">
+							        <span class="sr-only">30% 完成（信息）</span>
+							    </div>
 							</div>
 						</div>
+						<div class="col-md-1">
+						</div>
+						</div>
+						<div class="row">
 						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">质押状态：</label>
-								<div class="col-sm-8">
-									<select name="plgAplySt" class="form-control">
-										<option value="">全部</option>
-										<option value="01">待审核</option>
-										<option value="02">质押成功</option>
-										<option value="03">审核驳回</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">银行：</label>
-								<div class="col-sm-8">
-									<select name="bnk" class="form-control">
-										<option value="">请选择</option>
-										<option th:each="model: ${bnkModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
-									</select>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">融资企业：</label>
-								<div class="col-sm-8">
-									<select name="fncEntp" class="form-control">
-										<option value="">请选择</option>
-										<option th:each="model: ${fncEntpModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
-									</select>
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-md-4" id="长约起止日期_div">
 								<div class="form-group">
-									<label for="" class="col-sm-4 control-label">入库日期：</label>
-									<div class="col-sm-8 pull-right">
-										<div class="col-xs-5" style="padding: 0px;">
-											<input name="stdt" id="arStdtDTPicker" class="form-control"
-												style="padding-left: 3px;" placeholder="开始日期" />
-										</div>
-										<div class="col-xs-1 ">
-											<label for="" class="control-label">- </label>
-										</div>
-										<div class="col-xs-5" style="padding: 0px;">
-											<input name="eddt" id="arEddtDTPicker" class="form-control"
-												style="padding-left: 3px;" placeholder="结束日期" />
-										</div>
+									<label for="" class="col-sm-6 control-label">第三步：选择仓储公司</label>
+									<div class="col-sm-6">
+										<select name="stgco" class="form-control" id="stgcoSelected">
+											<option value="">请选择</option>
+											<option th:each="model: ${stgcoModels}"
+												th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
 									</div>
 								</div>
+						</div>
+						<div class="col-md-1">
+						</div>
+						<div class="col-md-2">
+						当前质押货值：7889元
+						</div>
+						<div class="col-md-4">
+							<div class="progress progress-striped">
+							    <div class="progress-bar progress-bar-warning" role="progressbar"
+							         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+							         style="width: 20%;">
+							        <span class="sr-only">20% 完成（警告）</span>
+							    </div>
 							</div>
-							
- 						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">关键字：</label>
-								<div class="col-sm-8">
-									<input id="keyWorlds" name="keyWorlds" class="form-control"
-										placeholder="搜索关键字" />
-								</div>
-							</div>
+						</div>
+						<div class="col-md-1">
+						</div>
 						</div>
 					</div>
 				</form>
@@ -1461,6 +1445,50 @@ body {
     </div>
    </div> -->
    
+   
+   
+   	<!-- 长约提交确认提示框 start -->
+	<div class="modal fade" id="firstStepModal" tabindex="-1" role="dialog"
+		aria-labelledby="submitModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<h4 class="modal-title">出库操作第一步：请选择融资企业</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+										
+				<div class="modal-body" align="center">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">待出库企业：</label>
+									<div class="col-sm-8">
+										<select name="gdsBlgId" class="form-control" id="gdsBlgId">
+											<option value="">请选择</option>
+											<option th:each="model: ${gdsBlgModels}"
+												th:value="${model.gdsBlgId}" th:text="${model.gdsBlgNm}"></option>
+										</select>
+									</div>
+							</div>
+				</div>
+				<div class="modal-footer" align="center">
+					<button type="button" onclick="javascript:secondStep()"
+						class="btn btn-primary-red" data-dismiss="modal">
+						<i class="glyphicon glyphicon-ok-sign"></i>确定
+					</button>
+					<button type="button" class="btn btn-primary-gray"
+						data-dismiss="modal">
+						<i class="glyphicon glyphicon-remove-sign"></i>取消
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- 长约提交确认提示框 end -->
+	
 	<!-- /.content -->
 	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
 	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
@@ -1548,7 +1576,7 @@ body {
       // 判断保险起止时间与订单起止时间，并提示，但是不禁止提交
          checkInsDtAndArDt();
      }); 
-	
+	var obj;
     // 判断保险起止时间与订单起止时间，并提示，但是不禁止提交
 	function checkInsDtAndArDt(){
 	    var msg = "";
@@ -1573,7 +1601,18 @@ body {
 		$(function() {
 			//e7table表格控件初始化
 	//		showAddDialog();
-			e7tableInit();
+
+			var test ='[[${gdsBlgModelsString}]]';
+			test1=test.replace(/&quot;/g,"\"");
+			alert(test1);
+		//	var obj =  JSON.parse('[{"gdsBlgId":1,"gdsBlgNm":"dd","plgPdValue":0.0},{"gdsBlgId":81,"gdsBlgNm":"dd","plgPdValue":0.0},{"gdsBlgId":81,"gdsBlgNm":"ddd","plgPdValue":0.0},{"gdsBlgId":81,"gdsBlgNm":"ee","plgPdValue":0.0}]');
+
+			obj =  JSON.parse(test1);	
+/*   			for(var i=0;i<obj.length;i++){
+				alert(obj[i].gdsBlgNm); //取json中的值
+			}  */
+ 	
+//			e7tableInit();
 			//表单校验控件初始化
 			validator_1_Init();
 			validator_2_Init();
@@ -1584,6 +1623,31 @@ body {
 			CKEDITOR.replace("editor1");
 			addNewOrderLayer();
 		});
+		
+		function firstStep(){
+			alert($('#outGdsBlgSelected').val());
+			var outGdsBlg = $('#outGdsBlgSelected').val();
+			for(var i=0;i<obj.length;i++){
+				alert(obj[i].gdsBlgNm); //取json中的值
+				if(obj[i].gdsBlgId == outGdsBlg){
+					var arIds = obj[i].arId;
+					var arIdArr = arIds.split(',');
+					for(var j=0;j<arIdArr.length;j++){
+						alert(arIdArr[j]);
+						$("#arIdSelected").append("<option value='"+ arIdArr[j] +"'>"+arIdArr[j]+"</option>");
+					}
+				}
+			}
+			//$('#firstStepModal').modal('show');
+			
+		}
+		
+		function secondStep(){
+			alert($('#outStgFncEntp').val());
+			$('#outGdsBlgSelected').val($('#outStgFncEntp').val());
+			$('#outGdsBlgSelected').attr("disabled","disabled");  
+			e7tableInit();
+		}
 		
 		function addNewOrderLayer(){
 			//iframe窗
