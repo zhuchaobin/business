@@ -73,6 +73,27 @@ body {
 	th:href="@{/resources/bootstrap/css/bootstrap-table.min.css}" />
 <!-- 流程图 -->
 <link rel="stylesheet" th:href="@{/resources/css_zcb/step/css/step.css}" />
+<!-- 球状进度条样式 -->
+ <style type="text/css">
+  #c{
+   margin: 0 auto;
+   display: block;
+  }
+  #r{
+   display: block;
+   margin: 0 auto;
+  }
+  #r::before{
+   color: black;
+   content: attr(min);
+   padding-right: 10px;
+  }
+  #r::after{
+   color: black;
+   content: attr(max);
+   padding-left: 10px;
+  }  
+ </style>
 </head>
 <body>
 	<!-- 列表查询 start-->
@@ -83,39 +104,23 @@ body {
 			<div class="box-body" style="padding-bottom: 0px;">
 				<form id="frm_query" class="form-horizontal">
 					<div id="div_criteria" class="flowlayout">
+					
 					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-6 control-label">第一步：选择出库企业</label>
-								<div class="col-sm-6">									
-									<select name="gdsBlgId" class="form-control" onchange="firstStep()" id="outGdsBlgSelected">
-											<option value="">请选择</option>
-											<option th:each="model: ${gdsBlgModels}"
-												th:value="${model.gdsBlgId}" th:text="${model.gdsBlgNm}"></option>
-										</select>
+						<div class="col-md-4 " style="margin-top: 25px;">
+							<div class="row">
+								<div class="form-group">
+									<label for="" class="col-sm-6 control-label">第一步：选择出库企业</label>
+									<div class="col-sm-6">									
+										<select name="gdsBlgId" class="form-control" onchange="firstStep()" id="outGdsBlgSelected">
+												<option value="">请选择</option>
+												<option th:each="model: ${gdsBlgModels}"
+													th:value="${model.gdsBlgId}" th:text="${model.gdsBlgNm}"></option>
+											</select>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-1">
-						</div>
-						<div class="col-md-2">
-						当前质押货值：7889元
-						</div>
-						<div class="col-md-4">
-							<div class="progress progress-striped">
-							    <div class="progress-bar progress-bar-success" role="progressbar"
-							         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-							         style="width: 130%;">
-							        <span class="sr-only">130% 完成（成功）</span>
-							    </div>
-							</div>
-						</div>
-						<div class="col-md-1">
-						</div>
-						</div>
-						<div class ="row">
-						<div class="col-md-4">
-							<div class="form-group">
+							<div class="row">
+								<div class="form-group">
 								<label for="" class="col-sm-6 control-label">第二步：选择长约编号</label>
 								<div class="col-sm-6">									
 										<select name="arId" class="form-control" id="arIdSelected"  onchange="secondStep()">
@@ -125,52 +130,63 @@ body {
 										</select>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-1">
-						</div>
-						<div class="col-md-2">
-						当前质押货值：7889元
-						</div>
-						<div class="col-md-4">
-							<div class="progress progress-striped">
-							    <div class="progress-bar progress-bar-info" role="progressbar"
-							         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-							         style="width: 30%;" id="testbar">wwwww </div>
 							</div>
 						</div>
-						<div class="col-md-1">
-						</div>
-						</div>
-						<div class="row">
-						<div class="col-md-4">
-<!-- 								<div class="form-group">
-									<label for="" class="col-sm-6 control-label">第三步：选择仓储公司</label>
-									<div class="col-sm-6">
-										<select name="stgco" class="form-control" id="stgcoSelected">
-											<option value="">请选择</option>
-											<option th:each="model: ${stgcoModels}"
-												th:value="${model.id}" th:text="${model.name}"></option>
-										</select>
-									</div>
-								</div> -->
-						</div>
-						<div class="col-md-1">
-						</div>
-						<div class="col-md-2">
-						当前质押货值：7889元
-						</div>
-						<div class="col-md-4">
-							<div class="progress progress-striped">
-							    <div class="progress-bar progress-bar-warning" role="progressbar"
-							         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-							         style="width: 20%;">
-							        <span class="sr-only">20% 完成（警告）</span>
-							    </div>
+						<div class="col-md-4" style="margin-top: 25px;">
+							<div class="row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-3">
+									<label for="" >质押货值：</label>
+								</div>
+								<div class="col-md-4">
+									<span><div id="totalPlgPdValueId">-</div></span>
+								</div>
+								<div class="col-md-2">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-3">
+									<label for="" >控货线：</label>
+								</div>
+								<div class="col-md-4">
+									<span id="lwstCntl_MnyLn" style="color: #EA4335;">-</span>
+								</div>
+								<div class="col-md-2">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-3">
+									<label for="" >预警线：</label>
+								</div>
+								<div class="col-md-4">
+									<span id="plgWnLn" style="color: #FBBC05;">-</span>
+								</div>
+								<div class="col-md-2">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-3">
+									<label for="" >出库货值：</label>
+								</div>
+								<div class="col-md-4">
+									<span id="outTotal">-</span>
+								</div>
+								<div class="col-md-2">
+								</div>
 							</div>
 						</div>
-						<div class="col-md-1">
+						<div class="col-md-4">
+							<canvas id="c"></canvas>
+							 <input type="hidden" id="r" min="0" max="100" step="1" value="55" disabled="disabled">
 						</div>
-						</div>
+					</div>
 					</div>
 				</form>
 			</div>
@@ -593,9 +609,9 @@ body {
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" align="center">提交后将完成该批货物的质押，确定提交吗?</div>
+				<div class="modal-body" align="center" id="saveSubmitModalText">提交后将完成该批货物的出库，确定提交吗?</div>
 				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:save(2)"
+					<button type="button" onclick="javascript:outstgTnum()"
 						class="btn btn-primary-red" data-dismiss="modal">
 						<i class="glyphicon glyphicon-ok-sign"></i>确认
 					</button>
@@ -1632,7 +1648,7 @@ body {
 			var outGdsBlg = $('#outGdsBlgSelected').val();
 			for(var i=0;i<obj.length;i++){
 				if(obj[i].gdsBlgId == outGdsBlg){
-					totalPlgPdValue = obj[i].plgPdValue;
+//					totalPlgPdValue = obj[i].plgPdValue;//不区分长约，不再使用
 					var arIds = obj[i].arId;
 					var arIdArr = arIds.split(',');
 					for(var j=0;j<arIdArr.length;j++){
@@ -1650,18 +1666,20 @@ body {
 			}, function(result) {
 				var detail = result.data;
 				lwstCntl_MnyLn = detail["lwstCntlMnyLn"];
-				plgWnLn=detail["plgWnln"];			
+				plgWnLn=detail["plgWnln"];	
+				// 动态设置页面的值
+				document.getElementById("lwstCntl_MnyLn").innerHTML=formatMoney(lwstCntl_MnyLn, 1);
+				// 动态设置页面的值
+				document.getElementById("plgWnLn").innerHTML=formatMoney(plgWnLn, 1);
+
 				e7tableInit();
+								
 				$('#tbl_query').e7table('query', '#frm_query');
+				
 		//		thirdStep(parm1, parm2, parm3);//绘制图形
 			})
-			
-/* 			alert($('#outStgFncEntp').val());
-			$('#outGdsBlgSelected').val($('#outStgFncEntp').val());
-			$('#outGdsBlgSelected').attr("disabled","disabled");  
-			e7tableInit(); */
 		}
-		
+				
 		function addNewOrderLayer(){
 			//iframe窗
 				layer.open({
@@ -2485,10 +2503,9 @@ body {
 				.append(
 		 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:showEditDialog4();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i>出库</button>');
  				
-				$("#div_buttons")
+			/* 	$("#div_buttons")
 				.append(
-						/* '<button class="btn btn-default" onclick="javascript:del();">删除</button>'); */
-		 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:confirmDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i>删除</button>');
+		 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:confirmDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i>删除</button>'); */
 				$("#div_buttons")
 						.append(
 								/* '<button class="btn btn-default" onclick="javascript:showArDetailDialog();" style="margin-right:5px;">查看</button>'); */
@@ -2929,7 +2946,7 @@ body {
 											}
 										},
 										{
-											title : '质押指导价',
+											title : '质押单价¥',
 											field : 'plgDrcPrc',
 											sortable : true,
 											formatter : function(value, row,
@@ -2945,10 +2962,6 @@ body {
 													index) {
 	 											return '<input id="arId" name="arId"  class="form-control" onchange="testFun(this,'+row.id+', '+ row.inthestgTnum+')" placeholder="长约编号" value="'+row.inthestgTnum+'"/>';
 											} 
-	/* 										formatter : function(value, row,
-													index) {
-												return 	row.arId;
-											} */
 										}
 										],
 									onDblclick : function(index, row) {
@@ -2962,10 +2975,24 @@ body {
 												alert("出库总量不能大于在库总量，请修改！");
 											}
 										}
-										calculateTotal();
+										calculateTotalSelected();
 									},
 									onUnselect : function(index, row){
 									//	alert("unselect");
+									//反选后重新计算货值
+										calculateTotalSelected()
+									},
+									onLoadSuccess: function(data){
+										var arr=data.data.rows;
+										var total = 0;
+										for(var i=0; i<arr.length;i++){
+											total+=(arr[i].plgDrcPrc*arr[i].inthestgTnum);
+										}
+										// 动态设置页面的值
+										document.getElementById("totalPlgPdValueId").innerHTML=formatMoney(total, 1);
+										totalPlgPdValue = total;
+										// 画进度
+										draw(totalPlgPdValue, 0,lwstCntl_MnyLn, plgWnLn);
 									}
 								});
 			}		
@@ -2977,26 +3004,28 @@ body {
 				outstgTnumMap[index]=input.value;
 			}
 			// 判断是否可以出库
-			function chargeIfCanOut(total){
-				alert("lwstCntl_MnyLn="+lwstCntl_MnyLn);
-				alert("totalPlgPdValue="+totalPlgPdValue);
-			
+			function chargeIfCanOut(total){		
 				if(totalPlgPdValue - total<lwstCntl_MnyLn){		
 					var msg = "剩余货物货值小于最低控货线" + formatMoney((lwstCntl_MnyLn-(totalPlgPdValue - total)), 1) + "元，无法出库！";
-					 layer.alert(msg, {
-						     skin: 'layui-layer-lan'
-						     ,closeBtn: 0
-						     ,anim: 4 //动画类型
-						   });
+					showTips(msg); 
 				}
 
 			}
-			// 绘制图形
-			function drawProgress(){
-				
+			//提示框，需要确定后关闭
+			function showTips(msg){
+				 layer.alert(msg, {
+				     skin: 'layui-layer-lan'
+				     ,closeBtn: 0
+				     ,anim: 3 //动画类型
+				   });
+			}
+						
+		function calculateTotalQuery(){
+				var rows = $('#tbl_query').e7table('getRows');
+				alert(rows.length);
 			}
 			
-		function calculateTotal(){
+		function calculateTotalSelected(){
 				var rows = $('#tbl_query').e7table('getSelectedRows');
 				var arId = "";
 				var arSt = "";
@@ -3008,19 +3037,44 @@ body {
 					total += (rows[i]['plgDrcPrc'] * outstgTnumMap[rows[i].id]);
 				}
 		//		alert("选择总价值" + total);
-				var msg = "已选货物总额: " + formatMoney(total, 1) + "元";
-				layer.msg(msg, {
-					time: 1000, //20s后自动关闭
-				});
+				var msg = "已选货物总额: " + formatMoney(total, 1);
+				showMsg(msg, 1000);
 				chargeIfCanOut(total);
 				
-				var oDiv=document.getElementById('testbar');
-	/* 		    oDiv.style[aria-valuenow]=88; */
-			/*     $('#testbar').attr('aria-valuenow','88'); */
-			    oDiv.attr('aria-valuenow','88');
-			    oDiv.innerHTML = 'Fred Flinstone';
+				// 动态设置页面的值
+				document.getElementById("outTotal").innerHTML=formatMoney(total, 1);
+				if( totalPlgPdValue - total<= lwstCntl_MnyLn)
+					document.getElementById("outTotal").style.color='#EA4335';
+				else if(totalPlgPdValue - total<= plgWnLn)
+					document.getElementById("outTotal").style.color='#FBBC05';
+				else
+					document.getElementById("outTotal").style.color='#34A853';
+				calProgress(totalPlgPdValue, total,lwstCntl_MnyLn, plgWnLn);
 		}
 		
+		function calProgress(totalPlgPdValue, outTotal,lwstCntl_MnyLn, plgWnLn){
+			var rangeValue=0;
+			var shengnyu=totalPlgPdValue-outTotal;
+			if(shengnyu<=0)
+				rangeValue=0;
+			else if(0<shengnyu && shengnyu<=lwstCntl_MnyLn){
+				rangeValue=lwstCntl_MnyLn/30*shengnyu;
+			} else if(lwstCntl_MnyLn<shengnyu && shengnyu<=plgWnLn){
+				rangeValue=30+(plgWnLn-lwstCntl_MnyLn)/40*(shengnyu-lwstCntl_MnyLn);
+			} else if(shengnyu>plgWnLn){
+				rangeValue=70+plgWnLn/70*(shengnyu-plgWnLn);
+			}
+			if(rangeValue>100)
+				rangeValue=100;
+			
+			document.getElementById("r").value=rangeValue;	
+		}
+		//弹出提示框
+		function showMsg(msg, delayTime){
+			layer.msg(msg, {
+				time: delayTime, //*s后自动关闭
+			});
+		}
 		/* 
 		 * formatMoney(s,type) 
 		 * 功能：金额按千位逗号分隔
@@ -3030,9 +3084,9 @@ body {
 		 */ 
 		function formatMoney(s, type) {
 		    if (/[^0-9\.]/.test(s))
-		        return "0.00";
+		        return "0.00 ¥";
 		    if (s == null || s == "null" || s == "")
-		        return "0.00";
+		        return "0.00 ¥";
 		    s = s.toString().replace(/^(\d*)$/, "$1.");
 		    s = (s + "00").replace(/(\d*\.\d\d)\d*/, "$1");
 		    s = s.replace(".", ",");
@@ -3046,20 +3100,44 @@ body {
 		            s = a[0];
 		        }
 		    }
-		    return s;
+		    return (s + " ¥");
 		}
-		// 出库操作
+		
+		// 出库确认
 		function showEditDialog4(disable) {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			var outTotal=0;
+			for(var i = 0; i < rows.length; i++){
+				outTotal+=(rows[i]['plgDrcPrc'] * outstgTnumMap[rows[i].id]);			 
+			}
+			
+			// 判断是否可以出库
+			var msg="";
+			if((totalPlgPdValue-outTotal) < lwstCntl_MnyLn){
+				msg="您选择的出库货物总价为: "+formatMoney(outTotal,1)+", 出库后剩余质押货值为: "+formatMoney(totalPlgPdValue-outTotal,1)+", 小于质押控货值:"+formatMoney(lwstCntl_MnyLn,1)+", 出库失败！";
+				showTips(msg);
+				return;
+			} else if((totalPlgPdValue-outTotal) < plgWnLn){
+				msg="您选择的出库货物总价为: "+formatMoney(outTotal,1)+", 出库后剩余质押货值为: "+formatMoney(totalPlgPdValue-outTotal,1)+", 小于质押预警线:"+formatMoney(lwstCntl_MnyLn,1)+", 请再次确认是否出库.";
+				document.getElementById("saveSubmitModalText").innerHTML=msg;
+				// 出库操作
+				$('#saveSubmitModal').modal('show');
+			} else{
+				msg="您选择的出库货物总价为: "+formatMoney(outTotal,1)+", 出库后剩余质押货值为: "+formatMoney(totalPlgPdValue-outTotal,1)+", 请再次确认是否出库.";
+				document.getElementById("saveSubmitModalText").innerHTML=msg;
+				// 出库操作
+				$('#saveSubmitModal').modal('show');
+			}
+		}
+		
+		function outstgTnum(disable) {
 			var rows = $('#tbl_query').e7table('getSelectedRows');
 			var arId = "";
 			var arSt = "";
 			for(var i = 0; i < rows.length; i++){
 				rows[i]['currOutstgTnum']=outstgTnumMap[rows[i].id];			 
 			}
-			
-			for(var i = 0; i < rows.length; i++){
-				alert(rows[i]['currOutstgTnum']);			 
-			}		
+				
 			if ($('#frm_detail').data('bootstrapValidator')) {
 				$('#frm_detail').data('bootstrapValidator').resetForm(true);
 			}
@@ -3077,114 +3155,134 @@ body {
 
 							});
 		}
-			
-		function showEditDialog(disable) {
-			var rows = $('#tbl_query').e7table('getSelectedRows');
-			var arId = "";
-			var arSt = "";
-			for(var i = 0; i < rows.length; i++){
-				alert(rows[i]['id']);
+
+		function draw(totalPlgPdValue, outTotal,lwstCntl_MnyLn, plgWnLn){
+			var rangeValue=0;
+			var shengnyu=totalPlgPdValue-outTotal;
+			if(shengnyu<=0)
+				rangeValue=0;
+			else if(0<shengnyu && shengnyu<=lwstCntl_MnyLn){
+				rangeValue=lwstCntl_MnyLn/30*shengnyu;
+			} else if(lwstCntl_MnyLn<shengnyu && shengnyu<=plgWnLn){
+				rangeValue=30+(plgWnLn-lwstCntl_MnyLn)/40*(shengnyu-lwstCntl_MnyLn);
+			} else if(shengnyu>plgWnLn){
+				rangeValue=70+plgWnLn/70*(shengnyu-plgWnLn);
 			}
-				
-				alert(outstgTnumMap[0]);
-
-/* 			if (rows.length == 0) {
-				bootbox.alert({
-					'title' : '错误消息',
-					'message' : '请选择数据！'
-				});
-				return;
-			} else if (rows.length > 1) {
-				bootbox.alert({
-					'title' : '错误消息',
-					'message' : '一次只能修改一条数据！'
-				});
-				return;
-			} */
-/* 			alert(rows.length);
-			alert(rows[0]['id']);
-			alert(rows[0]['arId']);
-			alert(rows[0]['strPos']); */
-			if ($('#frm_detail').data('bootstrapValidator')) {
-				$('#frm_detail').data('bootstrapValidator').resetForm(true);
-			}
-			E7
-					.post(
-							pageSetting.resetPath + '/getDetail',
-							{
-								'id' : rows[0]['id']
-							},
-							function(result) {
-								fillForm('#frm_detail', result.data);
-								ordrId = result.data["ordrId"];
-								ordrSt = result.data["ordrSt"];
-/* 								// 实时判断订单是否可以修改	
-								if(result.data["ordrSt"] != "31" && result.data["ordrSt"] != "10" && result.data["ordrSt"] != "11"){
-									bootbox.alert({
-										'title' : '错误消息',
-										'message' : '当前订单状态禁止修改！'
-									});
-									return;
-								} */
-								// 多次修改，清空上次div追加的内容
-/* 								$("#fujianId").empty(); 
- 								if (result.data.t2UploadAtch01List != undefined) {
-									for (i = 0; i < result.data.t2UploadAtch01List.length; i++) {
-										var elem = result.data.t2UploadAtch01List[i];
-										var atchId = elem.id;
-												var item = '<div name="inputDiv"> <a href="' + elem.srFileRte +'" target="_blank">'+elem.oriFileNm  +'&nbsp&nbsp</a>&nbsp&nbsp<a onclick="deleteItem2(this, ' + elem.id +')"> 删除</a> <br/></div>';
-												
-												$("#fujianId").append(item);
-									}
-								} 
- 								var ordrStDesc = "3订单修改3";
- 								if("31" == ordrSt)
- 									ordrStDesc= "退回件修改";
- 								else if("10" == ordrSt)
- 									ordrStDesc= "草稿件修改";
- 								else if("11" == ordrSt)
- 									ordrStDesc= "撤销件修改";
- 								$('#main_edit_detail_title').text("您所在位置 : 订单管理 > 待发起订单 > " + ordrStDesc + " [ " + ordrId + " ]"); */
- 								$('#main_edit_detail_title').text('您所在位置 : 库存管理 > 质押管理 > 质押审核   [ ' + result.data["plgBillno"] + ' ]'); 
-								
- 								///订单明细信息
-								var t13GdsDetailList = result.data["t13GdsDetailList"];
-								$("#boot_table_div").hide();
-								var rows = [];
-								$("#boot-table").bootstrapTable('removeAll');
-								for (var jj = 0; jj < t13GdsDetailList.length; jj++) {
-									rows
-											.push({
-												ids:t13GdsDetailList[jj].ids,
-												pdNm : t13GdsDetailList[jj].pdNm,
-												spec : t13GdsDetailList[jj].spec,
-												modl : t13GdsDetailList[jj].modl,
-												qlyStd : t13GdsDetailList[jj].qlyStd,
-												brnd : t13GdsDetailList[jj].brnd,
-												pdFctr : t13GdsDetailList[jj].pdFctr,
-												num : t13GdsDetailList[jj].num,
-												msunit : t13GdsDetailList[jj].msunit,
- 												pchUnitprc : t13GdsDetailList[jj].pchUnitprc,
- 												pdId : t13GdsDetailList[jj].pdId,
- 												/*txnPrcdif : t13GdsDetailList[jj].txnPrcdif,
-												saleTntvPrc : t13GdsDetailList[jj].saleTntvPrc, */
-												//operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp',
-												operation:'<a onclick="modifyTr(this)"><code class="text-success bg-success"><i class="glyphicon glyphicon-edit"></i>质押指导价</code></a>&nbsp;',
-												//operation:'<button id="btn_search"  type="button" class="btn btn-primary-red btn-sm pull-right" onclick="javascript:query_ar_list()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i>查询</button>',
-											})
-
-								}
-								$('#boot-table').bootstrapTable('append', rows);
-								$('#boot-table').bootstrapTable(
-										'showColumn', "operation");
-								$("#boot_table_div").fadeIn(300);
- 								
- 								showOrHideDetail(true, 32);
-
-							});
-		}
-		
-		
+			if(rangeValue>100)
+				rangeValue=100;
+			document.getElementById("r").value=rangeValue;	
+			  var canvas = document.getElementById('c');
+			  var ctx = canvas.getContext('2d');
+			  var range = document.getElementById('r');
+			 
+			  //range控件信息
+			//  var rangeValue = range.value;
+			  
+			  var nowRange = 0; //用于做一个临时的range
+			 
+			  //画布属性
+			  var mW = canvas.width = 170;
+			  var mH = canvas.height = 170;
+			  var lineWidth = 2;
+			 
+			  //圆属性
+			  var r = mH / 2; //圆心
+			  var cR = r - 16 * lineWidth; //圆半径
+			 
+			  //Sin 曲线属性
+			  var sX = 0;
+			  var sY = mH / 2;
+			  var axisLength = mW; //轴长
+			  var waveWidth = 0.015 ; //波浪宽度,数越小越宽 
+			  var waveHeight = 6; //波浪高度,数越大越高
+			  var speed = 0.09; //波浪速度，数越大速度越快
+			  var xOffset = 0; //波浪x偏移量
+			 
+			  ctx.lineWidth = lineWidth;
+			 
+			  //画圈函数
+			  var IsdrawCircled = false;
+			  var drawCircle = function(){
+			 
+			   ctx.beginPath();
+			   ctx.strokeStyle = '#1080d0';
+			   ctx.arc(r, r, cR+5, 0, 2 * Math.PI);
+			   ctx.stroke();
+			   ctx.beginPath();
+			   ctx.arc(r, r, cR, 0, 2 * Math.PI);
+			   ctx.clip();
+			 
+			  }
+			 
+			  //画sin 曲线函数
+			  var drawSin = function(xOffset){
+			   ctx.save();			 
+			   var points=[]; //用于存放绘制Sin曲线的点			 
+			   ctx.beginPath();
+			   //在整个轴长上取点
+			   for(var x = sX; x < sX + axisLength; x += 20 / axisLength){
+			    //此处坐标(x,y)的取点，依靠公式 “振幅高*sin(x*振幅宽 + 振幅偏移量)”
+			    var y = -Math.sin((sX + x) * waveWidth + xOffset);			 
+			    var dY = mH * (1 - nowRange / 100 );
+			    points.push([x, dY + y * waveHeight]);
+			    ctx.lineTo(x, dY + y * waveHeight);  
+			   }
+			 
+			   //封闭路径
+			   ctx.lineTo(axisLength, mH);
+			   ctx.lineTo(sX, mH);
+			   ctx.lineTo(points[0][0],points[0][1]);
+			   if(rangeValue > 60)
+					ctx.fillStyle = '#34A853';
+				else if(rangeValue > 30 && (rangeValue <= 60))
+					ctx.fillStyle = '#FBBC05';
+				else if(rangeValue <= 30)
+					ctx.fillStyle = '#EA4335';
+			   ctx.fill();
+			 
+			   ctx.restore();
+			  };
+			 
+			  //写百分比文本函数
+			  var drawText = function(){
+			   ctx.save();
+			 
+			   var size = 0.4*cR;
+			   ctx.font = size + 'px Microsoft Yahei';
+			   ctx.textAlign = 'center';
+			   ctx.fillStyle = "rgba(06, 85, 128, 0.8)";
+			   ctx.fillText(~~nowRange + '%', r, r + size / 2);
+			   ctx.restore();
+			  };
+			 
+			  var render = function(){
+			   ctx.clearRect(0, 0, mW, mH);
+			 
+			   rangeValue = range.value;
+			 
+			   if(IsdrawCircled == false){
+			    drawCircle(); 
+			   }
+			 
+			   if(nowRange <= rangeValue){
+			    var tmp = 1;
+			    nowRange += tmp;
+			   }
+			 
+			   if(nowRange > rangeValue){
+			    var tmp = 1;
+			    nowRange -= tmp;
+			   }
+			 
+			   drawSin(xOffset);
+			   drawText(); 
+			 
+			   xOffset += speed;
+			   requestAnimationFrame(render);
+			  }
+			 
+			  render();  
+			  }
 
 	</script>
 </body>
