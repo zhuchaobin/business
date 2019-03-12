@@ -6,32 +6,23 @@ import com.aliyun.oss.model.OSSObject;
 import com.github.pagehelper.PageInfo;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
-import com.tianan.common.api.jpa.JpaCriteria;
-import com.tianan.common.api.jpa.JpaMatchType;
 import com.tianan.common.api.mybatis.PageParam;
 import com.tianan.common.api.support.SecurityContext;
 import com.tianan.common.core.support.OssET;
-import com.tianan.common.mvc.bean.HttpCriteria;
 import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
-import com.xai.tt.business.biz.manager.VrtyManager;
-import com.xai.tt.business.client.entity.Vrty;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T13GdsDetail;
 import com.xai.tt.dc.client.query.CompanyQuery;
 import com.xai.tt.dc.client.query.KnowledgeCatalogQuery;
-import com.xai.tt.dc.client.query.UserInfoQuery;
 import com.xai.tt.dc.client.service.CompanyDcService;
-import com.xai.tt.dc.client.service.IvntDtlDcService;
-import com.xai.tt.dc.client.vo.inVo.IvntDtlInVo;
-import com.xai.tt.dc.client.vo.inVo.OutStgTnumInVo;
-import com.xai.tt.dc.client.vo.inVo.OutStgTnumSubInVo;
-import com.xai.tt.dc.client.vo.outVo.GdsBlgOutVo;
+import com.xai.tt.dc.client.service.PlgAplyDcService;
+import com.xai.tt.dc.client.service.PlgCntlMnyWnLnDcService;
+import com.xai.tt.dc.client.vo.PlgCntlMnyWnLnVo;
+import com.xai.tt.dc.client.vo.inVo.PlgAplyInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryArSubmmitDetailOutVo;
-import com.xai.tt.dc.client.vo.outVo.QueryPageIvntDtlOutVo;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,7 +34,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,73 +44,90 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 /*
  * 
- * @ClassName:  ivntDtlController   
- * @Description:库存信息管理
+ * @ClassName:  plgAplyController   
+ * @Description:质押控货预警信息管理
  * @author: zhuchaobin
  * @date:   
  * 
  */
 @Controller
-@RequestMapping("ivntDtl")
-public class IvntDtlController extends BaseController {
+@RequestMapping("plgCntlMnyWnLn")
+public class PlgCntlMnyWnLnController extends BaseController {
 	@Autowired
-	private IvntDtlDcService ivntDtlDcService;
+	private PlgAplyDcService plgAplyDcService;
 	@Autowired
-	private CompanyDcService companyDcService;   
-    @Autowired
-    private VrtyManager vrtyManager;
-  /*  @RequestMapping(value = { "save" })
+	private PlgCntlMnyWnLnDcService plgCntlMnyWnLnDcService;	
+	@Autowired
+	private CompanyDcService companyDcService;    
+    @RequestMapping(value = { "save" })
     @ResponseBody
     public Result<?>  save(String inVo, String detail, String fileUrl) {
-    	logger.info("保存库存请求报文：ivntDtlManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
+    	logger.info("保存质押控货预警请求报文：plgAplyManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
 
 		List<T13GdsDetail> detailList = JSON.parseArray(detail, T13GdsDetail.class);
-		logger.info("保存库存请求报文,货物明细：detailList={}", detailList);
-		IvntDtlInVo ivntDtlInVo = JSON.parseObject(inVo,IvntDtlInVo.class);
+		logger.info("保存质押控货预警请求报文,货物明细：detailList={}", detailList);
+		PlgAplyInVo plgAplyInVo = JSON.parseObject(inVo,PlgAplyInVo.class);
         if (StringUtils.isNotEmpty(fileUrl)) {
-        	ivntDtlInVo.setFileNames(fileUrl);
+        	plgAplyInVo.setFileNames(fileUrl);
         }
-   // 	logger.info("长约附件信息长度：{}", ivntDtlInVo.getList().size());
+   // 	logger.info("长约附件信息长度：{}", plgAplyInVo.getList().size());
        	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-       	ivntDtlInVo.setUserType(user.getUserType().ordinal());
-       	ivntDtlInVo.setUsername(user.getUsername());
-       	ivntDtlInVo.setCompanyId(user.getCompanyId());
-       	ivntDtlInVo.setNickname(user.getNickname());
-       	ivntDtlInVo.setChineseName(user.getChineseName());
-       	ivntDtlInVo.setT13GdsDetailList(detailList);
+       	plgAplyInVo.setUserType(user.getUserType().ordinal());
+       	plgAplyInVo.setUsername(user.getUsername());
+       	plgAplyInVo.setCompanyId(user.getCompanyId());
+       	plgAplyInVo.setNickname(user.getNickname());
+       	plgAplyInVo.setChineseName(user.getChineseName());
+       	plgAplyInVo.setT13GdsDetailList(detailList);
        	// 
-    	Result<Boolean> result = ivntDtlDcService.save(ivntDtlInVo);
-    	logger.info("保存库存返回结果：{}", JSON.toJSONString(result));
+    	Result<Boolean> result = plgAplyDcService.save(plgAplyInVo);
+    	logger.info("保存质押控货预警返回结果：{}", JSON.toJSONString(result));
         return result;
-    }  */
-    // 出库 
-    @RequestMapping(value = { "outStgTnum" })
+    }  
+    
+    // 质押控货预警审核提交
+    @RequestMapping(value = { "adt" })
     @ResponseBody
-    public Result<?>  outStgTnum(String detail) {
-    	logger.info("保存库存请求报文：detail={}, ", detail);
+    public Result<?>  adt(String inVo, String detail, String fileUrl) {
+    	logger.info("保存质押控货预警请求报文：inVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
 
-		List<OutStgTnumSubInVo> detailList = JSON.parseArray(detail, OutStgTnumSubInVo.class);
-		logger.info("保存库存请求报文,货物明细：detailList={}", detailList);
-		OutStgTnumInVo inVo = new OutStgTnumInVo();
-		inVo.setOutStgTnumSubInVoList(detailList);
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	inVo.setUserType(user.getUserType().ordinal());
-    	inVo.setUsername(user.getUsername());
-    	inVo.setCompanyId(user.getCompanyId());
-    	inVo.setNickname(user.getNickname());
-    	inVo.setChineseName(user.getChineseName());
+		List<T13GdsDetail> detailList = JSON.parseArray(detail, T13GdsDetail.class);
+		logger.info("保存质押控货预警请求报文,货物明细：detailList={}", detailList);
+		PlgAplyInVo plgAplyInVo = JSON.parseObject(inVo,PlgAplyInVo.class);
+        if (StringUtils.isNotEmpty(fileUrl)) {
+        	plgAplyInVo.setFileNames(fileUrl);
+        }
+   // 	logger.info("长约附件信息长度：{}", plgAplyInVo.getList().size());
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	plgAplyInVo.setUserType(user.getUserType().ordinal());
+       	plgAplyInVo.setUsername(user.getUsername());
+       	plgAplyInVo.setCompanyId(user.getCompanyId());
+       	plgAplyInVo.setNickname(user.getNickname());
+       	plgAplyInVo.setChineseName(user.getChineseName());
+       	plgAplyInVo.setT13GdsDetailList(detailList);
        	// 
-    	Result<?> result = ivntDtlDcService.outStgTnum(inVo);
-    	logger.info("保存库存返回结果：{}", JSON.toJSONString(result));
-    	return Result.createSuccessResult(result.getData());
-    }
+       	logger.info("保存质押控货预警拼装后请求报文：plgAplyInVo={}", JSON.toJSONString(plgAplyInVo));
+    	Result<Boolean> result = plgAplyDcService.adt(plgAplyInVo);
+    	logger.info("保存质押控货预警返回结果：{}", JSON.toJSONString(result));
+        return result;
+    }  
     
     @RequestMapping(value = { "list" })
     public ModelAndView list() {
-        ModelAndView mav = new ModelAndView("ivntDtl/list");
+        ModelAndView mav = new ModelAndView("plgAply/list");
       	CompanyQuery query = new CompanyQuery(); 
 
-        Result<PageInfo<Company>> result = new Result<PageInfo<Company>>();
+        Result<PageInfo<Company>> result = companyDcService.queryPage(query);
+        mav.addObject("pltfrmModels", result.getData().getList());
+    	// 查询上游供应商下拉菜单
+        query.setUsrTp("02");
+    	result = companyDcService.queryPage(query);
+    	logger.info("查询[上游供应商]公司信息返回结果：{}", JSON.toJSONString(result));
+        if (result == null || result.getCode() != 0) {
+        	logger.error("查询[上游供应商]公司信息异常");
+//            throw new RuntimeException("查询[上游供应商]公司信息异常");
+        }
+        mav.addObject("ustrmSplrModels", result.getData().getList());
+
     	// 查询融资企业下拉菜单
         query.setUsrTp("04");
     	result = companyDcService.queryPage(query);
@@ -157,132 +164,22 @@ public class IvntDtlController extends BaseController {
         	logger.error("查询[仓储公司]公司信息异常");
 //            throw new RuntimeException("查询[仓储公司]公司信息异常");
         }
-        mav.addObject("stgcoModels", result.getData().getList());   
-    	// 查询供应链公司下拉菜单
-        query.setUsrTp("03");
-    	result = companyDcService.queryPage(query);
-    	logger.info("查询[供应链公司]公司信息返回结果：{}", JSON.toJSONString(result));
-        if (result == null || result.getCode() != 0) {
-        	logger.error("查询[供应链公司]公司信息异常");
-//            throw new RuntimeException("查询[供应链公司]公司信息异常");
-        }
-        mav.addObject("splchainCoModels", result.getData().getList());
-        
-    	// 品名下拉菜单
-    	HttpCriteria params = new HttpCriteria();
-    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
-    	criteria.add("folder", 0, JpaMatchType.EQ);//只查品名
-    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
-        mav.addObject("pmModels", vrtyList.getRows());
-        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
-        
-        // 货物归属下拉菜单
-        UserInfoQuery userInfo = new UserInfoQuery();
-        LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-        BeanUtils.copyProperties(user, userInfo);
-        userInfo.setUserType(user.getUserType().ordinal());
-        Result<List<GdsBlgOutVo>> gdsBlgOutVoRlt = ivntDtlDcService.queryGdsBlgList(userInfo);
-        if (null ==gdsBlgOutVoRlt || gdsBlgOutVoRlt.getCode() != 0) {
-        	logger.error("查询[货物归属列表]异常");
-//            throw new RuntimeException("查询[融资企业]公司信息异常");
-        } else
-        	mav.addObject("gdsBlgModels", gdsBlgOutVoRlt.getData());
-        	String gdsBlgModelsString = JSON.toJSONString( gdsBlgOutVoRlt.getData());
-        	mav.addObject("gdsBlgModelsString", gdsBlgModelsString);
-        	logger.info("gdsBlgModelsString=" + gdsBlgModelsString);
-        return mav;
-    }
-    
-    @RequestMapping(value = { "list_ck" })
-    public ModelAndView list_ck() {
-        ModelAndView mav = new ModelAndView("ivntDtl/list_ck");
-      	CompanyQuery query = new CompanyQuery(); 
-
-        Result<PageInfo<Company>> result = new Result<PageInfo<Company>>();
-    	// 查询融资企业下拉菜单
-        query.setUsrTp("04");
-    	result = companyDcService.queryPage(query);
-    	logger.info("查询[融资企业]公司信息返回结果：{}", JSON.toJSONString(result));
-        if (result == null || result.getCode() != 0) {
-        	logger.error("查询[融资企业]公司信息异常");
-//            throw new RuntimeException("查询[融资企业]公司信息异常");
-        }
-        mav.addObject("fncEntpModels", result.getData().getList());
-
-    	// 查询银行下拉菜单
-        query.setUsrTp("06");
-    	result = companyDcService.queryPage(query);
-    	logger.info("查询[银行]公司信息返回结果：{}", JSON.toJSONString(result));
-        if (result == null || result.getCode() != 0) {
-        	logger.error("查询[银行]公司信息异常");
-//            throw new RuntimeException("查询[银行]公司信息异常");
-        }
-        mav.addObject("bnkModels", result.getData().getList());
-    	// 查询上游供应商下拉菜单
-        query.setUsrTp("02");
-    	result = companyDcService.queryPage(query);
-    	logger.info("查询[上游供应商]公司信息返回结果：{}", JSON.toJSONString(result));
-        if (result == null || result.getCode() != 0) {
-        	logger.error("查询[上游供应商]公司信息异常");
-//            throw new RuntimeException("查询[上游供应商]公司信息异常");
-        }
-        mav.addObject("ustrmSplrModels", result.getData().getList());
-    	// 查询仓储公司下拉菜单
-        query.setUsrTp("08");
-    	result = companyDcService.queryPage(query);
-    	logger.info("查询[仓储公司]公司信息返回结果：{}", JSON.toJSONString(result));
-        if (result == null || result.getCode() != 0) {
-        	logger.error("查询[仓储公司]公司信息异常");
-//            throw new RuntimeException("查询[仓储公司]公司信息异常");
-        }
-        mav.addObject("stgcoModels", result.getData().getList());   
-    	// 查询供应链公司下拉菜单
-        query.setUsrTp("03");
-    	result = companyDcService.queryPage(query);
-    	logger.info("查询[供应链公司]公司信息返回结果：{}", JSON.toJSONString(result));
-        if (result == null || result.getCode() != 0) {
-        	logger.error("查询[供应链公司]公司信息异常");
-//            throw new RuntimeException("查询[供应链公司]公司信息异常");
-        }
-        mav.addObject("splchainCoModels", result.getData().getList());
-        
-    	// 品名下拉菜单
-    	HttpCriteria params = new HttpCriteria();
-    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
-    	criteria.add("folder", 0, JpaMatchType.EQ);//只查品名
-    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
-        mav.addObject("pmModels", vrtyList.getRows());
-        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
-        
-        // 货物归属下拉菜单
-        UserInfoQuery userInfo = new UserInfoQuery();
-        LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-        BeanUtils.copyProperties(user, userInfo);
-        userInfo.setUserType(user.getUserType().ordinal());
-        Result<List<GdsBlgOutVo>> gdsBlgOutVoRlt = ivntDtlDcService.queryGdsBlgList(userInfo);
-        if (null ==gdsBlgOutVoRlt || gdsBlgOutVoRlt.getCode() != 0) {
-        	logger.error("查询[货物归属列表]异常");
-//            throw new RuntimeException("查询[融资企业]公司信息异常");
-        } else
-        	mav.addObject("gdsBlgModels", gdsBlgOutVoRlt.getData());
-        	String gdsBlgModelsString = JSON.toJSONString( gdsBlgOutVoRlt.getData());
-        	mav.addObject("gdsBlgModelsString", gdsBlgModelsString);
-        	logger.info("gdsBlgModelsString=" + gdsBlgModelsString);
+        mav.addObject("stgcoModels", result.getData().getList());    
         return mav;
     }
   
     @RequestMapping(value = { "delete" })
     @ResponseBody
     public Result<?>   delete(String id) {
-    	logger.info("删除库存信息，请求参数id=：{}", id);
-    	Result<Boolean> rlt = ivntDtlDcService.delete(id);
-    	logger.info("删除库存信息，返回结果rlt：{}", JSON.toJSONString(rlt));
+    	logger.info("删除质押控货预警信息，请求参数id=：{}", id);
+    	Result<Boolean> rlt = plgAplyDcService.delete(id);
+    	logger.info("删除质押控货预警信息，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
     
     @RequestMapping(value = { "queryPage" })
     @ResponseBody
-    public Result<?>  queryPage(IvntDtlInVo inVo, PageParam pageParam) {
+    public Result<?>  queryPage(PlgAplyInVo inVo, PageParam pageParam) {
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	inVo.setUserType(user.getUserType().ordinal());
     	inVo.setUsername(user.getUsername());
@@ -292,26 +189,20 @@ public class IvntDtlController extends BaseController {
     	// 因前后端名字不一样，转义排序参数
 //    	String sortName = inVo.getSortName();
     		
-    	logger.info("库存查询请求参数:{}，分页参数：{}", JSON.toJSONString(inVo),JSON.toJSONString(pageParam));
-        Result<PageData<QueryPageIvntDtlOutVo>> result = ivntDtlDcService.queryPage(inVo, pageParam);
-        logger.info("库存查询返回结果:{}，", JSON.toJSONString(result.getData()));
+    	logger.info("质押控货预警查询请求参数:{}，分页参数：{}", JSON.toJSONString(inVo),JSON.toJSONString(pageParam));
+        Result<PageData<PlgAplyInVo>> result = plgAplyDcService.queryPage(inVo, pageParam);
+        logger.info("质押控货预警查询返回结果:{}，", JSON.toJSONString(result.getData()));
         return Result.createSuccessResult(result.getData());
     }
           
     @RequestMapping(value = { "getDetail" })
     @ResponseBody
-    public Result<?>   getDetail(String id) {
-    	logger.info("查询长约详情，请求参数id=：{}", id);
-    	IvntDtlInVo inVo = new IvntDtlInVo();
-    	inVo.setId(Long.parseLong(id));
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	inVo.setUserType(user.getUserType().ordinal());
-    	inVo.setUsername(user.getUsername());
-    	inVo.setCompanyId(user.getCompanyId());
-    	inVo.setNickname(user.getNickname());
-    	inVo.setChineseName(user.getChineseName());
-    	Result<QueryPageIvntDtlOutVo> rlt = ivntDtlDcService.queryDetail(inVo);
-    	logger.info("查询长约详情，返回结果rlt：{}", JSON.toJSONString(rlt));
+    public Result<?>   getDetail(String arId) {
+    	logger.info("查询质押控货预警详情，请求参数arId=：{}",arId);
+    	PlgCntlMnyWnLnVo inVo = new PlgCntlMnyWnLnVo();
+    	inVo.setArId(arId);
+    	Result<PlgCntlMnyWnLnVo> rlt = plgCntlMnyWnLnDcService.queryDetail(inVo);
+    	logger.info("查询质押控货预警情，返回结果rlt：{}", JSON.toJSONString(rlt));
         return Result.createSuccessResult(rlt.getData());        
     }
  
@@ -422,13 +313,13 @@ public class IvntDtlController extends BaseController {
     public ModelAndView lists(Integer flag) {
     	ModelAndView mav = null;
     	if(1 == flag)
-    		mav = new ModelAndView("ivntDtl/list_ing");
+    		mav = new ModelAndView("plgAply/list_ing");
     	else if(2 == flag)
-    		mav = new ModelAndView("ivntDtl/list_adt");
+    		mav = new ModelAndView("plgAply/list_adt");
     	else if(3 == flag)
-    		mav = new ModelAndView("ivntDtl/list_fnsh");
+    		mav = new ModelAndView("plgAply/list_fnsh");
     	else if(5 == flag)
-    		mav = new ModelAndView("ivntDtl/list_adted");
+    		mav = new ModelAndView("plgAply/list_adted");
     	
        	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
        	logger.info("user.getUserType() =" + user.getUserType());
@@ -508,7 +399,7 @@ public class IvntDtlController extends BaseController {
 //            throw new RuntimeException("查询[仓储公司]公司信息异常");
         }
         mav.addObject("stgcoModels", result.getData().getList());    
-    	mav.addObject("userType", "Group");
+//    	mav.addObject("userType", "Group");
         return mav;
     } 
        
