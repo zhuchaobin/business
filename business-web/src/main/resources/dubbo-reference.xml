@@ -53,7 +53,7 @@
     <!-- 库存明细管理20190306-->
     <dubbo:reference id="ivntDtlDcService" interface="com.xai.tt.dc.client.service.IvntDtlDcService" version="1.0"/>
     <!-- 质押指导价管理20190306-->
- <!--   <dubbo:reference id="plgDrcPrcDcService" interface="com.xai.tt.dc.client.service.PlgDrcPrcDcService" version="1.0"/>-->
+    <dubbo:reference id="plgDrcPrcDcService" interface="com.xai.tt.dc.client.service.PlgDrcPrcDcService" version="1.0"/>
     <!-- 质押控货预警线管理20190306-->
 	<dubbo:reference id="plgCntlMnyWnLnDcService" interface="com.xai.tt.dc.client.service.PlgCntlMnyWnLnDcService" version="1.0"/>
     <!-- 货物操作流水管理20190306-->

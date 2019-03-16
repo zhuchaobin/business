@@ -112,7 +112,7 @@ public class IvntDtlController extends BaseController {
        	// 
     	Result<?> result = ivntDtlDcService.outStgTnum(inVo);
     	logger.info("保存库存返回结果：{}", JSON.toJSONString(result));
-    	return Result.createSuccessResult(result.getData());
+    	return result;
     }
     
     @RequestMapping(value = { "list" })

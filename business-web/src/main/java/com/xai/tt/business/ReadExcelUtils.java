@@ -1,5 +1,6 @@
 package com.xai.tt.business;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -154,8 +155,28 @@ public class ReadExcelUtils {
 		return cellvalue;
 	}
 
+    /**
+     * 创建多级目录文件
+     *
+     * @param path 文件路径
+     * @throws IOException
+     */
+    private static void createFile(String path) throws IOException {
+        if (StringUtils.isNotEmpty(path)) {
+            File file = new File(path);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            file.createNewFile();
+        }
+    }
+    
 	public static void main(String[] args) {
 		try {
+        	File file=new File("d:\1\2\3\4");
+        	Boolean bbc=file.mkdirs();// ture   
+        	createFile("d:\\1\\2\\3\\4");
+        	
 			String test2="hello";
 			String test = null != test2?test2:"0";
 			System.out.println("test========" + test);
@@ -165,7 +186,7 @@ public class ReadExcelUtils {
 			BigDecimal test5 = (BigDecimal) test4.get("aply");
 			System.out.println("test========" + test5);
 			
-			String filepath = "D:\\TT\\数据库设计20190305_V1.3.xlsx";
+			String filepath = "D:\\kailong20190302\\数据库设计20190305_V1.3.xlsx";
 			ReadExcelUtils excelReader = new ReadExcelUtils(filepath);
 			// 对读取Excel表格标题测试
 
