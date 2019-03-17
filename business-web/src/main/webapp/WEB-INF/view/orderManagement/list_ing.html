@@ -844,7 +844,7 @@ body {
 				</div>
 				<div class="modal-body" align="center">提交后将自动流转到[平台审核]，若需修改需要下一环节退回，确定提交吗?</div>
 				<div class="modal-footer" align="center">
-					<button type="button" onclick="javascript:saveSpg()" class="btn"
+					<button type="button" onclick="javascript:saveSpg(1)" class="btn"
 						data-dismiss="modal">确定</button>
 					<button type="button" class="btn" data-dismiss="modal">取消</button>
 				</div>
@@ -1049,19 +1049,19 @@ body {
 			</div>
 		</div>
 		<div class="box-footer">
-			<button id="btn_close" type="button"
+			<button id="btn_close22" type="button"
 				class="btn btn-primary-gray pull-right "
 				onclick='javascript:showOrHideDetail(true, 1);'
 				style="margin-right: 15px;">
 				<i class="glyphicon glyphicon-remove-sign"></i>取消
 			</button>
-			<button id="btn_save" type="button"
+			<button id="btn_save22" type="button"
 				class="btn btn-primary-red pull-right"
 				onclick='javascript:validate_spg_edit_detail(2);'
 				style="margin-right: 5px;">
 				<i class="glyphicon glyphicon-floppy-disk"></i>保存
 			</button>
-			<button id="btn_save_submmit" type="button"
+			<button id="btn_save_submmit22" type="button"
 				class="btn btn-primary-red pull-right"
 				onclick='javascript:validate_spg_edit_detail(1);'
 				style="margin-right: 5px;">
@@ -1917,7 +1917,8 @@ body {
 					$('#saveSpgSubmitModal').modal('show');
 				} else if (2 == flag) {
 					$("#secSrvCd").val("01");//保存
-					save(1);
+					//save(1);
+					saveSpg(2);
 				}
 			}
 		}
@@ -1949,7 +1950,7 @@ body {
 					});
 		}
 
-		function saveSpg() {
+		function saveSpg(flag) {
 			for (instance in CKEDITOR.instances) {
 				CKEDITOR.instances[instance].updateElement();
 			}
@@ -1964,15 +1965,19 @@ body {
             var fileUrl3 = document.getElementById("fileId3").value;
 
             E7.post('/spgManagement/save', {inVo:JSON.stringify(formParams), detail:JSON.stringify(all), fileUrl:fileUrl3}, function(data) {
-
-
-
 				query_ar_list();
 				showOrHideDetail(true, 1);
-				bootbox.alert({
-					'title' : "消息",
-					'message' : '发货发起成功！'
-				});
+				if(flag==1){
+					bootbox.alert({
+						'title' : "消息",
+						'message' : '发货发起成功！'
+					});
+				} else if(flag ==2){
+					bootbox.alert({
+						'title' : "消息",
+						'message' : '发货保存成功！'
+					});				
+				}
 				$('#tbl_query').e7table(
 						'reload',
 						function() {
