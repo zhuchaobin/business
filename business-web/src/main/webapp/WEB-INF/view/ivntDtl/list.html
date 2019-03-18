@@ -2708,11 +2708,15 @@ body {
 										formatter : function(value, row,
 												index) {
 											if("01" == value)
-												return "待审核 ";
+												return "待审核";
 											else if("02" == value)
 												return "质押成功";
 											else if("03" == value)
-												return "审核驳回";
+												return "待自动质押";
+											else if("04" == value)
+												return "自动质押";
+											else if("05" == value)
+												return "质押拒绝";
 											else
 												return value;
 										}
