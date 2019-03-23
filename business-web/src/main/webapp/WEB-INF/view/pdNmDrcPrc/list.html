@@ -6,7 +6,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport" />
-<title>质押指导价</title>
+<title>品名指导价</title>
 <link rel="stylesheet"
 	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet"
@@ -57,54 +57,26 @@ body {
 					<div id="div_criteria" class="flowlayout">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<label for="" class="col-sm-4 control-label">获取日期：</label>
 								<div class="col-sm-8">
-									<input name="arId" class="form-control" placeholder="长约编号" />
-								</div>
-							</div>
-						</div>
-<!-- 						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">订单编号：</label>
-								<div class="col-sm-8">
-									<input name="ordrId" class="form-control" placeholder="订单编号" />
-								</div>
-							</div>
-						</div> -->
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">银行名称：</label>
-								<div class="col-sm-8">								
-									<select name="bnk" class="form-control">
-										<option value="">请选择</option>
-										<option th:each="model: ${bnkModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
-									</select>
-
+									<input name="acqDt" class="form-control" placeholder="获取日期"
+										id="arStdtDTPicker" />
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">品名：</label>
+								<label for="" class="col-sm-4 control-label">来源类型代码：</label>
 								<div class="col-sm-8">
-									<select name="pdId" class="form-control">
-										<option value="">请选择</option>
-										<option th:each="model: ${pmModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
-									</select>
+										<select name="srcTpcd" class="form-control">
+											<option value="">-请选择-</option>
+											<option value="01" checked="checked">人工录入</option>
+											<option value="04">南储网</option>
+											<option value="05">我的钢铁网</option>
+										</select>
 								</div>
 							</div>
 						</div>
-<!-- 						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">规格：</label>
-								<div class="col-sm-8">
-									<input name="spec" class="form-control" placeholder="规格" />
-								</div>
-							</div>
-						</div>
- -->
 					</div>
 				</form>
 			</div>
@@ -145,95 +117,39 @@ body {
 							<input name="id" type="hidden" value="" />
 							<div class="row">
 
-								<div class="col-md-6" >
+								<div class="col-md-6">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">长约编号：</label>
-										<div class="col-sm-8">
-											<input name="arId" class="form-control" placeholder="长约编号" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6" >
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">订单编号：</label>
-										<div class="col-sm-8">
-											<input name="ordrId" class="form-control" placeholder="订单编号" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6" >
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">银行id：</label>
-										<div class="col-sm-8">
-											<select name="bnk" class="form-control">
-												<option value="">请选择</option>
-												<option th:each="model: ${bnkModels}"
-													th:value="${model.id}" th:text="${model.name}"></option>
-											</select>
-
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6" >
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">品名id：</label>
+										<label for="" class="col-sm-4 control-label">品名ID：</label>
 										<div class="col-sm-8">
 											<select name="pdId" class="form-control">
 												<option value="">请选择</option>
-												<option th:each="model: ${pmModels}"
-													th:value="${model.id}" th:text="${model.name}"></option>
+												<option th:each="model: ${pmModels}" th:value="${model.id}"
+													th:text="${model.name}"></option>
 											</select>
 										</div>
 									</div>
 								</div>
-
-								<div class="col-md-6" >
+								<div class="col-md-6">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">规格：</label>
+										<label for="" class="col-sm-4 control-label">来源描述：</label>
 										<div class="col-sm-8">
-											<input name="spec" class="form-control" placeholder="规格" />
+											<input name="srcDsc" class="form-control" placeholder="来源描述" />
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6" >
+								<div class="col-md-6">
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">质押指导价：</label>
+										<label for="" class="col-sm-4 control-label">指导价：</label>
 										<div class="col-sm-8">
-											<input name="plgDrcPrc" class="form-control"
-												placeholder="质押指导价" />
+											<input name="drcPrc" class="form-control" placeholder="指导价" />
 										</div>
 									</div>
 								</div>
-<!-- 								<div class="col-md-6" >
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">操作员：</label>
-										<div class="col-sm-8">
-											<input name="username" class="form-control" placeholder="操作员" />
-										</div>
-									</div>
-								</div> -->
-<!-- 								<div class="col-md-6" >
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">创建时间：</label>
-										<div class="col-sm-8">
-											<input name="crtTm" class="form-control" placeholder="创建时间" />
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6" >
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">更新时间：</label>
-										<div class="col-sm-8">
-											<input name="udtTm" class="form-control" placeholder="更新时间" />
-										</div>
-									</div>
-								</div> -->
-
-								<div class="col-md-6" >
+								<div class="col-md-6">
 									<div class="form-group">
 										<label for="" class="col-sm-4 control-label">备注：</label>
 										<div class="col-sm-8">
-											<input name="rmrk" class="form-control" placeholder="备注" value=""/>
+											<input name="rmrk" class="form-control" placeholder="备注" />
 										</div>
 									</div>
 								</div>
@@ -291,10 +207,19 @@ body {
 	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
 
 	<script type="text/javascript">
-		var pageSetting = {
-			modelName : '质押指导价',
-			resetPath : '[[@{/plgDrcPrc}]]'
-		};
+/* 日期选择控件-长约开始日期 */
+$('#arStdtDTPicker').datetimepicker({
+    language: 'zh-CN',
+    minView: "month",//设置只显示到月份
+    format : "yyyymmdd",//日期格式
+    autoclose:true,//选中关闭
+    todayBtn: true//今日按钮
+ });
+ 
+	var pageSetting = {
+		modelName : '品名指导价',
+		resetPath : '[[@{/pdNmDrcPrc}]]'
+	};
 
 		$(function() {
 			//e7table表格控件初始化
@@ -319,102 +244,80 @@ body {
 			E7.resetForm('#frm_query');
 		}
 
-		/***
+	/***
 		 * e7table表格控件初始化
 		 */
 		function e7tableInit() {
 			$('#tbl_query').e7table({
-				url : '[[@{/plgDrcPrc/queryPage}]]',
+			url : '[[@{/pdNmDrcPrc/queryPage}]]',
 				pageSize : 10,
 				sortName : 'tms', //排序列名,更新时间
 				autoLoading : true, //控件初始化后，自动远程请求数据
 				selectType : 'multiple',
-				rownumbers : false,
+				rownumbers: false,	
 				checkbox : false,
-				columns : [ {
-					title : '长约编号',
-					field : 'arId',
-					sortable : true
-				}, {
-					title : '银行名称',
-					field : 'bnkNm',
-					sortable : true
-				},  {
-					title : '品名',
-					field : 'pdNm',
-					sortable : true
-				}, {
-					title : '规格',
-					field : 'spec',
-					sortable : true
-				}, {
-					title : '质押指导价',
-					field : 'plgDrcPrc',
-					sortable : true
-				}, {
-					title : '操作员',
-					field : 'username',
-					sortable : true
-				},  {
-					title : '时间',
-					field : 'tms',
-					sortable : true,
-					formatter : function(value, row, index) {
-						return new Date(value).format();
-					}
-				}],
+				columns : [ 
+																																			{title: '品名', field: 'pdNm', sortable: true},
+																																					{title: '获取日期', field: 'acqDt', sortable: true},
+																																					{title: '来源类型代码', field: 'srcTpcd', sortable: true},
+																																					{title: '来源描述', field: 'srcDsc', sortable: true},
+																																					{title: '指导价', field: 'drcPrc', sortable: true},
+																																					{title: '时间戳', field: 'tms', sortable: true,formatter: function(value, row, index) {return new Date(value).format();}},
+																																					{title: '操作员', field: 'username', sortable: true},
+																																					{title: '备注', field: 'rmrk', sortable: true}
+																						 ],
 				onDblclick : function(index, row) {
-					showViewDialog();
+				//	showViewDialog();
 				}
 			});
 		}
 
-		/***
-		 * 表单校验控件初始化
-		 */
-		function validatorInit() {
-			$('#frm_detail').bootstrapValidator({
-				feedbackIcons : {
-					valid : 'glyphicon glyphicon-ok',
-					invalid : 'glyphicon glyphicon-remove',
-					validating : 'glyphicon glyphicon-refresh'
+
+	/***
+	 * 表单校验控件初始化
+	 */
+	function validatorInit() {
+		$('#frm_detail').bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+									"id" : {
+					validators : {notEmpty : {message : 'ID不能为空'}}
 				},
-				fields : {
-					"arId" : {
-						validators : {
-							notEmpty : {
-								message : '长约编号不能为空'
-							}
-						}
-					},
-					"bnk" : {
-						validators : {
-							notEmpty : {
-								message : '银行不能为空'
-							}
-						}
-					},
-					"pdId" : {
-						validators : {
-							notEmpty : {
-								message : '品名不能为空'
-							}
-						}
-					},
-					"plgDrcPrc" : {
-						validators : {
-							notEmpty : {
-								message : '质押指导价不能为空'
-							}
-						}
-					}
-				}
-			});
+									"pdId" : {
+					validators : {notEmpty : {message : '品名ID不能为空'}}
+				},
+									"acqDt" : {
+					validators : {notEmpty : {message : '获取日期不能为空'}}
+				},
+									"srcTpcd" : {
+					validators : {notEmpty : {message : '来源类型代码不能为空'}}
+				},
+									"srcDsc" : {
+					validators : {notEmpty : {message : '来源描述不能为空'}}
+				},
+									"drcPrc" : {
+					validators : {notEmpty : {message : '指导价不能为空'}}
+				},
+									"tms" : {
+					validators : {notEmpty : {message : '时间戳不能为空'}}
+				},
+									"username" : {
+					validators : {notEmpty : {message : '操作员不能为空'}}
+				},
+									"rmrk" : {
+					validators : {notEmpty : {message : '备注不能为空'}}
+				},
+								}
+		});
 
-			$('#btn_save').click(function() {
-				$('#frm_detail').bootstrapValidator('validate');
-			});
-		}
+		$('#btn_save').click(function() {
+			$('#frm_detail').bootstrapValidator('validate');
+		});
+	}
 
 		/***
 		 * 隐藏详情div，返回按钮使用
@@ -426,7 +329,7 @@ body {
 			}, 300)
 		}
 		// 打开添加详情页面
-		function showAddDialog() {
+		function showAddDialog(){
 			E7.resetForm('#frm_detail');
 			showOrHideDetail(true, 1);
 		}
@@ -492,49 +395,41 @@ body {
 				$('#btn_save').hide();
 			}
 			if (flag == 1) {// 新增
-				$('#main_edit_detail_title').text(
-						"您所在位置 : 业务参数 > " + pageSetting.modelName + " > 新增");
+				$('#main_edit_detail_title').text("您所在位置 : 业务参数 > " + pageSetting.modelName + " > 新增");				
 				// section
 				$('#sec_detail').fadeIn(300);
 				$('#sec_main').hide();
 			} else if (flag == 3) {// 详情查看
-				$('#main_edit_detail_title').text(
-						"您所在位置 : 业务参数 > " + pageSetting.modelName + " > 查看详情");
+				$('#main_edit_detail_title').text("您所在位置 : 业务参数 > " + pageSetting.modelName + " > 查看详情");				
 				// section
 				$('#sec_detail').fadeIn(300);
 				$('#sec_main').hide();
 			} else if (flag == 4) {// 修改
-				$('#main_edit_detail_title').text(
-						"您所在位置 : 业务参数 > " + pageSetting.modelName + " > 修改");
+				$('#main_edit_detail_title').text("您所在位置 : 业务参数 > " + pageSetting.modelName + " > 修改");	
 				// section
 				$('#sec_detail').fadeIn(300);
 				$('#sec_main').hide();
 			}
 		}
-
+		
 		// 根据不同角色控制按钮控件的展示
 		function buttonInit() {
-			if ('[[${userType}]]' == "pltfrm" || '[[${userType}]]' == "bnk") {
+			if ('[[${userType}]]' == "pltfrm" || '[[${userType}]]' == "bnk"){	
 				$("#div_buttons")
-						.append(
-								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i> 添加</button>');
+						.append('<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i> 添加</button>'		
+						);				 
 				$("#div_buttons")
-						.append(
-								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-edit"></i> 编辑</button>');
+						.append('<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-edit"></i> 编辑</button>');
 				$("#div_buttons")
-						.append(
-								'<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:batchDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i> 删除</button>');
+				.append('<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:batchDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i> 删除</button>');				
 			}
+		/* 	$("#div_buttons")
+			.append('<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showViewDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i> 查看</button>');	 */			
 			$("#div_buttons")
-					.append(
-							'<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showViewDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i> 查看</button>');
+					.append('<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>');
 			$("#div_buttons")
-					.append(
-							'<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>');
-			$("#div_buttons")
-					.append(
-							'<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i> 查询</button>');
-		}
+					.append('<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i> 查询</button>');
+			}
 	</script>
 </body>
 </html>

@@ -1568,7 +1568,7 @@ body {
 				shade: true,
 				maxmin: true, //开启最大化最小化按钮
 				area: ['1024px', '600px'],
-				content: '/arManagement/list_ing'
+				content: '/arManagement/list_plg_aply'
 				});
 			}
 
@@ -2556,14 +2556,16 @@ body {
 			if(1==1){
 				
 				/* 平台方发起订单按钮 */
+				if(('[[${userType}]]' == "pltfrm") || ('[[${userType}]]' == "stgco")) {
  				$("#div_buttons")
 						.append(
  			 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:addNewOrderLayer();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i>质押申请</button>');
-				
+				}
+				if(('[[${userType}]]' == "pltfrm") || ('[[${userType}]]' == "bnk")) {
  				$("#div_buttons")
 				.append(
 		 '<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:showEditDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i>质押审核</button>');
- 				
+				}
 				$("#div_buttons")
 				.append(
 						/* '<button class="btn btn-default" onclick="javascript:del();">删除</button>'); */
@@ -2774,7 +2776,7 @@ body {
 				shade: true,
 				maxmin: true, //开启最大化最小化按钮
 				area: ['1024px', '600px'],
-				content: '/arManagement/list_ing'
+				content: '/arManagement/list_plg_aply'
 				});
 			}
 		

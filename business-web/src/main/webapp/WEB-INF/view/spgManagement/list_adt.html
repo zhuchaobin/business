@@ -351,13 +351,16 @@ body {
                                        style="table-layout: fixed">
                                     <thead>
                                     <tr bgcolor="#337AB7">
-                                        <th data-field="pdNm" style="border-bottom: none;">品名</th>
-                                        <th data-field="spec" style="border-bottom: none;">规格</th>
-                                        <th data-field="spec" style="border-bottom: none;">型号</th>
-                                        <th data-field="qlyStd" style="border-bottom: none;">质量标准</th>
-                                        <th data-field="brnd" style="border-bottom: none;">品牌</th>
-                                        <th data-field="pdFctr" style="border-bottom: none;">生产厂家</th>
-                                        <th data-field="num" style="border-bottom: none;">数量</th>
+									<th style="border-bottom: none;" data-field="ids">序号</th>										
+										<th style="border-bottom: none;" data-field="pdNm">品名</th>
+										<th style="border-bottom: none;" data-field="spec">规格</th>
+										<th style="border-bottom: none;" data-field="modl">型号</th>
+										<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+										<th style="border-bottom: none;" data-field="brnd">品牌</th>
+										<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+										<th style="border-bottom: none;" data-field="num">数量</th>
+										<th style="border-bottom: none;" data-field="msunit">计量单位</th>
+										<th style="border-bottom: none;" data-field="pdId">品名id</th>
 
                                     </tr>
                                     </thead>
@@ -615,14 +618,16 @@ body {
                             <table id="boot-table-kc"  align="center" data-toggle="table" class="table table-hover" name="area" style="table-layout:fixed">
                                 <thead>
                                 <tr bgcolor="#337AB7">
-                                    <th style="border-bottom: none;" data-field="ids">序号</th>
-
-                                    <th style="border-bottom: none;" data-field="pdNm">品名</th>
-                                    <th style="border-bottom: none;" data-field="spec">规格</th>
-                                    <th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
-                                    <th style="border-bottom: none;" data-field="brnd">品牌</th>
-                                    <th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
-                                    <th style="border-bottom: none;" data-field="num">数量</th>
+										<th style="border-bottom: none;" data-field="ids">序号</th>										
+										<th style="border-bottom: none;" data-field="pdNm">品名</th>
+										<th style="border-bottom: none;" data-field="spec">规格</th>
+										<th style="border-bottom: none;" data-field="modl">型号</th>
+										<th style="border-bottom: none;" data-field="qlyStd">质量标准</th>
+										<th style="border-bottom: none;" data-field="brnd">品牌</th>
+										<th style="border-bottom: none;" data-field="pdFctr">生产厂家</th>
+										<th style="border-bottom: none;" data-field="num">数量</th>
+										<th style="border-bottom: none;" data-field="msunit">计量单位</th>
+										<th style="border-bottom: none;" data-field="pdId">品名id</th>
                                     <th style="border-bottom: none;" data-field="operation" formatter="operateFormatter">操作</th>
 
                                 </tr>
@@ -951,99 +956,103 @@ body {
     <div class="modal-dialog" role="document" style="width: 800px;height:900px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">发货物明细</h5>
+                <h5 class="modal-title">货物明细</h5>
                 <button class="close" type="button"  data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
                 <div id="custom_data">
 
-                    <form id="frm_submit_ar222" class="form-horizontal">
-                        <input type="hidden" id=ordrId name="ordrId">
+                  <form id="frm_submit_ar222" class="form-horizontal">
+							<input type="hidden" id=ordrId name="ordrId">
 
-                        <div class="col-md-6" style="display:none">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">序号<span
-                                        style="color: red">*</span></label>
-                                <div class="col-sm-8">
-                                    <input name="ids" id="ids" class="form-control" placeholder="序号" value="" />
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-md-6" style="display:none">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">序号<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="ids" id="ids" class="form-control" placeholder="序号" value="" />
+									</div>
+								</div>
+							</div>
 
-                        <div class="col-md-6" >
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">品名<span
-                                        style="color: red">*</span></label>
-                                <div class="col-sm-8">
-                                    <input name="pdNm" id="pdNm" class="form-control" placeholder="品名" value="223" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" >
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">规格<span
-                                        style="color: red">*</span></label>
-                                <div class="col-sm-8">
-                                    <input name="spec" id="spec" class="form-control" placeholder="规格" value="223" />
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">品名<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<select name="pdNm" id="pdNm" class="form-control" onchange="setPdInf()">
+											<option value="">请选择</option>
+											<option th:each="model: ${pmModels}"
+												th:value="${model.id}" th:text="${model.name}"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">规格<span
+										style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="spec" id="spec" class="form-control" placeholder="规格" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">型号</label>
+									<div class="col-sm-8">
+										<input name="modl" id="modl" class="form-control" placeholder="型号" disabled="disabled" />
+									</div>
+								</div>
+							</div>
 
-                        <div class="col-md-6" >
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">质量标准<span
-                                        style="color: red">*</span></label>
-                                <div class="col-sm-8">
-                                    <input name="qlyStd" id="qlyStd" class="form-control" placeholder="质量标准" value="223" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" >
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">品牌</label>
-                                <div class="col-sm-8">
-                                    <input name="brnd" id="brnd" class="form-control" placeholder="品牌" value="223" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" >
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">生产厂家</label>
-                                <div class="col-sm-8">
-                                    <input name="pdFctr" id="pdFctr" class="form-control" placeholder="生产厂家" value="223" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" id="wght_div">
-                            <div class="form-group">
-                                <label for="" class="col-sm-4 control-label">数量<span
-                                        style="color: red">*</span></label>
-                                <div class="col-sm-8">
-                                    <div class="col-xs-5" style="padding-left: 0px;">
-                                        <input name="num" id="num" class="form-control" placeholder="数量"
-                                               value="4" />
-                                    </div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">质量标准<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<input name="qlyStd" id="qlyStd" class="form-control" placeholder="质量标准" disabled="disabled"  />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">品牌</label>
+									<div class="col-sm-8">
+										<input name="brnd" id="brnd" class="form-control" placeholder="品牌" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">生产厂家</label>
+									<div class="col-sm-8">
+										<input name="pdFctr" id="pdFctr" class="form-control" placeholder="生产厂家" disabled="disabled"  />
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="wght_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">数量<span
+											style="color: red">*</span></label>
+									<div class="col-sm-8">
+										<div class="col-xs-5" style="padding-left: 0px;">
+											<input name="num" id="num" class="form-control" placeholder="数量"/>
+										</div>
 
-                                    <div class="col-xs-2">
-                                        <label for="" class="control-label"></label>
-                                    </div>
+										<div class="col-xs-2">
+											<label for="" class="control-label"></label>
+										</div>
 
-                                    <div class="col-xs-5">
-                                        <select name="msunit" id="msunit" class="form-control" >
-                                            <option value="">-计量单位-</option>
-                                            <option value="01" selected="selected">吨</option>
-                                            <option value="02">件</option>
-                                            <option value="03">公斤</option>
-                                            <option value="04">方</option>
-                                            <option value="05">个</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+										<div class="col-xs-5">
+											<input name="msunit" id="msunit"  class="form-control" placeholder="计量单位" disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                    </form>
+						</form>
 
                 </div>
             </div>
@@ -1081,18 +1090,16 @@ body {
 
 
     function showOrderDetailModal() {
-        $('#ids').val("");
-        $('#pdNm').val("");
-        $('#spec').val("");
-        $('#modl').val("");
-        $('#qlyStd').val("");
-        $('#pdFctr').val("");
-        $('#msunit').val("");
-        $('#pchUnitprc').val("");
-        $('#txnPrcdif').val("");
-        $('#saleTntvPrc').val("");
-        $('#num').val("");
-        $('#brnd').val("");
+		$('#ids').val("");
+		$('#pdNm').val("");
+		$('#spec').val("");
+		$('#modl').val("");
+		$('#qlyStd').val("");
+		$('#pdFctr').val("");
+		$('#msunit').val("");
+		$('#num').val("");
+		$('#brnd').val("");
+		$('#pdId').val("");	
         // 按钮控制
         $('#btn_modify_order_detail').hide();
         $('#btn_add_order_detail').show();
@@ -1223,7 +1230,15 @@ body {
         modelName: '订单信息管理',
         resetPath: '[[@{/spgManagement}]]'
     };
+    
+    var pdObj;
     $(function () {
+		// 品名信息
+		var test ='[[${pmModels}]]';
+		if(test != null && test !=undefined){
+			test1=test.replace(/&quot;/g,"\"");
+			pdObj =  JSON.parse(test1);	
+		}
         //e7table表格控件初始化
         e7tableInit();
         //表单校验控件初始化
@@ -1236,7 +1251,28 @@ body {
 
     });
 
+	// 订单明细中品名信息各项获取
+		function setPdInf(){
+			var pdId = $('#pdNm').val();
+		for(var i=0;i<pdObj.length;i++){
+			if(pdObj[i].id == pdId){
 
+				// 计量单位
+				$('#msunit').val(pdObj[i].msunit);
+				// 质量标准
+				$('#qlyStd').val(pdObj[i].qlyStd);
+				// 规格
+				$('#spec').val(pdObj[i].spec);
+				// 品牌
+				$('#brnd').val(pdObj[i].brnd);
+				// 生产厂家
+				$('#pdFctr').val(pdObj[i].pdFctr);
+				// 型号
+				$('#modl').val(pdObj[i].modl);
+			}
+		}			
+		}
+	
     /***
      * 添加订单明细到页面表格
      */
@@ -2297,7 +2333,7 @@ body {
                     $("#boot-table").bootstrapTable('removeAll');
                     for (var jj = 0; jj < t7SpgDetailList.length; jj++) {
                         rows.push({
-                            ids:t7SpgDetailList[jj].id,
+                        	ids:t7SpgDetailList[jj].ids,
                             pdNm: t7SpgDetailList[jj].pdNm,
                             spec: t7SpgDetailList[jj].spec,
                             modl: t7SpgDetailList[jj].modl,
@@ -2305,6 +2341,8 @@ body {
                             brnd: t7SpgDetailList[jj].brnd,
                             pdFctr: t7SpgDetailList[jj].pdFctr,
                             num: t7SpgDetailList[jj].num,
+                            msunit:t7SpgDetailList[jj].msunit,
+                            pdId:t7SpgDetailList[jj].pdId,
                             operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',
 
 
@@ -2474,19 +2512,16 @@ body {
         var rows=[];
         rows.push({
             ids:count,
-            pdNm:$('#pdNm').val(),
-            spec:$('#spec').val(),
-            modl: $('#modl').val(),
-            qlyStd:$('#qlyStd').val(),
-            brnd:$('#brnd').val(),
-            pdFctr:$('#pdFctr').val(),
-            num:$('#num').val(),
+        	pdNm:$("#pdNm").find("option:selected").text(),
+        	spec:$('#spec').val(),
+        	modl:$('#modl').val(),
+        	qlyStd:$('#qlyStd').val(),
+        	brnd:$('#brnd').val(),
+        	pdFctr:$('#pdFctr').val(),
+        	num:$('#num').val(),
+        	msunit:$('#msunit').val(),
+        	pdId:$('#pdNm').val(),
             operation:'<a onclick="modifyTr(this)"><i class="glyphicon glyphicon-edit"></i></a>&nbsp &nbsp<a onclick="deleteItem4(this)"><i class="glyphicon glyphicon-trash"></i></a>',
-
-
-
-
-
 
         })
         $('#boot-table-kc').bootstrapTable('append', rows);
@@ -2496,16 +2531,15 @@ body {
     }
     // 修改行
     function modifyTr(input) {
-        $('#ids').val($(input).parent().parent().find('td').eq(0).text());
-        $('#pdNm').val($(input).parent().parent().find('td').eq(1).text());
-        $('#spec').val($(input).parent().parent().find('td').eq(2).text());
-        $('#modl').val($(input).parent().parent().find('td').eq(3).text());
-        $('#qlyStd').val($(input).parent().parent().find('td').eq(4).text());
-        $('#pdFctr').val($(input).parent().parent().find('td').eq(5).text());
-        $('#msunit').val($(input).parent().parent().find('td').eq(6).text());
-        $('#pchUnitprc').val($(input).parent().parent().find('td').eq(7).text());
-        $('#txnPrcdif').val($(input).parent().parent().find('td').eq(8).text());
-        $('#saleTntvPrc').val($(input).parent().parent().find('td').eq(9).text());
+		$('#ids').val($(input).parent().parent().find('td').eq(0).text());
+		$('#pdNm').val($(input).parent().parent().find('td').eq(1).text());
+		$('#spec').val($(input).parent().parent().find('td').eq(2).text());
+		$('#modl').val($(input).parent().parent().find('td').eq(3).text());
+		$('#qlyStd').val($(input).parent().parent().find('td').eq(4).text());
+		$('#pdFctr').val($(input).parent().parent().find('td').eq(5).text());
+		$('#msunit').val($(input).parent().parent().find('td').eq(6).text());
+		$('#pchUnitprc').val($(input).parent().parent().find('td').eq(7).text());
+		$('#pdId').val($(input).parent().parent().find('td').eq(8).text());
         // 按钮控制
         $('#btn_modify_order_detail').show();
         $('#btn_add_order_detail').hide();

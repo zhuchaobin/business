@@ -58,4 +58,10 @@
 	<dubbo:reference id="plgCntlMnyWnLnDcService" interface="com.xai.tt.dc.client.service.PlgCntlMnyWnLnDcService" version="1.0"/>
     <!-- 货物操作流水管理20190306-->
  <!--   <dubbo:reference id="gdsOIStgJrnlDcService" interface="com.xai.tt.dc.client.service.GdsOIStgJrnlDcService" version="1.0"/>-->
+ 
+     <!-- 融资申请管理20190320-->
+     <dubbo:reference id="fncAplyDcService" interface="com.xai.tt.dc.client.service.FncAplyDcService" version="1.0"/>
+     <!-- 风控指导价20190320-->
+     <dubbo:reference id="pdNmDrcPrcDcService" interface="com.xai.tt.dc.client.service.PdNmDrcPrcDcService" version="1.0"/>
+
 </beans>

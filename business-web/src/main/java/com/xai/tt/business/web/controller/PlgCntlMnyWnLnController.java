@@ -12,6 +12,7 @@ import com.tianan.common.core.support.OssET;
 import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
+import com.xai.tt.business.biz.manager.VrtyManager;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T13GdsDetail;
@@ -59,6 +60,8 @@ public class PlgCntlMnyWnLnController extends BaseController {
 	private PlgCntlMnyWnLnDcService plgCntlMnyWnLnDcService;	
 	@Autowired
 	private CompanyDcService companyDcService;    
+    @Autowired
+    private VrtyManager vrtyManager;
     @RequestMapping(value = { "save" })
     @ResponseBody
     public Result<?>  save(String inVo, String detail, String fileUrl) {

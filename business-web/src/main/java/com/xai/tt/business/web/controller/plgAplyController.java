@@ -61,7 +61,7 @@ public class plgAplyController extends BaseController {
     	logger.info("保存质押请求报文：plgAplyManagementInVo={}, fileUrl={}", JSON.toJSONString(inVo), JSON.toJSONString(fileUrl));
 
 		List<T13GdsDetail> detailList = JSON.parseArray(detail, T13GdsDetail.class);
-		logger.info("保存质押请求报文,货物明细：detailList={}", detailList);
+		logger.info("保存质押请求报文,货物明细：detailList={}", JSON.toJSONString(detailList));
 		PlgAplyInVo plgAplyInVo = JSON.parseObject(inVo,PlgAplyInVo.class);
         if (StringUtils.isNotEmpty(fileUrl)) {
         	plgAplyInVo.setFileNames(fileUrl);
@@ -112,6 +112,10 @@ public class plgAplyController extends BaseController {
         ModelAndView mav = new ModelAndView("plgAply/list");
       	CompanyQuery query = new CompanyQuery(); 
 
+       	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+       	logger.info("user.getUserType() =" + user.getUserType());
+    	mav.addObject("userType", user.getUserType());
+    	
         Result<PageInfo<Company>> result = companyDcService.queryPage(query);
         mav.addObject("pltfrmModels", result.getData().getList());
     	// 查询上游供应商下拉菜单

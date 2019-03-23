@@ -6,12 +6,17 @@ import com.aliyun.oss.model.OSSObject;
 import com.github.pagehelper.PageInfo;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
+import com.tianan.common.api.jpa.JpaCriteria;
+import com.tianan.common.api.jpa.JpaMatchType;
 import com.tianan.common.api.mybatis.PageParam;
 import com.tianan.common.api.support.SecurityContext;
 import com.tianan.common.core.support.OssET;
+import com.tianan.common.mvc.bean.HttpCriteria;
 import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
+import com.xai.tt.business.biz.manager.VrtyManager;
+import com.xai.tt.business.client.entity.Vrty;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T8OrderDetail;
@@ -56,6 +61,8 @@ public class OrderManagementController extends BaseController {
 	private OrderManagementDcService orderManagementDcService;
 	@Autowired
 	private CompanyDcService companyDcService;    
+    @Autowired
+    private VrtyManager vrtyManager;
     @RequestMapping(value = { "save" })
     @ResponseBody
     public Result<?>  save(String inVo, String detail, String fileUrl) {
@@ -774,6 +781,16 @@ public class OrderManagementController extends BaseController {
         }
         mav.addObject("stgcoModels", result.getData().getList());    
 //    	mav.addObject("userType", "Group");
+        
+        if(1==flag) {
+	    	// 品名下拉菜单
+	    	HttpCriteria params = new HttpCriteria();
+	    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
+	    	criteria.add("folder", 0, JpaMatchType.EQ);//只查品名
+	    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
+	        mav.addObject("pmModels", vrtyList.getRows());
+	        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
+        }
         return mav;
     } 
        

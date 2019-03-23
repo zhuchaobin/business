@@ -6,7 +6,7 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport" />
-<title>质押指导价</title>
+<title>融资申请</title>
 <link rel="stylesheet"
 	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet"
@@ -57,54 +57,48 @@ body {
 					<div id="div_criteria" class="flowlayout">
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">长约编号：</label>
+								<label for="" class="col-sm-4 control-label">公司全称：</label>
 								<div class="col-sm-8">
-									<input name="arId" class="form-control" placeholder="长约编号" />
+									<input name="companyName" class="form-control"
+										placeholder="公司全称"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">联系人：</label>
+								<div class="col-sm-8">
+									<input name="ctcpsn" class="form-control" placeholder="联系人" />
 								</div>
 							</div>
 						</div>
 <!-- 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">订单编号：</label>
+								<label for="" class="col-sm-4 control-label">联系电话：</label>
 								<div class="col-sm-8">
-									<input name="ordrId" class="form-control" placeholder="订单编号" />
+									<input name="ctcTel" class="form-control" placeholder="联系电话" disabled="disabled"/>
+								</div>
+							</div>
+						</div> -->
+
+<!-- 						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" class="col-sm-4 control-label">申请渠道：</label>
+								<div class="col-sm-8">
+									<input name="aplyChnl" class="form-control" placeholder="申请渠道" disabled="disabled"/>
 								</div>
 							</div>
 						</div> -->
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">银行名称：</label>
-								<div class="col-sm-8">								
-									<select name="bnk" class="form-control">
-										<option value="">请选择</option>
-										<option th:each="model: ${bnkModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
-									</select>
+								<label for="" class="col-sm-4 control-label">处理人：</label>
+								<div class="col-sm-8">
+									<input name="username" class="form-control" placeholder="处理人" />
+								</div>
+							</div>
+						</div>
 
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">品名：</label>
-								<div class="col-sm-8">
-									<select name="pdId" class="form-control">
-										<option value="">请选择</option>
-										<option th:each="model: ${pmModels}"
-											th:value="${model.id}" th:text="${model.name}"></option>
-									</select>
-								</div>
-							</div>
-						</div>
-<!-- 						<div class="col-md-4">
-							<div class="form-group">
-								<label for="" class="col-sm-4 control-label">规格：</label>
-								<div class="col-sm-8">
-									<input name="spec" class="form-control" placeholder="规格" />
-								</div>
-							</div>
-						</div>
- -->
 					</div>
 				</form>
 			</div>
@@ -147,93 +141,92 @@ body {
 
 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">长约编号：</label>
+										<label for="" class="col-sm-4 control-label">公司全称：</label>
 										<div class="col-sm-8">
-											<input name="arId" class="form-control" placeholder="长约编号" />
+											<input name="companyName" class="form-control"
+												placeholder="公司全称" disabled="disabled"/>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">订单编号：</label>
+										<label for="" class="col-sm-4 control-label">电子邮箱：</label>
 										<div class="col-sm-8">
-											<input name="ordrId" class="form-control" placeholder="订单编号" />
+											<input name="email" class="form-control" placeholder="电子邮箱"  disabled="disabled"/>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">银行id：</label>
+										<label for="" class="col-sm-4 control-label">联系人：</label>
 										<div class="col-sm-8">
-											<select name="bnk" class="form-control">
-												<option value="">请选择</option>
-												<option th:each="model: ${bnkModels}"
-													th:value="${model.id}" th:text="${model.name}"></option>
-											</select>
-
+											<input name="ctcpsn" class="form-control" placeholder="联系人"  disabled="disabled"/>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">品名id：</label>
+										<label for="" class="col-sm-4 control-label">联系电话：</label>
 										<div class="col-sm-8">
-											<select name="pdId" class="form-control">
-												<option value="">请选择</option>
-												<option th:each="model: ${pmModels}"
-													th:value="${model.id}" th:text="${model.name}"></option>
-											</select>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6" >
-									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">规格：</label>
-										<div class="col-sm-8">
-											<input name="spec" class="form-control" placeholder="规格" />
+											<input name="ctcTel" class="form-control" placeholder="联系电话"  disabled="disabled"/>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">质押指导价：</label>
+										<label for="" class="col-sm-4 control-label">融资需求描述：</label>
 										<div class="col-sm-8">
-											<input name="plgDrcPrc" class="form-control"
-												placeholder="质押指导价" />
+											<input name="fncRqmDsc" class="form-control"
+												placeholder="融资需求描述"  disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" >
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">申请时间：</label>
+										<div class="col-sm-8">
+											<input name="aplyTm" class="form-control" placeholder="申请时间"  disabled="disabled"/>
 										</div>
 									</div>
 								</div>
 <!-- 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">操作员：</label>
+										<label for="" class="col-sm-4 control-label">申请渠道：</label>
 										<div class="col-sm-8">
-											<input name="username" class="form-control" placeholder="操作员" />
+											<input name="aplyChnl" class="form-control"
+												placeholder="申请渠道" />
 										</div>
 									</div>
 								</div> -->
 <!-- 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">创建时间：</label>
+										<label for="" class="col-sm-4 control-label">修改时间：</label>
 										<div class="col-sm-8">
-											<input name="crtTm" class="form-control" placeholder="创建时间" />
+											<input name="modTm" class="form-control" placeholder="修改时间" />
+										</div>
+									</div>
+								</div> -->
+								<div class="col-md-6" >
+									<div class="form-group">
+										<label for="" class="col-sm-4 control-label">处理人：</label>
+										<div class="col-sm-8">
+											<input name="username" class="form-control" placeholder="处理人"  disabled="disabled"/>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">更新时间：</label>
+										<label for="" class="col-sm-4 control-label">处理时间：</label>
 										<div class="col-sm-8">
-											<input name="udtTm" class="form-control" placeholder="更新时间" />
+											<input name="pcsTm" class="form-control" placeholder="处理时间" disabled="disabled"/>
 										</div>
 									</div>
-								</div> -->
-
+								</div>
 								<div class="col-md-6" >
 									<div class="form-group">
-										<label for="" class="col-sm-4 control-label">备注：</label>
+										<label for="" class="col-sm-4 control-label">处理备注：</label>
 										<div class="col-sm-8">
-											<input name="rmrk" class="form-control" placeholder="备注" value=""/>
+											<input name="rmrk" class="form-control" placeholder="处理备注" />
 										</div>
 									</div>
 								</div>
@@ -292,8 +285,8 @@ body {
 
 	<script type="text/javascript">
 		var pageSetting = {
-			modelName : '质押指导价',
-			resetPath : '[[@{/plgDrcPrc}]]'
+			modelName : '融资申请',
+			resetPath : '[[@{/fncAply}]]'
 		};
 
 		$(function() {
@@ -324,45 +317,62 @@ body {
 		 */
 		function e7tableInit() {
 			$('#tbl_query').e7table({
-				url : '[[@{/plgDrcPrc/queryPage}]]',
+				url : '[[@{/fncAply/queryPage}]]',
 				pageSize : 10,
-				sortName : 'tms', //排序列名,更新时间
+				sortName : 'modTm', //排序列名,更新时间
 				autoLoading : true, //控件初始化后，自动远程请求数据
 				selectType : 'multiple',
 				rownumbers : false,
 				checkbox : false,
 				columns : [ {
-					title : '长约编号',
-					field : 'arId',
+					title : '公司全称',
+					field : 'companyName',
 					sortable : true
 				}, {
-					title : '银行名称',
-					field : 'bnkNm',
-					sortable : true
-				},  {
-					title : '品名',
-					field : 'pdNm',
+					title : '电子邮箱',
+					field : 'email',
 					sortable : true
 				}, {
-					title : '规格',
-					field : 'spec',
+					title : '联系人',
+					field : 'ctcpsn',
 					sortable : true
 				}, {
-					title : '质押指导价',
-					field : 'plgDrcPrc',
+					title : '联系电话',
+					field : 'ctcTel',
 					sortable : true
 				}, {
-					title : '操作员',
+					title : '融资需求描述',
+					field : 'fncRqmDsc',
+					sortable : true
+				}, {
+					title : '申请时间',
+					field : 'aplyTm',
+					sortable : true,
+					formatter: function(value, row, index) {return new Date(value).format();}
+				}, {
+					title : '已处理',
+					field : 'aplyChnl',
+					sortable : true,
+					formatter: function(value, row, index) { 
+						if(row.rmrk ==null || row.rmrk=="") 
+							return "是"; 
+						else 
+							return "否";
+						}
+				},{
+					title : '处理人',
 					field : 'username',
 					sortable : true
-				},  {
-					title : '时间',
-					field : 'tms',
+				}, {
+					title : '处理时间',
+					field : 'pcsTm',
 					sortable : true,
-					formatter : function(value, row, index) {
-						return new Date(value).format();
-					}
-				}],
+					formatter: function(value, row, index) {return new Date(value).format();}
+				}, {
+					title : '处理备注',
+					field : 'rmrk',
+					sortable : true
+				}, ],
 				onDblclick : function(index, row) {
 					showViewDialog();
 				}
@@ -380,34 +390,90 @@ body {
 					validating : 'glyphicon glyphicon-refresh'
 				},
 				fields : {
-					"arId" : {
+					"id" : {
 						validators : {
 							notEmpty : {
-								message : '长约编号不能为空'
+								message : 'ID不能为空'
 							}
 						}
 					},
-					"bnk" : {
+					"companyName" : {
 						validators : {
 							notEmpty : {
-								message : '银行不能为空'
+								message : '公司全称不能为空'
 							}
 						}
 					},
-					"pdId" : {
+					"email" : {
 						validators : {
 							notEmpty : {
-								message : '品名不能为空'
+								message : '电子邮箱不能为空'
 							}
 						}
 					},
-					"plgDrcPrc" : {
+					"ctcpsn" : {
 						validators : {
 							notEmpty : {
-								message : '质押指导价不能为空'
+								message : '联系人不能为空'
 							}
 						}
-					}
+					},
+					"ctcTel" : {
+						validators : {
+							notEmpty : {
+								message : '联系电话不能为空'
+							}
+						}
+					},
+					"fncRqmDsc" : {
+						validators : {
+							notEmpty : {
+								message : '融资需求描述不能为空'
+							}
+						}
+					},
+					"aplyTm" : {
+						validators : {
+							notEmpty : {
+								message : '申请时间不能为空'
+							}
+						}
+					},
+					"aplyChnl" : {
+						validators : {
+							notEmpty : {
+								message : '申请渠道不能为空'
+							}
+						}
+					},
+					"modTm" : {
+						validators : {
+							notEmpty : {
+								message : '修改时间不能为空'
+							}
+						}
+					},
+					"username" : {
+						validators : {
+							notEmpty : {
+								message : '处理人不能为空'
+							}
+						}
+					},
+					"pcsTm" : {
+						validators : {
+							notEmpty : {
+								message : '处理时间不能为空'
+							}
+						}
+					},
+					"rmrk" : {
+						validators : {
+							notEmpty : {
+								message : '处理备注不能为空'
+							}
+						}
+					},
 				}
 			});
 
@@ -478,7 +544,12 @@ body {
 			}, function(result) {
 				var detail = result.data;
 				for (key in detail) {
-					$('#frm_detail [name="' + key + '"]').val(detail[key]);
+ 					if(key=="aplyTm" || key=="pcsTm")
+					/* 	$('#frm_detail [name="' + key + '"]').val(Date(detail[key]).format()); */
+						$('#frm_detail [name="' + key + '"]').val(transDateTime(detail[key]));
+					else
+						$('#frm_detail [name="' + key + '"]').val(detail[key]);
+					
 				}
 			});
 		}
@@ -515,12 +586,12 @@ body {
 		// 根据不同角色控制按钮控件的展示
 		function buttonInit() {
 			if ('[[${userType}]]' == "pltfrm" || '[[${userType}]]' == "bnk") {
+/* 				$("#div_buttons")
+						.append(
+								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i> 添加</button>'); */
 				$("#div_buttons")
 						.append(
-								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i> 添加</button>');
-				$("#div_buttons")
-						.append(
-								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-edit"></i> 编辑</button>');
+								'<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-edit"></i> 处理</button>');
 				$("#div_buttons")
 						.append(
 								'<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:batchDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i> 删除</button>');

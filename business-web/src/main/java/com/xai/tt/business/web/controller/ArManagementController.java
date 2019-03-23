@@ -446,6 +446,14 @@ public class ArManagementController extends BaseController {
     	return mav;
     }
     
+    // 打开质押入库页面
+    @RequestMapping(value = { "list_plg_aply" })
+    public ModelAndView list_plg_aply() {
+    	logger.info("查询执行中的长约开始");
+    	ModelAndView mav = lists(6);
+    	return mav;
+    }
+    
     @RequestMapping(value = { "add" })
     public ModelAndView add() {
     	ModelAndView mav = new ModelAndView("arManagement/add");
@@ -717,7 +725,7 @@ public class ArManagementController extends BaseController {
     
     public ModelAndView lists(Integer flag) {
     	ModelAndView mav = null;
-    	if(1 == flag)
+    	if(1 == flag || 6 ==flag)
     		mav = new ModelAndView("arManagement/list_ing");
     	else if(2 == flag)
     		mav = new ModelAndView("arManagement/list_adt");
@@ -728,15 +736,16 @@ public class ArManagementController extends BaseController {
     	
     	logger.info("flag=" + flag);
     	CompanyQuery query = new CompanyQuery(); 
+    	Result<PageInfo<Company>> result = null;
     	// 查询平台下拉菜单
-        query.setUsrTp("01");  	
+/*        query.setUsrTp("01");  	
         Result<PageInfo<Company>> result = companyDcService.queryPage(query);
     	logger.info("查询[平台]公司信息返回结果：{}", JSON.toJSONString(result));
         if (result == null || result.getCode() != 0) {
         	logger.error("查询[平台]公司信息异常");
 //            throw new RuntimeException("查询[平台]公司信息异常");
         }
-        mav.addObject("pltfrmModels", result.getData().getList());
+        mav.addObject("pltfrmModels", result.getData().getList());*/
     	// 查询上游供应商下拉菜单
         query.setUsrTp("02");
     	result = companyDcService.queryPage(query);
@@ -806,14 +815,25 @@ public class ArManagementController extends BaseController {
        	logger.info("user.getUserType() =" + user.getUserType());
     	mav.addObject("userType", user.getUserType());
     	
-    	// 品名下拉菜单
-    	HttpCriteria params = new HttpCriteria();
-    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
-    	criteria.add("folder", 0, JpaMatchType.EQ);//只查品名
-    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
-        mav.addObject("pmModels", vrtyList.getRows());
-        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
-        
+    	if((1==flag) || (6==flag)) {
+	    	// 品名下拉菜单
+	    	HttpCriteria params = new HttpCriteria();
+	    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
+	    	criteria.add("folder", 0, JpaMatchType.EQ);//只查品名
+	    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
+	        mav.addObject("pmModels", vrtyList.getRows());
+	        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
+    	}
+    	if(1==flag) {
+    		//菜单类型：区分质押和发起订单页面的按钮
+    		mav.addObject("menuType", "01"); //订单发起      
+    		logger.info("menuType=01");
+    	} 
+    	if(6==flag) {
+	        //菜单类型：区分质押和发起订单页面的按钮
+	        mav.addObject("menuType", "02");// 质押申请
+	        logger.info("menuType=02");
+    	}
         return mav;
     } 
        

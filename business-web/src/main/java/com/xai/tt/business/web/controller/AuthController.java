@@ -51,6 +51,7 @@ public class AuthController {
      */
 	@RequestMapping(value = "/login", method=RequestMethod.GET)
     public String login(){
+		logger.info("跳转到登录页。。。。。。。");
         return "auth/ui/index";
     }
 	
