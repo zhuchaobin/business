@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<title>企业信息</title>
+<link rel="stylesheet"
+	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/skins/_all-skins.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/AdminLTE.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/dist/css/ionicons.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.css}" />
+<link rel="stylesheet" th:href="@{/resources/e7/css/e7-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/e7/e7table/e7table-0.2.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/dist/css/AdminLTE.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/adminlte/plugins/iCheck/all.css}" />
+<link rel="stylesheet" th:href="@{/resources/style.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/dist/kl-iconfont/iconfont.css}" />
+<link rel="stylesheet"
+	th:href="@{/resources/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css}" />
+<!-- 页面背景图片 -->
+<style type="text/css">
+body {
+	padding: 0;
+	margin: 0;
+	background: url(/resources/dist/img/page_bg.png) no-repeat;
+	width: 100%;
+	background-size: cover;
+}
+</style>
+<link rel="stylesheet" th:href="@{/resources/css_zcb/common.css}" />
+<!-- 自定义按钮样式 -->
+<link rel="stylesheet" th:href="@{/resources/css_zcb/button.css}" />
+
+</head>
+<body>
+<!-- Main content -->
+<section id="sec_main" class="content">
+	<!-- 条件查询 -->
+	<div class="box box-info">
+		<!-- 条件区域 -->
+		<div class="box-body" style="padding-bottom:0px;">
+			<form id="frm_query" class="form-horizontal">
+				<div id="div_criteria" class="flowlayout">
+
+																								<div  class="col-md-4">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">名称：</label>
+									<div class="col-sm-8"><input name="name" class="form-control" placeholder="名称" /></div>
+								</div>
+							</div>
+																								<div  class="col-md-4">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">负责人：</label>
+									<div class="col-sm-8"><input name="managerName" class="form-control" placeholder="负责人" /></div>
+								</div>
+							</div>
+<!-- 							<div  class="col-md-4">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">用户类型：</label>
+									<div class="col-sm-8"><input name="usrTp" class="form-control" placeholder="用户类型" /></div>
+								</div>
+							</div> -->
+
+															</div>
+			</form>
+		</div>
+
+			<!-- 按钮区域 -->
+			<div id="div_buttons" class="box-footer"></div>
+	</div>
+
+	<!-- 信息列表 -->
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box box-info">
+				<div class="box-body table-responsive no-padding">
+					<table id="tbl_query" class="table table-hover"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+<!-- /.content -->
+
+	<!-- 详细信息 start-->
+	<section id="sec_detail" class="content" style="display: none;">
+		<div id="main_edit_detail_clapse" class="box box-info">
+			<div class="box-header with-border">
+				<h4 id="main_edit_detail_title" class="text-info"></h4>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse">
+						<i id="main_edit_detail_li" class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="frm_detail" class="form-horizontal">
+					<fieldset id='fld_detail'>
+						<div class="w-z-info">
+							<input name="id" type="hidden" value="" />
+							<div class="row">
+							
+
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">名称：</label>
+									<div class="col-sm-8">
+										<input name="name" class="form-control" placeholder="名称"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">负责人：</label>
+									<div class="col-sm-8">
+										<input name="managerName" class="form-control" placeholder="负责人"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">邮件：</label>
+									<div class="col-sm-8">
+										<input name="email" class="form-control" placeholder="邮件"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">电话号：</label>
+									<div class="col-sm-8">
+										<input name="mobile" class="form-control" placeholder="电话号"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">省份：</label>
+									<div class="col-sm-8">
+										<input name="province" class="form-control" placeholder="省份"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">城市：</label>
+									<div class="col-sm-8">
+										<input name="city" class="form-control" placeholder="城市"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">地址信息：</label>
+									<div class="col-sm-8">
+										<input name="address" class="form-control" placeholder="地址信息"/>
+									</div>
+								</div>
+							</div>
+<!-- 													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">是否冻结 冻结:TRUE  ;未冻结：FALSE：</label>
+									<div class="col-sm-8">
+										<input name="locked" class="form-control" placeholder="是否冻结 冻结:TRUE  ;未冻结：FALSE"/>
+									</div>
+								</div>
+							</div> -->
+<!-- 													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">用户类型：</label>
+									<div class="col-sm-8">
+										<input name="usrTp" class="form-control" placeholder="用户类型"/>
+									</div>
+								</div>
+							</div> -->
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">注册地址：</label>
+									<div class="col-sm-8">
+										<input name="rgtads" class="form-control" placeholder="注册地址"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">纳税人识别号：</label>
+									<div class="col-sm-8">
+										<input name="taxpyrIdNo" class="form-control" placeholder="纳税人识别号"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">开户行：</label>
+									<div class="col-sm-8">
+										<input name="depbnk" class="form-control" placeholder="开户行"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">银行账户号：</label>
+									<div class="col-sm-8">
+										<input name="bnkAccNo" class="form-control" placeholder="银行账户号"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">备注：</label>
+									<div class="col-sm-8">
+										<input name="rmrk" class="form-control" placeholder="备注"/>
+									</div>
+								</div>
+							</div>
+													<div class="col-md-6" >
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">企业社会信用代码：</label>
+									<div class="col-sm-8">
+										<input name="entpSocCrCd" class="form-control" placeholder="企业社会信用代码"/>
+									</div>
+								</div>
+							</div>
+												
+							</div>
+
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="box-footer">
+				<button id="btn_close" type="button"
+					class="btn btn-primary-gray pull-right "
+					onclick='javascript:hideDetail();' style="margin-right: 15px;">
+					<i class="glyphicon glyphicon-remove-sign"></i>取消
+				</button>
+				<button id="btn_save" type="button"
+					class="btn btn-primary-red pull-right" onclick='javascript:save();'
+					style="margin-right: 5px;">
+					<i class="glyphicon glyphicon-floppy-disk"></i>保存
+				</button>
+			</div>
+
+			<!-- 页面悬浮固定的返回按钮 start-->
+			<div id="xuanfu_btn_close_div"
+				style="z-index: 9999; position: fixed ! important; right: 80px; top: 25px; opacity: 0.65">
+				<table width=""
+					100% style="position: absolute; width: 260px; right: 0px; top: 0px;">
+					<button id="btn_close_return3" type="button"
+						class="btn btn-success pull-right btn-lg"
+						onclick='javascript:hideDetail();' style="margin-right: 15px;">
+						<i class="glyphicon glyphicon-arrow-left"></i> 返 回
+					</button>
+				</table>
+			</div>
+
+		</div>
+	</section>
+	<!-- 详细信息 end-->
+	
+	<script th:src="@{/resources/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+	<script th:src="@{/resources/plugins/bootbox/bootbox.min.js?v=1}"></script>
+	<script th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/bootstrapValidator/bootstrapValidator.min.js}"></script>
+	<script th:src="@{/resources/dist/js/app.min.js}"></script>
+	<script th:src="@{/resources/e7/e7util-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7table/e7table-0.2.js}"></script>
+	<script th:src="@{/resources/e7/e7crud-0.2.js}"></script>
+	<script
+		th:src="@{/resources/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+	<script
+		th:src="@{/resources/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+	<script th:src="@{/resources/js_zcb/tools.js}"></script>
+	<script th:src="@{/resources/js_zcb/layer/layer.js}"></script>
+	
+<script type="text/javascript">
+	var pageSetting = {
+		modelName : '企业信息',
+		resetPath : '[[@{/company2}]]'
+	};
+
+		$(function() {
+			//e7table表格控件初始化
+			e7tableInit();
+			//初始化按钮
+			buttonInit();
+			//表单校验控件初始化
+			validatorInit();
+		});
+
+		/***
+		 * 查询
+		 */
+		function query() {
+			$('#tbl_query').e7table('query', '#frm_query');
+		}
+
+		/***
+		 * 重置
+		 */
+		function reset() {
+			E7.resetForm('#frm_query');
+		}
+
+	/***
+		 * e7table表格控件初始化
+		 */
+		function e7tableInit() {
+			$('#tbl_query').e7table({
+			url : '[[@{/company2/queryPage}]]',
+				pageSize : 10,
+				sortName : 'createTime', //排序列名,更新时间
+				autoLoading : true, //控件初始化后，自动远程请求数据
+				selectType : 'multiple',
+				rownumbers: false,	
+				checkbox : false,
+				columns : [ 
+																																			
+	
+																																					{title: '名称', field: 'name', sortable: true},
+																																					{title: '负责人', field: 'managerName', sortable: true},
+																																				/* 	{title: '邮件', field: 'email', sortable: true}, */
+																																					{title: '电话号', field: 'mobile', sortable: true},
+																																				/* 	{title: '省份', field: 'province', sortable: true},
+																																					{title: '城市', field: 'city', sortable: true}, */
+																																/* 					{title: '地址信息', field: 'address', sortable: true},
+																																					{title: '是否冻结 冻结:TRUE  ;未冻结：FALSE', field: 'locked', sortable: true},
+																																					{title: '用户类型', field: 'usrTp', sortable: true}, */
+																																					{title: '注册地址', field: 'rgtads', sortable: true},
+																																					{title: '纳税人识别号', field: 'taxpyrIdNo', sortable: true},
+
+			
+																																					{title: '企业社会信用代码', field: 'entpSocCrCd', sortable: true},
+																																					{title: '注册时间', field: 'createTime', sortable: true,formatter: function(value, row, index) {return new Date(value).format();}}
+																						 ],
+				onDblclick : function(index, row) {
+					showViewDialog();
+				}
+			});
+		}
+
+
+	/***
+	 * 表单校验控件初始化
+	 */
+	function validatorInit() {
+		$('#frm_detail').bootstrapValidator({
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+
+									"name" : {
+					validators : {notEmpty : {message : '名称不能为空'}}
+				},
+									"managerName" : {
+					validators : {notEmpty : {message : '负责人不能为空'}}
+				},
+									"mobile" : {
+					validators : {notEmpty : {message : '电话号不能为空'}}
+				}
+								}
+		});
+
+		$('#btn_save').click(function() {
+			$('#frm_detail').bootstrapValidator('validate');
+		});
+	}
+
+		/***
+		 * 隐藏详情div，返回按钮使用
+		 */
+		function hideDetail() {
+			$('#sec_detail').fadeOut(300);
+			setTimeout(function() {
+				$('#sec_main').show();
+			}, 300)
+		}
+		// 打开添加详情页面
+		function showAddDialog(){
+			E7.resetForm('#frm_detail');
+			showOrHideDetail(true, 1);
+		}
+		// 打开编辑详情页面
+		function showEditDialog() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if (rows.length == 0) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '请选择数据！'
+				});
+				return;
+			} else if (rows.length > 1) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '一次只能修改一条数据！'
+				});
+				return;
+			}
+			if ($('#frm_detail').data('bootstrapValidator')) {
+				$('#frm_detail').data('bootstrapValidator').resetForm(true);
+			}
+			queryDetails(rows[0]['id']);
+			showOrHideDetail(true, 4);
+		}
+		// 打开查看详情页面
+		function showViewDialog() {
+			var rows = $('#tbl_query').e7table('getSelectedRows');
+			if (rows.length == 0) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '请选择数据！'
+				});
+				return;
+			} else if (rows.length > 1) {
+				bootbox.alert({
+					'title' : '错误消息',
+					'message' : '一次只能查看一条数据！'
+				});
+				return;
+			}
+			queryDetails(rows[0]['id']);
+			showOrHideDetail(false, 3);
+		}
+		// 查询详情
+		function queryDetails(id) {
+			E7.post(pageSetting.resetPath + '/getDetailById', {
+				'id' : id
+			}, function(result) {
+				var detail = result.data;
+				for (key in detail) {
+					$('#frm_detail [name="' + key + '"]').val(detail[key]);
+				}
+			});
+		}
+		// 控制界面的显示隐藏、是否可编辑
+		function showOrHideDetail(editable, flag) {
+			if (editable) {
+				$('#fld_detail').prop('disabled', false);
+				$('#btn_save').show();
+			} else {
+				$('#fld_detail').prop('disabled', true);
+				$('#btn_save').hide();
+			}
+			if (flag == 1) {// 新增
+				$('#main_edit_detail_title').text("您所在位置 : 会员管理 > " + pageSetting.modelName + " > 新增");				
+				// section
+				$('#sec_detail').fadeIn(300);
+				$('#sec_main').hide();
+			} else if (flag == 3) {// 详情查看
+				$('#main_edit_detail_title').text("您所在位置 : 会员管理 > " + pageSetting.modelName + " > 查看详情");				
+				// section
+				$('#sec_detail').fadeIn(300);
+				$('#sec_main').hide();
+			} else if (flag == 4) {// 修改
+				$('#main_edit_detail_title').text("您所在位置 : 会员管理 > " + pageSetting.modelName + " > 修改");	
+				// section
+				$('#sec_detail').fadeIn(300);
+				$('#sec_main').hide();
+			}
+		}
+		
+		// 根据不同角色控制按钮控件的展示
+		function buttonInit() {
+			if ('[[${userType}]]' == "pltfrm" || '[[${userType}]]' == "bnk"){	
+/* 				$("#div_buttons")
+						.append('<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showAddDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-plus"></i> 添加</button>'		
+						);	 */			 
+				$("#div_buttons")
+						.append('<button type="button" class="btn btn-primary-red btn-sm" onclick="javascript:showEditDialog();" style="margin-right:7px;"><i class="glyphicon glyphicon-edit"></i> 编辑</button>');
+			/* 	$("#div_buttons")
+				.append('<button type="button" class="btn btn-primary-red btn-sm" id="btn-del" onclick="javascript:batchDel();" style="margin-right:7px;"><i class="glyphicon glyphicon-trash"></i> 删除</button>'); */				
+			}
+			$("#div_buttons")
+			.append('<button id="btn_search" class="btn btn-primary-gray btn-sm" type="button" class="btn btn-primary pull-right" onclick="javascript:showViewDialog();" style="margin-right:5px;"><i class="glyphicon glyphicon-search"></i> 查看</button>');				
+			$("#div_buttons")
+					.append('<button type="button" class="btn btn-sm btn-primary-gray pull-right" onclick="javascript:reset()"><i class="glyphicon glyphicon-refresh"></i> 重置</button>');
+			$("#div_buttons")
+					.append('<button id="btn_search"  type="button" class="btn btn-primary-gray btn-sm pull-right" onclick="javascript:query()" style="margin-right:15px;"><i class="glyphicon glyphicon-search"></i> 查询</button>');
+			}
+	</script>
+</body>
+</html>
