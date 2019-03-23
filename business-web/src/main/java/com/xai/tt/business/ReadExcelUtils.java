@@ -171,7 +171,7 @@ public class ReadExcelUtils {
         }
     }
     
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
         	File file=new File("d:\1\2\3\4");
         	Boolean bbc=file.mkdirs();// ture   
@@ -266,7 +266,7 @@ public class ReadExcelUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * 
