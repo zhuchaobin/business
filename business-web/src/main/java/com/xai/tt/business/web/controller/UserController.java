@@ -206,10 +206,11 @@ public class UserController extends BaseController {
     	JpaCriteria criteria = params.toJpaCriteria(User.class);
     	//用户身份
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-    	if(UserType.pltfrm != user.getUserType() && !user.hasRole("ROLE_ADMIN")) {
+    	//暂时放开控制，20190323
+/*    	if(UserType.pltfrm != user.getUserType() && !user.hasRole("ROLE_ADMIN")) {
 			criteria.add("userType", user.getUserType(), JpaMatchType.EQ);//除了管理员和集团用户，其他用户只能查本类型下的用户
 			criteria.add("companyId", user.getCompanyId(), JpaMatchType.EQ);//只能查本公司的员工
-		}
+		}*/
     	
     	PageData<UserVo> userList = userManager.findPage(criteria, UserVo.class);
         return Result.createSuccessResult(userList);

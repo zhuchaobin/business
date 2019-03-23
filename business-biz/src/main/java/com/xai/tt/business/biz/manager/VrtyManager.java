@@ -56,7 +56,8 @@ public class VrtyManager extends BaseManager<Vrty, Integer> {
 						vrty.getQlyStd(),
 						vrty.getSpec(),
 						vrty.getBrnd(),
-						vrty.getPdFctr());
+						vrty.getPdFctr(),
+						vrty.getModl());
 			} else {
 				super.save(vrty);
 			}

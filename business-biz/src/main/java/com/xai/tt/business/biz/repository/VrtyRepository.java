@@ -21,8 +21,8 @@ public interface VrtyRepository extends BaseRepository<Vrty, Integer> {
 	List<Menu> findByRoleIds(@Param("roleIds") Integer... roleIds);
 	
 	@Modifying
-	@Query(value = "insert into vrty(name,Comm_Nm,Ty_Nm,Wthr_CmnUsed,Vrty_Intd,Pic_Url,Pic_Detail,Tms,username,icon,folder,level,pid,sort,memo,version,Prc_UpLm,Prc_LwrLmt,MsUnit,Qly_Std,Spec,Brnd,Pd_Fctr) "
-			+ "values(:name,:commNm,:tyNm,:wthrCmnused,:vrtyIntd,:picUrl,:picDetail,:tms,:username,:icon,:folder,:level,:pid,(@@IDENTITY + 1) * 10,:memo,0,:prcUplm,:prcLwrlmt,:msunit,:qlyStd,:spec,:brnd,:pdFctr)", nativeQuery = true)
+	@Query(value = "insert into vrty(name,Comm_Nm,Ty_Nm,Wthr_CmnUsed,Vrty_Intd,Pic_Url,Pic_Detail,Tms,username,icon,folder,level,pid,sort,memo,version,Prc_UpLm,Prc_LwrLmt,MsUnit,Qly_Std,Spec,Brnd,Pd_Fctr,Modl) "
+			+ "values(:name,:commNm,:tyNm,:wthrCmnused,:vrtyIntd,:picUrl,:picDetail,:tms,:username,:icon,:folder,:level,:pid,(@@IDENTITY + 1) * 10,:memo,0,:prcUplm,:prcLwrlmt,:msunit,:qlyStd,:spec,:brnd,:pdFctr,:modl)", nativeQuery = true)
 	int insert4sort(
 			@Param("name") String name,
 			@Param("commNm") String commNm,
@@ -46,7 +46,8 @@ public interface VrtyRepository extends BaseRepository<Vrty, Integer> {
 			@Param("qlyStd") String qlyStd,
 			@Param("spec") String spec,
 			@Param("brnd") String brnd,
-			@Param("pdFctr") String pdFctr);	
+			@Param("pdFctr") String pdFctr,
+			@Param("modl") String modl);	
 	
 	long countByPid(Integer pid);
 }

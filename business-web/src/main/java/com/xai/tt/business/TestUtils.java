@@ -209,14 +209,14 @@ public class TestUtils {
 	来源：CSDN 
 	原文：https://blog.csdn.net/qinqigang/article/details/78966005 
 	版权声明：本文为博主原创文章，转载请附上博文链接！*/
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			System.out.print(openFile("http://www.shfe.com.cn/data/dailydata/kx/kx20190129.dat"));
 			// generate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * 

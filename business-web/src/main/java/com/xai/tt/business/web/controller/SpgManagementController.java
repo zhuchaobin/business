@@ -6,15 +6,20 @@ import com.aliyun.oss.model.OSSObject;
 import com.github.pagehelper.PageInfo;
 import com.tianan.common.api.bean.PageData;
 import com.tianan.common.api.bean.Result;
+import com.tianan.common.api.jpa.JpaCriteria;
+import com.tianan.common.api.jpa.JpaMatchType;
 import com.tianan.common.api.mybatis.PageParam;
 import com.tianan.common.api.support.SecurityContext;
 import com.tianan.common.core.support.OssET;
 import com.tianan.common.core.support.poi.ExcelColumn;
 import com.tianan.common.core.support.poi.PoiET;
+import com.tianan.common.mvc.bean.HttpCriteria;
 import com.tianan.common.mvc.controller.BaseController;
 import com.xai.tt.business.annotation.LogAspect;
 import com.xai.tt.business.biz.common.util.Constants;
+import com.xai.tt.business.biz.manager.VrtyManager;
 import com.xai.tt.business.client.entity.Demo;
+import com.xai.tt.business.client.entity.Vrty;
 import com.xai.tt.business.client.vo.LoginUser;
 import com.xai.tt.dc.client.model.Company;
 import com.xai.tt.dc.client.model.T13GdsDetail;
@@ -56,7 +61,9 @@ public class SpgManagementController extends BaseController {
 	@Autowired
 	private CompanyDcService companyDcService;
 
-
+    @Autowired
+    private VrtyManager vrtyManager;
+    
 	@Autowired
 	private SpgManagementDcService spgManagementDcService;
 
@@ -78,10 +85,6 @@ public class SpgManagementController extends BaseController {
 		}
 
 		LoginUser user = (LoginUser)SecurityContext.getAuthUser();
-
-
-
-
 		// 	logger.info("长约附件信息长度：{}", spgManagementInVo.getList().size());
 
 		spgManagementInVo.setUserType(user.getUserType().ordinal());
@@ -816,7 +819,18 @@ public class SpgManagementController extends BaseController {
         	logger.error("查询[仓储公司]公司信息异常");
 //            throw new RuntimeException("查询[仓储公司]公司信息异常");
         }
-        mav.addObject("stgcoModels", result.getData().getList());    
+        mav.addObject("stgcoModels", result.getData().getList());
+        
+        if(2==flag) {
+	    	// 品名下拉菜单
+	    	HttpCriteria params = new HttpCriteria();
+	    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
+	    	criteria.add("folder", 0, JpaMatchType.EQ);//只查品名
+	    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
+	        mav.addObject("pmModels", vrtyList.getRows());
+	        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
+        }
+        
     	mav.addObject("userType", "Group");
         return mav;
     }

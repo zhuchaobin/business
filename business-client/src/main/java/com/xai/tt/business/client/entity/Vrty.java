@@ -141,7 +141,20 @@ public class Vrty extends IncrEntity {
      */
     @Column(name = "Pic_Detail")
     private byte[] picDetail;
+    
+    /**
+     * 型号
+     */
+    @Column(name = "Modl")
+    private String modl;
+    
+    public String getModl() {
+		return modl;
+	}
 
+	public void setModl(String modl) {
+		this.modl = modl;
+	}
 
     /**
      * 获取名称
