@@ -4091,7 +4091,13 @@ body {
 			E7.post(pageSetting.resetPath + '/getDetail', {
 				'id' : rows[0]['id']
 			}, function(result) {
-				fillForm('#frm_detail_order', result.data);
+				// 20190324,修复订单新发起时把长约中id带回的问题
+				var detail = result.data;
+				for (key in detail) {
+					if(key!="id")
+						$('#frm_detail_order [name="' + key + '"]').val(detail[key]);
+				}
+	//			fillForm('#frm_detail_order', result.data);
 				arId = result.data["arId"];
 				arSt = result.data["arSt"];
 				// 实时判断长约是否可以修改	
@@ -4135,7 +4141,13 @@ body {
 			E7.post(pageSetting.resetPath + '/getDetail', {
 				'id' : rows[0]['id']
 			}, function(result) {
-				fillForm('#frm_detail_order2', result.data);
+				// 20190324,修复平台、仓储 发起质押时把长约中id带回的问题
+				var detail = result.data;
+				for (key in detail) {
+					if(key!="id")
+						$('#frm_detail_order2 [name="' + key + '"]').val(detail[key]);
+				}
+	//			fillForm('#frm_detail_order2', result.data);
 				arId = result.data["arId"];
 				arSt = result.data["arSt"];
 				// 实时判断长约是否可以修改	
@@ -4163,9 +4175,16 @@ body {
 			E7.post(pageSetting.resetPath + '/getDetail', {
 				'id' : id
 			}, function(result) {
-				fillForm('#frm_detail_order', result.data);
+				// 20190324,修复订单新发起时把长约中id带回的问题
+				var detail = result.data;
+				for (key in detail) {
+					if(key!="id")
+						$('#frm_detail_order [name="' + key + '"]').val(detail[key]);
+				}
+	//			fillForm('#frm_detail_order', result.data);
 				arId = result.data["arId"];
 				arSt = result.data["arSt"];
+				$('#id').val("");
 				// 实时判断长约是否可以修改	
 				if (result.data["arSt"] != "07") {
 					bootbox.alert({
