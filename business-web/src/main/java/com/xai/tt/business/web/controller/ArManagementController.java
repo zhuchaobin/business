@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -820,9 +821,11 @@ public class ArManagementController extends BaseController {
 	    	HttpCriteria params = new HttpCriteria();
 	    	JpaCriteria criteria = params.toJpaCriteria(Vrty.class);
 	    	criteria.add("folder", 0, JpaMatchType.EQ);//只查品名
-	    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
-	        mav.addObject("pmModels", vrtyList.getRows());
-	        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
+//	    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
+	    	List<Vrty> pdList = vrtyManager.findAll(criteria);
+//	        mav.addObject("pmModels", vrtyList.getRows());
+	    	mav.addObject("pmModels", pdList);
+	        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(pdList));
     	}
     	if(1==flag) {
     		//菜单类型：区分质押和发起订单页面的按钮

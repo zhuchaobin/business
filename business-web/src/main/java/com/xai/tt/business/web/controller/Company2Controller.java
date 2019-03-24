@@ -90,12 +90,12 @@ public class Company2Controller extends BaseController {
     @RequestMapping(value = { "queryPage" })
     @ResponseBody
     public Result<?>  queryPage(Company2InVo inVo, PageParam pageParam) {
-    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+/*    	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	inVo.setUserType(user.getUserType().ordinal());
     	inVo.setUsername(user.getUsername());
     	inVo.setCompanyId(user.getCompanyId());
     	inVo.setNickname(user.getNickname());
-    	inVo.setChineseName(user.getChineseName());
+    	inVo.setChineseName(user.getChineseName());*/
     		
     	logger.info("分页查询企业信息2请求参数inVo=:{}，分页参数pageParam=：{}", JSON.toJSONString(inVo),JSON.toJSONString(pageParam));
         Result<PageData<Company2OutVo>> rlt = company2DcService.queryPage(inVo, pageParam);
