@@ -136,9 +136,10 @@ public class UserManager extends BaseManager<User, Integer> {
 		//用户身份
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
     	logger.info("当前登录用户信息 user= " + JSON.toJSONString(user));
-    	if((UserType.Group != user.getUserType() && !user.hasRole("ROLE_ADMIN") && !dbUser.getCompanyId().equals(user.getCompanyId())) && (UserType.pltfrm != user.getUserType())) {
+    	///2019-03-28 暂时不做控制
+/*    	if((UserType.Group != user.getUserType() && !user.hasRole("ROLE_ADMIN") && !dbUser.getCompanyId().equals(user.getCompanyId())) && (UserType.pltfrm != user.getUserType())) {
 			throw new TspException( "没有权限！");
-    	}
+    	}*/
     	getRepository().updateLocked(id, locked);
     }
     
