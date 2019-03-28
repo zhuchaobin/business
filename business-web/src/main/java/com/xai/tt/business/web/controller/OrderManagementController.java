@@ -790,6 +790,9 @@ public class OrderManagementController extends BaseController {
 	    	PageData<Vrty> vrtyList = vrtyManager.findPage(criteria, Vrty.class);
 	        mav.addObject("pmModels", vrtyList.getRows());
 	        logger.info("品名下拉菜单结果：" +  JSON.toJSONString(vrtyList.getRows()));
+	        
+	        // 查询发货可以选择的物流、仓储菜单
+	        
         }
         return mav;
     } 

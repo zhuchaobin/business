@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -32,12 +33,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Bean 
     public FilterRegistrationBean loginFilterRegistration() {
     	SecurityFilter.loginUrls = new String[] { "/", "/index", "/home", "/logout", "/modifyPassword", "/haveFault","/typeCode/*","/home/*","/user/register","/user/toRegisterPage","/user/privacy","*/www.shfe.com.cn/*","/ancmNews/queryPage","/ancmNews/ancmNewsList","/ancmNews/get","/ancmNews/newsContent"};
-    	SecurityFilter.anonUrls =  new String[] { "/checkstartup.html", "/resources/**", "/login", "/error", "/favicon.ico" ,"/forget","/forgetPassword","/publish/showPage","/dynamicApp/*" ,"/register","/upload_files/*","/user/register","/user/toRegisterPage","/user/privacy","*/www.shfe.com.cn/*","/ancmNews/queryPage","/ancmNews/ancmNewsList","/ancmNews/get","/ancmNews/newsContent"};
+    	// q_up：文件上传查询
+    	SecurityFilter.anonUrls =  new String[] { "/checkstartup.html", "/resources/**", "/login", "/error", "/favicon.ico" ,"/forget","/forgetPassword","/publish/showPage","/dynamicApp/*" ,"/register","/upload_files/*","/user/register","/user/toRegisterPage","/user/privacy","*/www.shfe.com.cn/*","/ancmNews/queryPage","/ancmNews/ancmNewsList","/ancmNews/get","/ancmNews/newsContent","/q_up*"};
         FilterRegistrationBean registration = new FilterRegistrationBean(new SecurityFilter());
         registration.addUrlPatterns("/*");
         return registration;
     }
     
+ 
     /***
      * 使用Fastjson做为转换器
      */

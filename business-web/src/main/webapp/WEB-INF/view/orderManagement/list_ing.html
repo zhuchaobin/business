@@ -901,6 +901,35 @@ body {
 									</div>
 								</div>
 							</div>
+							<!-- 新增允许在发货发起的时候修改物流公司和仓储公司，祥哥确认，2019-03-27 -->
+							<div class="col-md-6" id="物流公司_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">物流公司：</label>
+									<div class="col-sm-8">
+									<div class="col-xs-10" style="padding-left: 0px;">
+										<select name="lgstcCo" class="form-control" id="spg_lgstcCo_id">
+											<option value="">请选择</option>
+<!-- 											<option th:each="model: ${lgstcCoModels}"
+												th:value="${model.id}" th:text="${model.name}"></option> -->
+										</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6" id="仓储公司_div">
+								<div class="form-group">
+									<label for="" class="col-sm-4 control-label">仓储公司：</label>
+									<div class="col-sm-8">
+									<div class="col-xs-10" style="padding-left: 0px;">
+										<select name="stgco" class="form-control"  id="spg_stgco_id">
+											<option value="">请选择</option>
+<!-- 											<option th:each="model: ${stgcoModels}"
+												th:value="${model.id}" th:text="${model.name}"></option> -->
+										</select>
+										</div>
+									</div>
+								</div>
+							</div>
 
 							<div class="col-md-6" >
 								<div class="form-group">
@@ -2158,7 +2187,7 @@ body {
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl = result.data;
 							$("#fileId").val(fileUrl);
@@ -2176,7 +2205,7 @@ body {
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl2 = result.data;
 							$("#fileId2").val(fileUrl2);
@@ -2194,7 +2223,7 @@ body {
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl3 = result.data;
 							$("#fileId3").val(fileUrl3);
@@ -3151,7 +3180,33 @@ body {
 
                 $('#payMethod').val(result.data.pymtmod);
 
-
+				// 2019-03-27获取可发货物流公司列表
+				E7.post('/company/selectByConditionForAr', {
+				'arId' : arId,'usrTp':'07'
+					}, function(result) {
+						var coList = result.data;
+						for(var i=0;i<coList.length;i++){
+							alert(coList[i].id);
+							// 清空下拉菜单
+							$("#spg_stgco_id").empty();
+							$("#spg_stgco_id").append("<option value='"+ coList[i].id +"'>"+coList[i].name+"</option>");
+						}						
+					}
+					)
+				
+				// 2019-03-27获取可发货仓储公司列表
+				E7.post('/company/selectByConditionForAr', {
+				'arId' : arId,'usrTp':'08'
+					}, function(result) {
+						var coList = result.data;
+						for(var i=0;i<coList.length;i++){
+							alert(coList[i].id);
+							// 清空下拉菜单
+							$("#spg_lgstcCo_id").empty();
+							$("#spg_lgstcCo_id").append("<option value='"+ coList[i].id +"'>"+coList[i].name+"</option>");
+						}						
+					}
+					)
 				// 实时判断长约是否可以修改
 				// if (result.data["arSt"] != "06") {
 				// 	bootbox.alert({

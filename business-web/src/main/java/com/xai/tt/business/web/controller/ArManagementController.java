@@ -40,6 +40,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,6 +63,10 @@ public class ArManagementController extends BaseController {
 	private CompanyDcService companyDcService;    
     @Autowired
     private VrtyManager vrtyManager;
+    
+    @Value("${web.upload-file-path}")
+    private String uploadFilePath;
+    
     @RequestMapping(value = { "save" })
     @ResponseBody
     public Result<?>  save(ArManagementInVo inVo, String fileUrl) {
@@ -630,7 +635,6 @@ public class ArManagementController extends BaseController {
             return Result.createFailResult("请选择文件！");
         }
 
-//        OSSClient ossClient = OssET.createOSSClient();
         StringBuilder str = new StringBuilder();
         //文件完整路径，不能以/开发
         // 文件名重复去重
@@ -641,26 +645,14 @@ public class ArManagementController extends BaseController {
         		return;
         	else
         		fileExistMap.put(item.getOriginalFilename(), 1);
-			// 获取工程路径
-			String webContentPath = "";
-			try {
-				String path = Class.class.getResource("/").toURI().getPath();
-				webContentPath = new File(path).getParentFile().getParentFile().getCanonicalPath();
-				logger.info("webContentPath=" + webContentPath);
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-						
-			String newFilePathRear = "\\upload_files\\" + UUID.randomUUID().toString();
+
+			// 2019-03-27文件查询过滤的前缀，q_up
+			String newFilePathRear = "q_up" + UUID.randomUUID().toString();
+			logger.info("item.getOriginalFilename()=" + item.getOriginalFilename());
 			int lastSeparator = item.getOriginalFilename().lastIndexOf(".");
             if(lastSeparator >= 0) {
             	newFilePathRear += item.getOriginalFilename().substring(lastSeparator);
             }
-            String newFileName = webContentPath + "\\src\\main\\webapp" + newFilePathRear;
 
             try {
 
@@ -668,11 +660,14 @@ public class ArManagementController extends BaseController {
                 logger.error("上传失败,文件名:{}", item.getOriginalFilename());
             }
             
-            str.append(newFilePathRear+Constants.LINELINE+item.getOriginalFilename()).append(Constants.COMMA);
+            str.append("\\" + newFilePathRear+Constants.LINELINE+item.getOriginalFilename()).append(Constants.COMMA);
             byte[] bytes;
             try {
             	logger.debug("上传文件：" + file);	
 	            bytes = item.getBytes();
+	            ///
+	            String newFileName = uploadFilePath + newFilePathRear;
+	            ///
 	            FileOutputStream fos = new FileOutputStream(newFileName);
 	            fos.write(bytes);
 	            fos.close();

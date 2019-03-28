@@ -14,6 +14,9 @@ import com.xai.tt.dc.client.service.CompanyDcService;
 import com.xai.tt.dc.client.service.KcDcService;
 import com.xai.tt.dc.client.vo.inVo.KcManagementInVo;
 import com.xai.tt.dc.client.vo.outVo.QueryKcDetailOutVo;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,8 +102,18 @@ public class CompanyController extends BaseController {
 		return Result.createSuccessResult(result.getData());
 	}
 
-
-
-
-
+// 2019-03-27发货发起使用
+	@RequestMapping(value = { "selectByConditionForAr" })
+	@ResponseBody
+	public Result<?>  selectByConditionForAr(String arId, String usrTp) {
+		CompanyQuery inVo = new CompanyQuery();
+		inVo.setUsrTp(usrTp);
+		inVo.setArId(arId);
+		// 因前后端名字不一样，转义排序参数
+		logger.info("可发货公司列表查询请求参数:{}，", JSON.toJSONString(inVo));
+		Result<List<Company>>  result = companyDcService.selectByConditionForAr(inVo);
+		logger.info("可发货公司列表查询返回结果:{}，", JSON.toJSONString(result.getData()));
+		return Result.createSuccessResult(result.getData());
+	}
+	
 }

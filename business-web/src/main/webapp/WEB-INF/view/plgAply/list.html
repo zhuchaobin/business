@@ -2484,7 +2484,7 @@ body {
 			for (i = 0; i < file.length; i++) {
 				formData.append('file', file[i].files[0]);
 			}
-			E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+			E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
 					function(result) {
 						var fileUrl = result.data;
 						$("#fileId").val(fileUrl);
@@ -2502,7 +2502,7 @@ body {
 				for (i = 0; i < file.length; i++) {
 					formData.append('file', file[i].files[0]);
 				}
-				E7.postMultipart('[[@{/orderManagement/ossUpload}]]', formData,
+				E7.postMultipart('[[@{/arManagement/ossUpload}]]', formData,
 						function(result) {
 							var fileUrl2 = result.data;
 							$("#fileId2").val(fileUrl2);

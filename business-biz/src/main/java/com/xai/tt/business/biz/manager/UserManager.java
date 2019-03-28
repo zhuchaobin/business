@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.tianan.common.api.constant.CommonErrors;
 import com.tianan.common.api.exception.TspException;
 import com.tianan.common.api.support.SecurityContext;
@@ -134,6 +135,7 @@ public class UserManager extends BaseManager<User, Integer> {
 		
 		//用户身份
     	LoginUser user = (LoginUser)SecurityContext.getAuthUser();
+    	logger.info("当前登录用户信息 user= " + JSON.toJSONString(user));
     	if((UserType.Group != user.getUserType() && !user.hasRole("ROLE_ADMIN") && !dbUser.getCompanyId().equals(user.getCompanyId())) && (UserType.pltfrm != user.getUserType())) {
 			throw new TspException( "没有权限！");
     	}
