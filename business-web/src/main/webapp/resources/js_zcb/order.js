@@ -196,3 +196,61 @@
 			else
 				return "";
 		}
+		
+		
+				function getArSubmmitDetail(id, arId, aplyPcstpCd){
+ 			// 带过来的环节编号
+			E7.post(pageSetting.resetPath + '/getArSubmmitDetail', {
+				'id' : id,'arId':arId,'aplyPcstpCd':aplyPcstpCd
+			}, function(result) {
+//				fillForm('#frm_detail2', result.data);
+				var detail = result.data;
+				
+				 // 个人化审批参数查询展示
+				 var testdiv22 = document
+					.getElementById("query_order_submmit_div");
+				testdiv22.innerHTML = detail["aplyPsrlt"];
+				$('#fld_detail_query_order_submmit').prop('disabled', true);
+				///附件列表
+				var td = detail["t2UploadAtch01List"];
+				var insertHtml="";
+				$('#query_ar_atch_div2').hide();
+				if(null != td && undefined != td){
+					for (var kk = 0; kk < td.length; kk++) {
+						insertHtml = insertHtml
+								+ '<div class="col-sm-2"><i class="iconfont icon-kl-fujian"></i><a href="'+ td[kk].srFileRte +'" target="_blank"><div>'
+								+ td[kk].oriFileNm + '<p>'
+								+ getFileType(td[kk].oriFileNm)
+							/* 	+ transDateTime(suffix) */
+								+ '</div></a></div>';
+					}
+					if (td.length > 0) {
+						document.getElementById("query_ar_atch_div2").style.display="";
+						var testdiv = document.getElementById("upload_atch_div2");
+						testdiv.innerHTML=insertHtml;
+					} else {
+						document.getElementById("query_ar_atch_div2").style.display="none";//
+					} 
+				}			
+				/* showOrHideDetail(false, 5); */
+				 var divContent = document.getElementById('query_ar_submmit_detail').innerHTML;
+					//页面层
+					layer.open({		
+					shade: true,
+					title: false, //不显示标题
+					type: 1,
+					move:true,
+					shadeClose:true,
+					//shift:7,//动画
+					skin: 'layui-layer-molv', //加上边框
+					shade: [0.2,'#fff'],
+					//skin: 'layer-ext-moon',
+					//maxmin: true,
+					area: ['80%', ],
+					  content: divContent
+					}); 
+			}); 
+		} 
+		
+		
+		
